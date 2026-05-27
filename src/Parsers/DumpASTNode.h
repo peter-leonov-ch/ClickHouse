@@ -158,29 +158,13 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 
 
 /// Build a JSONBuilder representation of the AST.
-/// Each node becomes a JSON map with:
-///   - "type":     `IAST::getID` with a space delimiter (matches `dumpAST`)
-///   - "alias":    only present when the node carries an alias
+/// Every node carries:
+///   - "type":     short class name (e.g. "Function", "Identifier", "Literal")
+///   - "alias":    only present when the node has an alias
 ///   - "children": only present when the node has child nodes
-inline JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast)
-{
-    auto node = std::make_unique<JSONBuilder::JSONMap>();
-    node->add("type", ast.getID(' '));
-
-    String alias = ast.tryGetAlias();
-    if (!alias.empty())
-        node->add("alias", alias);
-
-    if (!ast.children.empty())
-    {
-        auto children = std::make_unique<JSONBuilder::JSONArray>();
-        for (const auto & child : ast.children)
-            children->add(formatASTAsJSON(*child));
-        node->add("children", std::move(children));
-    }
-
-    return node;
-}
+/// Selected node classes contribute extra structured fields such as `name`,
+/// `value`, `value_type`, `direction`, etc. — see implementation.
+JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
 /// String stream dumped in dtor
