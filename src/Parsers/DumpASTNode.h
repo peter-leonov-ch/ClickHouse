@@ -171,6 +171,9 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     `window_definition` — the inner `ExpressionList` wrappers are inlined.
 ///   - ASTOrderByElement: `expression`, `collation`, `fill_from`, `fill_to`,
 ///     `fill_step`, `fill_staleness`.
+///   - ASTSelectQuery: one named slot per clause (`with`, `select`, `tables`,
+///     `where`, `group_by`, `order_by`, `limit_length`, ...); list-shaped
+///     clauses inline their `ExpressionList` wrapper.
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 

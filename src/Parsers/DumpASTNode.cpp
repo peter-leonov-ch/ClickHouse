@@ -224,6 +224,51 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
             node.add("order_by_all", true);
         if (select->recursive_with)
             node.add("recursive_with", true);
+
+        /// Expose each clause through a named slot, in declaration order.
+        /// List-shaped clauses inline their `ASTExpressionList` wrapper; the
+        /// rest are emitted as single nodes. `ALIASES` / `CTE_ALIASES` are
+        /// analyzer state and never appear on parsed-but-not-analyzed ASTs, so
+        /// they are intentionally omitted.
+        using Expression = ASTSelectQuery::Expression;
+        struct Slot
+        {
+            Expression expr;
+            const char * key;
+            bool is_list;
+        };
+        static constexpr Slot slots[] = {
+            {Expression::WITH,            "with",            true},
+            {Expression::SELECT,          "select",          true},
+            {Expression::TABLES,          "tables",          false},
+            {Expression::PREWHERE,        "prewhere",        false},
+            {Expression::WHERE,           "where",           false},
+            {Expression::GROUP_BY,        "group_by",        true},
+            {Expression::HAVING,          "having",          false},
+            {Expression::WINDOW,          "window",          true},
+            {Expression::QUALIFY,         "qualify",         false},
+            {Expression::ORDER_BY,        "order_by",        true},
+            {Expression::LIMIT_BY_OFFSET, "limit_by_offset", false},
+            {Expression::LIMIT_BY_LENGTH, "limit_by_length", false},
+            {Expression::LIMIT_BY,        "limit_by",        true},
+            {Expression::LIMIT_OFFSET,    "limit_offset",    false},
+            {Expression::LIMIT_LENGTH,    "limit_length",    false},
+            {Expression::SETTINGS,        "settings",        false},
+            {Expression::INTERPOLATE,     "interpolate",     true},
+        };
+
+        for (const auto & slot : slots)
+        {
+            auto expr = select->getExpression(slot.expr);
+            if (!expr)
+                continue;
+            if (slot.is_list)
+                node.add(slot.key, inlineExpressionList(expr));
+            else
+                node.add(slot.key, formatASTAsJSON(*expr));
+        }
+
+        return true;
     }
     else if (const auto * select_union = dynamic_cast<const ASTSelectWithUnionQuery *>(&ast))
     {

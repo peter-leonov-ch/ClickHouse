@@ -1,0 +1,10 @@
+-- all clauses: slot names present, in order
+["type","select","tables","prewhere","where","group_by","having","qualify","order_by","limit_by_offset","limit_by_length","limit_by","settings"]
+-- minimal
+{"type":"SelectQuery","select":[{"type":"Literal","value_type":"UInt64","value":1}]}
+-- WITH / CTE list
+[{"type":"Literal","alias":"x","value_type":"UInt64","value":1}]
+-- WINDOW list
+[{"type":"WindowListElement"}]
+-- single-expression clauses are objects, list clauses are arrays
+{"where":{"type":"Identifier","name":"w"},"group_by":[{"type":"Identifier","name":"g"}]}
