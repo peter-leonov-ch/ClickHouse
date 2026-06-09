@@ -1,0 +1,6 @@
+-- direction and explicit nulls
+{"type":"OrderByElement","expression":{"type":"Identifier","name":"a"},"direction":"DESC","nulls_first":true}
+-- collation
+{"type":"OrderByElement","expression":{"type":"Identifier","name":"b"},"direction":"ASC","collation":{"type":"Literal","value_type":"String","value":"en"}}
+-- with fill bounds
+{"type":"OrderByElement","expression":{"type":"Identifier","name":"c"},"direction":"ASC","with_fill":true,"fill_from":{"type":"Literal","value_type":"UInt64","value":1},"fill_to":{"type":"Literal","value_type":"UInt64","value":10},"fill_step":{"type":"Literal","value_type":"UInt64","value":2}}

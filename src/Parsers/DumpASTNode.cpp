@@ -112,6 +112,13 @@ JSONBuilder::ItemPtr inlineExpressionList(const ASTPtr & list)
     return array;
 }
 
+/// Emit a single sub-node under `key`, but only when it is present.
+void addNodeSlot(JSONBuilder::JSONMap & node, const char * key, const ASTPtr & child)
+{
+    if (child)
+        node.add(key, formatASTAsJSON(*child));
+}
+
 /// Add per-class structured fields to `node`. Returns `true` when the class
 /// exposes all of its sub-nodes through named slots and the generic
 /// positional `children` array must therefore be suppressed.
@@ -179,11 +186,25 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     }
     else if (const auto * order_by = dynamic_cast<const ASTOrderByElement *>(&ast))
     {
+        /// The sort expression is the mandatory first child; collation and the
+        /// WITH FILL bounds are optional named slots.
+        if (!order_by->children.empty())
+            node.add("expression", formatASTAsJSON(*order_by->children.front()));
+
         node.add("direction", String(order_by->direction >= 0 ? "ASC" : "DESC"));
         if (order_by->nulls_direction_was_explicitly_specified)
             node.add("nulls_first", order_by->nulls_direction != order_by->direction);
+
+        addNodeSlot(node, "collation", order_by->getCollation());
+
         if (order_by->with_fill)
             node.add("with_fill", true);
+        addNodeSlot(node, "fill_from", order_by->getFillFrom());
+        addNodeSlot(node, "fill_to", order_by->getFillTo());
+        addNodeSlot(node, "fill_step", order_by->getFillStep());
+        addNodeSlot(node, "fill_staleness", order_by->getFillStaleness());
+
+        return true;
     }
     else if (const auto * select = dynamic_cast<const ASTSelectQuery *>(&ast))
     {

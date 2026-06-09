@@ -169,6 +169,8 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 /// positional `children` array, which is then omitted for those nodes:
 ///   - ASTFunction: `arguments` (always present), `parameters`,
 ///     `window_definition` — the inner `ExpressionList` wrappers are inlined.
+///   - ASTOrderByElement: `expression`, `collation`, `fill_from`, `fill_to`,
+///     `fill_step`, `fill_staleness`.
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
