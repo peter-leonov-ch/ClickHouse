@@ -100,7 +100,22 @@ JSONBuilder::ItemPtr fieldToJSON(const Field & value)
     }
 }
 
-void enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
+/// Emit the children of an `ASTExpressionList` as a JSON array, inlining the
+/// wrapper node itself. The wrapper is a parser-internal detail, so consumers
+/// see the clause's elements directly. A null `list` yields an empty array.
+JSONBuilder::ItemPtr inlineExpressionList(const ASTPtr & list)
+{
+    auto array = std::make_unique<JSONBuilder::JSONArray>();
+    if (list)
+        for (const auto & child : list->children)
+            array->add(formatASTAsJSON(*child));
+    return array;
+}
+
+/// Add per-class structured fields to `node`. Returns `true` when the class
+/// exposes all of its sub-nodes through named slots and the generic
+/// positional `children` array must therefore be suppressed.
+bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
 {
     if (const auto * function = dynamic_cast<const ASTFunction *>(&ast))
     {
@@ -119,8 +134,23 @@ void enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         if (function->getNullsAction() != NullsAction::EMPTY)
             node.add("nulls_action", String(nullsActionToString(function->getNullsAction())));
 
+        /// `arguments` is always present (possibly empty), so consumers never
+        /// have to branch on its presence.
+        node.add("arguments", inlineExpressionList(function->arguments));
+
+        /// `parameters` only exists for parametric aggregates, e.g. quantile(0.9)(x).
+        if (function->parameters)
+            node.add("parameters", inlineExpressionList(function->parameters));
+
+        /// Exactly one of `window_definition` / `window_name` is present for
+        /// window functions; both absent otherwise. `window_definition` is not
+        /// an `ASTExpressionList`, so it is emitted as a node.
+        if (function->window_definition)
+            node.add("window_definition", formatASTAsJSON(*function->window_definition));
         if (!function->window_name.empty())
             node.add("window_name", function->window_name);
+
+        return true;
     }
     else if (const auto * table_identifier = dynamic_cast<const ASTTableIdentifier *>(&ast))
     {
@@ -179,6 +209,8 @@ void enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         if (select_union->hasNonDefaultUnionMode())
             node.add("union_mode", String(toString(select_union->union_mode)));
     }
+
+    return false;
 }
 
 }
@@ -200,9 +232,9 @@ JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast)
     if (!alias.empty())
         node->add("alias", alias);
 
-    enrichNode(*node, ast);
+    bool handled_children = enrichNode(*node, ast);
 
-    if (!ast.children.empty())
+    if (!handled_children && !ast.children.empty())
     {
         auto children = std::make_unique<JSONBuilder::JSONArray>();
         for (const auto & child : ast.children)

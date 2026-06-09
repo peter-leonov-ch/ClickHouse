@@ -164,6 +164,11 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///   - "children": only present when the node has child nodes
 /// Selected node classes contribute extra structured fields such as `name`,
 /// `value`, `value_type`, `direction`, etc. — see implementation.
+///
+/// Some classes expose their sub-nodes through named slots instead of the
+/// positional `children` array, which is then omitted for those nodes:
+///   - ASTFunction: `arguments` (always present), `parameters`,
+///     `window_definition` — the inner `ExpressionList` wrappers are inlined.
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
