@@ -1,0 +1,51 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "foo"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "AggregateFunction",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "max"
+            },
+            {
+              "type": "DataType",
+              "name": "UInt64"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "key"
+    }
+  }
+}

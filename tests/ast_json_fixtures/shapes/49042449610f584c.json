@@ -1,0 +1,22 @@
+{
+  "type": "CreateQuery",
+  "is_clone_as": true,
+  "table": {
+    "type": "Identifier",
+    "name": "clone_as_foo_merge_tree_p_x"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "x"
+    }
+  },
+  "as_table": "foo_merge_tree"
+}

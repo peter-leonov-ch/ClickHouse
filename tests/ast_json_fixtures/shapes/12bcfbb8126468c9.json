@@ -1,20 +1,17 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "log"
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "Log",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        }
-      ]
+  "table": {
+    "type": "Identifier",
+    "name": "log"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Log",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     }
-  ]
+  },
+  "as_table": "val"
 }

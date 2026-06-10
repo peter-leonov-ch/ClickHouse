@@ -1,0 +1,17 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "mem"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  },
+  "as_table": "log1"
+}

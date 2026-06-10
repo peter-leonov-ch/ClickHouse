@@ -1,71 +1,69 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "tab2"
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectIntersectExceptQuery",
-          "operator": "EXCEPT ALL",
-          "children": [
-            {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
+  "table": {
+    "type": "Identifier",
+    "name": "tab2"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectIntersectExceptQuery",
+        "operator": "EXCEPT ALL",
+        "children": [
+          {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Asterisk"
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
                     {
-                      "type": "Asterisk"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "tab"
-                          }
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "tab"
                         }
                       }
-                    ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "SelectQuery",
+            "select": [
+              {
+                "type": "Asterisk"
+              }
+            ],
+            "tables": {
+              "type": "TablesInSelectQuery",
+              "children": [
+                {
+                  "type": "TablesInSelectQueryElement",
+                  "table_expression": {
+                    "type": "TableExpression",
+                    "database_and_table_name": {
+                      "type": "TableIdentifier",
+                      "name": "tab"
+                    }
                   }
                 }
               ]
-            },
-            {
-              "type": "SelectQuery",
-              "select": [
-                {
-                  "type": "Asterisk"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "tab"
-                      }
-                    }
-                  }
-                ]
-              }
             }
-          ]
-        }
-      ]
-    }
-  ]
+          }
+        ]
+      }
+    ]
+  }
 }

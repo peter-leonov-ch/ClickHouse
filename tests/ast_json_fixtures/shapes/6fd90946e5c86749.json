@@ -1,70 +1,62 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "pk_test1"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "pk_test1"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
         },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ]
+        "primary_key_specifier": true
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "b",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
         }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "c",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "primary_key_from_columns": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
         {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ]
+          "type": "Identifier",
+          "name": "a"
         }
       ]
     }
-  ]
+  },
+  "storage": {
+    "type": "Storage",
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,72 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "test_map_contains_keys"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "ResourceAttributes",
+        "data_type": {
+          "type": "DataType",
+          "name": "Map",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "LowCardinality",
+              "arguments": [
+                {
+                  "type": "DataType",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "type": "DataType",
+              "name": "String"
+            }
+          ]
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Function",
+            "name": "mapKeys",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ResourceAttributes"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "bloom_filter",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.01
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    }
+  }
+}

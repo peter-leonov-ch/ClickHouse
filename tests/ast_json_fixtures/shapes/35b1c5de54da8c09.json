@@ -1,17 +1,13 @@
 {
   "type": "InsertQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  },
+  "columns": [
     {
-      "type": "Identifier",
-      "name": "tmp"
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Asterisk"
-        }
-      ]
+      "type": "Asterisk"
     }
-  ]
+  ],
+  "format": "Values"
 }

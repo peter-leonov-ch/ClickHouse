@@ -1,114 +1,78 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "table": {
+    "type": "Identifier",
+    "name": "recompression_table_compact"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "dt",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
       "type": "Identifier",
-      "name": "recompression_table_compact"
+      "name": "key"
     },
-    {
-      "type": "Columns",
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
       "children": [
         {
-          "type": "ExpressionList",
+          "type": "TTLElement",
           "children": [
             {
-              "type": "ColumnDeclaration",
-              "children": [
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
                 {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        },
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "TTLElement",
-              "children": [
+                  "type": "Identifier",
+                  "name": "dt"
+                },
                 {
                   "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
+                  "name": "toIntervalMonth",
                   "arguments": [
                     {
-                      "type": "Identifier",
-                      "name": "dt"
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toIntervalMonth",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "TTLElement",
-              "children": [
-                {
-                  "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "dt"
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toIntervalYear",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
                     }
                   ]
                 }
@@ -117,13 +81,40 @@
           ]
         },
         {
-          "type": "Set",
-          "changes": {
-            "min_rows_for_wide_part": 10000,
-            "min_bytes_for_full_part_storage": 0
-          }
+          "type": "TTLElement",
+          "children": [
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "dt"
+                },
+                {
+                  "type": "Function",
+                  "name": "toIntervalYear",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "min_rows_for_wide_part": 10000,
+        "min_bytes_for_full_part_storage": 0
+      }
     }
-  ]
+  }
 }

@@ -1,0 +1,37 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "01746_dist"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test_shard_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "01746_local"
+        },
+        {
+          "type": "Function",
+          "name": "rand",
+          "arguments": []
+        }
+      ]
+    }
+  },
+  "as_table": "01746_local"
+}

@@ -1,0 +1,36 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test2_d"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "test_cluster_two_shard_three_replicas_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "test2"
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    }
+  },
+  "as_table": "test2"
+}

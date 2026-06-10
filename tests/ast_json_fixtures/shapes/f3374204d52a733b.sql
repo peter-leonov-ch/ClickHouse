@@ -1,0 +1,1 @@
+create table dist_idx_skipping_idx_size (key String, value String, index key_val_idx (key, value) type set(100000)) engine=MergeTree() settings index_granularity=100000, min_bytes_for_wide_part=0, index_granularity_bytes=10e6, distributed_index_analysis_min_parts_to_activate=0, distributed_index_analysis_min_indexes_bytes_to_activate='10M'

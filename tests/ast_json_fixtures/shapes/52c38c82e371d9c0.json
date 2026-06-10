@@ -1,53 +1,44 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "f1"
+  "table": {
+    "type": "Identifier",
+    "name": "f1"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Float64"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Columns",
+    "order_by": {
+      "type": "StorageOrderByElement",
       "children": [
         {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+          "type": "Identifier",
+          "name": "c0"
         }
       ]
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "StorageOrderByElement",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "c0"
-            }
-          ]
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "allow_experimental_reverse_key": 1
-          }
-        }
-      ]
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "allow_experimental_reverse_key": 1
+      }
     }
-  ]
+  }
 }

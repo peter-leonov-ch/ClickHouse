@@ -1,73 +1,70 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "t1"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
       "type": "Identifier",
-      "name": "t1"
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "c"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectIntersectExceptQuery",
-          "operator": "INTERSECT ALL",
-          "children": [
-            {
-              "type": "SelectQuery",
-              "select": [
-                {
-                  "type": "Literal",
-                  "alias": "c",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Literal",
-                      "alias": "c",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Literal",
-                      "alias": "c",
-                      "value_type": "UInt64",
-                      "value": 2
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "name": "c"
     }
-  ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectIntersectExceptQuery",
+        "operator": "INTERSECT ALL",
+        "children": [
+          {
+            "type": "SelectQuery",
+            "select": [
+              {
+                "type": "Literal",
+                "alias": "c",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Literal",
+                    "alias": "c",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Literal",
+                    "alias": "c",
+                    "value_type": "UInt64",
+                    "value": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

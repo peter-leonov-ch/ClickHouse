@@ -1,0 +1,22 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "table_csv_01375"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "File",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "CSVWithNames"
+        }
+      ]
+    }
+  },
+  "as_table": "tmp_01375"
+}

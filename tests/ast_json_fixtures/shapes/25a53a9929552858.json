@@ -1,91 +1,83 @@
 {
   "type": "AttachQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "primary_key_test"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1"
-            },
-            {
-              "type": "Identifier",
-              "name": "v2"
-            }
-          ]
+  "attach": true,
+  "table": {
+    "type": "Identifier",
+    "name": "primary_key_test"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "v1",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
         }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "v2",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ],
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
         {
-          "type": "Function",
-          "name": "ReplacingMergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
+          "type": "Identifier",
+          "name": "v1"
         },
         {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1"
-            },
-            {
-              "type": "Identifier",
-              "name": "v2"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1"
-            },
-            {
-              "type": "Identifier",
-              "name": "v2"
-            }
-          ]
+          "type": "Identifier",
+          "name": "v2"
         }
       ]
     }
-  ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "ReplacingMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "v1"
+        },
+        {
+          "type": "Identifier",
+          "name": "v2"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "v1"
+        },
+        {
+          "type": "Identifier",
+          "name": "v2"
+        }
+      ]
+    }
+  }
 }

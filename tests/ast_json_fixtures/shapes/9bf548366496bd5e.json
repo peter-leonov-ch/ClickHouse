@@ -1,30 +1,22 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "03222_timeseries_table4"
+  "table": {
+    "type": "Identifier",
+    "name": "03222_timeseries_table4"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "TimeSeries",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "TimeSeries",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "store_min_time_and_max_time": 0
-          }
-        }
-      ]
-    },
-    {
-      "type": "Identifier",
-      "name": "Null"
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "store_min_time_and_max_time": 0
+      }
     }
-  ]
+  }
 }

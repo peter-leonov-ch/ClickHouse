@@ -1,76 +1,71 @@
 {
   "type": "InsertQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "02356_destination"
+  },
+  "columns": [
     {
       "type": "Identifier",
-      "name": "02356_destination"
+      "name": "a"
     },
     {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
+      "type": "Identifier",
+      "name": "b"
+    }
+  ],
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "max_threads": 1,
+      "max_block_size": 100
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Asterisk"
-            }
-          ],
-          "tables": {
-            "type": "TablesInSelectQuery",
-            "children": [
-              {
-                "type": "TablesInSelectQueryElement",
-                "table_expression": {
-                  "type": "TableExpression",
-                  "table_function": {
-                    "type": "Function",
-                    "name": "generateRandom",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "a Int64, b String"
-                      }
-                    ]
-                  }
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "generateRandom",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "a Int64, b String"
+                    }
+                  ]
                 }
               }
-            ]
-          },
-          "limit_length": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 100
-          },
-          "settings": {
-            "type": "Set",
-            "changes": {
-              "max_threads": 1,
-              "max_block_size": 100
             }
+          ]
+        },
+        "limit_length": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 100
+        },
+        "settings": {
+          "type": "Set",
+          "changes": {
+            "max_threads": 1,
+            "max_block_size": 100
           }
         }
-      ]
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "max_threads": 1,
-        "max_block_size": 100
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test3"
+  },
+  "as_table": "test"
+}

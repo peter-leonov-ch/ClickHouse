@@ -1,0 +1,1 @@
+CREATE TABLE val2 AS val

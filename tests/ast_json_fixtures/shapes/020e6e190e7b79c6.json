@@ -1,24 +1,22 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "data"
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "data"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

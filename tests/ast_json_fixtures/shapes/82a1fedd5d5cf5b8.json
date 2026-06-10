@@ -1,0 +1,127 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "database": {
+    "type": "Identifier",
+    "name": "database_dictionary_test_key_expression"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "test_query_log_dictionary_simple"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        {
+          "type": "Function",
+          "name": "cityHash64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "value_id"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "localhost"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Function",
+                    "name": "tcpPort",
+                    "arguments": []
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "default"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test_for_dictionary"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "database_dictionary_test_key_expression"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary"
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
+}

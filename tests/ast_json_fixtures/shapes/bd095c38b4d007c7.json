@@ -1,58 +1,49 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "t0"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Date"
         }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": []
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
       "children": [
         {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": []
-        },
-        {
-          "type": "ExpressionList",
+          "type": "TTLElement",
           "children": [
             {
-              "type": "TTLElement",
-              "children": [
+              "type": "Function",
+              "name": "materialize",
+              "arguments": [
                 {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "c0"
-                    }
-                  ]
+                  "type": "Identifier",
+                  "name": "c0"
                 }
               ]
             }
@@ -60,5 +51,5 @@
         }
       ]
     }
-  ]
+  }
 }

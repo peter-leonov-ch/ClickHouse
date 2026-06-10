@@ -1,0 +1,1 @@
+CREATE TEMPORARY VIEW default.tview_db AS SELECT 1

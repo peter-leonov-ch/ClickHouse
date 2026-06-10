@@ -1,0 +1,1 @@
+CREATE TEMPORARY TABLE test (x UInt64, PRIMARY KEY ()) ENGINE = MergeTree SETTINGS ratio_of_defaults_for_sparse_serialization = 0, serialization_info_version = 'with_types', nullable_serialization_version = 'allow_sparse'

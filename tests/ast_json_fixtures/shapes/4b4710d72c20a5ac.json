@@ -1,0 +1,193 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tbl"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "b",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "c",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "d",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "e",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "minmax",
+            "arguments": []
+          }
+        ]
+      },
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "e"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "minmax",
+            "arguments": []
+          }
+        ]
+      },
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "e"
+          },
+          {
+            "type": "Function",
+            "name": "set",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "bloom_filter",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "c"
+        },
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "add_minmax_index_for_numeric_columns": 0
+      }
+    }
+  }
+}

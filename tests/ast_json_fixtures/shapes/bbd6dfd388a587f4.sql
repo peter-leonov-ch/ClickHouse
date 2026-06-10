@@ -1,0 +1,1 @@
+CREATE TABLE mem AS SELECT 1 as n

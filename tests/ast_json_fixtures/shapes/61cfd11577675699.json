@@ -1,24 +1,21 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "mt2"
+  "table": {
+    "type": "Identifier",
+    "name": "mt2"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "f1"
-        }
-      ]
+    "order_by": {
+      "type": "Identifier",
+      "name": "f1"
     }
-  ]
+  },
+  "as_table": "mt1"
 }

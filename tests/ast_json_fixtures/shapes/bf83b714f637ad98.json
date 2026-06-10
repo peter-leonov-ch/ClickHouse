@@ -1,53 +1,44 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
       "type": "Identifier",
-      "name": "t"
+      "name": "i"
     },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "i"
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "index_granularity": 1
-          }
-        }
-      ]
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 1
+      }
     }
-  ]
+  }
 }

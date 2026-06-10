@@ -1,47 +1,38 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int8"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
       "type": "Identifier",
-      "name": "t"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "n"
-        }
-      ]
-    },
-    {
-      "type": "Literal",
-      "value_type": "String",
-      "value": "this is a MergeTree table"
+      "name": "n"
     }
-  ]
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "this is a MergeTree table"
+  }
 }

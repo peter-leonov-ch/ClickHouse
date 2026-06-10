@@ -1,0 +1,62 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "foo",
+        "data_type": {
+          "type": "DataType",
+          "name": "Array",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "LowCardinality",
+              "arguments": [
+                {
+                  "type": "DataType",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "Function",
+            "name": "bloom_filter",
+            "arguments": []
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    }
+  }
+}

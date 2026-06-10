@@ -1,0 +1,1 @@
+CREATE TABLE t (x UInt8) ENGINE = MergeTree ORDER BY () COMMENT 'Hello'

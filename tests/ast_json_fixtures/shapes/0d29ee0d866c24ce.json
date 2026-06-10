@@ -1,42 +1,38 @@
 {
   "type": "CreateQuery",
-  "children": [
+  "is_ordinary_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_view_03280"
+  },
+  "aliases": [
     {
       "type": "Identifier",
-      "name": "test_view_03280"
+      "name": "a"
     },
     {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ]
+      "type": "Identifier",
+      "name": "b"
     }
-  ]
+  ],
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 2
+          }
+        ]
+      }
+    ]
+  }
 }

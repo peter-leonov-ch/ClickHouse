@@ -1,0 +1,81 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "is_populate": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_mv_pk"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "value"
+          },
+          {
+            "type": "Identifier",
+            "name": "id"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "children": [
+      {
+        "type": "Storage",
+        "engine": {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        "primary_key": {
+          "type": "Identifier",
+          "name": "value"
+        }
+      }
+    ]
+  }
+}

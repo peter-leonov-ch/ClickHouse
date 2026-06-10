@@ -1,50 +1,42 @@
 {
   "type": "AttachQuery",
-  "children": [
-    {
+  "attach": true,
+  "table": {
+    "type": "Identifier",
+    "name": "primary_key_test"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "v",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ],
+    "primary_key": {
       "type": "Identifier",
-      "name": "primary_key_test"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "v"
-        }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "ReplacingMergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "v"
-        },
-        {
-          "type": "Identifier",
-          "name": "v"
-        }
-      ]
+      "name": "v"
     }
-  ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "ReplacingMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "v"
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "v"
+    }
+  }
 }

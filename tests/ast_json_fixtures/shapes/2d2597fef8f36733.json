@@ -3,56 +3,43 @@
   "children": [
     {
       "type": "CreateQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "t"
-        },
-        {
-          "type": "Columns",
-          "children": [
-            {
-              "type": "ExpressionList",
-              "children": [
+      "table": {
+        "type": "Identifier",
+        "name": "t"
+      },
+      "columns_list": {
+        "type": "Columns",
+        "columns": [
+          {
+            "type": "ColumnDeclaration",
+            "name": "x",
+            "data_type": {
+              "type": "DataType",
+              "name": "varchar",
+              "arguments": [
                 {
-                  "type": "ColumnDeclaration",
-                  "children": [
-                    {
-                      "type": "DataType",
-                      "children": [
-                        {
-                          "type": "ExpressionList",
-                          "children": [
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 255
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Collation"
-                    }
-                  ]
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 255
                 }
               ]
+            },
+            "null_modifier": false,
+            "collation": {
+              "type": "Collation"
             }
-          ]
-        },
-        {
-          "type": "Storage",
-          "children": [
-            {
-              "type": "Function",
-              "name": "Memory",
-              "kind": "TABLE_ENGINE",
-              "arguments": []
-            }
-          ]
+          }
+        ]
+      },
+      "storage": {
+        "type": "Storage",
+        "engine": {
+          "type": "Function",
+          "name": "Memory",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
         }
-      ]
+      }
     }
   ]
 }

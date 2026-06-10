@@ -1,53 +1,45 @@
 {
   "type": "AttachQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "test1601_detach_permanently_ordinary"
-    },
-    {
-      "type": "Identifier",
-      "name": "test_name_reuse"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "attach": true,
+  "database": {
+    "type": "Identifier",
+    "name": "test1601_detach_permanently_ordinary"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "test_name_reuse"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "number",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
         }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "index_granularity": 8192
-          }
-        }
-      ]
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 8192
+      }
     }
-  ]
+  }
 }

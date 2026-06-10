@@ -1,9 +1,7 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "'"
-    }
-  ]
+  "database": {
+    "type": "Identifier",
+    "name": "'"
+  }
 }

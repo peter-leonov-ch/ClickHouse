@@ -1,0 +1,168 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "database": {
+    "type": "Identifier",
+    "name": "memory_db"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "dict2"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt8"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Function",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "rand",
+              "arguments": []
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 222
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "String"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "qqq"
+        }
+      ]
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "key_column"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "localhost"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Function",
+                    "name": "tcpPort",
+                    "arguments": []
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "default"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "table_for_dict"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "database_for_dict_01018"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary"
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
+}

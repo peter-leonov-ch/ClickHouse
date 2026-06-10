@@ -1,81 +1,72 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "ttl"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "ttl"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "d",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
         }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
       "children": [
         {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        },
-        {
-          "type": "ExpressionList",
+          "type": "TTLElement",
           "children": [
             {
-              "type": "TTLElement",
-              "children": [
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                },
                 {
                   "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
+                  "name": "toIntervalDay",
                   "arguments": [
                     {
-                      "type": "Identifier",
-                      "name": "d"
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toIntervalDay",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 10
-                        }
-                      ]
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 10
                     }
                   ]
                 }
               ]
             }
           ]
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "remove_empty_parts": 0
-          }
         }
       ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "remove_empty_parts": 0
+      }
     }
-  ]
+  }
 }

@@ -1,0 +1,28 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "is_ordinary_view": true,
+  "database": {
+    "type": "Identifier",
+    "name": "default"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tview_db"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
+}

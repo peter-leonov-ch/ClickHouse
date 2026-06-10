@@ -1,45 +1,38 @@
 {
   "type": "CreateQuery",
-  "children": [
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "d0"
+  },
+  "dictionary_attributes": [
     {
-      "type": "Identifier",
-      "name": "d0"
-    },
-    {
-      "type": "ExpressionList",
+      "type": "DictionaryAttributeDeclaration",
       "children": [
         {
-          "type": "DictionaryAttributeDeclaration",
-          "children": [
+          "type": "DataType",
+          "name": "Nested",
+          "arguments": [
             {
-              "type": "DataType",
+              "type": "NameTypePair",
               "children": [
                 {
-                  "type": "ExpressionList",
-                  "children": [
-                    {
-                      "type": "NameTypePair",
-                      "children": [
-                        {
-                          "type": "DataType"
-                        }
-                      ]
-                    }
-                  ]
+                  "type": "DataType",
+                  "name": "Int"
                 }
               ]
             }
           ]
         }
       ]
-    },
-    {
-      "type": "Dictionary",
-      "children": [
-        {
-          "type": "Dictionary"
-        }
-      ]
     }
-  ]
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "Dictionary"
+      }
+    ]
+  }
 }

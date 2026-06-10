@@ -1,98 +1,89 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "x"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "x"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "dt",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
         }
-      ]
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "indexHint",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "dt"
-            }
-          ]
-        },
+    "partition_by": {
+      "type": "Function",
+      "name": "indexHint",
+      "arguments": [
         {
           "type": "Identifier",
           "name": "dt"
-        },
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "dt"
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
+      "children": [
         {
-          "type": "ExpressionList",
+          "type": "TTLElement",
           "children": [
             {
-              "type": "TTLElement",
-              "children": [
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "dt"
+                },
                 {
                   "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
+                  "name": "toIntervalDay",
                   "arguments": [
                     {
-                      "type": "Identifier",
-                      "name": "dt"
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toIntervalDay",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 15
-                        }
-                      ]
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 15
                     }
                   ]
                 }
               ]
             }
           ]
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "index_granularity": 8192
-          }
         }
       ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 8192
+      }
     }
-  ]
+  }
 }

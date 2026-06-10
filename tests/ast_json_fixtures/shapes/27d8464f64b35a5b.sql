@@ -1,0 +1,1 @@
+CREATE TABLE mt2 AS mt

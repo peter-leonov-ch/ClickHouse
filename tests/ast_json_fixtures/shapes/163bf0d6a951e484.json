@@ -1,37 +1,35 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "test_00209"
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "alias": "x",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ],
-          "settings": {
-            "type": "Set",
-            "changes": {
-              "extremes": 1
-            }
+  "table": {
+    "type": "Identifier",
+    "name": "test_00209"
+  },
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "extremes": 1
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ],
+        "settings": {
+          "type": "Set",
+          "changes": {
+            "extremes": 1
           }
         }
-      ]
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "extremes": 1
       }
-    }
-  ]
+    ]
+  }
 }

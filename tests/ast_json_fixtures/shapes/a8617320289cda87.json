@@ -1,63 +1,58 @@
 {
   "type": "InsertQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "insert_select_dst"
+  },
+  "columns": [
     {
-      "type": "Identifier",
-      "name": "insert_select_dst"
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Asterisk",
-          "transformers": {
-            "type": "ColumnsTransformerList",
+      "type": "Asterisk",
+      "transformers": {
+        "type": "ColumnsTransformerList",
+        "children": [
+          {
+            "type": "ColumnsExceptTransformer",
             "children": [
               {
-                "type": "ColumnsExceptTransformer",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "middle_a"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "middle_b"
-                  }
-                ]
+                "type": "Identifier",
+                "name": "middle_a"
+              },
+              {
+                "type": "Identifier",
+                "name": "middle_b"
               }
             ]
           }
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
+        ]
+      }
+    }
+  ],
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Asterisk"
-            }
-          ],
-          "tables": {
-            "type": "TablesInSelectQuery",
-            "children": [
-              {
-                "type": "TablesInSelectQueryElement",
-                "table_expression": {
-                  "type": "TableExpression",
-                  "database_and_table_name": {
-                    "type": "TableIdentifier",
-                    "name": "insert_select_src"
-                  }
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "insert_select_src"
                 }
               }
-            ]
-          }
+            }
+          ]
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

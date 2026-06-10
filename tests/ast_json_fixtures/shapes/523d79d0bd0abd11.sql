@@ -1,0 +1,1 @@
+CREATE OR REPLACE TABLE tx (c0 Time) ENGINE = Memory

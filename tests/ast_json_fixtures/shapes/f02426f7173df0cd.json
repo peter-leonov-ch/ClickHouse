@@ -1,100 +1,81 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "test_foo"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "test_foo"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "123_secure",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int8"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "date",
+        "data_type": {
+          "type": "DataType",
+          "name": "Date"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "town",
+        "data_type": {
+          "type": "DataType",
+          "name": "LowCardinality",
+          "arguments": [
             {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            },
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType",
-                  "children": [
-                    {
-                      "type": "ExpressionList",
-                      "children": [
-                        {
-                          "type": "DataType"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "type": "DataType",
+              "name": "String"
             }
           ]
         }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "toYear",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "date"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "town"
-            },
-            {
-              "type": "Identifier",
-              "name": "date"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Literal",
-      "value_type": "String",
-      "value": "test"
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "enforce_strict_identifier_format": true
       }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "toYear",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "date"
+        }
+      ]
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "town"
+        },
+        {
+          "type": "Identifier",
+          "name": "date"
+        }
+      ]
     }
-  ]
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "test"
+  }
 }

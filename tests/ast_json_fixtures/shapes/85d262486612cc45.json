@@ -1,26 +1,25 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "file",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "01721_file\/test\/data.TSV"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "TSV"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "id UInt32"
-        }
-      ]
-    }
-  ]
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "01721_file\/test\/data.TSV"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "TSV"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "id UInt32"
+      }
+    ]
+  },
+  "format": "Values"
 }

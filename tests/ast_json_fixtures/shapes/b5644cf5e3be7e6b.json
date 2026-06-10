@@ -1,38 +1,37 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "file",
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "concat",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "currentDatabase",
-              "arguments": []
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "_03755_test_data.csv"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "CSV"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "foo_key String, date Date, bar_key String"
-        }
-      ]
-    }
-  ]
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "_03755_test_data.csv"
+          }
+        ]
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "CSV"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "foo_key String, date Date, bar_key String"
+      }
+    ]
+  },
+  "format": "Values"
 }

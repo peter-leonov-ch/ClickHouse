@@ -1,57 +1,48 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "alter_ttl"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "alter_ttl"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int"
         }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
+    "order_by": {
+      "type": "Identifier",
+      "name": "i"
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
       "children": [
         {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "i"
-        },
-        {
-          "type": "ExpressionList",
+          "type": "TTLElement",
           "children": [
             {
-              "type": "TTLElement",
-              "children": [
+              "type": "Function",
+              "name": "toDate",
+              "arguments": [
                 {
-                  "type": "Function",
-                  "name": "toDate",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "2020-05-05"
-                    }
-                  ]
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "2020-05-05"
                 }
               ]
             }
@@ -59,5 +50,5 @@
         }
       ]
     }
-  ]
+  }
 }

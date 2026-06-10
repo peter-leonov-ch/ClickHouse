@@ -1,34 +1,30 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "table": {
+    "type": "Identifier",
+    "name": "mt"
+  },
+  "storage": {
+    "type": "Storage",
+    "order_by": {
       "type": "Identifier",
-      "name": "mt"
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "n"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "alias": "n",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
+      "name": "n"
     }
-  ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "n",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

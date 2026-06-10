@@ -1,27 +1,75 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "mv_primary_key_from_column"
-    },
-    {
-      "type": "Columns",
-      "children": [
+  "is_materialized_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "mv_primary_key_from_column"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        },
+        "primary_key_specifier": true
+      }
+    ],
+    "primary_key_from_columns": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
         {
-          "type": "ExpressionList",
+          "type": "Identifier",
+          "name": "key"
+        }
+      ]
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
           "children": [
             {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "data"
                 }
-              ]
+              }
             }
           ]
+        }
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "children": [
+      {
+        "type": "Storage",
+        "engine": {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
         },
-        {
+        "primary_key": {
           "type": "Function",
           "name": "tuple",
           "is_operator": true,
@@ -32,62 +80,7 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Asterisk"
-            }
-          ],
-          "tables": {
-            "type": "TablesInSelectQuery",
-            "children": [
-              {
-                "type": "TablesInSelectQueryElement",
-                "table_expression": {
-                  "type": "TableExpression",
-                  "database_and_table_name": {
-                    "type": "TableIdentifier",
-                    "name": "data"
-                  }
-                }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "type": "ViewTargets",
-      "children": [
-        {
-          "type": "Storage",
-          "children": [
-            {
-              "type": "Function",
-              "name": "MergeTree",
-              "kind": "TABLE_ENGINE",
-              "arguments": []
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "key"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

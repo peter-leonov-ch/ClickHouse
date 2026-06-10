@@ -1,38 +1,30 @@
 {
   "type": "AttachQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "test"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "attach": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
         }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "Memory",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     }
-  ]
+  }
 }

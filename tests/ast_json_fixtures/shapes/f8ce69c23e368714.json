@@ -1,9 +1,8 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "a"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "a"
+  },
+  "format": "Values"
 }

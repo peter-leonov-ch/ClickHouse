@@ -1,0 +1,1 @@
+CREATE TABLE t0 (c0 Bool) ENGINE = EmbeddedRocksDB PRIMARY KEY (c0)

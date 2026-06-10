@@ -1,15 +1,14 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "t"
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "bool_true_representation": "да"
-      }
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "format": "Values",
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "bool_true_representation": "да"
     }
-  ]
+  }
 }

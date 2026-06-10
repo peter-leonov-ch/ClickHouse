@@ -1,0 +1,93 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "x"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Function",
+            "name": "LOG2",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "i"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "minmax",
+            "arguments": []
+          }
+        ]
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "children": [
+          {
+            "type": "ProjectionSelectQuery",
+            "children": [
+              {
+                "type": "ExpressionList",
+                "children": [
+                  {
+                    "type": "Function",
+                    "name": "MAX",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "i"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "ReplicatedMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "\/clickhouse\/tables\/{database}\/x"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "r"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "i"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "direct_dictionary"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "Nullable",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Null",
+          "value": null
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "Nullable",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "UInt64"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "dictionary_source_table"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
+}

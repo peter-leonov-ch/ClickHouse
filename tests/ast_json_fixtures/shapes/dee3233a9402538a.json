@@ -1,0 +1,49 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "cityHash64",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ]
+    },
+    "sample_by": {
+      "type": "Function",
+      "name": "cityHash64",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ]
+    }
+  }
+}

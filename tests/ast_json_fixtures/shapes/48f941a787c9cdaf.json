@@ -3,148 +3,142 @@
   "children": [
     {
       "type": "InsertQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "table1"
-        },
-        {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "select": [
+      "table": {
+        "type": "Identifier",
+        "name": "table1"
+      },
+      "select": {
+        "type": "SelectWithUnionQuery",
+        "selects": [
+          {
+            "type": "SelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "tables": {
+              "type": "TablesInSelectQuery",
+              "children": [
                 {
-                  "type": "Identifier",
-                  "name": "number"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "table_function": {
-                        "type": "Function",
-                        "name": "numbers",
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 3
-                          }
-                        ]
-                      }
+                  "type": "TablesInSelectQueryElement",
+                  "table_expression": {
+                    "type": "TableExpression",
+                    "table_function": {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
                     }
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     },
     {
       "type": "InsertQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "table1"
-        },
-        {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "select": [
+      "table": {
+        "type": "Identifier",
+        "name": "table1"
+      },
+      "select": {
+        "type": "SelectWithUnionQuery",
+        "selects": [
+          {
+            "type": "SelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "tables": {
+              "type": "TablesInSelectQuery",
+              "children": [
                 {
-                  "type": "Identifier",
-                  "name": "number"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "table_function": {
-                        "type": "Function",
-                        "name": "numbers",
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 10
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 2
-                          }
-                        ]
-                      }
+                  "type": "TablesInSelectQueryElement",
+                  "table_expression": {
+                    "type": "TableExpression",
+                    "table_function": {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 10
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
                     }
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     },
     {
       "type": "InsertQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "table2"
-        },
-        {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "select": [
+      "table": {
+        "type": "Identifier",
+        "name": "table2"
+      },
+      "select": {
+        "type": "SelectWithUnionQuery",
+        "selects": [
+          {
+            "type": "SelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "tables": {
+              "type": "TablesInSelectQuery",
+              "children": [
                 {
-                  "type": "Identifier",
-                  "name": "number"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "table_function": {
-                        "type": "Function",
-                        "name": "numbers",
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 20
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 1
-                          }
-                        ]
-                      }
+                  "type": "TablesInSelectQueryElement",
+                  "table_expression": {
+                    "type": "TableExpression",
+                    "table_function": {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 20
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
                     }
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   ]
 }

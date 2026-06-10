@@ -1,42 +1,35 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "test_01457"
-    },
-    {
-      "type": "Identifier",
-      "name": "tf_numbers"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "database": {
+    "type": "Identifier",
+    "name": "test_01457"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tf_numbers"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "number",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
         }
-      ]
-    },
-    {
-      "type": "Function",
-      "name": "numbers",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "numbers",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
 }

@@ -1,8 +1,0 @@
-CREATE MATERIALIZED VIEW m02006 ON CLUSTER test_shard_localhost TO tt02006
-AS SELECT
-    a,
-    sum(b) AS total
-FROM  t02006
-GROUP BY 1
-ORDER BY 1 ASC
-format Null

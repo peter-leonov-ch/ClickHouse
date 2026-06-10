@@ -1,0 +1,75 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_dict"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "y"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test_table"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "other_table_2"
+  },
+  "as_table": "mv_from_base_to_target"
+}

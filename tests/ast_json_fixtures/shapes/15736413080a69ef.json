@@ -1,52 +1,50 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "s3",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "s3_conn"
-        },
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "filename"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "test.zip::03215_archive.csv"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "allow_archive_path_syntax": 0
+  "table_function": {
+    "type": "Function",
+    "name": "s3",
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "s3_conn"
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "filename"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "test.zip::03215_archive.csv"
+          }
+        ]
       }
+    ]
+  },
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "allow_archive_path_syntax": 0
     }
-  ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

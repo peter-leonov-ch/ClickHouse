@@ -1,0 +1,88 @@
+{
+  "type": "CreateQuery",
+  "is_window_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "v"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int8"
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "nonexist"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "tumble",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "now",
+                "arguments": []
+              }
+            ]
+          }
+        ],
+        "settings": {
+          "type": "Set",
+          "changes": {
+            "allow_experimental_window_view": 1,
+            "allow_experimental_analyzer": 0
+          }
+        }
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "children": [
+      {
+        "type": "Storage",
+        "engine": {
+          "type": "Function",
+          "name": "AggregatingMergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        "order_by": {
+          "type": "Identifier",
+          "name": "x"
+        }
+      }
+    ]
+  }
+}

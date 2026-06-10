@@ -1,0 +1,6 @@
+CREATE TABLE 02484_substitute_udf (id UInt32, dt DateTime, number UInt32) 
+ENGINE=MergeTree() 
+ORDER BY 02484_plusone(id)
+PARTITION BY 02484_plustwo(id)
+SAMPLE BY 02484_plusone(id)
+TTL 02484_plusthreemonths(dt)

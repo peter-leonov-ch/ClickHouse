@@ -1,0 +1,59 @@
+{
+  "type": "CreateQuery",
+  "replace_table": true,
+  "create_or_replace": true,
+  "table": {
+    "type": "Identifier",
+    "name": "join"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Join",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "ANY"
+        },
+        {
+          "type": "Identifier",
+          "name": "INNER"
+        },
+        {
+          "type": "Identifier",
+          "name": "n"
+        }
+      ]
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

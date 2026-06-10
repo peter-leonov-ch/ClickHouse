@@ -1,36 +1,35 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "remote",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "localhost:9000"
-        },
-        {
-          "type": "Function",
-          "name": "database",
-          "arguments": []
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "t0"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "default"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": ""
-        }
-      ]
-    }
-  ]
+  "table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "localhost:9000"
+      },
+      {
+        "type": "Function",
+        "name": "database",
+        "arguments": []
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "t0"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "default"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": ""
+      }
+    ]
+  },
+  "format": "Values"
 }

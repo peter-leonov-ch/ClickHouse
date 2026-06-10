@@ -1,59 +1,57 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "distributed_tf"
-    },
-    {
-      "type": "Function",
-      "name": "cluster",
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "concat",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "test"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "_"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "shard_localhost"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": ""
-        },
-        {
-          "type": "Function",
-          "name": "concat",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "buf"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "fer"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "distributed_tf"
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "cluster",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "test"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "_"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "shard_localhost"
+          }
+        ]
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": ""
+      },
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "buf"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "fer"
+          }
+        ]
+      }
+    ]
+  }
 }

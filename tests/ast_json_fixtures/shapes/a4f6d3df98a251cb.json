@@ -1,0 +1,52 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "dist_01527"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test_cluster_two_shards"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "data_01527"
+        },
+        {
+          "type": "Function",
+          "name": "dictGetUInt64",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "db_01527_ranges.dict"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "shard"
+            },
+            {
+              "type": "Identifier",
+              "name": "key"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "as_table": "data_01527"
+}

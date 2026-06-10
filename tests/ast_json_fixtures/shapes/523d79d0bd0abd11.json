@@ -1,0 +1,31 @@
+{
+  "type": "CreateQuery",
+  "replace_table": true,
+  "create_or_replace": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tx"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Time"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  }
+}

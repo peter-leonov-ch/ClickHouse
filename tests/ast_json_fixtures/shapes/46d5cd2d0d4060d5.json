@@ -1,0 +1,38 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tt7"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test_shard_localhost"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ""
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "tt6"
+        },
+        {
+          "type": "Function",
+          "name": "rand",
+          "arguments": []
+        }
+      ]
+    }
+  },
+  "as_table": "tt6"
+}

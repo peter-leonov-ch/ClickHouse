@@ -1,18 +1,14 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
+  "database": {
+    "type": "Identifier",
+    "name": "test_02184"
+  },
+  "storage": {
+    "type": "Storage",
+    "order_by": {
       "type": "Identifier",
-      "name": "test_02184"
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "kek"
-        }
-      ]
+      "name": "kek"
     }
-  ]
+  }
 }

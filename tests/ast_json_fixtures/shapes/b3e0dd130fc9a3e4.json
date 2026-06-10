@@ -1,43 +1,34 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "base"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType"
-                }
-              ]
-            }
-          ]
+  "table": {
+    "type": "Identifier",
+    "name": "base"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
         }
-      ]
-    },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "TinyLog",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        }
-      ]
-    },
-    {
-      "type": "Literal",
-      "value_type": "String",
-      "value": "original comment"
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "TinyLog",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     }
-  ]
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "original comment"
+  }
 }

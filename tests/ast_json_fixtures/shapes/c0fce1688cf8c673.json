@@ -1,0 +1,85 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "sample_prewhere"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "date",
+        "data_type": {
+          "type": "DataType",
+          "name": "Date"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "time",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int64"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "date"
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Identifier",
+          "name": "time"
+        },
+        {
+          "type": "Function",
+          "name": "intHash64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "time"
+            }
+          ]
+        }
+      ]
+    },
+    "sample_by": {
+      "type": "Function",
+      "name": "intHash64",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "time"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "is_dictionary": true,
+  "database": {
+    "type": "Identifier",
+    "name": "dictdb_01376"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "dict_exists"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      ]
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "children": [
+        {
+          "type": "DataType",
+          "name": "Float64"
+        },
+        {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": 77.77
+        }
+      ]
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "key_column"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "localhost"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Function",
+                    "name": "tcpPort",
+                    "arguments": []
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "default"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "table_for_dict"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "dictdb_01376"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary"
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
+}

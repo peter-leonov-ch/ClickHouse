@@ -1,0 +1,134 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tab1"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "valueDate",
+        "data_type": {
+          "type": "DataType",
+          "name": "Date"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "bb_ticker",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "ric",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "update_timestamp",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "bb_ticker"
+          },
+          {
+            "type": "Function",
+            "name": "bloom_filter",
+            "arguments": []
+          }
+        ]
+      },
+      {
+        "type": "Index",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "ric"
+          },
+          {
+            "type": "Function",
+            "name": "bloom_filter",
+            "arguments": []
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "ReplacingMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "update_timestamp"
+        }
+      ]
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "valueDate"
+        },
+        {
+          "type": "Identifier",
+          "name": "bb_ticker"
+        },
+        {
+          "type": "Identifier",
+          "name": "ric"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "valueDate"
+        },
+        {
+          "type": "Identifier",
+          "name": "bb_ticker"
+        },
+        {
+          "type": "Identifier",
+          "name": "ric"
+        }
+      ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 111,
+        "index_granularity_bytes": 0,
+        "compress_primary_key": 0
+      }
+    }
+  }
+}

@@ -1,31 +1,29 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "null",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "auto"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "table_function": {
+    "type": "Function",
+    "name": "null",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "auto"
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

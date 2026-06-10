@@ -1,0 +1,17 @@
+CREATE TABLE testing
+(
+    a String,
+    b String,
+    c Int32,
+    d Int32,
+    e Int32,
+    PROJECTION proj_1
+    (
+        SELECT c ORDER BY d
+    ),
+    PROJECTION proj_2
+    (
+        SELECT c ORDER BY e, d
+    )
+)
+ENGINE = MergeTree() PRIMARY KEY (a) SETTINGS min_bytes_for_wide_part = 0

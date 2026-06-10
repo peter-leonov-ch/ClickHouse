@@ -1,99 +1,97 @@
 {
   "type": "InsertQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "s3",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "s3_conn"
-        },
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "filename"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "t_03363_parquet"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "format"
-            },
-            {
-              "type": "Identifier",
-              "name": "Parquet"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "partition_strategy"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "hive"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "year"
-        },
-        {
-          "type": "Identifier",
-          "name": "country"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "alias": "year",
-              "value_type": "UInt64",
-              "value": 2020
-            },
-            {
-              "type": "Literal",
-              "alias": "country",
-              "value_type": "String",
-              "value": "Brazil"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "table_function": {
+    "type": "Function",
+    "name": "s3",
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "s3_conn"
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "filename"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "t_03363_parquet"
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "format"
+          },
+          {
+            "type": "Identifier",
+            "name": "Parquet"
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "partition_strategy"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "hive"
+          }
+        ]
+      }
+    ]
+  },
+  "partition_by": {
+    "type": "Function",
+    "name": "tuple",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "year"
+      },
+      {
+        "type": "Identifier",
+        "name": "country"
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "year",
+            "value_type": "UInt64",
+            "value": 2020
+          },
+          {
+            "type": "Literal",
+            "alias": "country",
+            "value_type": "String",
+            "value": "Brazil"
+          }
+        ]
+      }
+    ]
+  }
 }

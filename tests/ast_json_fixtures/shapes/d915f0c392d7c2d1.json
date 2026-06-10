@@ -1,33 +1,28 @@
 {
   "type": "InsertQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "tlb"
+  },
+  "columns": [
     {
       "type": "Identifier",
-      "name": "tlb"
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "k"
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
+      "name": "k"
     }
-  ]
+  ],
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,66 +1,62 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "a8x"
+  "table": {
+    "type": "Identifier",
+    "name": "a8x"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
-      "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "min_bytes_for_wide_part": 0
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "min_bytes_for_wide_part": 0
+      }
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "number"
           }
-        }
-      ]
-    },
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "tables": {
-            "type": "TablesInSelectQuery",
-            "children": [
-              {
-                "type": "TablesInSelectQueryElement",
-                "table_expression": {
-                  "type": "TableExpression",
-                  "database_and_table_name": {
-                    "type": "TableIdentifier",
-                    "name": "numbers",
-                    "database": "system"
-                  }
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
                 }
               }
-            ]
-          },
-          "limit_length": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 100
-          }
+            }
+          ]
+        },
+        "limit_length": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 100
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

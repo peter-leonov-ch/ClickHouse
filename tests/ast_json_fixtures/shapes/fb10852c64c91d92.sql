@@ -1,0 +1,1 @@
+CREATE TABLE x_as AS x

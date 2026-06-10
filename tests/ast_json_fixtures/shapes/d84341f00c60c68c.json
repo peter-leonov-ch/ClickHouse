@@ -1,55 +1,52 @@
 {
   "type": "CreateQuery",
-  "children": [
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "d0"
+  },
+  "dictionary_attributes": [
     {
-      "type": "Identifier",
-      "name": "d0"
-    },
-    {
-      "type": "ExpressionList",
+      "type": "DictionaryAttributeDeclaration",
       "children": [
         {
-          "type": "DictionaryAttributeDeclaration",
-          "children": [
-            {
-              "type": "DataType"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Dictionary",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "c0"
-            }
-          ]
-        },
-        {
-          "type": "FunctionWithKeyValueArguments",
-          "children": [
-            {
-              "type": "ExpressionList"
-            }
-          ]
-        },
-        {
-          "type": "Dictionary"
-        },
-        {
-          "type": "Dictionary",
-          "children": [
-            {
-              "type": "ExpressionList"
-            }
-          ]
+          "type": "DataType",
+          "name": "Int"
         }
       ]
     }
-  ]
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "c0"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      },
+      {
+        "type": "Dictionary"
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
 }

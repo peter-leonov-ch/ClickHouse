@@ -1,18 +1,14 @@
 {
   "type": "InsertQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns": [
     {
       "type": "Identifier",
-      "name": "t"
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "c1"
-        }
-      ]
+      "name": "c1"
     }
-  ]
+  ],
+  "format": "Values"
 }

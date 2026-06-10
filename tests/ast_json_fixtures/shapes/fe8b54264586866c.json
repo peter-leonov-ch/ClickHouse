@@ -1,100 +1,98 @@
 {
   "type": "CreateQuery",
-  "children": [
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "2024_dictionary_with_comment"
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "Test dictionary with comment"
+  },
+  "dictionary_attributes": [
     {
-      "type": "Identifier",
-      "name": "2024_dictionary_with_comment"
-    },
-    {
-      "type": "ExpressionList",
+      "type": "DictionaryAttributeDeclaration",
       "children": [
         {
-          "type": "DictionaryAttributeDeclaration",
-          "children": [
-            {
-              "type": "DataType"
-            }
-          ]
-        },
-        {
-          "type": "DictionaryAttributeDeclaration",
-          "children": [
-            {
-              "type": "DataType"
-            }
-          ]
+          "type": "DataType",
+          "name": "UInt64"
         }
       ]
     },
     {
-      "type": "Dictionary",
+      "type": "DictionaryAttributeDeclaration",
       "children": [
         {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "id"
-            }
-          ]
-        },
-        {
-          "type": "FunctionWithKeyValueArguments",
-          "children": [
-            {
-              "type": "ExpressionList",
-              "children": [
-                {
-                  "type": "pair",
-                  "children": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "localhost"
-                    }
-                  ]
-                },
-                {
-                  "type": "pair",
-                  "children": [
-                    {
-                      "type": "Function",
-                      "name": "tcpPort",
-                      "arguments": []
-                    }
-                  ]
-                },
-                {
-                  "type": "pair",
-                  "children": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "source_table"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Dictionary"
-        },
-        {
-          "type": "Dictionary",
-          "children": [
-            {
-              "type": "ExpressionList"
-            }
-          ]
+          "type": "DataType",
+          "name": "String"
         }
       ]
-    },
-    {
-      "type": "Literal",
-      "value_type": "String",
-      "value": "Test dictionary with comment"
     }
-  ]
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "children": [
+      {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          }
+        ]
+      },
+      {
+        "type": "FunctionWithKeyValueArguments",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "localhost"
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Function",
+                    "name": "tcpPort",
+                    "arguments": []
+                  }
+                ]
+              },
+              {
+                "type": "pair",
+                "children": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "source_table"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Dictionary"
+      },
+      {
+        "type": "Dictionary",
+        "children": [
+          {
+            "type": "ExpressionList"
+          }
+        ]
+      }
+    ]
+  }
 }

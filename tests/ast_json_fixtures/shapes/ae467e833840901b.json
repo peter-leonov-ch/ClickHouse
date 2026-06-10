@@ -1,69 +1,56 @@
 {
   "type": "CreateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "x1"
-    },
-    {
-      "type": "Columns",
-      "children": [
-        {
-          "type": "ExpressionList",
-          "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "x1"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "Nullable",
+          "arguments": [
             {
-              "type": "ColumnDeclaration",
-              "children": [
-                {
-                  "type": "DataType",
-                  "children": [
-                    {
-                      "type": "ExpressionList",
-                      "children": [
-                        {
-                          "type": "DataType"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "type": "DataType",
+              "name": "int"
             }
           ]
         }
-      ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
     },
-    {
-      "type": "Storage",
+    "primary_key": {
+      "type": "Identifier",
+      "name": "i"
+    },
+    "order_by": {
+      "type": "StorageOrderByElement",
       "children": [
-        {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
         {
           "type": "Identifier",
           "name": "i"
-        },
-        {
-          "type": "StorageOrderByElement",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "i"
-            }
-          ]
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "allow_nullable_key": 1,
-            "index_granularity": 2,
-            "allow_experimental_reverse_key": 1
-          }
         }
       ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "allow_nullable_key": 1,
+        "index_granularity": 2,
+        "allow_experimental_reverse_key": 1
+      }
     }
-  ]
+  }
 }

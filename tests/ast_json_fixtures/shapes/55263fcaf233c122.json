@@ -1,0 +1,73 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "c1",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "children": [
+          {
+            "type": "ProjectionSelectQuery",
+            "children": [
+              {
+                "type": "ExpressionList",
+                "children": [
+                  {
+                    "type": "Identifier",
+                    "name": "c0"
+                  }
+                ]
+              },
+              {
+                "type": "ExpressionList",
+                "children": [
+                  {
+                    "type": "Identifier",
+                    "name": "c0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    }
+  }
+}

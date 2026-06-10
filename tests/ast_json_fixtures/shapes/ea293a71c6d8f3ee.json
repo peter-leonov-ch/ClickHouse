@@ -1,0 +1,13 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "imdb_01148"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "anything"
+  },
+  "as_database": "imdb_01148",
+  "as_table": "movie_directors"
+}
