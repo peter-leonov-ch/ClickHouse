@@ -1,0 +1,8 @@
+-- UNION ALL: default mode, no union_mode field
+{"type":"SelectWithUnionQuery","union_mode":null}
+-- UNION DISTINCT: explicit mode
+{"type":"SelectWithUnionQuery","union_mode":"UNION_DISTINCT"}
+-- INTERSECT: operator plus both operand selects
+{"operator":"INTERSECT ALL","operands":["SelectQuery","SelectQuery"]}
+-- EXCEPT: operator plus both operand selects
+{"operator":"EXCEPT ALL","operands":["SelectWithUnionQuery","SelectQuery"]}
