@@ -182,7 +182,10 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     ASTSampleRatio (`numerator` / `denominator`), ASTAsterisk /
 ///     ASTQualifiedAsterisk and the COLUMNS matchers / transformers.
 ///   - DDL/DML: ASTCreateQuery, ASTColumns, ASTColumnDeclaration, ASTDataType,
-///     ASTStorage, ASTInsertQuery.
+///     ASTStorage, ASTInsertQuery, ASTIndexDeclaration, ASTConstraintDeclaration,
+///     ASTProjectionDeclaration, ASTProjectionSelectQuery, ASTTTLElement,
+///     ASTPartition, ASTAssignment, ASTDeleteQuery, ASTUpdateQuery,
+///     ASTDropQuery, ASTOptimizeQuery.
 /// `children` survives only on homogeneous lists (ExpressionList,
 /// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);

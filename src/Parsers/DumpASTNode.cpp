@@ -2,13 +2,25 @@
 
 #include <Common/FieldVisitorToString.h>
 #include <Parsers/ASTAsterisk.h>
+#include <Parsers/ASTAssignment.h>
 #include <Parsers/ASTColumnDeclaration.h>
 #include <Parsers/ASTColumnsMatcher.h>
 #include <Parsers/ASTColumnsTransformers.h>
+#include <Parsers/ASTConstraintDeclaration.h>
 #include <Parsers/ASTCreateQuery.h>
 #include <Parsers/ASTDataType.h>
+#include <Parsers/ASTDeleteQuery.h>
+#include <Parsers/ASTDropQuery.h>
 #include <Parsers/ASTFunction.h>
+#include <Parsers/ASTIndexDeclaration.h>
 #include <Parsers/ASTInsertQuery.h>
+#include <Parsers/ASTOptimizeQuery.h>
+#include <Parsers/ASTPartition.h>
+#include <Parsers/ASTProjectionDeclaration.h>
+#include <Parsers/ASTProjectionSelectQuery.h>
+#include <Parsers/ASTQueryWithTableAndOutput.h>
+#include <Parsers/ASTTTLElement.h>
+#include <Parsers/ASTUpdateQuery.h>
 #include <Parsers/ASTIdentifier.h>
 #include <Parsers/ASTInterpolateElement.h>
 #include <Parsers/ASTLiteral.h>
@@ -78,6 +90,52 @@ const char * windowBoundaryTypeToString(WindowFrame::BoundaryType type)
         case WindowFrame::BoundaryType::Unbounded: return "Unbounded";
         case WindowFrame::BoundaryType::Current:   return "Current";
         case WindowFrame::BoundaryType::Offset:    return "Offset";
+    }
+    return "";
+}
+
+const char * ttlModeToString(TTLMode mode)
+{
+    switch (mode)
+    {
+        case TTLMode::DELETE:     return "DELETE";
+        case TTLMode::MOVE:       return "MOVE";
+        case TTLMode::GROUP_BY:   return "GROUP_BY";
+        case TTLMode::RECOMPRESS: return "RECOMPRESS";
+    }
+    return "";
+}
+
+const char * dataDestinationTypeToString(DataDestinationType type)
+{
+    switch (type)
+    {
+        case DataDestinationType::DISK:   return "DISK";
+        case DataDestinationType::VOLUME: return "VOLUME";
+        case DataDestinationType::TABLE:  return "TABLE";
+        case DataDestinationType::DELETE: return "DELETE";
+        case DataDestinationType::SHARD:  return "SHARD";
+    }
+    return "";
+}
+
+const char * constraintTypeToString(ASTConstraintDeclaration::Type type)
+{
+    switch (type)
+    {
+        case ASTConstraintDeclaration::Type::CHECK:  return "CHECK";
+        case ASTConstraintDeclaration::Type::ASSUME: return "ASSUME";
+    }
+    return "";
+}
+
+const char * dropKindToString(ASTDropQuery::Kind kind)
+{
+    switch (kind)
+    {
+        case ASTDropQuery::Kind::Drop:     return "DROP";
+        case ASTDropQuery::Kind::Detach:   return "DETACH";
+        case ASTDropQuery::Kind::Truncate: return "TRUNCATE";
     }
     return "";
 }
@@ -172,6 +230,16 @@ JSONBuilder::ItemPtr inlineExpressionList(const IAST * list)
         for (const auto & child : list->children)
             array->add(formatASTAsJSON(*child));
     return array;
+}
+
+/// Common `database` / `table` / `temporary` slots shared by the table-scoped
+/// DDL/DML statements (DROP, OPTIMIZE, DELETE, UPDATE, ...).
+void addTableTarget(JSONBuilder::JSONMap & node, const ASTQueryWithTableAndOutput & query)
+{
+    if (query.isTemporary())
+        node.add("temporary", true);
+    addNodeSlot(node, "database", query.database);
+    addNodeSlot(node, "table", query.table);
 }
 
 /// Add per-class structured fields to `node`. Returns `true` when the class
@@ -664,6 +732,138 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         addNodeSlot(node, "select", insert->select);
         addNodeSlot(node, "infile", insert->infile);
         addNodeSlot(node, "compression", insert->compression);
+
+        return true;
+    }
+    else if (const auto * index = dynamic_cast<const ASTIndexDeclaration *>(&ast))
+    {
+        node.add("name", index->name);
+        addNodeSlot(node, "expression", index->getExpression());
+        addNodeSlot(node, "index_type", index->getType().get());
+        node.add("granularity", index->granularity);
+
+        return true;
+    }
+    else if (const auto * constraint = dynamic_cast<const ASTConstraintDeclaration *>(&ast))
+    {
+        node.add("name", constraint->name);
+        node.add("constraint_type", String(constraintTypeToString(constraint->type)));
+        addNodeSlot(node, "expression", constraint->expr);
+
+        return true;
+    }
+    else if (const auto * projection = dynamic_cast<const ASTProjectionDeclaration *>(&ast))
+    {
+        node.add("name", projection->name);
+        addNodeSlot(node, "query", projection->query);
+        addNodeSlot(node, "index", projection->index);
+
+        return true;
+    }
+    else if (const auto * projection_select = dynamic_cast<const ASTProjectionSelectQuery *>(&ast))
+    {
+        if (auto with_list = projection_select->with())
+            node.add("with", inlineExpressionList(with_list));
+        if (auto select_list = projection_select->select())
+            node.add("select", inlineExpressionList(select_list));
+        if (auto group_by_list = projection_select->groupBy())
+            node.add("group_by", inlineExpressionList(group_by_list));
+        if (auto order_by_list = projection_select->orderBy())
+            node.add("order_by", inlineExpressionList(order_by_list));
+
+        return true;
+    }
+    else if (const auto * ttl = dynamic_cast<const ASTTTLElement *>(&ast))
+    {
+        node.add("mode", String(ttlModeToString(ttl->mode)));
+        addNodeSlot(node, "ttl", ttl->ttl());
+
+        if (ttl->mode == TTLMode::MOVE)
+        {
+            node.add("destination_type", String(dataDestinationTypeToString(ttl->destination_type)));
+            if (!ttl->destination_name.empty())
+                node.add("destination_name", ttl->destination_name);
+            if (ttl->if_exists)
+                node.add("if_exists", true);
+        }
+        addNodeSlot(node, "where", ttl->where());
+        addNodeSlot(node, "recompression_codec", ttl->recompression_codec);
+
+        return true;
+    }
+    else if (const auto * partition = dynamic_cast<const ASTPartition *>(&ast))
+    {
+        if (partition->all)
+            node.add("all", true);
+        addNodeSlot(node, "value", partition->value);
+        addNodeSlot(node, "id", partition->id);
+
+        return true;
+    }
+    else if (const auto * assignment = dynamic_cast<const ASTAssignment *>(&ast))
+    {
+        node.add("column", assignment->column_name);
+        addNodeSlot(node, "expression", assignment->expression());
+
+        return true;
+    }
+    else if (const auto * del = dynamic_cast<const ASTDeleteQuery *>(&ast))
+    {
+        addTableTarget(node, *del);
+        if (!del->cluster.empty())
+            node.add("cluster", del->cluster);
+        addNodeSlot(node, "partition", del->partition);
+        addNodeSlot(node, "predicate", del->predicate);
+
+        return true;
+    }
+    else if (const auto * update = dynamic_cast<const ASTUpdateQuery *>(&ast))
+    {
+        addTableTarget(node, *update);
+        if (!update->cluster.empty())
+            node.add("cluster", update->cluster);
+        if (update->assignments)
+            node.add("assignments", inlineExpressionList(update->assignments));
+        addNodeSlot(node, "predicate", update->predicate);
+        addNodeSlot(node, "partition", update->partition);
+
+        return true;
+    }
+    else if (const auto * drop = dynamic_cast<const ASTDropQuery *>(&ast))
+    {
+        node.add("kind", String(dropKindToString(drop->kind)));
+        addTableTarget(node, *drop);
+        if (!drop->cluster.empty())
+            node.add("cluster", drop->cluster);
+        if (drop->if_exists)
+            node.add("if_exists", true);
+        if (drop->if_empty)
+            node.add("if_empty", true);
+        if (drop->is_dictionary)
+            node.add("is_dictionary", true);
+        if (drop->is_view)
+            node.add("is_view", true);
+        if (drop->sync)
+            node.add("sync", true);
+        if (drop->permanently)
+            node.add("permanently", true);
+        addNodeSlot(node, "database_and_tables", drop->database_and_tables);
+
+        return true;
+    }
+    else if (const auto * optimize = dynamic_cast<const ASTOptimizeQuery *>(&ast))
+    {
+        addTableTarget(node, *optimize);
+        if (!optimize->cluster.empty())
+            node.add("cluster", optimize->cluster);
+        addNodeSlot(node, "partition", optimize->partition);
+        if (optimize->final)
+            node.add("final", true);
+        if (optimize->deduplicate)
+            node.add("deduplicate", true);
+        addNodeSlot(node, "deduplicate_by_columns", optimize->deduplicate_by_columns);
+        if (optimize->cleanup)
+            node.add("cleanup", true);
 
         return true;
     }

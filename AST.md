@@ -176,9 +176,35 @@ Scalar flags below are emitted only when set/non-default unless noted.
   `sample_by`, `ttl_table`, `settings`.
 - **InsertQuery**: `database`, `table`, `table_function`, `columns`,
   `format`, `partition_by`, `settings`, `select`, `infile`, `compression`.
+- **Index**: `name`, `expression`, `index_type`, `granularity`.
+- **Constraint**: `name`, `constraint_type` (`CHECK` / `ASSUME`),
+  `expression`.
+- **Projection**: `name`, `query`, `index`.
+- **ProjectionSelectQuery**: `with`, `select`, `group_by`, `order_by`
+  (inlined).
+- **TTLElement**: `mode` (`DELETE` / `MOVE` / `GROUP_BY` / `RECOMPRESS`),
+  `ttl`, and for `MOVE` the `destination_type` / `destination_name` /
+  `if_exists`; `where`, `recompression_codec`.
+- **Partition**: `all`, `value`, `id`.
+- **DeleteQuery**: `database`, `table`, `cluster`, `partition`, `predicate`.
+- **UpdateQuery**: `database`, `table`, `cluster`, `assignments`,
+  `predicate`, `partition`.
+- **DropQuery** (also `DetachQuery` / `TruncateQuery` by `type`): `kind`,
+  `database`, `table`, `cluster`, `if_exists` / `if_empty` / `is_dictionary`
+  / `is_view` / `sync` / `permanently`, `database_and_tables`.
+- **OptimizeQuery**: `database`, `table`, `cluster`, `partition`, `final`,
+  `deduplicate`, `deduplicate_by_columns`, `cleanup`.
+- **Assignment**: `column`, `expression`.
 
-Other statement kinds (`AlterQuery`, `DeleteQuery`, `DropQuery`, ...) are
-not yet enriched and still expose positional `children`.
+### Not yet enriched
+
+These still expose positional `children` — candidates for a follow-up:
+
+- **ALTER family**: `AlterQuery`, `AlterCommand` (large `Type` enum).
+- **Dictionaries**: `Dictionary`, `DictionaryAttributeDeclaration`,
+  `FunctionWithKeyValueArguments`, plus `ViewTargets`, `CreateFunctionQuery`.
+- Assorted: `DescribeQuery`, `KillQueryQuery`, `CreateUserQuery`, the
+  `SYSTEM` commands, etc.
 
 ## Adding a new node class
 
