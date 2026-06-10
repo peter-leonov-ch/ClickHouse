@@ -1,0 +1,151 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "c1.key",
+          "name_parts": ["c1", "key"]
+        },
+        {
+          "type": "Identifier",
+          "name": "c1.name",
+          "name_parts": ["c1", "name"]
+        },
+        {
+          "type": "Identifier",
+          "name": "c1.ref_valueF32",
+          "name_parts": ["c1", "ref_valueF32"]
+        },
+        {
+          "type": "Identifier",
+          "name": "c1.valueF32",
+          "name_parts": ["c1", "valueF32"]
+        },
+        {
+          "type": "Function",
+          "alias": "dF32",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c1.ref_valueF32",
+              "name_parts": ["c1", "ref_valueF32"]
+            },
+            {
+              "type": "Identifier",
+              "name": "c1.valueF32",
+              "name_parts": ["c1", "valueF32"]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "prev:"
+        },
+        {
+          "type": "Identifier",
+          "name": "c2.key",
+          "name_parts": ["c2", "key"]
+        },
+        {
+          "type": "Identifier",
+          "name": "c2.ref_valueF32",
+          "name_parts": ["c2", "ref_valueF32"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "c1",
+                "name": "codecTest"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "c2",
+                "name": "codecTest"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dF32"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c2.key",
+                "name_parts": ["c2", "key"]
+              },
+              {
+                "type": "Function",
+                "name": "minus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "c1.key",
+                    "name_parts": ["c1", "key"]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    }
+  ]
+}

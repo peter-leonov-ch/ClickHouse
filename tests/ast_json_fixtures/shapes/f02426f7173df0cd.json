@@ -1,0 +1,100 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_foo"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType",
+                  "children": [
+                    {
+                      "type": "ExpressionList",
+                      "children": [
+                        {
+                          "type": "DataType"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "toYear",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "date"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "town"
+            },
+            {
+              "type": "Identifier",
+              "name": "date"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "test"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "enforce_strict_identifier_format": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "m"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "f"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_move_to_prewhere": 0
+        }
+      }
+    }
+  ]
+}

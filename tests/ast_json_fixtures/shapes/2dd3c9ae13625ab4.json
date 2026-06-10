@@ -1,0 +1,58 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "l",
+          "name": "length",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab_00717"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "l"
+        },
+        {
+          "type": "Function",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "l"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

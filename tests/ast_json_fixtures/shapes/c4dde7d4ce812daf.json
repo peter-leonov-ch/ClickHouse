@@ -1,0 +1,137 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "b"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "c"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "d"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "d"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "e"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "f"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "f"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "g"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "g"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "h"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "h"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

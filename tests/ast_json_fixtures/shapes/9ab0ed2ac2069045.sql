@@ -1,0 +1,1 @@
+SELECT NULL FROM 01902_db_repr.t_merge WHERE n ORDER BY _table DESC

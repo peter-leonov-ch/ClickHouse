@@ -1,0 +1,51 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "json"
+        },
+        {
+          "type": "Function",
+          "name": "materialize",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "all"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

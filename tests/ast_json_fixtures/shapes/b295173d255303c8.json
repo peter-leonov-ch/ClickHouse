@@ -1,0 +1,23 @@
+{
+  "type": "ParallelWithQuery",
+  "children": [
+    {
+      "type": "DropQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "table1"
+        }
+      ]
+    },
+    {
+      "type": "DropQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "table2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "d1"
+        },
+        {
+          "type": "Function",
+          "name": "dynamicType",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "d1"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "d2"
+        },
+        {
+          "type": "Function",
+          "name": "dynamicType",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "d2"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_nested_dynamic"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

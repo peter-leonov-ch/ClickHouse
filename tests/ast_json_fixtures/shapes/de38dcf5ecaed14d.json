@@ -1,0 +1,192 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        },
+        {
+          "type": "Function",
+          "alias": "qt",
+          "name": "quantileTiming",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "SendTiming"
+            }
+          ],
+          "parameters": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.5
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "qe",
+          "name": "least",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 30000
+            },
+            {
+              "type": "Function",
+              "name": "quantileExact",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "SendTiming"
+                }
+              ],
+              "parameters": [
+                {
+                  "type": "Literal",
+                  "value_type": "Float64",
+                  "value": 0.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "c",
+          "name": "count",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "alias": "rounded_diff",
+          "name": "round",
+          "arguments": [
+            {
+              "type": "Function",
+              "alias": "diff",
+              "name": "divide",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "abs",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "minus",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "qt"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "qe"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "greatest",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "qt"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "qe"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "SendTiming"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": -1
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "diff"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "diff"
+          },
+          "direction": "DESC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_aggregation_in_order": 1
+        }
+      }
+    }
+  ]
+}

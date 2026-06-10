@@ -1,0 +1,63 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "d",
+          "name": "toStartOfMonth",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "date"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "i"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_read_in_order"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "d"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "i"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      }
+    }
+  ]
+}

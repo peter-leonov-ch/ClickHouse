@@ -1,0 +1,150 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "array",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(2147483647, 0.)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(10.0001, 65535)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(1, 255)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(1023, 2147483646)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "polygonsSymDifferenceCartesian",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "array",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "array",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Tuple",
+                          "value": "(2147483647, 0.)"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "Tuple",
+                          "value": "(10.0001, 65535)"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "Tuple",
+                          "value": "(1023, 2147483646)"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "array",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "array",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Tuple",
+                          "value": "(1000.0001, 10.0001)"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "array",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(2147483647, 0.)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(10.0001, 65535)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(1023, 2147483646)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 0
+        }
+      }
+    }
+  ]
+}

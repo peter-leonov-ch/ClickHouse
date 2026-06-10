@@ -1,0 +1,34 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_01457"
+    },
+    {
+      "type": "Identifier",
+      "name": "tf_remote"
+    },
+    {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "tmp"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "Rename",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "eligible_test"
+    },
+    {
+      "type": "Identifier",
+      "name": "eligible_test2"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "use_query_cache": true
+      }
+    }
+  ]
+}

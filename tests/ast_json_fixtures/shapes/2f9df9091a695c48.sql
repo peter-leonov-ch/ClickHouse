@@ -1,0 +1,1 @@
+SELECT 'Q1', * FROM mt WHERE d = '2106-02-07'

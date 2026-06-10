@@ -1,0 +1,1 @@
+SELECT _path, count() FROM 03741_data GROUP BY 1 ORDER BY 1

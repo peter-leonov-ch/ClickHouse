@@ -1,0 +1,1 @@
+SELECT shardNum(), count() FROM dt WHERE tag_id = 1 AND tag_name IN ('foo1', 'foo2') GROUP BY 1 ORDER BY 1

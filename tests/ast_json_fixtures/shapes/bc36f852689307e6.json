@@ -1,0 +1,25 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "127.0.0.2"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "t4"
+        }
+      ]
+    }
+  ]
+}

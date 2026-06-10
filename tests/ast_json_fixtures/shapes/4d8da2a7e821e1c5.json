@@ -1,0 +1,62 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_grouping_sets": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "a",
+          "name": "tuple",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toLowCardinality",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Function",
+              "name": "isNullable",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 19
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

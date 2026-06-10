@@ -1,0 +1,45 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "d0"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "DictionaryAttributeDeclaration",
+          "children": [
+            {
+              "type": "DataType",
+              "children": [
+                {
+                  "type": "ExpressionList",
+                  "children": [
+                    {
+                      "type": "NameTypePair",
+                      "children": [
+                        {
+                          "type": "DataType"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Dictionary",
+      "children": [
+        {
+          "type": "Dictionary"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "total",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a.number",
+              "name_parts": ["a", "number"]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "cn",
+          "name": "c.number",
+          "name_parts": ["c", "number"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "bn",
+          "name": "b.number",
+          "name_parts": ["b", "number"]
+        },
+        {
+          "type": "Function",
+          "alias": "l",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "grouping",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "c.number",
+                  "name_parts": ["c", "number"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "grouping",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "b.number",
+                  "name_parts": ["b", "number"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "r",
+          "name": "rank",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [],
+          "window_definition": {
+            "type": "WindowDefinition",
+            "partition_by": [
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "grouping",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "c.number",
+                        "name_parts": ["c", "number"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "grouping",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "b.number",
+                        "name_parts": ["b", "number"]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "multiIf",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "grouping",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "c.number",
+                            "name_parts": ["c", "number"]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "b.number",
+                    "name_parts": ["b", "number"]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
+              }
+            ],
+            "order_by": [
+              {
+                "type": "OrderByElement",
+                "expression": {
+                  "type": "Function",
+                  "name": "sum",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "a.number",
+                      "name_parts": ["a", "number"]
+                    }
+                  ]
+                },
+                "direction": "DESC"
+              }
+            ]
+          }
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "a",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "b",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "c",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "cn"
+        },
+        {
+          "type": "Identifier",
+          "name": "bn"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "total"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "cn"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "bn"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "l"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "r"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    }
+  ]
+}

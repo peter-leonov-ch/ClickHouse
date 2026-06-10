@@ -1,0 +1,13 @@
+{
+  "type": "ShowCreateDictionaryQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "db_01018"
+    },
+    {
+      "type": "Identifier",
+      "name": "dict1"
+    }
+  ]
+}

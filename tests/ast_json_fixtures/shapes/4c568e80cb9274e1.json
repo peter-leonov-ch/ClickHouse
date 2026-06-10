@@ -1,0 +1,50 @@
+{
+  "type": "AttachQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "primary_key_test"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "v"
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "ReplacingMergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "v"
+        },
+        {
+          "type": "Identifier",
+          "name": "v"
+        }
+      ]
+    }
+  ]
+}

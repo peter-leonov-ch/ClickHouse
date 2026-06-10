@@ -1,0 +1,29 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_cluster"
+    },
+    {
+      "type": "Function",
+      "name": "cluster",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "test_cluster_one_shard_three_replicas_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test"
+        }
+      ]
+    }
+  ]
+}

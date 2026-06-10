@@ -1,0 +1,15 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "mutations_sync": 2
+      }
+    }
+  ]
+}

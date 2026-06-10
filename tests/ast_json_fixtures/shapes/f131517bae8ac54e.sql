@@ -1,0 +1,1 @@
+SELECT DISTINCT number % 8 AS x FROM numbers(120) ORDER BY x LIMIT -3 OFFSET -2

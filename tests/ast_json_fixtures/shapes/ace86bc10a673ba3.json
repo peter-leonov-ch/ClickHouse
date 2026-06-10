@@ -1,0 +1,57 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

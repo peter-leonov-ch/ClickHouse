@@ -1,0 +1,15 @@
+{
+  "type": "CheckQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "mt_table"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "max_threads": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+DELETE FROM 03720_deletes WHERE k1 = 1 AND k2 = 1

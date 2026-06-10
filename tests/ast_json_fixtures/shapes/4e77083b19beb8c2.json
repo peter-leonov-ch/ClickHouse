@@ -1,0 +1,54 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "lol"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "n"
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "min_bytes_for_wide_part": 123
+          }
+        }
+      ]
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "log_queries": 1
+      }
+    }
+  ]
+}

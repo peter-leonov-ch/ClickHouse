@@ -1,0 +1,76 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "replaceRegexpAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "message"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\\(\\d+\\)"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "message_format_string"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "warnings",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "like",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "message"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "The number of%"
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "message"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

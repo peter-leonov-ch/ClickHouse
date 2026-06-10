@@ -1,0 +1,64 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "s",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "group_by_pk"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "k"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s"
+          },
+          "direction": "DESC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_aggregation_in_order": 0,
+          "max_block_size": 1
+        }
+      }
+    }
+  ]
+}

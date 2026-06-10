@@ -1,0 +1,58 @@
+{
+  "type": "Explain",
+  "children": [
+    {
+      "type": "CreateQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "t"
+        },
+        {
+          "type": "Columns",
+          "children": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "ColumnDeclaration",
+                  "children": [
+                    {
+                      "type": "DataType",
+                      "children": [
+                        {
+                          "type": "ExpressionList",
+                          "children": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 255
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Collation"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Storage",
+          "children": [
+            {
+              "type": "Function",
+              "name": "Memory",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

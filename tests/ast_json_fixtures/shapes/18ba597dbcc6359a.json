@@ -1,0 +1,65 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "tab"
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Asterisk"
+            }
+          ],
+          "tables": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 1
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "limit_length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        }
+      ]
+    }
+  ]
+}

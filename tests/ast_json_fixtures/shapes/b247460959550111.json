@@ -1,0 +1,13 @@
+{
+  "type": "CreateFunctionQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "foo"
+    },
+    {
+      "type": "Identifier",
+      "name": "x"
+    }
+  ]
+}

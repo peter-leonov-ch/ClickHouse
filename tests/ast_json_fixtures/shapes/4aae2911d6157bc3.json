@@ -1,0 +1,32 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 124437995
+        },
+        {
+          "type": "Function",
+          "name": "throwIf",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "use_query_cache": 1
+        }
+      }
+    }
+  ]
+}

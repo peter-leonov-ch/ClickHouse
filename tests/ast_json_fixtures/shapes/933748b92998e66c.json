@@ -1,0 +1,184 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "test1",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "n"
+                    },
+                    {
+                      "type": "Literal",
+                      "alias": "b",
+                      "value_type": "Null",
+                      "value": null
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "m",
+                      "name": "plus",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "n"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "with_test"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "n"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 42
+                      }
+                    ]
+                  },
+                  "order_by": [
+                    {
+                      "type": "OrderByElement",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "n"
+                      },
+                      "direction": "ASC"
+                    }
+                  ],
+                  "limit_length": {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 4
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "m",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "n"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test1"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "isNull",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "test1.m",
+                "name_parts": ["test1", "m"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 43
+              }
+            ]
+          }
+        ]
+      },
+      "having": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "m"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 42
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 4
+      }
+    }
+  ]
+}

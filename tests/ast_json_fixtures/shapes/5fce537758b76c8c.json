@@ -1,0 +1,36 @@
+{
+  "type": "CreateFunctionQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "f1"
+    },
+    {
+      "type": "Function",
+      "name": "lambda",
+      "is_operator": true,
+      "is_lambda_function": true,
+      "kind": "LAMBDA_FUNCTION",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "p0"
+            },
+            {
+              "type": "Identifier",
+              "name": "p1"
+            }
+          ]
+        },
+        {
+          "type": "Asterisk"
+        }
+      ]
+    }
+  ]
+}

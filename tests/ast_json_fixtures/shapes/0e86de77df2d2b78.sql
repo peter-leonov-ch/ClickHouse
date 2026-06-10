@@ -1,0 +1,1 @@
+DELETE FROM t_light WHERE c%5=1

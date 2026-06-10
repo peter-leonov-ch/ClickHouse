@@ -1,0 +1,46 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "quantile",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "CAST",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "now",
+                  "arguments": []
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "DateTime('UTC')"
+                }
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.5
+            }
+          ]
+        }
+      ],
+      "where": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      }
+    }
+  ]
+}

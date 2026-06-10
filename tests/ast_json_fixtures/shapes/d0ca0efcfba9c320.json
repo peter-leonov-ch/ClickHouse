@@ -1,0 +1,73 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Identifier",
+          "name": "z"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "in",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(1, 2)"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "z"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 5
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

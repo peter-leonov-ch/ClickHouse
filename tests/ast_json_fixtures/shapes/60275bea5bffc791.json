@@ -1,0 +1,9 @@
+{
+  "type": "DropQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "v"
+    }
+  ]
+}

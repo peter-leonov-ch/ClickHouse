@@ -1,0 +1,72 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "v0"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                },
+                {
+                  "type": "Function",
+                  "name": "CODEC",
+                  "kind": "CODEC",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "DoubleDelta",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Refresh",
+      "children": [
+        {
+          "type": "TimeInterval"
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "c0",
+              "value_type": "String",
+              "value": "a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ViewTargets"
+    }
+  ]
+}

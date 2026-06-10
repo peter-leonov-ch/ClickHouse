@@ -1,0 +1,29 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "log_remote"
+    },
+    {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "127.1"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "log"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+CREATE MATERIALIZED VIEW mv TO dst (n String) AS SELECT * FROM src

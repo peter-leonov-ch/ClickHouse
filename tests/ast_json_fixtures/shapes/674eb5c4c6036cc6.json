@@ -1,0 +1,99 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        },
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "d"
+          }
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "id",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "value",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "LEFT",
+              "strictness": "SEMI",
+              "using": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                }
+              ]
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "d",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "id",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "values",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

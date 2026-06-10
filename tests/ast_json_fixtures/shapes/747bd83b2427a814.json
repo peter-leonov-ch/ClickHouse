@@ -1,0 +1,96 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "group_by_with_cube": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "key",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Function",
+              "name": "toUInt256",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "key"
+        }
+      ],
+      "qualify": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Function",
+            "name": "toNullable",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toNullable",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

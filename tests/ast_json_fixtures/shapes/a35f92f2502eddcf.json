@@ -1,0 +1,64 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Identifier",
+          "name": "e"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_lazy_read_in_order"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "e"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 100
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      }
+    }
+  ]
+}

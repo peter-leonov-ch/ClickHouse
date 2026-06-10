@@ -1,0 +1,44 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 4
+        },
+        {
+          "type": "Identifier",
+          "name": "n"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "rmt2"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "n"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

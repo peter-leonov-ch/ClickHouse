@@ -1,0 +1,53 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "window": [
+        {
+          "type": "WindowListElement",
+          "name": "w0",
+          "definition": {
+            "type": "WindowDefinition",
+            "order_by": [
+              {
+                "type": "OrderByElement",
+                "expression": {
+                  "type": "Function",
+                  "name": "min",
+                  "is_window_function": true,
+                  "kind": "WINDOW_FUNCTION",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ],
+                  "window_definition": {
+                    "type": "WindowDefinition",
+                    "parent_window_name": "w0"
+                  }
+                },
+                "direction": "ASC"
+              }
+            ]
+          }
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "allow_experimental_analyzer": 0
+        }
+      }
+    }
+  ]
+}

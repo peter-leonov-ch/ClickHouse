@@ -1,0 +1,50 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t10"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "negate",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "sign",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "t10.c0",
+                  "name_parts": ["t10", "c0"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

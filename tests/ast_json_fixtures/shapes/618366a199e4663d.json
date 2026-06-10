@@ -1,0 +1,56 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "lc"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

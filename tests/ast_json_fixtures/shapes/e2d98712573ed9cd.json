@@ -1,0 +1,92 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "hello"
+        },
+        {
+          "type": "Function",
+          "name": "untuple",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Asterisk",
+                  "transformers": {
+                    "type": "ColumnsTransformerList",
+                    "children": [
+                      {
+                        "type": "ColumnsExceptTransformer",
+                        "children": [
+                          {
+                            "type": "Identifier",
+                            "name": "b"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "world"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "a",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "b",
+                          "value_type": "UInt64",
+                          "value": 2
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "c",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

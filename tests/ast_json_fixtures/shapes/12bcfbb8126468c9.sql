@@ -1,0 +1,1 @@
+CREATE TABLE log ENGINE=Log AS val

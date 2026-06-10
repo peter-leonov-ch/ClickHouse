@@ -1,0 +1,29 @@
+{
+  "type": "AlterQuery",
+  "children": [
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "AlterCommand",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "k"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "mut"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "alter_sync": 0
+      }
+    }
+  ]
+}

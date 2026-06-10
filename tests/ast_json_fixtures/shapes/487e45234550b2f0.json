@@ -1,0 +1,18 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Asterisk"
+        }
+      ]
+    }
+  ]
+}

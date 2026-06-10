@@ -1,0 +1,114 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        },
+        {
+          "type": "Function",
+          "name": "countIf",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "lessOrEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "count",
+                "arguments": []
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 1
+        }
+      }
+    }
+  ]
+}

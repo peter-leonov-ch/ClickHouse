@@ -1,0 +1,93 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "0",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Literal",
+          "alias": "18",
+          "value_type": "UInt64",
+          "value": 18
+        },
+        {
+          "type": "Identifier",
+          "alias": "k",
+          "name": "__table1.k",
+          "name_parts": ["__table1", "k"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "__table1",
+                "name": "test__fuzz_2_dist"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "_CAST",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 11
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "Nullable(UInt8)"
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "__table1.k",
+            "name_parts": ["__table1", "k"]
+          },
+          "direction": "DESC",
+          "nulls_first": false
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "Float64",
+        "value": 0.9999
+      },
+      "limit_length": {
+        "type": "Function",
+        "name": "_CAST",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 100
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "UInt64"
+          }
+        ]
+      }
+    }
+  ]
+}

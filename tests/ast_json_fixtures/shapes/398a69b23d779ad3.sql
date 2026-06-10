@@ -1,0 +1,1 @@
+SELECT count(), toString(number) AS k FROM remote('127.0.0.{1,2}', numbers(10)) where number > ( queryID() = initialQueryID()) GROUP BY GROUPING SETS ((k)) ORDER BY k SETTINGS group_by_two_level_threshold=9, max_bytes_before_external_group_by=10000000000, max_bytes_ratio_before_external_group_by=0

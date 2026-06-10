@@ -1,0 +1,1 @@
+SELECT 1 FROM t3 WHERE x=1

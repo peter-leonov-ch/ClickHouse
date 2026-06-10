@@ -1,0 +1,140 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "max",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "count",
+                    "arguments": []
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "subquery": {
+                          "type": "Subquery",
+                          "query": {
+                            "type": "SelectWithUnionQuery",
+                            "selects": [
+                              {
+                                "type": "SelectIntersectExceptQuery",
+                                "operator": "EXCEPT ALL",
+                                "children": [
+                                  {
+                                    "type": "SelectWithUnionQuery",
+                                    "union_mode": "UNION_DISTINCT",
+                                    "selects": [
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 1
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 2
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 1
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "name": "max"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 100
+      }
+    }
+  ]
+}

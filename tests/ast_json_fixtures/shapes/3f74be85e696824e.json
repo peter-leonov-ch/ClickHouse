@@ -1,0 +1,40 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "mv"
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ViewTargets",
+      "children": [
+        {
+          "type": "Storage",
+          "children": [
+            {
+              "type": "Function",
+              "name": "Memory",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

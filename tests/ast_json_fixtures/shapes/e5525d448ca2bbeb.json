@@ -1,0 +1,189 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "group_by_with_cube": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "alias_value",
+          "name": "value"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_table__fuzz_4"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "INNER",
+              "on": {
+                "type": "Function",
+                "name": "equals",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "alias": "alias_value",
+                    "name": "value"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "alias272.value",
+                    "name_parts": ["alias272", "value"]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "alias272",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "isNullable",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "isNotNull",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 38
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Asterisk"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "test_table__fuzz_2"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "less",
+          "arguments": [
+            {
+              "type": "Function",
+              "alias": "alias174",
+              "name": "toNullable",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 38
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "assumeNotNull",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Function",
+          "name": "equals",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isZeroOrNull",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toUInt128",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "materialize",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toNullable",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "toUInt128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 38
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

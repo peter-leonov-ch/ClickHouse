@@ -1,0 +1,184 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "SUM",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "number",
+                          "value_type": "UInt64",
+                          "value": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "cos",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "modulo",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "min2",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "number"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "number"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "number"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "isNotNull",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "negate",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "sign",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Int64",
+                        "value": -233841197
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "sin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "greaterOrEquals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lcm",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "SUM",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "SUM",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "isNotNull",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "372497213"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "aggregate_functions_null_for_empty": 1,
+          "enable_optimize_predicate_expression": 0
+        }
+      }
+    }
+  ]
+}

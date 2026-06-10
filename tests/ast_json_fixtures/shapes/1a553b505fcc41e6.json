@@ -1,0 +1,69 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "t",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "alias": "x",
+                      "name": "sum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "number"
+                        }
+                      ]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "table_function": {
+                            "type": "Function",
+                            "name": "numbers",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 10
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "t"
+          }
+        }
+      ]
+    }
+  ]
+}

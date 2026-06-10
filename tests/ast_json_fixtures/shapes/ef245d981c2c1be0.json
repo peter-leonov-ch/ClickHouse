@@ -1,0 +1,71 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "something",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 25
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Asterisk"
+        },
+        {
+          "type": "Identifier",
+          "name": "something"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUInt64",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "assumeNotNull",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "something"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

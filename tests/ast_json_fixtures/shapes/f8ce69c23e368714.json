@@ -1,0 +1,9 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "a"
+    }
+  ]
+}

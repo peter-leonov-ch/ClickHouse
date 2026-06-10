@@ -1,0 +1,9 @@
+{
+  "type": "DetachQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "b"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_01457"
+    },
+    {
+      "type": "Identifier",
+      "name": "tf_numbers"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Function",
+      "name": "numbers",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

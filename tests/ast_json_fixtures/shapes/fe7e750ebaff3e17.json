@@ -1,0 +1,21 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "\/dev\/null"
+    },
+    {
+      "type": "Function",
+      "name": "null",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "x String"
+        }
+      ]
+    }
+  ]
+}

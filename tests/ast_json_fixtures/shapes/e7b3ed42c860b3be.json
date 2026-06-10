@@ -1,0 +1,27 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayJoin",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "[3, 1, 2]"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "extremes": 1
+        }
+      }
+    }
+  ]
+}

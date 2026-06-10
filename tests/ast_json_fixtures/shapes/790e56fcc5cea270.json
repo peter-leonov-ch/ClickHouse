@@ -1,0 +1,122 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "lambda",
+          "name": "lambda",
+          "is_operator": true,
+          "is_lambda_function": true,
+          "kind": "LAMBDA_FUNCTION",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "y"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "y"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayMap",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "lambda",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tuple",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "[1, 2, 3]"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "lambda",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "alias": "x",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

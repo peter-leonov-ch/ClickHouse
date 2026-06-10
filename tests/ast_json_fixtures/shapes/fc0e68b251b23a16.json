@@ -1,0 +1,30 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "n"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "mt"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

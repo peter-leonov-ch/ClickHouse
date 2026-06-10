@@ -1,0 +1,103 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "d",
+          "name": "marks"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "parts",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "table"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "six_rows_per_granule"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "database"
+              },
+              {
+                "type": "Function",
+                "name": "currentDatabase",
+                "arguments": []
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "active"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      },
+      "having": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "d"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ]
+}

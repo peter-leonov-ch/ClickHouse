@@ -1,0 +1,44 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "02884_1.csv"
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "x",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ],
+          "settings": {
+            "type": "Set",
+            "changes": {
+              "engine_file_truncate_on_insert": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "engine_file_truncate_on_insert": 1
+      }
+    }
+  ]
+}

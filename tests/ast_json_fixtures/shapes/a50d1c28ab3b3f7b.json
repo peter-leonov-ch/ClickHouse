@@ -1,0 +1,89 @@
+{
+  "type": "ParallelWithQuery",
+  "children": [
+    {
+      "type": "CreateQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "table1"
+        },
+        {
+          "type": "Columns",
+          "children": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "ColumnDeclaration",
+                  "children": [
+                    {
+                      "type": "DataType"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Storage",
+          "children": [
+            {
+              "type": "Function",
+              "name": "MergeTree",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            },
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CreateQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "table2"
+        },
+        {
+          "type": "Columns",
+          "children": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "ColumnDeclaration",
+                  "children": [
+                    {
+                      "type": "DataType"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Storage",
+          "children": [
+            {
+              "type": "Function",
+              "name": "MergeTree",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            },
+            {
+              "type": "Identifier",
+              "name": "y"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "Pacific\/Apia"
+        },
+        {
+          "type": "Function",
+          "alias": "r",
+          "name": "rand",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "alias": "h",
+          "name": "toHour",
+          "arguments": [
+            {
+              "type": "Function",
+              "alias": "t",
+              "name": "toDateTime",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "r"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "Pacific\/Apia"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "t"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1000000
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "h"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "h"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 23
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "h"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "h"
+        }
+      ]
+    }
+  ]
+}

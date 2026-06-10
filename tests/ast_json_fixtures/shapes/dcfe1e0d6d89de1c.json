@@ -1,0 +1,108 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "t"
+          }
+        },
+        {
+          "type": "Identifier",
+          "name": "s.a",
+          "name_parts": ["s", "a"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.b",
+          "name_parts": ["s", "b"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.c",
+          "name_parts": ["s", "c"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "LEFT",
+              "on": {
+                "type": "Function",
+                "name": "and",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "s.a",
+                        "name_parts": ["s", "a"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "t.a",
+                        "name_parts": ["t", "a"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "s.b",
+                        "name_parts": ["s", "b"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "t.b",
+                        "name_parts": ["t", "b"]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "s"
+              }
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "join_use_nulls": 1
+        }
+      }
+    }
+  ]
+}

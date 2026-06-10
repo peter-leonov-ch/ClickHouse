@@ -1,0 +1,48 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "_file"
+        },
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_02302"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "like",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "_file"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "%1"
+          }
+        ]
+      }
+    }
+  ]
+}

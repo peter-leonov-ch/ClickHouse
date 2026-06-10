@@ -1,0 +1,9 @@
+{
+  "type": "CheckQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "tab"
+    }
+  ]
+}

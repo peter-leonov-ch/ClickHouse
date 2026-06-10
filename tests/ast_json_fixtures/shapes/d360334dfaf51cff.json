@@ -1,0 +1,92 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_cube": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "d",
+          "name": "count",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Identifier",
+          "name": "b"
+        },
+        {
+          "type": "Identifier",
+          "name": "c"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test02313"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Identifier",
+          "name": "b"
+        },
+        {
+          "type": "Identifier",
+          "name": "c"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "d"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "b"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "c"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

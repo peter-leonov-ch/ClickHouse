@@ -1,0 +1,1 @@
+UPDATE t1 SET c0 = () WHERE TRUE

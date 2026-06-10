@@ -1,0 +1,12 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Partition_ID"
+    },
+    {
+      "type": "Identifier",
+      "name": "partition_all2"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "ExistsDatabaseQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "db_01048"
+    }
+  ]
+}

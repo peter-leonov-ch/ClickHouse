@@ -1,0 +1,52 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "in",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Subquery",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Identifier",
+                    "name": "y"
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "t"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "t"
+    }
+  ]
+}

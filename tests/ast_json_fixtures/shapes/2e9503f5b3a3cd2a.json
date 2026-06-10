@@ -1,0 +1,92 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "shardNum",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "dt"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tag_id"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "in",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tag_name"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "('foo1', 'foo2')"
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

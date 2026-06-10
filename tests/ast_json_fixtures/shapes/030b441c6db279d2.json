@@ -1,0 +1,19 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "notEmpty",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "v2"
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "t_lwu_deletes_3"
+    }
+  ]
+}

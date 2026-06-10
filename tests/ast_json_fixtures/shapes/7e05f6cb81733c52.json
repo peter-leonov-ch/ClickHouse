@@ -1,0 +1,73 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "z",
+          "value_type": "UInt64",
+          "value": 11
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 42
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 43
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 44
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+CREATE TABLE t1 (c0 Int32, PRIMARY KEY (c0)) ENGINE=MergeTree

@@ -1,0 +1,78 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "_part"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_not_found_column_nothing"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col001"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "_part"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "_part"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

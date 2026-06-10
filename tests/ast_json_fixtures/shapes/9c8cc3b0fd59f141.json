@@ -1,0 +1,108 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "primary_key_test"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v1"
+            },
+            {
+              "type": "Function",
+              "name": "gcd",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "v1"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "v2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "ReplacingMergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "v1"
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v1"
+            },
+            {
+              "type": "Function",
+              "name": "gcd",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "v1"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "v2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "QualifiedColumnsListMatcher",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "test_table"
+            },
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_table"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

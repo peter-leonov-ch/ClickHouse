@@ -1,0 +1,53 @@
+{
+  "type": "AttachQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test1601_detach_permanently_ordinary"
+    },
+    {
+      "type": "Identifier",
+      "name": "test_name_reuse"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "index_granularity": 8192
+          }
+        }
+      ]
+    }
+  ]
+}

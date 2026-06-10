@@ -1,0 +1,29 @@
+{
+  "type": "DescribeQuery",
+  "children": [
+    {
+      "type": "TableExpression",
+      "table_function": {
+        "type": "Function",
+        "name": "format",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "CSV"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "1,2,3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "column_names_for_schema_inference": "a, b, a"
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "test",
+          "value_type": "UInt64",
+          "value": 0
+        }
+      ],
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "test",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_global_with_statement": 1
+        }
+      }
+    }
+  ]
+}

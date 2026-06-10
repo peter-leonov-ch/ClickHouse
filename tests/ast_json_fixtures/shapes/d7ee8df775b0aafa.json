@@ -1,0 +1,16 @@
+{
+  "type": "DescribeQuery",
+  "children": [
+    {
+      "type": "TableExpression",
+      "database_and_table_name": {
+        "type": "TableIdentifier",
+        "name": "test"
+      }
+    },
+    {
+      "type": "Identifier",
+      "name": "TSVRaw"
+    }
+  ]
+}

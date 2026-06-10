@@ -1,0 +1,12 @@
+{
+  "type": "DescribeQuery",
+  "children": [
+    {
+      "type": "TableExpression",
+      "database_and_table_name": {
+        "type": "TableIdentifier",
+        "name": "tab"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "AttachQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t"
+    }
+  ]
+}

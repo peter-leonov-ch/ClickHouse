@@ -1,0 +1,14 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Literal",
+      "value_type": "Bool",
+      "value": true
+    },
+    {
+      "type": "Identifier",
+      "name": "t0"
+    }
+  ]
+}

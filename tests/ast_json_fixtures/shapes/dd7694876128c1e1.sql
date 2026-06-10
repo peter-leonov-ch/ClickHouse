@@ -1,0 +1,1 @@
+insert into function file(current_database() ||'03630_parquet_bool_bug.parquet', Parquet, 'tags Array(Bool)') settings engine_file_truncate_on_insert=1 values ([false,false,false,false,false,false,false,false]), ([true,true,true,true,true,true,true,true])

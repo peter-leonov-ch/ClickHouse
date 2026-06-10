@@ -1,0 +1,1 @@
+SELECT ProfileEvents['LoadedMarksCount'], 1 OR toLowCardinality(1) FROM system.nonexistent PREWHERE tupleElement(*, 1) AND match(query, 'SELECT * FROM t_prewarm_add_column%') AND (currentDatabase() = current_database) WHERE ('SELECT * FROM t_prewarm_add_column%' NOT LIKE query) AND (type = 'QueryFinish') AND (current_database = currentDatabase()) ORDER BY ALL DESC NULLS FIRST

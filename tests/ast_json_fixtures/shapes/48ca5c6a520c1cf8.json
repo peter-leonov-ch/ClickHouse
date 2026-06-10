@@ -1,0 +1,30 @@
+{
+  "type": "UpdateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t1"
+    },
+    {
+      "type": "Literal",
+      "value_type": "Bool",
+      "value": true
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Assignment",
+          "children": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

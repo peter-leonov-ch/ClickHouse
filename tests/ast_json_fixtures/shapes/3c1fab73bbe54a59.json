@@ -1,0 +1,47 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "dst"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Function",
+      "name": "url",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "http:\/\/127.0.0.1\/"
+        },
+        {
+          "type": "Identifier",
+          "name": "JSONEachRow"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "x int"
+        }
+      ]
+    }
+  ]
+}

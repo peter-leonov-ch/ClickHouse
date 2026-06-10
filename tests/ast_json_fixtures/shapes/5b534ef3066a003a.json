@@ -1,0 +1,35 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "null_subcolumns"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Identifier",
+        "name": "n.null",
+        "name_parts": ["n", "null"]
+      }
+    }
+  ]
+}

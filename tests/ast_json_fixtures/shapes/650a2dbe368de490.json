@@ -1,0 +1,337 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "recursive_with": true,
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "q",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Asterisk"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "department__fuzz_0"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "SelectQuery",
+                  "recursive_with": true,
+                  "with": [
+                    {
+                      "type": "WithElement",
+                      "name": "x",
+                      "subquery": {
+                        "type": "Subquery",
+                        "query": {
+                          "type": "SelectWithUnionQuery",
+                          "selects": [
+                            {
+                              "type": "SelectQuery",
+                              "select": [
+                                {
+                                  "type": "Asterisk"
+                                }
+                              ],
+                              "tables": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "database_and_table_name": {
+                                        "type": "TableIdentifier",
+                                        "name": "department__fuzz_0"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "SelectQuery",
+                              "select": [
+                                {
+                                  "type": "Asterisk"
+                                }
+                              ],
+                              "tables": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "database_and_table_name": {
+                                        "type": "TableIdentifier",
+                                        "name": "q"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "where": {
+                                "type": "Function",
+                                "name": "least",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "toFixedString",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "String",
+                                        "value": "world"
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 5
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 5
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 5
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Float64",
+                                    "value": null
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 58
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Float64",
+                                    "value": null
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Null",
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "SelectQuery",
+                              "select": [
+                                {
+                                  "type": "Asterisk"
+                                }
+                              ],
+                              "tables": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "database_and_table_name": {
+                                        "type": "TableIdentifier",
+                                        "name": "x"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "where": {
+                                "type": "Function",
+                                "name": "sipHash128",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "toLowCardinality",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "String",
+                                        "value": "world"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "toLowCardinality",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "materialize",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 5
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "toUInt128",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "greatest",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 1
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Float64",
+                                            "value": null
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Null",
+                                            "value": null
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Function",
+                                        "name": "toUInt128",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 5
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "toUInt128",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 5
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 5
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "toUInt128",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 5
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "materialize",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 5
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "select": [
+                    {
+                      "type": "Asterisk"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "x"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "q"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

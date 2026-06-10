@@ -1,0 +1,47 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "_part"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "override_test__fuzz_45"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "materialize",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

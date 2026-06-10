@@ -1,0 +1,310 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_grouping_sets": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "c",
+          "name": "count",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Lambda as function parameter"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "ignore",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "ignore",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "String",
+                                  "value": "Lambda as function parameter"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 28
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 28
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "materialize",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Lambda as function parameter"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 28
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 28
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "world"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 5
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "numbers",
+                                "database": "system"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "where": {
+                        "type": "Function",
+                        "name": "ignore",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "materialize",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": "Lambda as function parameter"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "materialize",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "toLowCardinality",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 28
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 28
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 28
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 28
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 28
+                          },
+                          {
+                            "type": "Function",
+                            "name": "toUInt128",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 28
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "limit_length": {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Function",
+              "name": "toLowCardinality",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Function",
+              "name": "toLowCardinality",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 28
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "nullIf",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 50
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "c"
+          },
+          "direction": "ASC",
+          "nulls_first": true
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "group_by_use_nulls": 1
+        }
+      }
+    }
+  ]
+}

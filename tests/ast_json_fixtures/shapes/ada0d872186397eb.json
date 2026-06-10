@@ -1,0 +1,131 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "03408_local"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "min_bytes_for_wide_part": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "modulo",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "leftPad",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "number"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "0"
+                }
+              ]
+            }
+          ],
+          "tables": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 50
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "u",
+          "value_type": "String",
+          "value": "test"
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "ev"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "in",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "a"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "idx"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_global_with_statement": 0
+        }
+      }
+    }
+  ]
+}

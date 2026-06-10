@@ -1,0 +1,25 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "merge_tf"
+    },
+    {
+      "type": "Function",
+      "name": "merge",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ".*"
+        }
+      ]
+    }
+  ]
+}

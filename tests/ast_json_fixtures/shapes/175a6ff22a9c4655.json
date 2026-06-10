@@ -1,0 +1,9 @@
+{
+  "type": "ShowCreateViewQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "view"
+    }
+  ]
+}

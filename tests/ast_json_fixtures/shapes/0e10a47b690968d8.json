@@ -1,0 +1,40 @@
+{
+  "type": "Explain",
+  "children": [
+    {
+      "type": "AlterQuery",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "AlterCommand",
+              "children": [
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "date"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "today",
+                      "arguments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "t1"
+        }
+      ]
+    }
+  ]
+}

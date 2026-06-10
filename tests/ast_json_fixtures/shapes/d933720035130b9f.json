@@ -1,0 +1,66 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "a8x"
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "min_bytes_for_wide_part": 0
+          }
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ],
+          "tables": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "numbers",
+                    "database": "system"
+                  }
+                }
+              }
+            ]
+          },
+          "limit_length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 100
+          }
+        }
+      ]
+    }
+  ]
+}

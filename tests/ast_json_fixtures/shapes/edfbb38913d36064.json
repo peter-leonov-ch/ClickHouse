@@ -1,0 +1,236 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "vec_1",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "groupNumericIndexedVectorStateIf",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "uin"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "value"
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "ds"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "2023-12-20"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "uin_value_details"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "vec_2",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "groupNumericIndexedVectorStateIf",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "uin"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "value"
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "ds"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "2023-12-21"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "uin_value_details"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Function",
+          "alias": "vec_3",
+          "name": "numericIndexedVectorPointwiseDivide",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "vec_1"
+            },
+            {
+              "type": "Identifier",
+              "name": "vec_2"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayJoin",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "numericIndexedVectorShortDebugString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "vec_1"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "numericIndexedVectorAllValueSum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "vec_1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "numericIndexedVectorShortDebugString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "vec_2"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "numericIndexedVectorAllValueSum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "vec_2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "numericIndexedVectorShortDebugString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "vec_3"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "numericIndexedVectorAllValueSum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "vec_3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

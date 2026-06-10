@@ -1,0 +1,168 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "l_t",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "alias": "key",
+                      "value_type": "UInt64",
+                      "value": 42
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "l_t"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "INNER",
+              "on": {
+                "type": "Function",
+                "name": "and",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "l_t.key",
+                        "name_parts": ["l_t", "key"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "r_t.number",
+                        "name_parts": ["r_t", "number"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "in",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "r_t.number",
+                        "name_parts": ["r_t", "number"]
+                      },
+                      {
+                        "type": "Subquery",
+                        "query": {
+                          "type": "SelectWithUnionQuery",
+                          "selects": [
+                            {
+                              "type": "SelectQuery",
+                              "select": [
+                                {
+                                  "type": "Function",
+                                  "name": "multiply",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "number"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": 2
+                                    }
+                                  ]
+                                }
+                              ],
+                              "tables": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "table_function": {
+                                        "type": "Function",
+                                        "name": "numbers",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Float64",
+                                            "value": 1000
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "r_t",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 50
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 0
+        }
+      }
+    }
+  ]
+}

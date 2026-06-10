@@ -1,0 +1,192 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "known_tables",
+          "value_type": "Array",
+          "value": "['asynchronous_metric_log', 'asynchronous_insert_log', 'opentelemetry_span_log', 'coverage_log']"
+        },
+        {
+          "type": "Literal",
+          "alias": "default_sorting_key",
+          "value_type": "String",
+          "value": "event_date, event_time"
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "concat",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Table "
+            },
+            {
+              "type": "Identifier",
+              "name": "name"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " has non-default sorting key: "
+            },
+            {
+              "type": "Identifier",
+              "name": "sorting_key"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tables",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "database"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "system"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "engine"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "MergeTree"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notLike",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "name"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "minio%"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "not",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arraySum",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "arrayMap",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "lambda",
+                        "is_operator": true,
+                        "is_lambda_function": true,
+                        "kind": "LAMBDA_FUNCTION",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "position",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "name"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "known_tables"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "sorting_key"
+              },
+              {
+                "type": "Identifier",
+                "name": "default_sorting_key"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

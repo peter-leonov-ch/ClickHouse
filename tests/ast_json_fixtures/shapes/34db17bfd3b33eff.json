@@ -1,0 +1,151 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "ym:s:paramsLevel1",
+          "name": "PP.Key1",
+          "name_parts": ["PP", "Key1"]
+        },
+        {
+          "type": "Function",
+          "alias": "ym:s:visits",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arrayAll",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "lambda",
+                  "is_operator": true,
+                  "is_lambda_function": true,
+                  "kind": "LAMBDA_FUNCTION",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x_1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x_1"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "ParsedParams.Key2",
+                  "name_parts": ["ParsedParams", "Key2"]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "array_join": {
+              "type": "ArrayJoin",
+              "kind": "INNER",
+              "expressions": [
+                {
+                  "type": "Identifier",
+                  "alias": "PP",
+                  "name": "ParsedParams"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "CounterID"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1704509
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "ym:s:paramsLevel1"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "PP.Key1",
+            "name_parts": ["PP", "Key1"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ym:s:visits"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 100
+      }
+    }
+  ]
+}

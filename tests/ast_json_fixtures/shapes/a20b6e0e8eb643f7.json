@@ -1,0 +1,33 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "url",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "http:\/\/127.0.0.1\/foo.tsv"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "TabSeparated"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "key Int"
+        }
+      ]
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "http_max_tries": 1,
+        "materialized_views_ignore_errors": 1
+      }
+    }
+  ]
+}

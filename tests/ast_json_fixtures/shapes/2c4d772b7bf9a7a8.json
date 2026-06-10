@@ -1,0 +1,34 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "CAST",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Nullable(JSON)"
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

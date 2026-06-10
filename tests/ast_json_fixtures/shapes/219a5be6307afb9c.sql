@@ -1,0 +1,1 @@
+SELECT t1.x FROM t1 JOIN t1 as t2 ON t1.x = t2.x GROUP BY x ORDER BY ALL

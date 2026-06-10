@@ -92,8 +92,40 @@ CLICKHOUSE_BINARY=/path/to/clickhouse ./harvest_stateless.py --write --out harve
 - Output filenames are content hashes; pass `--limit N` for a quick sample
   and `--batch 1` to fall back to one process per statement.
 
-The harvested corpus is **not committed** (tens of thousands of files);
+The full harvested corpus is **not committed** (tens of thousands of files);
 generate it locally when you need it. Note that non-SELECT statements
 (DDL/DML such as `InsertQuery`, `CreateQuery`) appear too — their nodes are
 not specially enriched yet, so they fall back to the positional `children`
 array, but the JSON is still valid and reflects the reference parser.
+
+### Shape dedup — `shapes/`
+
+Text de-dup still leaves ~86k statements (`SELECT a` and `SELECT b` are
+distinct). `--dedupe shape` instead keeps one representative per distinct
+*AST shape*: a structural signature of node types, slot keys, enum/flag
+scalars and literal `value_type`, dropping leaf values (names, literals,
+aliases, settings contents). The representative kept is the shortest
+statement for that shape, so the selection is deterministic.
+
+`--shape-depth D` caps the signature depth for coarser dedup. Observed
+counts over the stateless corpus:
+
+| depth | distinct shapes |
+|------:|----------------:|
+| 2 | 155 |
+| 3 | 1,440 |
+| 4 | 5,141 |
+| 5 | 9,797 |
+| ∞ (0) | 16,733 |
+
+The committed `shapes/` directory is the **depth-3** set — 1,440
+structurally-distinct, shortest-representative pairs (~12 MB), a compact
+high-coverage corpus for parser conformance. Regenerate with:
+
+```bash
+CLICKHOUSE_BINARY=/path/to/clickhouse \
+    ./harvest_stateless.py --dedupe shape --shape-depth 3 --out shapes --write
+```
+
+Use a larger `--shape-depth` (or `0`) for finer coverage, smaller for a
+quick smoke set.

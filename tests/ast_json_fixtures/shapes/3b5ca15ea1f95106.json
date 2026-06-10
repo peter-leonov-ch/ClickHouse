@@ -1,0 +1,108 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Function",
+        "name": "tupleElement",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "sum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "number"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "count",
+                      "arguments": []
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "table_function": {
+                            "type": "Function",
+                            "name": "numbers",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 3
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    }
+  ]
+}

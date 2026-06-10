@@ -1,0 +1,59 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "throwIf",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "empty",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "partition"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "part_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "database"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          }
+        ]
+      }
+    }
+  ]
+}

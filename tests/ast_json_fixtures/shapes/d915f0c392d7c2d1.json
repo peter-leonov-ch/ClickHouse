@@ -1,0 +1,33 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "tlb"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "k"
+        }
+      ]
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

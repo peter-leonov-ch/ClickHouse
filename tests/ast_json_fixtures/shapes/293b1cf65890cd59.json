@@ -1,0 +1,15 @@
+{
+  "type": "DropQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_join"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "ignore_drop_queries_probability": 1
+      }
+    }
+  ]
+}

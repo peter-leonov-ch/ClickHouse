@@ -1,0 +1,112 @@
+{
+  "type": "ExecuteAsQuery",
+  "children": [
+    {
+      "type": "UserNameWithHost",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "test_03727"
+        }
+      ]
+    },
+    {
+      "type": "AlterQuery",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "AlterCommand",
+              "children": [
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "n"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "ExpressionList",
+                  "children": [
+                    {
+                      "type": "Assignment",
+                      "children": [
+                        {
+                          "type": "Subquery",
+                          "query": {
+                            "type": "SelectWithUnionQuery",
+                            "selects": [
+                              {
+                                "type": "SelectQuery",
+                                "select": [
+                                  {
+                                    "type": "Asterisk"
+                                  }
+                                ],
+                                "tables": {
+                                  "type": "TablesInSelectQuery",
+                                  "children": [
+                                    {
+                                      "type": "TablesInSelectQueryElement",
+                                      "table_expression": {
+                                        "type": "TableExpression",
+                                        "table_function": {
+                                          "type": "Function",
+                                          "name": "remote",
+                                          "arguments": [
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "String",
+                                              "value": "localhost"
+                                            },
+                                            {
+                                              "type": "Function",
+                                              "name": "currentDatabase",
+                                              "arguments": []
+                                            },
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "String",
+                                              "value": "secret"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "limit_length": {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "normal"
+        }
+      ]
+    }
+  ]
+}

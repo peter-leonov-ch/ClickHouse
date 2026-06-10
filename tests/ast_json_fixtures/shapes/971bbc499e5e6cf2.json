@@ -1,0 +1,128 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        },
+        {
+          "type": "Function",
+          "alias": "p",
+          "name": "intDiv",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "o",
+          "name": "mod",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "c",
+          "name": "count",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ],
+          "window_name": "w"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 31
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "window": [
+        {
+          "type": "WindowListElement",
+          "name": "w",
+          "definition": {
+            "type": "WindowDefinition",
+            "partition_by": [
+              {
+                "type": "Identifier",
+                "name": "p"
+              }
+            ],
+            "order_by": [
+              {
+                "type": "OrderByElement",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "o"
+                },
+                "direction": "ASC"
+              }
+            ],
+            "frame_type": "RANGE",
+            "frame_begin_type": "Unbounded",
+            "frame_begin_preceding": true,
+            "frame_end_type": "Current",
+            "frame_end_preceding": false
+          }
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "max_block_size": 5
+        }
+      }
+    }
+  ]
+}

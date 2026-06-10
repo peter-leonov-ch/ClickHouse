@@ -1,0 +1,66 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "type",
+          "value_type": "String",
+          "value": "processed"
+        },
+        {
+          "type": "Function",
+          "alias": "max_date",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "min_date",
+          "name": "min",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 100
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "type"
+        }
+      ]
+    }
+  ]
+}

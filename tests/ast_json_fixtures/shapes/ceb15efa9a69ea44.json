@@ -1,0 +1,14 @@
+{
+  "type": "CreateFunctionQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "02181_invalid_lambda"
+    },
+    {
+      "type": "Function",
+      "name": "lambda",
+      "arguments": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "Rename",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t0"
+    },
+    {
+      "type": "Identifier",
+      "name": "t1"
+    }
+  ]
+}

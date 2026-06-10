@@ -1,0 +1,42 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "part"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "p_partkey"
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "auto_statistics_types": "uniq"
+          }
+        }
+      ]
+    }
+  ]
+}

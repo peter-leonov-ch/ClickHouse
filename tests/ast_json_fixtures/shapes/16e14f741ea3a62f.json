@@ -1,0 +1,25 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "t.parquet"
+        },
+        {
+          "type": "Identifier",
+          "name": "Parquet"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "x String"
+        }
+      ]
+    }
+  ]
+}

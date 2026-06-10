@@ -1,0 +1,9 @@
+{
+  "type": "TruncateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "tab"
+    }
+  ]
+}

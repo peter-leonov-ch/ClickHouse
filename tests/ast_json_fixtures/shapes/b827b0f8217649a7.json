@@ -1,0 +1,55 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ""
+        },
+        {
+          "type": "Literal",
+          "value_type": "Array",
+          "value": "['\\0']"
+        },
+        {
+          "type": "Function",
+          "name": "array",
+          "is_operator": true,
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "singleValueOrNull",
+          "arguments": [
+            {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "\u0000"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Array",
+          "value": "['']"
+        }
+      ]
+    }
+  ]
+}

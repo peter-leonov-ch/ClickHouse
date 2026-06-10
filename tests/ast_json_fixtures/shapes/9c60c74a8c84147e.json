@@ -1,0 +1,14 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": 1
+    },
+    {
+      "type": "Identifier",
+      "name": "t_lwd_vertical"
+    }
+  ]
+}

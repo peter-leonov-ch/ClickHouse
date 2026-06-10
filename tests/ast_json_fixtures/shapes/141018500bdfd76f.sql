@@ -1,0 +1,1 @@
+SELECT 1 AS a FROM tb JOIN tabc USING (a) ORDER BY ALL

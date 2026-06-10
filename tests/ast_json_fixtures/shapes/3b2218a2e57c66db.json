@@ -1,0 +1,147 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "block_0",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Asterisk"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "loans"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "WithElement",
+          "name": "block_1",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "alias": "loan_number",
+                      "name": "sum",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "loan_number"
+                        }
+                      ]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "block_0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "group_by": [
+                    {
+                      "type": "Identifier",
+                      "name": "security_id"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "loan_number"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "block_1"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "loan_number"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 3
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "loan_number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "prefer_column_name_to_alias": 1
+        }
+      }
+    }
+  ]
+}

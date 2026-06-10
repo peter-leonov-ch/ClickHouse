@@ -1,0 +1,1 @@
+OPTIMIZE TABLE t_shared PARTITION ID 'all' FINAL

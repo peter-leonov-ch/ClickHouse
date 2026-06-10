@@ -1,0 +1,55 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "n",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "multiply",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Identifier",
+              "name": "n"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

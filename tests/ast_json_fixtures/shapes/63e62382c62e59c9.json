@@ -1,0 +1,213 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "predicate",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "modulo",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "WatchID"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        },
+        {
+          "type": "Function",
+          "name": "minIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "maxIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "sumIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "avgIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "avgWeightedIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "CounterID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "countIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "groupBitOrIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "groupBitAndIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "groupBitXorIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "WatchID"
+            },
+            {
+              "type": "Identifier",
+              "name": "predicate"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          "direction": "DESC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 20
+      }
+    }
+  ]
+}

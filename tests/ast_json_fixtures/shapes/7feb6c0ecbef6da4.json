@@ -1,0 +1,14 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "copy_with_comment"
+    },
+    {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "new comment"
+    }
+  ]
+}

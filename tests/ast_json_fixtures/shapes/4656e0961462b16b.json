@@ -1,0 +1,62 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "127.0.0.{2,3}"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "currentDatabase",
+                    "arguments": []
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "data_00184"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "distributed_group_by_no_merge": 2
+        }
+      }
+    }
+  ]
+}

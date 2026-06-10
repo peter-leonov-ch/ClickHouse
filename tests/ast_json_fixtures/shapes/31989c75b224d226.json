@@ -1,0 +1,9 @@
+{
+  "type": "ExistsTableQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t_01048"
+    }
+  ]
+}

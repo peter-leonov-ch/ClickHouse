@@ -1,0 +1,138 @@
+{
+  "type": "AttachQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "bloom_filter_idx_good"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType",
+                  "children": [
+                    {
+                      "type": "ExpressionList",
+                      "children": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 10
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "EnumDataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Index",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "i32"
+                },
+                {
+                  "type": "Function",
+                  "name": "bloom_filter",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Float64",
+                      "value": -0.1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "u64"
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "index_granularity": 8192
+          }
+        }
+      ]
+    }
+  ]
+}

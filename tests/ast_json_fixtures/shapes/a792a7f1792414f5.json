@@ -1,0 +1,34 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "x",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(0, 2)"
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ]
+    }
+  ]
+}

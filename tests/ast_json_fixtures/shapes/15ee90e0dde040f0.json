@@ -1,0 +1,31 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "equals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "test_deletes"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "lightweight_deletes_sync": 0
+      }
+    }
+  ]
+}

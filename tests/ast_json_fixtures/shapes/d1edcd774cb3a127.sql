@@ -1,0 +1,4 @@
+WITH (d < '2018-01-01') AND (d < '2018-01-02') AS x
+SELECT 1
+FROM t
+WHERE x

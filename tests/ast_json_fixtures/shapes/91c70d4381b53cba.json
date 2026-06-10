@@ -1,0 +1,82 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "l",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Literal",
+          "alias": "r",
+          "value_type": "UInt64",
+          "value": 10
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "multiply",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 5
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          },
+          "direction": "ASC",
+          "with_fill": true,
+          "fill_from": {
+            "type": "Identifier",
+            "name": "l"
+          },
+          "fill_to": {
+            "type": "Identifier",
+            "name": "r"
+          }
+        }
+      ]
+    }
+  ]
+}

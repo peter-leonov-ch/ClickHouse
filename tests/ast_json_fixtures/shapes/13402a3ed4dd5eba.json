@@ -1,0 +1,29 @@
+{
+  "type": "ParallelWithQuery",
+  "children": [
+    {
+      "type": "OptimizeQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "test_table"
+        }
+      ]
+    },
+    {
+      "type": "OptimizeQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "t2"
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "max_threads": 10
+          }
+        }
+      ]
+    }
+  ]
+}

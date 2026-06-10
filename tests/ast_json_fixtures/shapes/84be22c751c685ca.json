@@ -1,0 +1,86 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_grouping_sets": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "a",
+          "name": "number"
+        },
+        {
+          "type": "Function",
+          "alias": "b",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "127.0.0.{1,2}"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "numbers_mt",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 100000
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ]
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

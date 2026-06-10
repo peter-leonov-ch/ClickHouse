@@ -1,0 +1,1 @@
+SELECT t.COLUMNS('^c') FROM t, u

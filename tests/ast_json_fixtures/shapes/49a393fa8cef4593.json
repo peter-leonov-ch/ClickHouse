@@ -1,0 +1,98 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "x"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            },
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "name": "indexHint",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "dt"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "dt"
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "TTLElement",
+              "children": [
+                {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "dt"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toIntervalDay",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 15
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "index_granularity": 8192
+          }
+        }
+      ]
+    }
+  ]
+}

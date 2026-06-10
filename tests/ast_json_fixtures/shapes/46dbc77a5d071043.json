@@ -1,0 +1,69 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        },
+        {
+          "type": "Function",
+          "name": "uniq",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "UserID"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "CounterID"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_aggregation_in_order": 1
+        }
+      }
+    }
+  ]
+}

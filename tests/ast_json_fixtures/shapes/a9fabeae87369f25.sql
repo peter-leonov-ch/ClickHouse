@@ -1,0 +1,1 @@
+SELECT s != '' FROM test WHERE s < '99999999' LIMIT 1

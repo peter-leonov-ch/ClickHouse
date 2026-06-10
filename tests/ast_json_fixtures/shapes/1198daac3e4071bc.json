@@ -1,0 +1,62 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "array_join": {
+              "type": "ArrayJoin",
+              "kind": "INNER",
+              "expressions": [
+                {
+                  "type": "Identifier",
+                  "name": "arr"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "where": {
+        "type": "Identifier",
+        "name": "arr"
+      }
+    }
+  ]
+}

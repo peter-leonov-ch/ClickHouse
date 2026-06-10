@@ -1,0 +1,82 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "q",
+          "name": "arrayElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "URLHierarchy",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "URL"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "alias": "w",
+          "value_type": "String",
+          "value": "x"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "CounterID"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 14917930
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "URL"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

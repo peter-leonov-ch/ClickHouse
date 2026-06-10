@@ -1,0 +1,51 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "src",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 123
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "String"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "theAlias"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "alias_bug_dist"
+              }
+            }
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    }
+  ]
+}

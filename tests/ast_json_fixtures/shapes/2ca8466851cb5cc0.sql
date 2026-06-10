@@ -1,0 +1,1 @@
+SELECT *, _part_offset = (isNullable(1) = toUInt128(6)), * FROM test_simple_projection PREWHERE (101 = user_id) = ignore(255, isZeroOrNull(assumeNotNull(0))) WHERE (106 = user_id) AND (region = 'us_west')

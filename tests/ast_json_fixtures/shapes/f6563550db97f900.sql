@@ -1,0 +1,1 @@
+SELECT c FROM multi_int ORDER BY ALL SETTINGS extremes=1

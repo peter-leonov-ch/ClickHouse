@@ -1,0 +1,18 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "test_02184"
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "kek"
+        }
+      ]
+    }
+  ]
+}

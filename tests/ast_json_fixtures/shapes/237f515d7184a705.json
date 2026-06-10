@@ -1,0 +1,19 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Partition_ID",
+      "children": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "all"
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "t_shared"
+    }
+  ]
+}

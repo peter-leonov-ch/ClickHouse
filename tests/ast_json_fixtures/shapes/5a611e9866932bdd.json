@@ -1,0 +1,136 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "id",
+          "name": "any",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "uuid"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "time_delta",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "max",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "end_ts"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "any",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "start_ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "start_ts",
+          "name": "any",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "start_ts"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "end_ts",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "end_ts"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "mytable"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "uuid"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "end_ts"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1620141001
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Function",
+            "name": "any",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "start_ts"
+              }
+            ]
+          },
+          "direction": "DESC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "prefer_column_name_to_alias": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "alter_ttl"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "i"
+        },
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "TTLElement",
+              "children": [
+                {
+                  "type": "Function",
+                  "name": "toDate",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "2020-05-05"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Identifier",
+          "name": "val"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "03408_memory"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Identifier",
+          "name": "val"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 7
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "id"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "val"
+          },
+          "direction": "DESC"
+        }
+      ],
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 3
+      }
+    }
+  ]
+}

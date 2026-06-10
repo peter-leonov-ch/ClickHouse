@@ -1,0 +1,44 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "db1"
+    },
+    {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ]
+    }
+  ]
+}

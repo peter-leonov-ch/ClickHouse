@@ -1,0 +1,74 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "m02006"
+    },
+    {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Function",
+              "alias": "total",
+              "name": "sum",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "b"
+                }
+              ]
+            }
+          ],
+          "tables": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "t02006"
+                  }
+                }
+              }
+            ]
+          },
+          "group_by": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ],
+          "order_by": [
+            {
+              "type": "OrderByElement",
+              "expression": {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              },
+              "direction": "ASC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ViewTargets"
+    },
+    {
+      "type": "Identifier",
+      "name": "Null"
+    }
+  ]
+}

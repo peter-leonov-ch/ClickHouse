@@ -1,0 +1,103 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "offset",
+          "name": "negate",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "length",
+          "name": "number"
+        },
+        {
+          "type": "Literal",
+          "alias": "s",
+          "value_type": "String",
+          "value": "Hello"
+        },
+        {
+          "type": "Function",
+          "name": "substring",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "bin",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "offset"
+            },
+            {
+              "type": "Identifier",
+              "name": "length"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "bin",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "bitSlice",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "offset"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "length"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 16
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

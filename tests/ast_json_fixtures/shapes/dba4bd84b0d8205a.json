@@ -1,0 +1,78 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "type"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "prd_bid_events_simple_no_partition"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "date",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "timestamp"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "2025-11-01"
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "type"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "type"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "ad_request"
+          }
+        ]
+      }
+    }
+  ]
+}

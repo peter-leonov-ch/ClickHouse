@@ -1,0 +1,1 @@
+SELECT x, (SELECT 1 AS x)

@@ -1,0 +1,40 @@
+{
+  "type": "UpdateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t_shared"
+    },
+    {
+      "type": "Function",
+      "name": "equals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Assignment",
+          "children": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "DropQuery",
+  "children": [
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "TableIdentifier",
+          "name": "t1"
+        },
+        {
+          "type": "TableIdentifier",
+          "name": "t2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "03222_timeseries_table4"
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "TimeSeries",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "store_min_time_and_max_time": 0
+          }
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "Null"
+    }
+  ]
+}

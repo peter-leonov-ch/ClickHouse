@@ -1,0 +1,184 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ProfileEvents"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "LoadedMarksCount"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Function",
+              "name": "toLowCardinality",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "nonexistent",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "match",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "query"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "SELECT * FROM t_prewarm_add_column%"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "currentDatabase",
+                "arguments": []
+              },
+              {
+                "type": "Identifier",
+                "name": "current_database"
+              }
+            ]
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "notLike",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "SELECT * FROM t_prewarm_add_column%"
+              },
+              {
+                "type": "Identifier",
+                "name": "query"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "type"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "QueryFinish"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "current_database"
+              },
+              {
+                "type": "Function",
+                "name": "currentDatabase",
+                "arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ALL"
+          },
+          "direction": "DESC",
+          "nulls_first": true
+        }
+      ]
+    }
+  ]
+}

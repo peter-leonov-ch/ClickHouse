@@ -1,0 +1,59 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "test_cluster_two_shards"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "system"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "one"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "hi"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 1,
+          "group_by_two_level_threshold": 1,
+          "group_by_two_level_threshold_bytes": 33950592
+        }
+      }
+    }
+  ]
+}

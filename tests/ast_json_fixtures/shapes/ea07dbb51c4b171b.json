@@ -1,0 +1,43 @@
+{
+  "type": "Explain",
+  "children": [
+    {
+      "type": "InsertQuery",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "t_mt"
+        },
+        {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
+                {
+                  "type": "Asterisk"
+                }
+              ],
+              "tables": {
+                "type": "TablesInSelectQuery",
+                "children": [
+                  {
+                    "type": "TablesInSelectQueryElement",
+                    "table_expression": {
+                      "type": "TableExpression",
+                      "database_and_table_name": {
+                        "type": "TableIdentifier",
+                        "name": "one",
+                        "database": "system"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+SELECT rank() OVER (ORDER BY c0) FROM (SELECT '1' c0) v0 QUALIFY rank() OVER (ORDER BY c0) > 0

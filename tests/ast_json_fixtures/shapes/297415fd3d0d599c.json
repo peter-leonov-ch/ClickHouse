@@ -1,0 +1,29 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "x",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": []
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "reverse",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

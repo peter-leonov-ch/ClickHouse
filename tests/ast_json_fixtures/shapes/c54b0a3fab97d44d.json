@@ -1,0 +1,234 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "ws_wh",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "ws1.ws_order_number",
+                      "name_parts": ["ws1", "ws_order_number"]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "subquery": {
+                            "type": "Subquery",
+                            "alias": "ws1",
+                            "query": {
+                              "type": "SelectWithUnionQuery",
+                              "selects": [
+                                {
+                                  "type": "SelectQuery",
+                                  "select": [
+                                    {
+                                      "type": "Literal",
+                                      "alias": "ws_order_number",
+                                      "value_type": "UInt64",
+                                      "value": 1
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "alias": "ws_warehouse_sk",
+                                      "value_type": "UInt64",
+                                      "value": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_join": {
+                          "type": "TableJoin",
+                          "kind": "COMMA"
+                        },
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "subquery": {
+                            "type": "Subquery",
+                            "alias": "ws2",
+                            "query": {
+                              "type": "SelectWithUnionQuery",
+                              "selects": [
+                                {
+                                  "type": "SelectQuery",
+                                  "select": [
+                                    {
+                                      "type": "Literal",
+                                      "alias": "ws_order_number",
+                                      "value_type": "UInt64",
+                                      "value": 1
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "alias": "ws_warehouse_sk",
+                                      "value_type": "UInt64",
+                                      "value": 2
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "and",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "ws1.ws_order_number",
+                            "name_parts": ["ws1", "ws_order_number"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "ws2.ws_order_number",
+                            "name_parts": ["ws2", "ws_order_number"]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "notEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "ws1.ws_warehouse_sk",
+                            "name_parts": ["ws1", "ws_warehouse_sk"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "ws2.ws_warehouse_sk",
+                            "name_parts": ["ws2", "ws_warehouse_sk"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "COUNT",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "ws1",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "ws_order_number",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "in",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "ws1.ws_order_number",
+            "name_parts": ["ws1", "ws_order_number"]
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "ws_order_number"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "ws_wh"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "join_use_nulls": 1
+        }
+      }
+    }
+  ]
+}

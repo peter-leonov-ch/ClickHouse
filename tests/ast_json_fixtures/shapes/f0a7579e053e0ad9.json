@@ -1,0 +1,9 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "b"
+    }
+  ]
+}

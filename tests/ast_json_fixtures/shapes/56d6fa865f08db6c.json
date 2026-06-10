@@ -1,0 +1,24 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "dist_tbl"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "key"
+        }
+      ]
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "distributed_foreground_insert": 1
+      }
+    }
+  ]
+}

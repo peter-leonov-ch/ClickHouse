@@ -1,0 +1,17 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "tmp"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Asterisk"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+EXPLAIN SELECT number FROM numbers_mt(1000) GROUP BY number FORMAT Null

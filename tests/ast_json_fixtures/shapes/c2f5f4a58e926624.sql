@@ -1,0 +1,1 @@
+SELECT 1, URL, count() AS c FROM test.hits_s3 GROUP BY 1, URL ORDER BY c DESC LIMIT 10

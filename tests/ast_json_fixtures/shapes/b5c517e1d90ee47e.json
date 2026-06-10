@@ -1,0 +1,18 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "c1"
+        }
+      ]
+    }
+  ]
+}

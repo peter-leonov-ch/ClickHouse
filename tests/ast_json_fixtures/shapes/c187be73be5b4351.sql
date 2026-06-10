@@ -1,0 +1,1 @@
+SELECT 1 FROM system.one LIMIT 1 BY 1

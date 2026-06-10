@@ -1,0 +1,291 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "recursive_with": true,
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "t",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "alias": "id",
+                      "value_type": "UInt64",
+                      "value": 1
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "path",
+                      "name": "CAST",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "[]"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "Array(UInt64)"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "tree.id",
+                      "name_parts": ["tree", "id"]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "arrayConcat",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t.path",
+                          "name_parts": ["t", "path"]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "array",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "tree.id",
+                              "name_parts": ["tree", "id"]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "tree"
+                          }
+                        }
+                      },
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_join": {
+                          "type": "TableJoin",
+                          "kind": "INNER",
+                          "on": {
+                            "type": "Function",
+                            "name": "equals",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "tree.parent_id",
+                                "name_parts": ["tree", "parent_id"]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "t.id",
+                                "name_parts": ["t", "id"]
+                              }
+                            ]
+                          }
+                        },
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "t"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "t1.id",
+          "name_parts": ["t1", "id"]
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t2.path",
+              "name_parts": ["t2", "path"]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "t1",
+                "name": "t"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "INNER",
+              "on": {
+                "type": "Function",
+                "name": "and",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "arrayElement",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.path",
+                            "name_parts": ["t1", "path"]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 1
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "arrayElement",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t2.path",
+                            "name_parts": ["t2", "path"]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "length",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.path",
+                            "name_parts": ["t1", "path"]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "greater",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "length",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t2.path",
+                            "name_parts": ["t2", "path"]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "t2",
+                "name": "t"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "t1.id",
+          "name_parts": ["t1", "id"]
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "t1.id",
+            "name_parts": ["t1", "id"]
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

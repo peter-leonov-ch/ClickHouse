@@ -1,0 +1,86 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "value",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "max",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "i"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "t1"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "i",
+          "name": "value"
+        },
+        {
+          "type": "Identifier",
+          "alias": "j",
+          "name": "value"
+        },
+        {
+          "type": "Identifier",
+          "alias": "k",
+          "name": "value"
+        },
+        {
+          "type": "Identifier",
+          "alias": "l",
+          "name": "value"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t1"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

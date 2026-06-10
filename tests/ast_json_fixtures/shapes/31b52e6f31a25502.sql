@@ -1,0 +1,1 @@
+detach table b

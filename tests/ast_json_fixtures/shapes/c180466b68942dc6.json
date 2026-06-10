@@ -1,0 +1,68 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "l",
+                "name": "t"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "INNER",
+              "on": {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "l.id",
+                    "name_parts": ["l", "id"]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "r.id",
+                    "name_parts": ["r", "id"]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "r",
+                "name": "t"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Identifier",
+        "name": "l.x",
+        "name_parts": ["l", "x"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+SELECT DISTINCT x / 2, y FROM tab

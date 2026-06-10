@@ -1,0 +1,58 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Int64",
+          "value": -1
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Int64",
+              "value": -1
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": -0
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": -0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "table_uuid",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Identifier",
+                    "name": "uuid"
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "tables",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "where": {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "database"
+                        },
+                        {
+                          "type": "Function",
+                          "name": "currentDatabase",
+                          "arguments": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "name"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "02581_trips"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "mutation_version",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arrayElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "splitByChar",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "_"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "query_id"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "UInt64"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "has_parts_for_which_set_was_built",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "sum",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "like",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "message"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "Created Set with % entries%"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "has_parts_that_shared_set",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "sum",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "like",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "message"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "Got set from cache%"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "text_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "like",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "query_id"
+              },
+              {
+                "type": "Function",
+                "name": "concat",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "CAST",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "table_uuid"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "String"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "::all\\_%"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greaterOrEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "event_date"
+              },
+              {
+                "type": "Function",
+                "name": "yesterday",
+                "arguments": []
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "or",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "like",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "message"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Created Set with % entries%"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "like",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "message"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Got set from cache%"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "mutation_version"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "mutation_version"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

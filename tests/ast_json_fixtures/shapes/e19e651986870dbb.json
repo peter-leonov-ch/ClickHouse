@@ -1,0 +1,97 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "compound_value",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Tuple (value UInt64)"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "test_table"
+          },
+          "transformers": {
+            "type": "ColumnsTransformerList",
+            "children": [
+              {
+                "type": "ColumnsApplyTransformer",
+                "lambda": {
+                  "type": "Function",
+                  "name": "lambda",
+                  "is_operator": true,
+                  "is_lambda_function": true,
+                  "kind": "LAMBDA_FUNCTION",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "QualifiedAsterisk",
+                      "qualifier": {
+                        "type": "Identifier",
+                        "name": "compound_value"
+                      }
+                    }
+                  ]
+                },
+                "lambda_arg": "x"
+              }
+            ]
+          }
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_table"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

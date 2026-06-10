@@ -1,0 +1,245 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 38
+        },
+        {
+          "type": "Function",
+          "name": "concat",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "position",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "concat",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "concat",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "position",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "concat",
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "toUInt256",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": 3
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "ca"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 2
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "NULLIF",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Function",
+                          "name": "materialize",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toLowCardinality",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toLowCardinality",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toNullable",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "ca"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "concat",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "NULLIF",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "concat",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 3
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "set_index_not__fuzz_0"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "toNullable",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "concat",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "concat",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "NULLIF",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toNullable",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 1
+        }
+      }
+    }
+  ]
+}

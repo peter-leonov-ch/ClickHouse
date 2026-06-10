@@ -1,0 +1,1 @@
+SELECT value AS alias_value FROM test_table__fuzz_4 INNER JOIN (SELECT isNullable(isNotNull(38)), * FROM test_table__fuzz_2) AS alias272 ON equals(value AS alias_value, alias272.value) GROUP BY less(toNullable(38) AS alias174, assumeNotNull(2)), 1, equals(isZeroOrNull(1), toUInt128(materialize(toNullable(toUInt128(38))))) WITH CUBE WITH TOTALS

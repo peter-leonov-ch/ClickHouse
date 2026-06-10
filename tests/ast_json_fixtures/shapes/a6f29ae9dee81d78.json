@@ -1,0 +1,57 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "ok",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t.val",
+              "name_parts": ["t", "val"]
+            },
+            {
+              "type": "Identifier",
+              "name": "t.expected",
+              "name_parts": ["t", "expected"]
+            }
+          ]
+        },
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "t",
+                "name": "t_leading_zeroes"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "id"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

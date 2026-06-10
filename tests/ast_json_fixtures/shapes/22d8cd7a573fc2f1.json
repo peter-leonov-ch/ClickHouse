@@ -1,0 +1,25 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Partition",
+      "children": [
+        {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 123
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "rmt"
+    }
+  ]
+}

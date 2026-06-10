@@ -1,0 +1,104 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "cte_4",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "alias": "c_2_c2398_0",
+                      "name": "rank",
+                      "is_window_function": true,
+                      "kind": "WINDOW_FUNCTION",
+                      "arguments": [],
+                      "window_name": "w0"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "alias": "ref_15",
+                            "name": "t3"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "window": [
+                    {
+                      "type": "WindowListElement",
+                      "name": "w0",
+                      "definition": {
+                        "type": "WindowDefinition",
+                        "partition_by": [
+                          {
+                            "type": "Identifier",
+                            "name": "ref_15.c_2_c16_0",
+                            "name_parts": ["ref_15", "c_2_c16_0"]
+                          }
+                        ],
+                        "order_by": [
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "ref_15.c_2_c16_0",
+                              "name_parts": ["ref_15", "c_2_c16_0"]
+                            },
+                            "direction": "DESC"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "c_9_c2479_0",
+          "name": "ref_39.c_2_c2398_0",
+          "name_parts": ["ref_39", "c_2_c2398_0"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "ref_39",
+                "name": "cte_4"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

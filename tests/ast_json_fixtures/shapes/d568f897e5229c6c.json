@@ -1,0 +1,25 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "t1"
+    },
+    {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "127.0.0.1"
+        },
+        {
+          "type": "Identifier",
+          "name": "system.one",
+          "name_parts": ["system", "one"]
+        }
+      ]
+    }
+  ]
+}

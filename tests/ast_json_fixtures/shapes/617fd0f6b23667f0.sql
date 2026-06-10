@@ -1,0 +1,1 @@
+SHOW TABLES FROM shard_0

@@ -1,0 +1,1 @@
+SELECT c0, _part FROM t ORDER BY ALL

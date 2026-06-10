@@ -1,0 +1,55 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "d0"
+    },
+    {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "DictionaryAttributeDeclaration",
+          "children": [
+            {
+              "type": "DataType"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Dictionary",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            }
+          ]
+        },
+        {
+          "type": "FunctionWithKeyValueArguments",
+          "children": [
+            {
+              "type": "ExpressionList"
+            }
+          ]
+        },
+        {
+          "type": "Dictionary"
+        },
+        {
+          "type": "Dictionary",
+          "children": [
+            {
+              "type": "ExpressionList"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

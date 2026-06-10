@@ -1,0 +1,1 @@
+SHOW KEYS FROM tbl

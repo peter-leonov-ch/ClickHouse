@@ -1,0 +1,56 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "s"
+        },
+        {
+          "type": "Identifier",
+          "name": "lc"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "mv"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "not",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "ignore",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "lc"
+              }
+            ]
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 0
+        }
+      }
+    }
+  ]
+}

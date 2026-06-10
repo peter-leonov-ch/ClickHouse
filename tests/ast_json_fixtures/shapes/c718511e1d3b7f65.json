@@ -1,0 +1,49 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "Test select text + hasAnyTokens:"
+        },
+        {
+          "type": "Identifier",
+          "name": "text"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "hasAnyTokens",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "text"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Array",
+            "value": "['Alick']"
+          }
+        ]
+      }
+    }
+  ]
+}

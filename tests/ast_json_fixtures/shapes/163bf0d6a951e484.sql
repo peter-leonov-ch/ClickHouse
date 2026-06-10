@@ -1,0 +1,1 @@
+INSERT INTO test_00209 SELECT 1 AS x SETTINGS extremes = 1

@@ -1,0 +1,13 @@
+{
+  "type": "DescribeQuery",
+  "children": [
+    {
+      "type": "TableExpression",
+      "table_function": {
+        "type": "Function",
+        "name": "null",
+        "arguments": []
+      }
+    }
+  ]
+}

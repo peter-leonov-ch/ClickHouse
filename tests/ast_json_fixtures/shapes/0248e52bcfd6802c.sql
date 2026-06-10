@@ -1,0 +1,6 @@
+SELECT t2.id || '_1' AS id, t1.val
+FROM t1
+FULL JOIN t2 ON t1.id = t2.id
+FULL JOIN t3 USING (id)
+ORDER BY t1.val
+SETTINGS join_use_nulls = 1

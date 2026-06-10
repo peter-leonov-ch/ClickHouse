@@ -1,0 +1,209 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "min",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "d"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "_partition_value"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "ignore",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "bitTest",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "ignore",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tupleElement",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "_partition_value"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 7
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "10.25"
+            },
+            {
+              "type": "Function",
+              "name": "bitTest",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Function",
+              "name": "ignore",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "ignore",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Int64",
+                      "value": -2147483647
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1024
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "_partition_id"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "_partition_id"
+          },
+          "direction": "ASC",
+          "nulls_first": true
+        }
+      ]
+    }
+  ]
+}

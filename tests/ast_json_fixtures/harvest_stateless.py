@@ -16,11 +16,55 @@ Usage:
 """
 import argparse
 import hashlib
+import json
 import os
 import re
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
+
+# Leaf "value" fields dropped from the structural signature: two queries that
+# differ only in identifier names, literal values, aliases, settings contents,
+# patterns, etc. collapse to the same AST shape. Enum/flag scalars (direction,
+# kind, strictness, union_mode, frame_type, is_operator, ...) and literal
+# `value_type` are kept, so each parser branch stays represented.
+SHAPE_DROP_KEYS = {
+    "name", "name_parts", "alias", "database", "value", "cte_name",
+    "parent_window_name", "window_name", "column", "func_name", "lambda_arg",
+    "column_name_prefix", "pattern", "numerator", "denominator", "changes",
+    "default_settings",
+}
+
+
+def ast_shape(node, depth=0):
+    """A canonical structural signature of a JSON AST: node types + slot keys +
+    enum/flag scalars, recursing into nested nodes. Consecutive identical
+    children collapse, so list arity does not multiply distinct shapes.
+
+    `depth` (0 = unlimited) caps recursion: nodes below it collapse to their
+    type, giving a coarser signature and fewer distinct shapes."""
+    if isinstance(node, dict):
+        if depth == 1:
+            return node.get("type", "?") + "(...)"
+        parts = []
+        for k in sorted(node):
+            if k == "type" or k in SHAPE_DROP_KEYS:
+                continue
+            v = node[k]
+            if isinstance(v, (dict, list)):
+                parts.append(k + "=" + ast_shape(v, depth - 1 if depth else 0))
+            else:
+                parts.append(k + "=" + str(v))
+        return node.get("type", "?") + "(" + ",".join(parts) + ")"
+    if isinstance(node, list):
+        out, prev = [], None
+        for e in node:
+            s = ast_shape(e, depth)
+            if s != prev:  # collapse runs of identical child shapes
+                out.append(s)
+                prev = s
+        return "[" + ",".join(out) + "]"
+    return str(node)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATELESS = os.path.normpath(os.path.join(HERE, "..", "queries", "0_stateless"))
@@ -103,7 +147,7 @@ def explain(binary, stmt):
     try:
         r = subprocess.run(
             [binary, "local", "--format", "TSVRaw", "-q", "EXPLAIN AST json = 1 " + stmt],
-            capture_output=True, text=True, timeout=30,
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30,
         )
     except subprocess.TimeoutExpired:
         return None
@@ -130,7 +174,7 @@ def explain_batch(binary, stmts):
     try:
         r = subprocess.run(
             [binary, "local", "--format", "TSVRaw", "--multiquery", "--ignore-error"],
-            input="\n".join(script), capture_output=True, text=True, timeout=600,
+            input="\n".join(script), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=600,
         )
     except subprocess.TimeoutExpired:
         return [None] * len(stmts)
@@ -161,6 +205,12 @@ def main():
     ap.add_argument("--jobs", type=int, default=8, help="parallel batches")
     ap.add_argument("--batch", type=int, default=500, help="statements per process (1 = per-statement)")
     ap.add_argument("--binary", default=os.environ.get("CLICKHOUSE_BINARY", "clickhouse"))
+    ap.add_argument("--dedupe", choices=["text", "shape"], default="text",
+                    help="text = unique statement text (default); "
+                         "shape = one representative per distinct AST shape")
+    ap.add_argument("--shape-depth", type=int, default=0,
+                    help="shape dedup: cap signature depth (0 = unlimited); "
+                         "smaller = coarser shapes, fewer representatives")
     ap.add_argument("--write", action="store_true", help="write pairs (otherwise dry-run stats only)")
     args = ap.parse_args()
 
@@ -185,20 +235,44 @@ def main():
         pairs = [(s, js) for s, js in zip(batch, results) if js is not None]
         return len(pairs), len(batch) - len(pairs), pairs
 
+    # shape dedup keeps one representative per AST shape: the shortest
+    # statement (ties broken lexicographically) so the choice is deterministic
+    # regardless of batch completion order.
+    reps = {}
+    written = 0
+
     batches = [stmts[i:i + max(1, args.batch)] for i in range(0, len(stmts), max(1, args.batch))]
     with ThreadPoolExecutor(max_workers=args.jobs) as ex:
         for n_ok, n_fail, pairs in ex.map(run_batch, batches):
             ok += n_ok
             fail += n_fail
-            if args.write:
-                for stmt, js in pairs:
+            for stmt, js in pairs:
+                if args.dedupe == "shape":
+                    try:
+                        sig = ast_shape(json.loads(js), args.shape_depth)
+                    except json.JSONDecodeError:
+                        continue
+                    cand = (len(stmt), stmt)
+                    if sig not in reps or cand < reps[sig][0]:
+                        reps[sig] = (cand, js)
+                    continue
+                written += 1
+                if args.write:
                     write_pair(stmt, js)
+
+    if args.dedupe == "shape":
+        for (_, stmt), js in reps.values():
+            written += 1
+            if args.write:
+                write_pair(stmt, js)
 
     total = ok + fail
     rate = (100.0 * ok / total) if total else 0.0
     print(f"parsed OK: {ok}  failed: {fail}  yield: {rate:.1f}%")
-    if args.write:
-        print(f"wrote {ok} pairs to {args.out}")
+    if args.dedupe == "shape":
+        print(f"distinct AST shapes: {len(reps)}")
+    print(f"{'wrote' if args.write else 'would write'} {written} pairs"
+          + (f" to {args.out}" if args.write else ""))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,13 @@
+{
+  "type": "DeleteQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "c0"
+    },
+    {
+      "type": "Identifier",
+      "name": "t0"
+    }
+  ]
+}

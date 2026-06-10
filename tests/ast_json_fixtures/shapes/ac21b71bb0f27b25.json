@@ -1,0 +1,57 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_mutation_rows_counter"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    }
+  ]
+}

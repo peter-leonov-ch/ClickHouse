@@ -1,0 +1,55 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "t",
+          "name": "queryID",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "having": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "t"
+          },
+          {
+            "type": "Function",
+            "name": "initialQueryID",
+            "arguments": []
+          }
+        ]
+      }
+    }
+  ]
+}

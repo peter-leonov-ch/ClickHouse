@@ -1,0 +1,13 @@
+{
+  "type": "ExistsViewQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "db_01048"
+    },
+    {
+      "type": "Identifier",
+      "name": "v_01048"
+    }
+  ]
+}

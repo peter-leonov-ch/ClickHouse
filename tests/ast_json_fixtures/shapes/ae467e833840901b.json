@@ -1,0 +1,69 @@
+{
+  "type": "CreateQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "x1"
+    },
+    {
+      "type": "Columns",
+      "children": [
+        {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "ColumnDeclaration",
+              "children": [
+                {
+                  "type": "DataType",
+                  "children": [
+                    {
+                      "type": "ExpressionList",
+                      "children": [
+                        {
+                          "type": "DataType"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Storage",
+      "children": [
+        {
+          "type": "Function",
+          "name": "MergeTree",
+          "kind": "TABLE_ENGINE",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "i"
+        },
+        {
+          "type": "StorageOrderByElement",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        },
+        {
+          "type": "Set",
+          "changes": {
+            "allow_nullable_key": 1,
+            "index_granularity": 2,
+            "allow_experimental_reverse_key": 1
+          }
+        }
+      ]
+    }
+  ]
+}

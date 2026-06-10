@@ -1,0 +1,66 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "date_time",
+          "name": "toDateTime",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2020-06-16 03:00:00"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "date_time"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "date_time"
+          },
+          "direction": "ASC",
+          "with_fill": true,
+          "fill_from": {
+            "type": "Function",
+            "name": "toDateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2020-06-16 00:00:00"
+              }
+            ]
+          },
+          "fill_to": {
+            "type": "Function",
+            "name": "toDateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2020-06-16 10:00:00"
+              }
+            ]
+          },
+          "fill_step": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1800
+          }
+        }
+      ]
+    }
+  ]
+}

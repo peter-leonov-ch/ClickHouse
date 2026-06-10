@@ -1,0 +1,25 @@
+{
+  "type": "OptimizeQuery",
+  "children": [
+    {
+      "type": "Partition_ID",
+      "children": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "all"
+        }
+      ]
+    },
+    {
+      "type": "Identifier",
+      "name": "t_lwu_deletes_3"
+    },
+    {
+      "type": "Set",
+      "changes": {
+        "optimize_throw_if_noop": 1
+      }
+    }
+  ]
+}

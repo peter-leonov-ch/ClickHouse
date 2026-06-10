@@ -1,0 +1,23 @@
+{
+  "type": "InsertQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "data1622.json"
+        },
+        {
+          "type": "Identifier",
+          "name": "TSV"
+        },
+        {
+          "type": "Identifier",
+          "name": "value String"
+        }
+      ]
+    }
+  ]
+}
