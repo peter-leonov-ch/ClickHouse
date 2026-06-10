@@ -4,6 +4,18 @@
 #include <Parsers/ASTAsterisk.h>
 #include <Parsers/ASTAlterQuery.h>
 #include <Parsers/ASTAssignment.h>
+#include <Parsers/ASTCheckQuery.h>
+#include <Parsers/ASTCreateIndexQuery.h>
+#include <Parsers/ASTDropIndexQuery.h>
+#include <Parsers/ASTExplainQuery.h>
+#include <Parsers/ASTKillQueryQuery.h>
+#include <Parsers/ASTNameTypePair.h>
+#include <Parsers/ASTRenameQuery.h>
+#include <Parsers/ASTShowTablesQuery.h>
+#include <Parsers/ASTStatisticsDeclaration.h>
+#include <Parsers/ASTSystemQuery.h>
+#include <Parsers/ASTUseQuery.h>
+#include <Parsers/TablePropertiesQueriesASTs.h>
 #include <Parsers/ASTColumnDeclaration.h>
 #include <Parsers/ASTColumnsMatcher.h>
 #include <Parsers/ASTColumnsTransformers.h>
@@ -200,6 +212,18 @@ const char * alterCommandTypeToString(ASTAlterCommand::Type type)
         case ASTAlterCommand::MODIFY_COMMENT:           return "MODIFY_COMMENT";
         case ASTAlterCommand::MODIFY_SQL_SECURITY:      return "MODIFY_SQL_SECURITY";
         case ASTAlterCommand::UNLOCK_SNAPSHOT:          return "UNLOCK_SNAPSHOT";
+    }
+    return "";
+}
+
+const char * killTypeToString(ASTKillQueryQuery::Type type)
+{
+    switch (type)
+    {
+        case ASTKillQueryQuery::Type::Query:           return "QUERY";
+        case ASTKillQueryQuery::Type::Mutation:        return "MUTATION";
+        case ASTKillQueryQuery::Type::PartMoveToShard: return "PART_MOVE_TO_SHARD";
+        case ASTKillQueryQuery::Type::Transaction:     return "TRANSACTION";
     }
     return "";
 }
@@ -1121,6 +1145,190 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
             targets->add(std::move(entry));
         }
         node.add("targets", std::move(targets));
+
+        return true;
+    }
+    else if (const auto * explain = dynamic_cast<const ASTExplainQuery *>(&ast))
+    {
+        node.add("kind", ASTExplainQuery::toString(explain->getKind()));
+        addNodeSlot(node, "query", explain->getExplainedQuery());
+        addNodeSlot(node, "settings", explain->getSettings());
+        addNodeSlot(node, "table_function", explain->getTableFunction());
+        addNodeSlot(node, "table_override", explain->getTableOverride());
+
+        return true;
+    }
+    else if (const auto * describe = dynamic_cast<const ASTDescribeQuery *>(&ast))
+    {
+        addNodeSlot(node, "table_expression", describe->table_expression);
+
+        return true;
+    }
+    else if (const auto * show_tables = dynamic_cast<const ASTShowTablesQuery *>(&ast))
+    {
+        if (show_tables->databases)
+            node.add("databases", true);
+        if (show_tables->clusters)
+            node.add("clusters", true);
+        if (show_tables->dictionaries)
+            node.add("dictionaries", true);
+        if (show_tables->temporary)
+            node.add("temporary", true);
+        if (show_tables->full)
+            node.add("full", true);
+        addNodeSlot(node, "from", show_tables->from);
+        if (!show_tables->like.empty())
+            node.add("like", show_tables->like);
+        if (show_tables->not_like)
+            node.add("not_like", true);
+
+        return true;
+    }
+    else if (const auto * create_index = dynamic_cast<const ASTCreateIndexQuery *>(&ast))
+    {
+        addTableTarget(node, *create_index);
+        if (!create_index->cluster.empty())
+            node.add("cluster", create_index->cluster);
+        if (create_index->if_not_exists)
+            node.add("if_not_exists", true);
+        if (create_index->unique)
+            node.add("unique", true);
+        addNodeSlot(node, "index_name", create_index->index_name);
+        addNodeSlot(node, "index_declaration", create_index->index_decl);
+
+        return true;
+    }
+    else if (const auto * drop_index = dynamic_cast<const ASTDropIndexQuery *>(&ast))
+    {
+        addTableTarget(node, *drop_index);
+        if (!drop_index->cluster.empty())
+            node.add("cluster", drop_index->cluster);
+        if (drop_index->if_exists)
+            node.add("if_exists", true);
+        addNodeSlot(node, "index_name", drop_index->index_name);
+
+        return true;
+    }
+    else if (const auto * check = dynamic_cast<const ASTCheckTableQuery *>(&ast))
+    {
+        addTableTarget(node, *check);
+        addNodeSlot(node, "partition", check->partition);
+        if (!check->part_name.empty())
+            node.add("part_name", check->part_name);
+
+        return true;
+    }
+    else if (const auto * use = dynamic_cast<const ASTUseQuery *>(&ast))
+    {
+        addNodeSlot(node, "database", use->database);
+
+        return true;
+    }
+    else if (const auto * kill = dynamic_cast<const ASTKillQueryQuery *>(&ast))
+    {
+        node.add("kill_type", String(killTypeToString(kill->type)));
+        if (kill->sync)
+            node.add("sync", true);
+        if (kill->test)
+            node.add("test", true);
+        if (!kill->cluster.empty())
+            node.add("cluster", kill->cluster);
+        addNodeSlot(node, "where", kill->where_expression);
+
+        return true;
+    }
+    else if (const auto * rename = dynamic_cast<const ASTRenameQuery *>(&ast))
+    {
+        if (rename->exchange)
+            node.add("exchange", true);
+        if (rename->database)
+            node.add("database", true);
+        if (rename->dictionary)
+            node.add("dictionary", true);
+        if (!rename->cluster.empty())
+            node.add("cluster", rename->cluster);
+
+        auto elements = std::make_unique<JSONBuilder::JSONArray>();
+        for (const auto & element : rename->getElements())
+        {
+            auto entry = std::make_unique<JSONBuilder::JSONMap>();
+            if (!element.from.getDatabase().empty())
+                entry->add("from_database", element.from.getDatabase());
+            if (!element.from.getTable().empty())
+                entry->add("from_table", element.from.getTable());
+            if (!element.to.getDatabase().empty())
+                entry->add("to_database", element.to.getDatabase());
+            if (!element.to.getTable().empty())
+                entry->add("to_table", element.to.getTable());
+            if (element.if_exists)
+                entry->add("if_exists", true);
+            elements->add(std::move(entry));
+        }
+        node.add("elements", std::move(elements));
+
+        return true;
+    }
+    else if (const auto * system = dynamic_cast<const ASTSystemQuery *>(&ast))
+    {
+        node.add("system_type", String(ASTSystemQuery::typeToString(system->type)));
+        addNodeSlot(node, "database", system->database);
+        addNodeSlot(node, "table", system->table);
+        if (!system->cluster.empty())
+            node.add("cluster", system->cluster);
+        if (!system->replica.empty())
+            node.add("replica", system->replica);
+        if (!system->shard.empty())
+            node.add("shard", system->shard);
+        if (!system->target_model.empty())
+            node.add("target_model", system->target_model);
+        if (!system->target_function.empty())
+            node.add("target_function", system->target_function);
+
+        return true;
+    }
+    else if (const auto * statistics = dynamic_cast<const ASTStatisticsDeclaration *>(&ast))
+    {
+        addNodeSlot(node, "columns", statistics->columns);
+        addNodeSlot(node, "types", statistics->types);
+
+        return true;
+    }
+    else if (const auto * storage_order_by = dynamic_cast<const ASTStorageOrderByElement *>(&ast))
+    {
+        node.add("direction", String(storage_order_by->direction >= 0 ? "ASC" : "DESC"));
+
+        return false;  /// keep the sort expression in `children`
+    }
+    else if (const auto * name_type = dynamic_cast<const ASTNameTypePair *>(&ast))
+    {
+        node.add("name", name_type->name);
+        addNodeSlot(node, "data_type", name_type->type);
+
+        return true;
+    }
+    else if (const auto * q_regexp = dynamic_cast<const ASTQualifiedColumnsRegexpMatcher *>(&ast))
+    {
+        node.add("pattern", q_regexp->getPattern());
+        addNodeSlot(node, "qualifier", q_regexp->qualifier);
+        addNodeSlot(node, "transformers", q_regexp->transformers);
+
+        return true;
+    }
+    else if (const auto * q_list = dynamic_cast<const ASTQualifiedColumnsListMatcher *>(&ast))
+    {
+        addNodeSlot(node, "qualifier", q_list->qualifier);
+        if (q_list->column_list)
+            node.add("columns", inlineExpressionList(q_list->column_list));
+        addNodeSlot(node, "transformers", q_list->transformers);
+
+        return true;
+    }
+    else if (const auto * table_query = dynamic_cast<const ASTQueryWithTableAndOutput *>(&ast))
+    {
+        /// Generic fallback for the simple table-scoped statements that carry
+        /// nothing but a target (EXISTS, SHOW CREATE, UNDROP, ...). Must stay
+        /// after every richer ASTQueryWithTableAndOutput subclass above.
+        addTableTarget(node, *table_query);
 
         return true;
     }

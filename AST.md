@@ -222,11 +222,39 @@ Scalar flags below are emitted only when set/non-default unless noted.
 > the first space — so layout / lifetime / range / settings all report
 > `type: "Dictionary"`. Their named slots still disambiguate them.
 
+### Other statements and elements
+
+- **Explain**: `kind`, `query`, `settings`, `table_function`, `table_override`.
+- **DescribeQuery**: `table_expression`.
+- **ShowTables**: the flags (`databases` / `dictionaries` / `temporary` /
+  `full` / ...), `from`, `like`, `not_like`.
+- **CreateIndexQuery** / **DropIndexQuery**: table target, `if_not_exists` /
+  `unique` / `if_exists`, `index_name`, `index_declaration`.
+- **CheckQuery**: table target, `partition`, `part_name`.
+- **UseQuery**: `database`.
+- **KillQueryQuery**: `kill_type`, `sync`, `test`, `cluster`, `where`.
+- **Rename**: `exchange` / `database` / `dictionary` flags, `cluster`,
+  `elements` (array of `{from_database, from_table, to_database, to_table,
+  if_exists}`).
+- **SYSTEM** (`ASTSystemQuery`): `system_type`, `database`, `table`,
+  `cluster`, `replica`, `shard`, `target_model`, `target_function`.
+- **Stat** (`ASTStatisticsDeclaration`): `columns`, `types`.
+- **StorageOrderByElement**: `direction` (sort expression stays in `children`).
+- **NameTypePair**: `name`, `data_type`.
+- **QualifiedColumnsRegexpMatcher** / **QualifiedColumnsListMatcher**:
+  `pattern` / `columns`, `qualifier`, `transformers`.
+
+A generic fallback over `ASTQueryWithTableAndOutput` gives `database` /
+`table` / `temporary` to every other simple table-scoped statement that
+carries only a target — `EXISTS *`, `SHOW CREATE *`, `UNDROP TABLE`, etc.
+
 ### Not yet enriched
 
-A long tail still exposes positional `children` — `DescribeQuery`,
-`KillQueryQuery`, the access-management (`CreateUserQuery`, ...) and `SYSTEM`
-commands, `ExplainQuery`, etc. The JSON stays valid; only those subtrees are
+The remaining tail still exposes positional `children`: the
+access-management statements (`CreateUserQuery`, `AuthenticationData`,
+`ShowGrantsQuery`, workloads/resources, ...) and `BACKUP` / `RESTORE`.
+`ParallelWithQuery` keeps `children` deliberately — it is a homogeneous list
+of parallel sub-queries. The JSON stays valid; only those subtrees are
 positional.
 
 ## Adding a new node class

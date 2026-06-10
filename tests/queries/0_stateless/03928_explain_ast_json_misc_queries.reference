@@ -1,0 +1,26 @@
+-- EXPLAIN (nested)
+{"kind":"EXPLAIN SYNTAX","query":"SelectWithUnionQuery"}
+-- DESCRIBE
+{"table_expression":"TableExpression"}
+-- SHOW TABLES
+{"from":"db","like":"a%"}
+-- CREATE INDEX
+{"table":"t","index_name":"idx","decl":"Index"}
+-- DROP INDEX
+{"table":"t","index_name":"idx"}
+-- CHECK TABLE
+{"table":"t","part_name":"p1"}
+-- USE
+{"database":"mydb"}
+-- KILL QUERY
+{"kill_type":"QUERY","sync":true,"where":"equals"}
+-- RENAME
+[{"from_table":"a","to_table":"b"},{"from_table":"c","to_table":"d"}]
+-- SYSTEM
+{"system_type":"RELOAD DICTIONARY","database":"db","table":"dict"}
+-- qualified COLUMNS matcher
+{"pattern":"a.*","qualifier":"t"}
+-- EXISTS (generic table-target fallback)
+{"database":"db","table":"t"}
+-- SHOW CREATE (generic table-target fallback)
+{"database":"db","table":"t"}

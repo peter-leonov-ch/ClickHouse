@@ -188,7 +188,12 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     ASTDropQuery, ASTOptimizeQuery, ASTAlterQuery, ASTAlterCommand,
 ///     ASTCreateFunctionQuery, ASTDictionary (and its sub-elements),
 ///     ASTDictionaryAttributeDeclaration, ASTFunctionWithKeyValueArguments,
-///     ASTPair, ASTViewTargets.
+///     ASTPair, ASTViewTargets, ASTExplainQuery, ASTDescribeQuery,
+///     ASTShowTablesQuery, ASTCreateIndexQuery, ASTDropIndexQuery,
+///     ASTCheckTableQuery, ASTUseQuery, ASTKillQueryQuery, ASTRenameQuery,
+///     ASTSystemQuery, ASTStatisticsDeclaration, ASTNameTypePair, the
+///     qualified COLUMNS matchers, and a generic ASTQueryWithTableAndOutput
+///     fallback (EXISTS / SHOW CREATE / ...).
 /// `children` survives only on homogeneous lists (ExpressionList,
 /// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
