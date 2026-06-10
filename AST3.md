@@ -50,6 +50,28 @@ This commit also refreshes the references of the earlier tests whose output
 contains window definitions (`03917`) or window/order-by clauses (`03919`),
 and the cumulative showcase (`03922`).
 
+## Part 4 — leaf nodes that hid state
+
+After the wrappers, the only nodes still rendering as a bare `{"type": ...}`
+were leaf-ish ones holding non-AST state in private members rather than in
+`children`:
+
+- `ASTSetQuery` (the SETTINGS clause, `type: "Set"`): `changes` as a
+  name → value object, plus `default_settings`.
+- `ASTSampleRatio`: `numerator` / `denominator` (kept as exact rationals
+  that can exceed `UInt64`, so emitted as strings).
+- `ASTAsterisk` / `ASTQualifiedAsterisk`: `expression` / `qualifier` and
+  `transformers`.
+- COLUMNS matchers (`ASTColumnsRegexpMatcher` → `pattern`,
+  `ASTColumnsListMatcher` → `columns`) and the transformers
+  (`ASTColumnsApplyTransformer` → `func_name` / `parameters` / `lambda`,
+  `ASTColumnsExceptTransformer` / `ASTColumnsReplaceTransformer` → `is_strict`,
+  `Replacement` → `name`).
+
+A plain `SELECT *` still serializes as `{"type": "Asterisk"}` — that node
+genuinely has no attached state. The EXCEPT / REPLACE column lists stay in
+`children` as homogeneous lists.
+
 ## Risks
 
 - **Schema break**, same as `AST2.md`: consumers reading the old wrapper

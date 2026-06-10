@@ -641,7 +641,11 @@
         "value": 100
       },
       "settings": {
-        "type": "Set"
+        "type": "Set",
+        "changes": {
+          "max_threads": 4,
+          "max_block_size": 1000
+        }
       },
       "interpolate": [
         {

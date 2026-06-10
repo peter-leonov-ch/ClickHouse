@@ -1,14 +1,20 @@
 #include <Parsers/DumpASTNode.h>
 
 #include <Common/FieldVisitorToString.h>
+#include <Parsers/ASTAsterisk.h>
+#include <Parsers/ASTColumnsMatcher.h>
+#include <Parsers/ASTColumnsTransformers.h>
 #include <Parsers/ASTFunction.h>
 #include <Parsers/ASTIdentifier.h>
 #include <Parsers/ASTInterpolateElement.h>
 #include <Parsers/ASTLiteral.h>
 #include <Parsers/ASTOrderByElement.h>
+#include <Parsers/ASTQualifiedAsterisk.h>
+#include <Parsers/ASTSampleRatio.h>
 #include <Parsers/ASTSelectIntersectExceptQuery.h>
 #include <Parsers/ASTSelectQuery.h>
 #include <Parsers/ASTSelectWithUnionQuery.h>
+#include <Parsers/ASTSetQuery.h>
 #include <Parsers/ASTSubquery.h>
 #include <Parsers/ASTTablesInSelectQuery.h>
 #include <Parsers/ASTWindowDefinition.h>
@@ -421,6 +427,97 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         addNodeSlot(node, "expr", interpolate->expr);
 
         return true;
+    }
+    else if (const auto * set_query = dynamic_cast<const ASTSetQuery *>(&ast))
+    {
+        /// The SETTINGS clause: expose the changes as a name -> value object.
+        if (!set_query->changes.empty())
+        {
+            auto changes = std::make_unique<JSONBuilder::JSONMap>();
+            for (const auto & change : set_query->changes)
+                changes->add(change.name, fieldToJSON(change.value));
+            node.add("changes", std::move(changes));
+        }
+
+        if (!set_query->default_settings.empty())
+        {
+            auto defaults = std::make_unique<JSONBuilder::JSONArray>();
+            for (const auto & name : set_query->default_settings)
+                defaults->add(name);
+            node.add("default_settings", std::move(defaults));
+        }
+
+        return true;
+    }
+    else if (const auto * sample_ratio = dynamic_cast<const ASTSampleRatio *>(&ast))
+    {
+        /// Kept as an exact rational; the components can exceed UInt64, so they
+        /// are emitted as strings.
+        node.add("numerator", String(ASTSampleRatio::toString(sample_ratio->ratio.numerator)));
+        node.add("denominator", String(ASTSampleRatio::toString(sample_ratio->ratio.denominator)));
+
+        return true;
+    }
+    else if (const auto * asterisk = dynamic_cast<const ASTAsterisk *>(&ast))
+    {
+        addNodeSlot(node, "expression", asterisk->expression);
+        addNodeSlot(node, "transformers", asterisk->transformers);
+
+        return true;
+    }
+    else if (const auto * qualified_asterisk = dynamic_cast<const ASTQualifiedAsterisk *>(&ast))
+    {
+        addNodeSlot(node, "qualifier", qualified_asterisk->qualifier);
+        addNodeSlot(node, "transformers", qualified_asterisk->transformers);
+
+        return true;
+    }
+    else if (const auto * regexp_matcher = dynamic_cast<const ASTColumnsRegexpMatcher *>(&ast))
+    {
+        node.add("pattern", regexp_matcher->getPattern());
+        addNodeSlot(node, "expression", regexp_matcher->expression);
+        addNodeSlot(node, "transformers", regexp_matcher->transformers);
+
+        return true;
+    }
+    else if (const auto * list_matcher = dynamic_cast<const ASTColumnsListMatcher *>(&ast))
+    {
+        addNodeSlot(node, "expression", list_matcher->expression);
+        if (list_matcher->column_list)
+            node.add("columns", inlineExpressionList(list_matcher->column_list));
+        addNodeSlot(node, "transformers", list_matcher->transformers);
+
+        return true;
+    }
+    else if (const auto * apply = dynamic_cast<const ASTColumnsApplyTransformer *>(&ast))
+    {
+        if (!apply->func_name.empty())
+            node.add("func_name", apply->func_name);
+        addNodeSlot(node, "parameters", apply->parameters);
+        addNodeSlot(node, "lambda", apply->lambda);
+        if (!apply->lambda_arg.empty())
+            node.add("lambda_arg", apply->lambda_arg);
+        if (!apply->column_name_prefix.empty())
+            node.add("column_name_prefix", apply->column_name_prefix);
+
+        return true;
+    }
+    else if (const auto * except = dynamic_cast<const ASTColumnsExceptTransformer *>(&ast))
+    {
+        /// The excepted columns stay in `children` as a homogeneous list.
+        if (except->is_strict)
+            node.add("is_strict", true);
+    }
+    else if (const auto * replace = dynamic_cast<const ASTColumnsReplaceTransformer *>(&ast))
+    {
+        /// The replacements stay in `children` as a homogeneous list.
+        if (replace->is_strict)
+            node.add("is_strict", true);
+    }
+    else if (const auto * replacement = dynamic_cast<const ASTColumnsReplaceTransformer::Replacement *>(&ast))
+    {
+        /// The replacement expression stays as the single child.
+        node.add("name", replacement->name);
     }
 
     return false;

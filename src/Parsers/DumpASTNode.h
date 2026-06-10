@@ -178,8 +178,11 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     ASTWithElement, ASTTablesInSelectQueryElement, ASTTableExpression,
 ///     ASTTableJoin, ASTArrayJoin, ASTWindowListElement, ASTWindowDefinition,
 ///     ASTInterpolateElement — likewise expose named slots.
+///   - Leaf-ish nodes that used to hide state: ASTSetQuery (`changes`),
+///     ASTSampleRatio (`numerator` / `denominator`), ASTAsterisk /
+///     ASTQualifiedAsterisk and the COLUMNS matchers / transformers.
 /// `children` survives only on homogeneous lists (ExpressionList,
-/// TablesInSelectQuery).
+/// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
