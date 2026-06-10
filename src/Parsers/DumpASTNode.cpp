@@ -2,9 +2,13 @@
 
 #include <Common/FieldVisitorToString.h>
 #include <Parsers/ASTAsterisk.h>
+#include <Parsers/ASTColumnDeclaration.h>
 #include <Parsers/ASTColumnsMatcher.h>
 #include <Parsers/ASTColumnsTransformers.h>
+#include <Parsers/ASTCreateQuery.h>
+#include <Parsers/ASTDataType.h>
 #include <Parsers/ASTFunction.h>
+#include <Parsers/ASTInsertQuery.h>
 #include <Parsers/ASTIdentifier.h>
 #include <Parsers/ASTInterpolateElement.h>
 #include <Parsers/ASTLiteral.h>
@@ -151,6 +155,23 @@ void addNodeSlot(JSONBuilder::JSONMap & node, const char * key, const ASTPtr & c
 {
     if (child)
         node.add(key, formatASTAsJSON(*child));
+}
+
+/// Overloads for the raw `IAST *` / `ASTExpressionList *` members that DDL
+/// nodes hold (alongside `children`) instead of `ASTPtr`s.
+void addNodeSlot(JSONBuilder::JSONMap & node, const char * key, const IAST * child)
+{
+    if (child)
+        node.add(key, formatASTAsJSON(*child));
+}
+
+JSONBuilder::ItemPtr inlineExpressionList(const IAST * list)
+{
+    auto array = std::make_unique<JSONBuilder::JSONArray>();
+    if (list)
+        for (const auto & child : list->children)
+            array->add(formatASTAsJSON(*child));
+    return array;
 }
 
 /// Add per-class structured fields to `node`. Returns `true` when the class
@@ -518,6 +539,133 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     {
         /// The replacement expression stays as the single child.
         node.add("name", replacement->name);
+    }
+    else if (const auto * data_type = dynamic_cast<const ASTDataType *>(&ast))
+    {
+        node.add("name", data_type->name);
+        if (auto arguments = data_type->getArguments())
+            node.add("arguments", inlineExpressionList(arguments));
+
+        return true;
+    }
+    else if (const auto * create = dynamic_cast<const ASTCreateQuery *>(&ast))
+    {
+        if (create->attach)
+            node.add("attach", true);
+        if (create->isTemporary())
+            node.add("temporary", true);
+        if (create->if_not_exists)
+            node.add("if_not_exists", true);
+        if (create->is_ordinary_view)
+            node.add("is_ordinary_view", true);
+        if (create->is_materialized_view)
+            node.add("is_materialized_view", true);
+        if (create->is_window_view)
+            node.add("is_window_view", true);
+        if (create->is_dictionary)
+            node.add("is_dictionary", true);
+        if (create->is_populate)
+            node.add("is_populate", true);
+        if (create->is_create_empty)
+            node.add("is_create_empty", true);
+        if (create->is_clone_as)
+            node.add("is_clone_as", true);
+        if (create->replace_view)
+            node.add("replace_view", true);
+        if (create->replace_table)
+            node.add("replace_table", true);
+        if (create->create_or_replace)
+            node.add("create_or_replace", true);
+
+        addNodeSlot(node, "database", create->database);
+        addNodeSlot(node, "table", create->table);
+
+        addNodeSlot(node, "columns_list", create->columns_list);
+        if (create->aliases_list)
+            node.add("aliases", inlineExpressionList(create->aliases_list));
+        addNodeSlot(node, "storage", create->storage);
+        addNodeSlot(node, "as_table_function", create->as_table_function);
+        if (!create->as_database.empty())
+            node.add("as_database", create->as_database);
+        if (!create->as_table.empty())
+            node.add("as_table", create->as_table);
+        addNodeSlot(node, "select", create->select);
+        addNodeSlot(node, "targets", create->targets);
+        addNodeSlot(node, "comment", create->comment);
+        if (create->dictionary_attributes_list)
+            node.add("dictionary_attributes", inlineExpressionList(create->dictionary_attributes_list));
+        addNodeSlot(node, "dictionary", create->dictionary);
+
+        return true;
+    }
+    else if (const auto * columns = dynamic_cast<const ASTColumns *>(&ast))
+    {
+        if (columns->columns)
+            node.add("columns", inlineExpressionList(columns->columns));
+        if (columns->indices)
+            node.add("indices", inlineExpressionList(columns->indices));
+        if (columns->constraints)
+            node.add("constraints", inlineExpressionList(columns->constraints));
+        if (columns->projections)
+            node.add("projections", inlineExpressionList(columns->projections));
+        addNodeSlot(node, "primary_key", columns->primary_key);
+        addNodeSlot(node, "primary_key_from_columns", columns->primary_key_from_columns);
+
+        return true;
+    }
+    else if (const auto * column = dynamic_cast<const ASTColumnDeclaration *>(&ast))
+    {
+        node.add("name", column->name);
+        addNodeSlot(node, "data_type", column->getType());
+
+        if (column->default_specifier != ColumnDefaultSpecifier::Empty)
+            node.add("default_specifier", String(toString(column->default_specifier)));
+        addNodeSlot(node, "default_expression", column->getDefaultExpression());
+
+        if (column->null_modifier.has_value())
+            node.add("null_modifier", *column->null_modifier);
+        if (column->ephemeral_default)
+            node.add("ephemeral_default", true);
+        if (column->primary_key_specifier)
+            node.add("primary_key_specifier", true);
+
+        addNodeSlot(node, "comment", column->getComment());
+        addNodeSlot(node, "codec", column->getCodec());
+        addNodeSlot(node, "statistics", column->getStatisticsDesc());
+        addNodeSlot(node, "ttl", column->getTTL());
+        addNodeSlot(node, "collation", column->getCollation());
+        addNodeSlot(node, "settings", column->getSettings());
+
+        return true;
+    }
+    else if (const auto * storage = dynamic_cast<const ASTStorage *>(&ast))
+    {
+        addNodeSlot(node, "engine", storage->engine);
+        addNodeSlot(node, "partition_by", storage->partition_by);
+        addNodeSlot(node, "primary_key", storage->primary_key);
+        addNodeSlot(node, "order_by", storage->order_by);
+        addNodeSlot(node, "sample_by", storage->sample_by);
+        addNodeSlot(node, "ttl_table", storage->ttl_table);
+        addNodeSlot(node, "settings", storage->settings);
+
+        return true;
+    }
+    else if (const auto * insert = dynamic_cast<const ASTInsertQuery *>(&ast))
+    {
+        addNodeSlot(node, "database", insert->database);
+        addNodeSlot(node, "table", insert->table);
+        addNodeSlot(node, "table_function", insert->table_function);
+        if (insert->columns)
+            node.add("columns", inlineExpressionList(insert->columns));
+        if (!insert->format.empty())
+            node.add("format", insert->format);
+        addNodeSlot(node, "partition_by", insert->partition_by);
+        addNodeSlot(node, "settings", insert->settings_ast);
+        addNodeSlot(node, "select", insert->select);
+        addNodeSlot(node, "infile", insert->infile);
+        addNodeSlot(node, "compression", insert->compression);
+
+        return true;
     }
 
     return false;

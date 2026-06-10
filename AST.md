@@ -158,6 +158,28 @@ Scalar flags below are emitted only when set/non-default unless noted.
 - **SampleRatio**: `numerator`, `denominator` (exact rationals, stringified
   since they may exceed `UInt64`).
 
+### DDL / DML
+
+- **CreateQuery**: the `attach` / `temporary` / `if_not_exists` /
+  `is_*_view` / `is_dictionary` / `replace_*` / `create_or_replace` flags
+  (when set), `database`, `table`, `columns_list`, `aliases`, `storage`,
+  `as_table_function`, `as_database` / `as_table`, `select`, `targets`,
+  `comment`, `dictionary_attributes`, `dictionary`.
+- **Columns** (`ASTColumns`): `columns`, `indices`, `constraints`,
+  `projections` (inlined), `primary_key`, `primary_key_from_columns`.
+- **ColumnDeclaration**: `name`, `data_type`, `default_specifier`,
+  `default_expression`, `null_modifier`, `ephemeral_default`,
+  `primary_key_specifier`, `comment`, `codec`, `statistics`, `ttl`,
+  `collation`, `settings`.
+- **DataType**: `name`, `arguments` (inlined, e.g. `Decimal(10, 2)`).
+- **Storage**: `engine`, `partition_by`, `primary_key`, `order_by`,
+  `sample_by`, `ttl_table`, `settings`.
+- **InsertQuery**: `database`, `table`, `table_function`, `columns`,
+  `format`, `partition_by`, `settings`, `select`, `infile`, `compression`.
+
+Other statement kinds (`AlterQuery`, `DeleteQuery`, `DropQuery`, ...) are
+not yet enriched and still expose positional `children`.
+
 ## Adding a new node class
 
 1. In `enrichNode`, add an `else if (const auto * x = dynamic_cast<const ASTYourNode *>(&ast))`

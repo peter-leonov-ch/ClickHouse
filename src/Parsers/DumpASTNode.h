@@ -181,6 +181,8 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///   - Leaf-ish nodes that used to hide state: ASTSetQuery (`changes`),
 ///     ASTSampleRatio (`numerator` / `denominator`), ASTAsterisk /
 ///     ASTQualifiedAsterisk and the COLUMNS matchers / transformers.
+///   - DDL/DML: ASTCreateQuery, ASTColumns, ASTColumnDeclaration, ASTDataType,
+///     ASTStorage, ASTInsertQuery.
 /// `children` survives only on homogeneous lists (ExpressionList,
 /// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
