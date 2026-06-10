@@ -5,6 +5,7 @@
 #include <Parsers/ASTIdentifier.h>
 #include <Parsers/ASTLiteral.h>
 #include <Parsers/ASTOrderByElement.h>
+#include <Parsers/ASTSelectIntersectExceptQuery.h>
 #include <Parsers/ASTSelectQuery.h>
 #include <Parsers/ASTSelectWithUnionQuery.h>
 #include <Parsers/NullsAction.h>
@@ -205,6 +206,15 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         addNodeSlot(node, "fill_staleness", order_by->getFillStaleness());
 
         return true;
+    }
+    else if (const auto * intersect_except = dynamic_cast<const ASTSelectIntersectExceptQuery *>(&ast))
+    {
+        /// Derives from ASTSelectQuery but, unlike it, keeps its operand
+        /// selects in the positional `children` array rather than in the
+        /// `Expression` slots — so it must be matched before ASTSelectQuery and
+        /// must NOT suppress `children`.
+        if (intersect_except->final_operator != ASTSelectIntersectExceptQuery::Operator::UNKNOWN)
+            node.add("operator", String(ASTSelectIntersectExceptQuery::fromOperator(intersect_except->final_operator)));
     }
     else if (const auto * select = dynamic_cast<const ASTSelectQuery *>(&ast))
     {
