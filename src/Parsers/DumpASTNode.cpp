@@ -1336,20 +1336,39 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     return false;
 }
 
+/// The node's "type" id.
+///
+/// By default it is `IAST::getID(' ')` trimmed at the first space — getID packs
+/// auxiliary data after a space delimiter (e.g. "Function quantile"), and the
+/// structured info is re-exposed via enrichNode. A few classes, however, return
+/// a purely descriptive getID that itself contains a space ("Dictionary
+/// lifetime", ...). Trimming those collapses the five Dictionary* classes onto
+/// the same "Dictionary" — so they are spelled out explicitly here.
+String astTypeName(const IAST & ast)
+{
+    if (dynamic_cast<const ASTDictionaryLifetime *>(&ast))
+        return "DictionaryLifetime";
+    if (dynamic_cast<const ASTDictionaryLayout *>(&ast))
+        return "DictionaryLayout";
+    if (dynamic_cast<const ASTDictionaryRange *>(&ast))
+        return "DictionaryRange";
+    if (dynamic_cast<const ASTDictionarySettings *>(&ast))
+        return "DictionarySettings";
+
+    String id = ast.getID(' ');
+    auto space_pos = id.find(' ');
+    if (space_pos != String::npos)
+        id.resize(space_pos);
+    return id;
+}
+
 }
 
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast)
 {
     auto node = std::make_unique<JSONBuilder::JSONMap>();
 
-    /// `IAST::getID` packs auxiliary data into the string (e.g. function name,
-    /// literal value). Strip the suffix so that "type" stays a clean class id;
-    /// the structured info is exposed separately via enrichNode.
-    String full_id = ast.getID(' ');
-    auto space_pos = full_id.find(' ');
-    if (space_pos != String::npos)
-        full_id.resize(space_pos);
-    node->add("type", std::move(full_id));
+    node->add("type", astTypeName(ast));
 
     String alias = ast.tryGetAlias();
     if (!alias.empty())

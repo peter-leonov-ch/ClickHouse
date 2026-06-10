@@ -16,3 +16,5 @@
 {"name":"val","data_type":"String","hierarchical":true}
 -- CREATE DICTIONARY: source (key-value), layout, lifetime
 {"name":"clickhouse","elements":[{"key":"table","value":"t"}]}
+-- dictionary sub-elements get distinct type ids (not all 'Dictionary')
+["DictionaryAttributeDeclaration","Dictionary","DictionaryLifetime","DictionaryLayout","DictionaryRange"]

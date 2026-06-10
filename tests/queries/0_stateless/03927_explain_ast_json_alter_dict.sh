@@ -38,3 +38,7 @@ ast "CREATE DICTIONARY d (id UInt64, val String DEFAULT 'x' HIERARCHICAL) PRIMAR
 echo "-- CREATE DICTIONARY: source (key-value), layout, lifetime"
 ast "CREATE DICTIONARY d (id UInt64) PRIMARY KEY id SOURCE(CLICKHOUSE(TABLE 't')) LAYOUT(HASHED()) LIFETIME(MIN 1 MAX 10)" \
     | jq -c '.. | objects | select(.type == "FunctionWithKeyValueArguments") | {name, elements: [.elements[] | {key, value: .value.value}]}'
+
+echo "-- dictionary sub-elements get distinct type ids (not all 'Dictionary')"
+ast "CREATE DICTIONARY d (id UInt64) PRIMARY KEY id SOURCE(CLICKHOUSE(TABLE 't')) LAYOUT(HASHED()) LIFETIME(MIN 1 MAX 10) RANGE(MIN s MAX e)" \
+    | jq -c '[.. | objects | (.type // empty)] | map(select(test("^Dictionary")))'

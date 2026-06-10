@@ -34,7 +34,12 @@ exist. `json` is mutually exclusive with the `graph` option of
 Every node is a JSON object with:
 
 - `type` — the short class id (e.g. `"Function"`, `"Identifier"`,
-  `"Literal"`). It is `IAST::getID` with its auxiliary suffix stripped.
+  `"Literal"`), computed by `astTypeName`: `IAST::getID(' ')` trimmed at the
+  first space (getID packs auxiliary data after a space delimiter). A few
+  classes return a descriptive getID that *itself* contains a space
+  (`"Dictionary lifetime"`); trimming those would collapse the five
+  `Dictionary*` classes onto one `"Dictionary"`, so the sub-elements are
+  spelled out explicitly in `astTypeName`.
 - `alias` — only when the node has an alias.
 
 `type` tells you the shape. Beyond that, a node exposes its sub-nodes in
@@ -217,10 +222,11 @@ Scalar flags below are emitted only when set/non-default unless noted.
 - **ViewTargets**: `targets` (array of `{kind, database, table, inner_engine,
   table_ast}`).
 
-> Known wart: `ASTDictionary` and its sub-elements all derive their `type`
-> from a `getID` like `"Dictionary lifetime"`, which the type rule trims at
-> the first space — so layout / lifetime / range / settings all report
-> `type: "Dictionary"`. Their named slots still disambiguate them.
+The dictionary sub-elements get explicit `type` ids — `DictionaryLayout`,
+`DictionaryLifetime`, `DictionaryRange`, `DictionarySettings` — set in
+`astTypeName`. Their `getID`s (`"Dictionary lifetime"`, ...) would otherwise
+all trim at the first space to the same `"Dictionary"` as the container; see
+the note under "Output contract".
 
 ### Other statements and elements
 
