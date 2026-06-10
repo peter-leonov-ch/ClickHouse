@@ -195,16 +195,39 @@ Scalar flags below are emitted only when set/non-default unless noted.
 - **OptimizeQuery**: `database`, `table`, `cluster`, `partition`, `final`,
   `deduplicate`, `deduplicate_by_columns`, `cleanup`.
 - **Assignment**: `column`, `expression`.
+- **AlterQuery**: `alter_object` (`TABLE` / `DATABASE`), `database`, `table`,
+  `cluster`, `commands` (inlined).
+- **AlterCommand**: `command_type` (the full `ALTER` verb, e.g. `ADD_COLUMN`,
+  `MOVE_PARTITION`, `MODIFY_TTL`), the relevant flags, and whichever sub-node
+  slots apply — `column_declaration`, `column`, `order_by`, `index_declaration`,
+  `partition`, `predicate`, `assignments`, `comment`, `ttl`, `settings_changes`,
+  `select`, `rename_to`, ... plus the `from*` / `to*` / `move_destination_name`
+  strings.
+- **CreateFunctionQuery**: `or_replace`, `if_not_exists`, `function_name`,
+  `function_core`.
+- **Dictionary** (`ASTDictionary`): `primary_key` (inlined), `source`,
+  `lifetime`, `layout`, `range`, `settings`.
+- **DictionaryAttributeDeclaration**: `name`, `data_type`, `default_value`,
+  `expression`, `hierarchical`, `bidirectional`, `injective`, `is_object_id`.
+- **FunctionWithKeyValueArguments**: `name`, `elements` (inlined `pair`s).
+- **pair** (`ASTPair`): `key`, `value`.
+- the dictionary sub-elements — layout (`layout_type`, `parameters`),
+  lifetime (`min_sec`, `max_sec`), range (`min_attr_name`, `max_attr_name`),
+  settings (`changes`).
+- **ViewTargets**: `targets` (array of `{kind, database, table, inner_engine,
+  table_ast}`).
+
+> Known wart: `ASTDictionary` and its sub-elements all derive their `type`
+> from a `getID` like `"Dictionary lifetime"`, which the type rule trims at
+> the first space — so layout / lifetime / range / settings all report
+> `type: "Dictionary"`. Their named slots still disambiguate them.
 
 ### Not yet enriched
 
-These still expose positional `children` — candidates for a follow-up:
-
-- **ALTER family**: `AlterQuery`, `AlterCommand` (large `Type` enum).
-- **Dictionaries**: `Dictionary`, `DictionaryAttributeDeclaration`,
-  `FunctionWithKeyValueArguments`, plus `ViewTargets`, `CreateFunctionQuery`.
-- Assorted: `DescribeQuery`, `KillQueryQuery`, `CreateUserQuery`, the
-  `SYSTEM` commands, etc.
+A long tail still exposes positional `children` — `DescribeQuery`,
+`KillQueryQuery`, the access-management (`CreateUserQuery`, ...) and `SYSTEM`
+commands, `ExplainQuery`, etc. The JSON stays valid; only those subtrees are
+positional.
 
 ## Adding a new node class
 

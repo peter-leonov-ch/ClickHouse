@@ -2,14 +2,19 @@
 
 #include <Common/FieldVisitorToString.h>
 #include <Parsers/ASTAsterisk.h>
+#include <Parsers/ASTAlterQuery.h>
 #include <Parsers/ASTAssignment.h>
 #include <Parsers/ASTColumnDeclaration.h>
 #include <Parsers/ASTColumnsMatcher.h>
 #include <Parsers/ASTColumnsTransformers.h>
 #include <Parsers/ASTConstraintDeclaration.h>
+#include <Parsers/ASTCreateFunctionQuery.h>
 #include <Parsers/ASTCreateQuery.h>
 #include <Parsers/ASTDataType.h>
 #include <Parsers/ASTDeleteQuery.h>
+#include <Parsers/ASTDictionary.h>
+#include <Parsers/ASTDictionaryAttributeDeclaration.h>
+#include <Parsers/ASTFunctionWithKeyValueArguments.h>
 #include <Parsers/ASTDropQuery.h>
 #include <Parsers/ASTFunction.h>
 #include <Parsers/ASTIndexDeclaration.h>
@@ -21,6 +26,7 @@
 #include <Parsers/ASTQueryWithTableAndOutput.h>
 #include <Parsers/ASTTTLElement.h>
 #include <Parsers/ASTUpdateQuery.h>
+#include <Parsers/ASTViewTargets.h>
 #include <Parsers/ASTIdentifier.h>
 #include <Parsers/ASTInterpolateElement.h>
 #include <Parsers/ASTLiteral.h>
@@ -125,6 +131,75 @@ const char * constraintTypeToString(ASTConstraintDeclaration::Type type)
     {
         case ASTConstraintDeclaration::Type::CHECK:  return "CHECK";
         case ASTConstraintDeclaration::Type::ASSUME: return "ASSUME";
+    }
+    return "";
+}
+
+const char * alterObjectTypeToString(ASTAlterQuery::AlterObjectType type)
+{
+    switch (type)
+    {
+        case ASTAlterQuery::AlterObjectType::TABLE:    return "TABLE";
+        case ASTAlterQuery::AlterObjectType::DATABASE: return "DATABASE";
+        case ASTAlterQuery::AlterObjectType::UNKNOWN:  return "UNKNOWN";
+    }
+    return "";
+}
+
+const char * alterCommandTypeToString(ASTAlterCommand::Type type)
+{
+    switch (type)
+    {
+        case ASTAlterCommand::ADD_COLUMN:               return "ADD_COLUMN";
+        case ASTAlterCommand::DROP_COLUMN:              return "DROP_COLUMN";
+        case ASTAlterCommand::MODIFY_COLUMN:            return "MODIFY_COLUMN";
+        case ASTAlterCommand::COMMENT_COLUMN:           return "COMMENT_COLUMN";
+        case ASTAlterCommand::RENAME_COLUMN:            return "RENAME_COLUMN";
+        case ASTAlterCommand::MATERIALIZE_COLUMN:       return "MATERIALIZE_COLUMN";
+        case ASTAlterCommand::MODIFY_ORDER_BY:          return "MODIFY_ORDER_BY";
+        case ASTAlterCommand::MODIFY_SAMPLE_BY:         return "MODIFY_SAMPLE_BY";
+        case ASTAlterCommand::MODIFY_TTL:               return "MODIFY_TTL";
+        case ASTAlterCommand::REWRITE_PARTS:            return "REWRITE_PARTS";
+        case ASTAlterCommand::MATERIALIZE_TTL:          return "MATERIALIZE_TTL";
+        case ASTAlterCommand::MODIFY_SETTING:           return "MODIFY_SETTING";
+        case ASTAlterCommand::RESET_SETTING:            return "RESET_SETTING";
+        case ASTAlterCommand::MODIFY_QUERY:             return "MODIFY_QUERY";
+        case ASTAlterCommand::MODIFY_REFRESH:           return "MODIFY_REFRESH";
+        case ASTAlterCommand::REMOVE_TTL:               return "REMOVE_TTL";
+        case ASTAlterCommand::REMOVE_SAMPLE_BY:         return "REMOVE_SAMPLE_BY";
+        case ASTAlterCommand::ADD_INDEX:                return "ADD_INDEX";
+        case ASTAlterCommand::DROP_INDEX:               return "DROP_INDEX";
+        case ASTAlterCommand::MATERIALIZE_INDEX:        return "MATERIALIZE_INDEX";
+        case ASTAlterCommand::ADD_CONSTRAINT:           return "ADD_CONSTRAINT";
+        case ASTAlterCommand::DROP_CONSTRAINT:          return "DROP_CONSTRAINT";
+        case ASTAlterCommand::ADD_PROJECTION:           return "ADD_PROJECTION";
+        case ASTAlterCommand::DROP_PROJECTION:          return "DROP_PROJECTION";
+        case ASTAlterCommand::MATERIALIZE_PROJECTION:   return "MATERIALIZE_PROJECTION";
+        case ASTAlterCommand::ADD_STATISTICS:           return "ADD_STATISTICS";
+        case ASTAlterCommand::DROP_STATISTICS:          return "DROP_STATISTICS";
+        case ASTAlterCommand::MODIFY_STATISTICS:        return "MODIFY_STATISTICS";
+        case ASTAlterCommand::MATERIALIZE_STATISTICS:   return "MATERIALIZE_STATISTICS";
+        case ASTAlterCommand::DROP_PARTITION:           return "DROP_PARTITION";
+        case ASTAlterCommand::DROP_DETACHED_PARTITION:  return "DROP_DETACHED_PARTITION";
+        case ASTAlterCommand::FORGET_PARTITION:         return "FORGET_PARTITION";
+        case ASTAlterCommand::ATTACH_PARTITION:         return "ATTACH_PARTITION";
+        case ASTAlterCommand::MOVE_PARTITION:           return "MOVE_PARTITION";
+        case ASTAlterCommand::REPLACE_PARTITION:        return "REPLACE_PARTITION";
+        case ASTAlterCommand::FETCH_PARTITION:          return "FETCH_PARTITION";
+        case ASTAlterCommand::FREEZE_PARTITION:         return "FREEZE_PARTITION";
+        case ASTAlterCommand::FREEZE_ALL:               return "FREEZE_ALL";
+        case ASTAlterCommand::UNFREEZE_PARTITION:       return "UNFREEZE_PARTITION";
+        case ASTAlterCommand::UNFREEZE_ALL:             return "UNFREEZE_ALL";
+        case ASTAlterCommand::DELETE:                   return "DELETE";
+        case ASTAlterCommand::UPDATE:                   return "UPDATE";
+        case ASTAlterCommand::APPLY_DELETED_MASK:       return "APPLY_DELETED_MASK";
+        case ASTAlterCommand::APPLY_PATCHES:            return "APPLY_PATCHES";
+        case ASTAlterCommand::NO_TYPE:                  return "NO_TYPE";
+        case ASTAlterCommand::MODIFY_DATABASE_SETTING:  return "MODIFY_DATABASE_SETTING";
+        case ASTAlterCommand::MODIFY_DATABASE_COMMENT:  return "MODIFY_DATABASE_COMMENT";
+        case ASTAlterCommand::MODIFY_COMMENT:           return "MODIFY_COMMENT";
+        case ASTAlterCommand::MODIFY_SQL_SECURITY:      return "MODIFY_SQL_SECURITY";
+        case ASTAlterCommand::UNLOCK_SNAPSHOT:          return "UNLOCK_SNAPSHOT";
     }
     return "";
 }
@@ -864,6 +939,188 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         addNodeSlot(node, "deduplicate_by_columns", optimize->deduplicate_by_columns);
         if (optimize->cleanup)
             node.add("cleanup", true);
+
+        return true;
+    }
+    else if (const auto * alter = dynamic_cast<const ASTAlterQuery *>(&ast))
+    {
+        if (alter->alter_object != ASTAlterQuery::AlterObjectType::UNKNOWN)
+            node.add("alter_object", String(alterObjectTypeToString(alter->alter_object)));
+        addTableTarget(node, *alter);
+        if (!alter->cluster.empty())
+            node.add("cluster", alter->cluster);
+        if (alter->command_list)
+            node.add("commands", inlineExpressionList(alter->command_list));
+
+        return true;
+    }
+    else if (const auto * command = dynamic_cast<const ASTAlterCommand *>(&ast))
+    {
+        node.add("command_type", String(alterCommandTypeToString(command->type)));
+
+        if (command->detach)
+            node.add("detach", true);
+        if (command->part)
+            node.add("part", true);
+        if (command->clear_column)
+            node.add("clear_column", true);
+        if (command->clear_index)
+            node.add("clear_index", true);
+        if (command->clear_projection)
+            node.add("clear_projection", true);
+        if (command->if_not_exists)
+            node.add("if_not_exists", true);
+        if (command->if_exists)
+            node.add("if_exists", true);
+        if (command->first)
+            node.add("first", true);
+
+        addNodeSlot(node, "column_declaration", command->col_decl);
+        addNodeSlot(node, "column", command->column);
+        addNodeSlot(node, "order_by", command->order_by);
+        addNodeSlot(node, "sample_by", command->sample_by);
+        addNodeSlot(node, "index_declaration", command->index_decl);
+        addNodeSlot(node, "index", command->index);
+        addNodeSlot(node, "constraint_declaration", command->constraint_decl);
+        addNodeSlot(node, "constraint", command->constraint);
+        addNodeSlot(node, "projection_declaration", command->projection_decl);
+        addNodeSlot(node, "projection", command->projection);
+        addNodeSlot(node, "statistics_declaration", command->statistics_decl);
+        addNodeSlot(node, "partition", command->partition);
+        addNodeSlot(node, "predicate", command->predicate);
+        if (command->update_assignments)
+            node.add("assignments", inlineExpressionList(command->update_assignments));
+        addNodeSlot(node, "comment", command->comment);
+        addNodeSlot(node, "ttl", command->ttl);
+        addNodeSlot(node, "settings_changes", command->settings_changes);
+        addNodeSlot(node, "settings_resets", command->settings_resets);
+        addNodeSlot(node, "select", command->select);
+        addNodeSlot(node, "sql_security", command->sql_security);
+        addNodeSlot(node, "rename_to", command->rename_to);
+        addNodeSlot(node, "refresh", command->refresh);
+
+        if (!command->move_destination_name.empty())
+            node.add("move_destination_name", command->move_destination_name);
+        if (!command->from.empty())
+            node.add("from", command->from);
+        if (!command->from_database.empty())
+            node.add("from_database", command->from_database);
+        if (!command->from_table.empty())
+            node.add("from_table", command->from_table);
+        if (!command->to_database.empty())
+            node.add("to_database", command->to_database);
+        if (!command->to_table.empty())
+            node.add("to_table", command->to_table);
+        if (!command->remove_property.empty())
+            node.add("remove_property", command->remove_property);
+
+        return true;
+    }
+    else if (const auto * create_function = dynamic_cast<const ASTCreateFunctionQuery *>(&ast))
+    {
+        if (create_function->or_replace)
+            node.add("or_replace", true);
+        if (create_function->if_not_exists)
+            node.add("if_not_exists", true);
+        addNodeSlot(node, "function_name", create_function->function_name);
+        addNodeSlot(node, "function_core", create_function->function_core);
+
+        return true;
+    }
+    else if (const auto * dictionary = dynamic_cast<const ASTDictionary *>(&ast))
+    {
+        if (dictionary->primary_key)
+            node.add("primary_key", inlineExpressionList(dictionary->primary_key));
+        addNodeSlot(node, "source", dictionary->source);
+        addNodeSlot(node, "lifetime", dictionary->lifetime);
+        addNodeSlot(node, "layout", dictionary->layout);
+        addNodeSlot(node, "range", dictionary->range);
+        addNodeSlot(node, "settings", dictionary->dict_settings);
+
+        return true;
+    }
+    else if (const auto * dict_layout = dynamic_cast<const ASTDictionaryLayout *>(&ast))
+    {
+        node.add("layout_type", dict_layout->layout_type);
+        if (dict_layout->parameters)
+            node.add("parameters", inlineExpressionList(dict_layout->parameters));
+
+        return true;
+    }
+    else if (const auto * dict_lifetime = dynamic_cast<const ASTDictionaryLifetime *>(&ast))
+    {
+        node.add("min_sec", dict_lifetime->min_sec);
+        node.add("max_sec", dict_lifetime->max_sec);
+
+        return true;
+    }
+    else if (const auto * dict_range = dynamic_cast<const ASTDictionaryRange *>(&ast))
+    {
+        node.add("min_attr_name", dict_range->min_attr_name);
+        node.add("max_attr_name", dict_range->max_attr_name);
+
+        return true;
+    }
+    else if (const auto * dict_settings = dynamic_cast<const ASTDictionarySettings *>(&ast))
+    {
+        if (!dict_settings->changes.empty())
+        {
+            auto changes = std::make_unique<JSONBuilder::JSONMap>();
+            for (const auto & change : dict_settings->changes)
+                changes->add(change.name, fieldToJSON(change.value));
+            node.add("changes", std::move(changes));
+        }
+
+        return true;
+    }
+    else if (const auto * dict_attr = dynamic_cast<const ASTDictionaryAttributeDeclaration *>(&ast))
+    {
+        node.add("name", dict_attr->name);
+        addNodeSlot(node, "data_type", dict_attr->type);
+        addNodeSlot(node, "default_value", dict_attr->default_value);
+        addNodeSlot(node, "expression", dict_attr->expression);
+        if (dict_attr->hierarchical)
+            node.add("hierarchical", true);
+        if (dict_attr->bidirectional)
+            node.add("bidirectional", true);
+        if (dict_attr->injective)
+            node.add("injective", true);
+        if (dict_attr->is_object_id)
+            node.add("is_object_id", true);
+
+        return true;
+    }
+    else if (const auto * kv = dynamic_cast<const ASTFunctionWithKeyValueArguments *>(&ast))
+    {
+        node.add("name", kv->name);
+        if (kv->elements)
+            node.add("elements", inlineExpressionList(kv->elements));
+
+        return true;
+    }
+    else if (const auto * pair = dynamic_cast<const ASTPair *>(&ast))
+    {
+        node.add("key", pair->first);
+        addNodeSlot(node, "value", pair->second);
+
+        return true;
+    }
+    else if (const auto * view_targets = dynamic_cast<const ASTViewTargets *>(&ast))
+    {
+        auto targets = std::make_unique<JSONBuilder::JSONArray>();
+        for (const auto & target : view_targets->targets)
+        {
+            auto entry = std::make_unique<JSONBuilder::JSONMap>();
+            entry->add("kind", String(toString(target.kind)));
+            if (!target.table_id.database_name.empty())
+                entry->add("database", target.table_id.database_name);
+            if (!target.table_id.table_name.empty())
+                entry->add("table", target.table_id.table_name);
+            addNodeSlot(*entry, "inner_engine", target.inner_engine);
+            addNodeSlot(*entry, "table_ast", target.table_ast);
+            targets->add(std::move(entry));
+        }
+        node.add("targets", std::move(targets));
 
         return true;
     }
