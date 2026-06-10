@@ -69,3 +69,31 @@ CLICKHOUSE_BINARY=/path/to/clickhouse ./generate.sh
 Add a new case by adding one `emit <name> "<sql>"` line to `generate.sh`
 and rerunning. These fixtures are a standalone corpus and are not wired
 into ClickHouse CI.
+
+## Bulk corpus from the stateless tests
+
+The 41 curated cases above are hand-picked for readability. For a much
+larger, real-world corpus you can reuse the existing stateless test suite:
+`tests/queries/0_stateless/*.sql` holds ~124k statements. `harvest_stateless.py`
+extracts them, runs each through `EXPLAIN AST json = 1`, and writes the
+SQL → JSON pairs that parse:
+
+```bash
+CLICKHOUSE_BINARY=/path/to/clickhouse ./harvest_stateless.py --write --out harvested
+```
+
+- ~94k statements remain after dropping query-parameter placeholders
+  (`{x:UInt8}`, which the reference parser cannot substitute without values)
+  and de-duplicating. Essentially all of them parse — observed yield ~100%.
+- It batches statements through one `clickhouse local` process per batch
+  (`--batch`, default 500) with `--multiquery --ignore-error`; since
+  `EXPLAIN AST` only parses and never executes, this is side-effect-free and
+  resynchronises past any reject. A full harvest takes well under a minute.
+- Output filenames are content hashes; pass `--limit N` for a quick sample
+  and `--batch 1` to fall back to one process per statement.
+
+The harvested corpus is **not committed** (tens of thousands of files);
+generate it locally when you need it. Note that non-SELECT statements
+(DDL/DML such as `InsertQuery`, `CreateQuery`) appear too — their nodes are
+not specially enriched yet, so they fall back to the positional `children`
+array, but the JSON is still valid and reflects the reference parser.
