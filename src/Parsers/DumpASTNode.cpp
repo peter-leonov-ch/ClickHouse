@@ -3,11 +3,16 @@
 #include <Common/FieldVisitorToString.h>
 #include <Parsers/ASTFunction.h>
 #include <Parsers/ASTIdentifier.h>
+#include <Parsers/ASTInterpolateElement.h>
 #include <Parsers/ASTLiteral.h>
 #include <Parsers/ASTOrderByElement.h>
 #include <Parsers/ASTSelectIntersectExceptQuery.h>
 #include <Parsers/ASTSelectQuery.h>
 #include <Parsers/ASTSelectWithUnionQuery.h>
+#include <Parsers/ASTSubquery.h>
+#include <Parsers/ASTTablesInSelectQuery.h>
+#include <Parsers/ASTWindowDefinition.h>
+#include <Parsers/ASTWithElement.h>
 #include <Parsers/NullsAction.h>
 #include <Parsers/SelectUnionMode.h>
 
@@ -41,6 +46,28 @@ const char * nullsActionToString(NullsAction action)
         case NullsAction::EMPTY:         return "EMPTY";
         case NullsAction::RESPECT_NULLS: return "RESPECT NULLS";
         case NullsAction::IGNORE_NULLS:  return "IGNORE NULLS";
+    }
+    return "";
+}
+
+const char * windowFrameTypeToString(WindowFrame::FrameType type)
+{
+    switch (type)
+    {
+        case WindowFrame::FrameType::ROWS:   return "ROWS";
+        case WindowFrame::FrameType::GROUPS: return "GROUPS";
+        case WindowFrame::FrameType::RANGE:  return "RANGE";
+    }
+    return "";
+}
+
+const char * windowBoundaryTypeToString(WindowFrame::BoundaryType type)
+{
+    switch (type)
+    {
+        case WindowFrame::BoundaryType::Unbounded: return "Unbounded";
+        case WindowFrame::BoundaryType::Current:   return "Current";
+        case WindowFrame::BoundaryType::Offset:    return "Offset";
     }
     return "";
 }
@@ -284,6 +311,116 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     {
         if (select_union->hasNonDefaultUnionMode())
             node.add("union_mode", String(toString(select_union->union_mode)));
+
+        /// Inline the `list_of_selects` wrapper so the operand selects appear
+        /// directly under `selects`.
+        node.add("selects", inlineExpressionList(select_union->list_of_selects));
+
+        return true;
+    }
+    else if (const auto * subquery = dynamic_cast<const ASTSubquery *>(&ast))
+    {
+        if (!subquery->cte_name.empty())
+            node.add("cte_name", subquery->cte_name);
+
+        /// A subquery wraps exactly one query node.
+        if (!subquery->children.empty())
+            node.add("query", formatASTAsJSON(*subquery->children.front()));
+
+        return true;
+    }
+    else if (const auto * with_element = dynamic_cast<const ASTWithElement *>(&ast))
+    {
+        node.add("name", with_element->name);
+        addNodeSlot(node, "subquery", with_element->subquery);
+        addNodeSlot(node, "aliases", with_element->aliases);
+
+        return true;
+    }
+    else if (const auto * table_element = dynamic_cast<const ASTTablesInSelectQueryElement *>(&ast))
+    {
+        addNodeSlot(node, "table_join", table_element->table_join);
+        addNodeSlot(node, "table_expression", table_element->table_expression);
+        addNodeSlot(node, "array_join", table_element->array_join);
+
+        return true;
+    }
+    else if (const auto * table_expression = dynamic_cast<const ASTTableExpression *>(&ast))
+    {
+        /// Exactly one of these three identifies the table.
+        addNodeSlot(node, "database_and_table_name", table_expression->database_and_table_name);
+        addNodeSlot(node, "table_function", table_expression->table_function);
+        addNodeSlot(node, "subquery", table_expression->subquery);
+
+        if (table_expression->final)
+            node.add("final", true);
+        addNodeSlot(node, "sample_size", table_expression->sample_size);
+        addNodeSlot(node, "sample_offset", table_expression->sample_offset);
+        addNodeSlot(node, "column_aliases", table_expression->column_aliases);
+
+        return true;
+    }
+    else if (const auto * table_join = dynamic_cast<const ASTTableJoin *>(&ast))
+    {
+        node.add("kind", String(toString(table_join->kind)));
+        if (table_join->strictness != JoinStrictness::Unspecified)
+            node.add("strictness", String(toString(table_join->strictness)));
+        if (table_join->locality != JoinLocality::Unspecified)
+            node.add("locality", String(toString(table_join->locality)));
+
+        if (table_join->using_expression_list)
+            node.add("using", inlineExpressionList(table_join->using_expression_list));
+        addNodeSlot(node, "on", table_join->on_expression);
+
+        return true;
+    }
+    else if (const auto * array_join = dynamic_cast<const ASTArrayJoin *>(&ast))
+    {
+        node.add("kind", String(array_join->kind == ASTArrayJoin::Kind::Left ? "LEFT" : "INNER"));
+        if (array_join->expression_list)
+            node.add("expressions", inlineExpressionList(array_join->expression_list));
+
+        return true;
+    }
+    else if (const auto * window_list_element = dynamic_cast<const ASTWindowListElement *>(&ast))
+    {
+        node.add("name", window_list_element->name);
+        addNodeSlot(node, "definition", window_list_element->definition);
+
+        return true;
+    }
+    else if (const auto * window_definition = dynamic_cast<const ASTWindowDefinition *>(&ast))
+    {
+        if (!window_definition->parent_window_name.empty())
+            node.add("parent_window_name", window_definition->parent_window_name);
+
+        if (window_definition->partition_by)
+            node.add("partition_by", inlineExpressionList(window_definition->partition_by));
+        if (window_definition->order_by)
+            node.add("order_by", inlineExpressionList(window_definition->order_by));
+
+        /// The frame is only meaningful when it differs from the implicit default.
+        if (!window_definition->frame_is_default)
+        {
+            node.add("frame_type", String(windowFrameTypeToString(window_definition->frame_type)));
+
+            node.add("frame_begin_type", String(windowBoundaryTypeToString(window_definition->frame_begin_type)));
+            addNodeSlot(node, "frame_begin_offset", window_definition->frame_begin_offset);
+            node.add("frame_begin_preceding", window_definition->frame_begin_preceding);
+
+            node.add("frame_end_type", String(windowBoundaryTypeToString(window_definition->frame_end_type)));
+            addNodeSlot(node, "frame_end_offset", window_definition->frame_end_offset);
+            node.add("frame_end_preceding", window_definition->frame_end_preceding);
+        }
+
+        return true;
+    }
+    else if (const auto * interpolate = dynamic_cast<const ASTInterpolateElement *>(&ast))
+    {
+        node.add("column", interpolate->column);
+        addNodeSlot(node, "expr", interpolate->expr);
+
+        return true;
     }
 
     return false;

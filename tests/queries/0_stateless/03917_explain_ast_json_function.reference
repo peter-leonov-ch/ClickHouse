@@ -5,7 +5,7 @@
 -- windowed via name
 {"type":"Function","name":"sum","is_window_function":true,"kind":"WINDOW_FUNCTION","arguments":[{"type":"Identifier","name":"x"}],"window_name":"w"}
 -- windowed via inline definition
-{"type":"Function","name":"sum","is_window_function":true,"kind":"WINDOW_FUNCTION","arguments":[{"type":"Identifier","name":"x"}],"window_definition":{"type":"WindowDefinition","children":[{"type":"ExpressionList","children":[{"type":"Identifier","name":"y"}]}]}}
+{"type":"Function","name":"sum","is_window_function":true,"kind":"WINDOW_FUNCTION","arguments":[{"type":"Identifier","name":"x"}],"window_definition":{"type":"WindowDefinition","partition_by":[{"type":"Identifier","name":"y"}]}}
 -- operator
 {"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"a"},{"type":"Identifier","name":"b"}]}
 -- no arguments

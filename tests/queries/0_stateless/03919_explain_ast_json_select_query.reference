@@ -5,6 +5,6 @@
 -- WITH / CTE list
 [{"type":"Literal","alias":"x","value_type":"UInt64","value":1}]
 -- WINDOW list
-[{"type":"WindowListElement"}]
+[{"type":"WindowListElement","name":"w","definition":{"type":"WindowDefinition","partition_by":[{"type":"Identifier","name":"b"}]}}]
 -- single-expression clauses are objects, list clauses are arrays
 {"where":{"type":"Identifier","name":"w"},"group_by":[{"type":"Identifier","name":"g"}]}

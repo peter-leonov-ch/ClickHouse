@@ -174,6 +174,12 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///   - ASTSelectQuery: one named slot per clause (`with`, `select`, `tables`,
 ///     `where`, `group_by`, `order_by`, `limit_length`, ...); list-shaped
 ///     clauses inline their `ExpressionList` wrapper.
+///   - The structural wrappers — ASTSelectWithUnionQuery, ASTSubquery,
+///     ASTWithElement, ASTTablesInSelectQueryElement, ASTTableExpression,
+///     ASTTableJoin, ASTArrayJoin, ASTWindowListElement, ASTWindowDefinition,
+///     ASTInterpolateElement — likewise expose named slots.
+/// `children` survives only on homogeneous lists (ExpressionList,
+/// TablesInSelectQuery).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
