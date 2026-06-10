@@ -12,17 +12,15 @@
       "if_exists": true,
       "statistics_declaration": {
         "type": "Stat",
-        "children": [
-          {
-            "type": "ExpressionList",
-            "children": [
-              {
-                "type": "Identifier",
-                "name": "no_such_column"
-              }
-            ]
-          }
-        ]
+        "columns": {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "no_such_column"
+            }
+          ]
+        }
       }
     }
   ]

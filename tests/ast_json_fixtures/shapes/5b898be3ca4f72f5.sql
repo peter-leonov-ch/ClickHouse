@@ -1,0 +1,1 @@
+EXCHANGE TABLES test_01191.t AND test_01191.dict

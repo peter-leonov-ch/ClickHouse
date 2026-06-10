@@ -1,0 +1,5 @@
+{
+  "type": "ShowTables",
+  "temporary": true,
+  "like": "temp_tab"
+}

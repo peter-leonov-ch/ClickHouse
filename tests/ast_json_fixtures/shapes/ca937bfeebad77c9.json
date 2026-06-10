@@ -6,19 +6,14 @@
       "select": [
         {
           "type": "QualifiedColumnsListMatcher",
-          "children": [
+          "qualifier": {
+            "type": "Identifier",
+            "name": "test_table"
+          },
+          "columns": [
             {
               "type": "Identifier",
-              "name": "test_table"
-            },
-            {
-              "type": "ExpressionList",
-              "children": [
-                {
-                  "type": "Identifier",
-                  "name": "id"
-                }
-              ]
+              "name": "id"
             }
           ]
         }

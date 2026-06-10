@@ -1,0 +1,8 @@
+{
+  "type": "ShowCreateViewQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tview_basic"
+  }
+}

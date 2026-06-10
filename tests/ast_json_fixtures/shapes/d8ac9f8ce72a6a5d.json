@@ -1,0 +1,4 @@
+{
+  "type": "SYSTEM",
+  "system_type": "FLUSH ASYNC INSERT QUEUE"
+}

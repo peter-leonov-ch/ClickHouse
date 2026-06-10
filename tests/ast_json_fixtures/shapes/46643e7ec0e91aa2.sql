@@ -1,0 +1,1 @@
+SHOW TEMPORARY VIEW tview_basic

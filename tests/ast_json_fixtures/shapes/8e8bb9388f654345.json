@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "REFRESH VIEW",
+  "table": {
+    "type": "Identifier",
+    "name": "03789_rmv_mv"
+  }
+}

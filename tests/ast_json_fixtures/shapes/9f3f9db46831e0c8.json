@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP REPLICATED SENDS",
+  "table": {
+    "type": "Identifier",
+    "name": "r1"
+  }
+}

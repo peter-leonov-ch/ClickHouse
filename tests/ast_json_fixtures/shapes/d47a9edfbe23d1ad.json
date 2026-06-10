@@ -1,41 +1,40 @@
 {
   "type": "Explain",
-  "children": [
-    {
-      "type": "SelectWithUnionQuery",
-      "union_mode": "UNION_DISTINCT",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "kind": "EXPLAIN",
+  "query": {
+    "type": "SelectWithUnionQuery",
+    "union_mode": "UNION_DISTINCT",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }

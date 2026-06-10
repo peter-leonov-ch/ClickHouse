@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP TTL MERGES",
+  "table": {
+    "type": "Identifier",
+    "name": "ttl"
+  }
+}

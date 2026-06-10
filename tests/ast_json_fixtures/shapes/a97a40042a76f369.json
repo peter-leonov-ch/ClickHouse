@@ -1,0 +1,10 @@
+{
+  "type": "Rename",
+  "database": true,
+  "elements": [
+    {
+      "from_database": "test_01155_ordinary",
+      "to_database": "test_01155_atomic"
+    }
+  ]
+}

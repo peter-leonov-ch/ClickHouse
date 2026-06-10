@@ -1,0 +1,9 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_table": "set2",
+      "to_table": "set"
+    }
+  ]
+}

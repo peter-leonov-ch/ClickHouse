@@ -1,0 +1,1 @@
+RENAME TABLE mv1 TO mv2

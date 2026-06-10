@@ -1,0 +1,1 @@
+SYSTEM PREWARM PRIMARY INDEX CACHE t_prewarm_cache_rmt_1

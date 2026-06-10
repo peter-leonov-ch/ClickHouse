@@ -1,0 +1,1 @@
+RENAME DICTIONARY test_01191.dict1 TO test_01191.dict2

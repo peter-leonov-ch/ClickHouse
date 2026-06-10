@@ -1,0 +1,9 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_table": "t1",
+      "to_table": "t2"
+    }
+  ]
+}

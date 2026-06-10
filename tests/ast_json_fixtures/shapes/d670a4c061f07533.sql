@@ -1,0 +1,1 @@
+rename table test_1603_rename_bug_ordinary.bar to test_1603_rename_bug_ordinary.foo

@@ -1,19 +1,9 @@
 {
   "type": "Rename",
-  "children": [
+  "elements": [
     {
-      "type": "Identifier",
-      "name": "eligible_test"
-    },
-    {
-      "type": "Identifier",
-      "name": "eligible_test2"
-    },
-    {
-      "type": "Set",
-      "changes": {
-        "use_query_cache": true
-      }
+      "from_table": "eligible_test",
+      "to_table": "eligible_test2"
     }
   ]
 }

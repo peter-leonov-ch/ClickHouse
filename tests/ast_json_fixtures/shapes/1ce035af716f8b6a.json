@@ -23,30 +23,25 @@
         },
         {
           "type": "QualifiedColumnsListMatcher",
-          "children": [
+          "qualifier": {
+            "type": "Identifier",
+            "name": "value"
+          },
+          "columns": [
             {
               "type": "Identifier",
-              "name": "value"
-            },
-            {
-              "type": "ExpressionList",
-              "children": [
-                {
-                  "type": "Identifier",
-                  "name": "id"
-                }
-              ]
-            },
-            {
-              "type": "ColumnsTransformerList",
-              "children": [
-                {
-                  "type": "ColumnsApplyTransformer",
-                  "func_name": "toString"
-                }
-              ]
+              "name": "id"
             }
-          ]
+          ],
+          "transformers": {
+            "type": "ColumnsTransformerList",
+            "children": [
+              {
+                "type": "ColumnsApplyTransformer",
+                "func_name": "toString"
+              }
+            ]
+          }
         }
       ]
     }

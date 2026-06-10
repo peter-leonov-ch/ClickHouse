@@ -1,0 +1,1 @@
+RENAME TABLE test.hits TO test.hits2, test.hits2 TO test.hits3, test.hits3 TO test.hits4, test.hits4 TO test.hits5, test.hits5 TO test.hits6, test.hits6 TO test.hits7, test.hits7 TO test.hits8, test.hits8 TO test.hits9, test.hits9 TO test.hits10

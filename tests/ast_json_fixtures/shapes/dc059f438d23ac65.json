@@ -1,8 +1,8 @@
 {
   "type": "Explain",
-  "children": [
-    {
-      "type": "SYSTEM"
-    }
-  ]
+  "kind": "EXPLAIN SYNTAX",
+  "query": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR FORMAT SCHEMA CACHE"
+  }
 }

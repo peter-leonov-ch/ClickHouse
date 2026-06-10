@@ -1,0 +1,17 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_database": "test",
+      "from_table": "hits",
+      "to_database": "default",
+      "to_table": "hits"
+    },
+    {
+      "from_database": "test",
+      "from_table": "visits",
+      "to_database": "test",
+      "to_table": "hits"
+    }
+  ]
+}

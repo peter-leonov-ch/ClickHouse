@@ -37,6 +37,7 @@
     },
     "order_by": {
       "type": "StorageOrderByElement",
+      "direction": "DESC",
       "children": [
         {
           "type": "Identifier",

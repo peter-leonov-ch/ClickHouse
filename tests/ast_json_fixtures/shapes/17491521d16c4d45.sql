@@ -1,0 +1,1 @@
+CHECK TABLE mt_table PART '201801_1_1_2'

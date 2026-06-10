@@ -1,9 +1,7 @@
 {
   "type": "CheckQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "tab"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  }
 }

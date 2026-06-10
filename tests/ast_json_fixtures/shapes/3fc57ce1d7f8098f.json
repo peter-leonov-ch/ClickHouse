@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START MERGES",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  }
+}

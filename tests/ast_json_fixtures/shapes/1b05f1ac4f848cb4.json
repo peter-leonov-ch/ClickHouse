@@ -1,13 +1,11 @@
 {
   "type": "ExistsViewQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "db_01048"
-    },
-    {
-      "type": "Identifier",
-      "name": "v_01048"
-    }
-  ]
+  "database": {
+    "type": "Identifier",
+    "name": "db_01048"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "v_01048"
+  }
 }

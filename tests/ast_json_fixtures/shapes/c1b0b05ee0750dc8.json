@@ -23,21 +23,20 @@
         },
         {
           "type": "QualifiedColumnsRegexpMatcher",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "value"
-            },
-            {
-              "type": "ColumnsTransformerList",
-              "children": [
-                {
-                  "type": "ColumnsApplyTransformer",
-                  "func_name": "toString"
-                }
-              ]
-            }
-          ]
+          "pattern": "i",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "value"
+          },
+          "transformers": {
+            "type": "ColumnsTransformerList",
+            "children": [
+              {
+                "type": "ColumnsApplyTransformer",
+                "func_name": "toString"
+              }
+            ]
+          }
         }
       ]
     }

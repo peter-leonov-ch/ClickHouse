@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP PULLING REPLICATION LOG",
+  "table": {
+    "type": "Identifier",
+    "name": "t1"
+  }
+}

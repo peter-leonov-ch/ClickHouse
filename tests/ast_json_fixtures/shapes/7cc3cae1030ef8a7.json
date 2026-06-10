@@ -15,12 +15,11 @@
         "arguments": [
           {
             "type": "NameTypePair",
-            "children": [
-              {
-                "type": "DataType",
-                "name": "Int"
-              }
-            ]
+            "name": "c2",
+            "data_type": {
+              "type": "DataType",
+              "name": "Int"
+            }
           }
         ]
       }

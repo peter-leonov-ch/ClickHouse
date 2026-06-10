@@ -1,9 +1,7 @@
 {
   "type": "ShowCreateTableQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "t"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  }
 }

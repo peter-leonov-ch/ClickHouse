@@ -1,9 +1,7 @@
 {
   "type": "UseQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "db1"
-    }
-  ]
+  "database": {
+    "type": "Identifier",
+    "name": "db1"
+  }
 }

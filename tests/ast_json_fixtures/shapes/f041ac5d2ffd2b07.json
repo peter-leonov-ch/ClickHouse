@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START REPLICATION QUEUES",
+  "table": {
+    "type": "Identifier",
+    "name": "checksums_r2"
+  }
+}

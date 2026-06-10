@@ -1,0 +1,1 @@
+EXCHANGE TABLES alias_a_exchange AND alias_b_exchange

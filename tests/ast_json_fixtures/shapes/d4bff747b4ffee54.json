@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START DISTRIBUTED SENDS",
+  "table": {
+    "type": "Identifier",
+    "name": "dist_01293"
+  }
+}

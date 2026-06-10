@@ -1,0 +1,1 @@
+CHECK TABLE partition_all2 PARTITION ALL

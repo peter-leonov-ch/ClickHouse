@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP CLEANUP",
+  "table": {
+    "type": "Identifier",
+    "name": "rmt"
+  }
+}

@@ -1,13 +1,9 @@
 {
   "type": "Rename",
-  "children": [
+  "elements": [
     {
-      "type": "Identifier",
-      "name": "t0"
-    },
-    {
-      "type": "Identifier",
-      "name": "t1"
+      "from_table": "t0",
+      "to_table": "t1"
     }
   ]
 }

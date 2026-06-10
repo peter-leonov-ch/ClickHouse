@@ -1,0 +1,8 @@
+{
+  "type": "ShowTables",
+  "dictionaries": true,
+  "from": {
+    "type": "Identifier",
+    "name": "db_01018"
+  }
+}

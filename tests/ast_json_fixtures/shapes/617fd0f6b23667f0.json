@@ -1,9 +1,7 @@
 {
   "type": "ShowTables",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "shard_0"
-    }
-  ]
+  "from": {
+    "type": "Identifier",
+    "name": "shard_0"
+  }
 }

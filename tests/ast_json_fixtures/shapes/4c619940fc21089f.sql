@@ -1,0 +1,1 @@
+RENAME TABLE rmt TO rmt1

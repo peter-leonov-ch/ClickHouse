@@ -1,0 +1,1 @@
+RENAME DATABASE test_01155_ordinary TO test_01155_atomic

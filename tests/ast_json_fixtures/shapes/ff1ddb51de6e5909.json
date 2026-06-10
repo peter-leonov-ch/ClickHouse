@@ -6,12 +6,11 @@
       "select": [
         {
           "type": "QualifiedColumnsRegexpMatcher",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "t"
-            }
-          ]
+          "pattern": "^c",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "t"
+          }
         }
       ],
       "tables": {

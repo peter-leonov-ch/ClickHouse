@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "RELOAD DICTIONARY",
+  "table": {
+    "type": "Identifier",
+    "name": "d1"
+  }
+}

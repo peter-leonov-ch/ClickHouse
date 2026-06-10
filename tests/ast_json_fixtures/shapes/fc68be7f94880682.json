@@ -1,20 +1,19 @@
 {
   "type": "Explain",
-  "children": [
-    {
-      "type": "SelectWithUnionQuery",
-      "selects": [
-        {
-          "type": "SelectQuery",
-          "select": [
-            {
-              "type": "Literal",
-              "value_type": "Int64",
-              "value": -1
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "kind": "EXPLAIN SYNTAX",
+  "query": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": -1
+          }
+        ]
+      }
+    ]
+  }
 }

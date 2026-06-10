@@ -11,17 +11,15 @@
       "command_type": "DROP_STATISTICS",
       "statistics_declaration": {
         "type": "Stat",
-        "children": [
-          {
-            "type": "ExpressionList",
-            "children": [
-              {
-                "type": "Identifier",
-                "name": "b"
-              }
-            ]
-          }
-        ]
+        "columns": {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
       }
     }
   ]

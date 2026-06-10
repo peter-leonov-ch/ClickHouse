@@ -1,0 +1,1 @@
+RENAME TABLE view_table_00942 TO new_view_table_00942

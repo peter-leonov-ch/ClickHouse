@@ -1,0 +1,12 @@
+{
+  "type": "Rename",
+  "exchange": true,
+  "elements": [
+    {
+      "from_database": "test_01109_ordinary",
+      "from_table": "t4",
+      "to_database": "test_01109_other_atomic",
+      "to_table": "t3"
+    }
+  ]
+}

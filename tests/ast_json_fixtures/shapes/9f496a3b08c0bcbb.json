@@ -1,3 +1,4 @@
 {
-  "type": "Explain"
+  "type": "Explain",
+  "kind": "EXPLAIN CURRENT TRANSACTION"
 }

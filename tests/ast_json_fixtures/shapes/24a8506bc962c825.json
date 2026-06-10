@@ -1,13 +1,11 @@
 {
   "type": "DropIndexQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "i_a"
-    },
-    {
-      "type": "Identifier",
-      "name": "t_index"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "t_index"
+  },
+  "index_name": {
+    "type": "Identifier",
+    "name": "i_a"
+  }
 }

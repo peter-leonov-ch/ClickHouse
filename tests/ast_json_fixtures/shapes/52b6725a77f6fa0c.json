@@ -1,0 +1,13 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START DISTRIBUTED SENDS",
+  "database": {
+    "type": "Identifier",
+    "name": "db_01294"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "dist_01294"
+  },
+  "cluster": "test_shard_localhost"
+}
