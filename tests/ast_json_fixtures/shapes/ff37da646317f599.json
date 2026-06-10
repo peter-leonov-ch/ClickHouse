@@ -55,17 +55,17 @@
       ]
     },
     "lifetime": {
-      "type": "Dictionary",
+      "type": "DictionaryLifetime",
       "min_sec": 0,
       "max_sec": 0
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "range_hashed",
       "parameters": []
     },
     "range": {
-      "type": "Dictionary",
+      "type": "DictionaryRange",
       "min_attr_name": "start",
       "max_attr_name": "end"
     }

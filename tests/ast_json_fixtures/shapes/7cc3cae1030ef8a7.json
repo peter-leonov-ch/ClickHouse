@@ -28,7 +28,7 @@
   "dictionary": {
     "type": "Dictionary",
     "range": {
-      "type": "Dictionary",
+      "type": "DictionaryRange",
       "min_attr_name": "c1",
       "max_attr_name": "c1.c2"
     }

@@ -97,12 +97,12 @@
       ]
     },
     "lifetime": {
-      "type": "Dictionary",
+      "type": "DictionaryLifetime",
       "min_sec": 1,
       "max_sec": 10
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "hashed",
       "parameters": []
     }

@@ -80,7 +80,7 @@
       ]
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "direct",
       "parameters": []
     }

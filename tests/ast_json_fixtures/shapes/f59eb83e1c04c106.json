@@ -152,17 +152,17 @@
       ]
     },
     "lifetime": {
-      "type": "Dictionary",
+      "type": "DictionaryLifetime",
       "min_sec": 0,
       "max_sec": 0
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "polygon",
       "parameters": []
     },
     "settings": {
-      "type": "Dictionary",
+      "type": "DictionarySettings",
       "changes": {
         "dictionary_use_async_executor": 1,
         "max_threads": 8

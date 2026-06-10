@@ -104,22 +104,22 @@
       ]
     },
     "lifetime": {
-      "type": "Dictionary",
+      "type": "DictionaryLifetime",
       "min_sec": 1,
       "max_sec": 1000
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "range_hashed",
       "parameters": []
     },
     "range": {
-      "type": "Dictionary",
+      "type": "DictionaryRange",
       "min_attr_name": "StartDate",
       "max_attr_name": "EndDate"
     },
     "settings": {
-      "type": "Dictionary",
+      "type": "DictionarySettings",
       "changes": {
         "dictionary_use_async_executor": 1,
         "max_threads": 8

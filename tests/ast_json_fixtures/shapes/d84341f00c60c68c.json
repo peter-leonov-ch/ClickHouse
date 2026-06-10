@@ -29,12 +29,12 @@
       "elements": []
     },
     "lifetime": {
-      "type": "Dictionary",
+      "type": "DictionaryLifetime",
       "min_sec": 0,
       "max_sec": 1
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "flat",
       "parameters": []
     }

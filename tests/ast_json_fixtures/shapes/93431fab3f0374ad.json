@@ -120,12 +120,12 @@
       ]
     },
     "layout": {
-      "type": "Dictionary",
+      "type": "DictionaryLayout",
       "layout_type": "direct",
       "parameters": []
     },
     "settings": {
-      "type": "Dictionary",
+      "type": "DictionarySettings",
       "changes": {
         "dictionary_use_async_executor": 1,
         "max_threads": 8
