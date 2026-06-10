@@ -1,30 +1,24 @@
 {
   "type": "UpdateQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "t1"
+  },
+  "assignments": [
     {
-      "type": "Identifier",
-      "name": "t1"
-    },
-    {
-      "type": "Literal",
-      "value_type": "Bool",
-      "value": true
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Assignment",
-          "children": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": []
-            }
-          ]
-        }
-      ]
+      "type": "Assignment",
+      "column": "c0",
+      "expression": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": []
+      }
     }
-  ]
+  ],
+  "predicate": {
+    "type": "Literal",
+    "value_type": "Bool",
+    "value": true
+  }
 }

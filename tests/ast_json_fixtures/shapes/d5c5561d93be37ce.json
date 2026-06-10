@@ -19,28 +19,28 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "c0"
-              },
-              {
-                "type": "Identifier",
-                "name": "c0"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "hypothesis",
-            "arguments": []
-          }
-        ]
+        "name": "i0",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            },
+            {
+              "type": "Identifier",
+              "name": "c0"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "hypothesis",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ]
   },

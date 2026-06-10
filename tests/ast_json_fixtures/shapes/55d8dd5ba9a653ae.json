@@ -1,0 +1,57 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "x"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_INDEX",
+      "index_declaration": {
+        "type": "Index",
+        "name": "nn",
+        "expression": {
+          "type": "Function",
+          "name": "LOG2",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_PROJECTION",
+      "projection_declaration": {
+        "type": "Projection",
+        "name": "p2",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "MIN",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "i"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

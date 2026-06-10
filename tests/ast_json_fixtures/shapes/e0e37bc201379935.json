@@ -52,30 +52,29 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "d"
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalDay",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalDay",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

@@ -1,0 +1,43 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "minmax_idx"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_INDEX",
+      "index_declaration": {
+        "type": "Index",
+        "name": "idx3",
+        "expression": {
+          "type": "Function",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "u64"
+            },
+            {
+              "type": "Identifier",
+              "name": "i32"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 10
+      },
+      "index": {
+        "type": "Identifier",
+        "name": "idx1"
+      }
+    }
+  ]
+}

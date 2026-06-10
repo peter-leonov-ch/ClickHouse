@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "03655_keepermap"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "COMMENT_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "k"
+      },
+      "comment": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "some comment"
+      }
+    }
+  ]
+}

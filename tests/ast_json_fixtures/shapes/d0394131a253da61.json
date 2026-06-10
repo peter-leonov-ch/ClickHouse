@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "move_partition_to_oneself"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MOVE_PARTITION",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        }
+      },
+      "to_table": "move_partition_to_oneself"
+    }
+  ]
+}

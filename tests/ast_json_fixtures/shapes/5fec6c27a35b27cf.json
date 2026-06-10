@@ -33,23 +33,23 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "Function",
-            "name": "set",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 123
-              }
-            ]
-          }
-        ]
+        "name": "b_index",
+        "expression": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "set",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 123
+            }
+          ]
+        },
+        "granularity": 1
       }
     ],
     "primary_key": {

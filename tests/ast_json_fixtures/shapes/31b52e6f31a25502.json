@@ -1,9 +1,8 @@
 {
   "type": "DetachQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "b"
-    }
-  ]
+  "kind": "DETACH",
+  "table": {
+    "type": "Identifier",
+    "name": "b"
+  }
 }

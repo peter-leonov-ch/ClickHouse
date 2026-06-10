@@ -7,23 +7,23 @@
     },
     {
       "type": "Index",
-      "children": [
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col0"
-            },
-            {
-              "type": "Identifier",
-              "name": "col1"
-            }
-          ]
-        }
-      ]
+      "name": "idx_tab2_0",
+      "expression": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "col0"
+          },
+          {
+            "type": "Identifier",
+            "name": "col1"
+          }
+        ]
+      },
+      "granularity": 1
     },
     {
       "type": "Identifier",

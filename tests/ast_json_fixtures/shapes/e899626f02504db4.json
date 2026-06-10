@@ -1,0 +1,38 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_STATISTICS",
+      "statistics_declaration": {
+        "type": "Stat",
+        "children": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ]
+          },
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Function",
+                "name": "uniq",
+                "arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -19,37 +19,28 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Function",
-                    "name": "max",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "date"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "date"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "maxdate",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "max",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "date"
+                }
+              ]
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "date"
+            }
+          ]
+        }
       }
     ]
   },

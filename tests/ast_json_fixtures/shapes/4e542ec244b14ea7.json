@@ -1,9 +1,8 @@
 {
   "type": "TruncateQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "tab"
-    }
-  ]
+  "kind": "TRUNCATE",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  }
 }

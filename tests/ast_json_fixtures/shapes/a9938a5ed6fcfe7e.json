@@ -34,19 +34,18 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "toDate",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2020-05-05"
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "toDate",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2020-05-05"
+              }
+            ]
+          }
         }
       ]
     }

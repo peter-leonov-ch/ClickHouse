@@ -34,6 +34,12 @@
     ]
   },
   "targets": {
-    "type": "ViewTargets"
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "table": "t"
+      }
+    ]
   }
 }

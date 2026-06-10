@@ -27,26 +27,17 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "_part_offset"
-                  }
-                ]
-              },
-              {
-                "type": "Identifier",
-                "name": "indexed"
-              }
-            ]
-          }
-        ]
+        "name": "proj",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "_part_offset"
+            }
+          ],
+          "order_by": []
+        }
       }
     ]
   },
@@ -67,64 +58,63 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "if",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "equals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "order"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "CAST",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "1970-01-02T00:00:00"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "DateTime"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "CAST",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "2030-01-01T00:00:00"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "DateTime"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "if",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "order"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "1970-01-02T00:00:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2030-01-01T00:00:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

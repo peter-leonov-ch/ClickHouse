@@ -1,35 +1,29 @@
 {
   "type": "UpdateQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "mutation_table"
+  },
+  "assignments": [
     {
-      "type": "Identifier",
-      "name": "mutation_table"
-    },
-    {
-      "type": "Function",
-      "name": "isNotNull",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "name"
-        }
-      ]
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Assignment",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            }
-          ]
-        }
-      ]
+      "type": "Assignment",
+      "column": "dt",
+      "expression": {
+        "type": "Literal",
+        "value_type": "Null",
+        "value": null
+      }
     }
-  ]
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "isNotNull",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "name"
+      }
+    ]
+  }
 }

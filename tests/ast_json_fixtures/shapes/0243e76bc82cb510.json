@@ -1,26 +1,24 @@
 {
   "type": "DeleteQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "equals",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    },
-    {
-      "type": "Identifier",
-      "name": "02416_rocksdb"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "02416_rocksdb"
+  },
+  "predicate": {
+    "type": "Function",
+    "name": "equals",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
 }

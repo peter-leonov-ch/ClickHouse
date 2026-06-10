@@ -1,0 +1,27 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_COLUMN",
+      "clear_column": true,
+      "column": {
+        "type": "Identifier",
+        "name": "x"
+      },
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ""
+        }
+      }
+    }
+  ]
+}

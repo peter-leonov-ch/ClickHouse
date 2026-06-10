@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "database": {
+    "type": "Identifier",
+    "name": "sqllt"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "table"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_COLUMN",
+      "column_declaration": {
+        "type": "ColumnDeclaration",
+        "name": "new_col"
+      },
+      "remove_property": "COMMENT"
+    }
+  ]
+}

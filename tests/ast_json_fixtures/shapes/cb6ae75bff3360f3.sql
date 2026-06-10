@@ -1,0 +1,1 @@
+OPTIMIZE TABLE full_duplicates DEDUPLICATE BY * EXCEPT(pk)

@@ -1,0 +1,40 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "summing"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_ORDER_BY",
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "y"
+          },
+          {
+            "type": "Function",
+            "name": "negate",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "val"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -31,12 +31,11 @@
     },
     {
       "type": "TruncateQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "t0"
-        }
-      ]
+      "kind": "TRUNCATE",
+      "table": {
+        "type": "Identifier",
+        "name": "t0"
+      }
     }
   ]
 }

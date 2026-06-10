@@ -51,67 +51,67 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "toInt64",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value1"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "toInt64",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value2"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "cs_value1",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toInt64",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "value1"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toInt64",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "value2"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "toInt64",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value2"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "toInt64",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value3"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "cs_value2",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toInt64",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "value2"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toInt64",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "value3"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

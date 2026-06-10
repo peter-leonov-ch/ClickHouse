@@ -23,14 +23,17 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "Log",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "Log",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          }
         }
       }
     ]

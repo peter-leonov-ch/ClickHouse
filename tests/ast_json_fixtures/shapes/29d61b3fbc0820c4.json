@@ -9,66 +9,53 @@
   "dictionary_attributes": [
     {
       "type": "DictionaryAttributeDeclaration",
-      "children": [
-        {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      ]
+      "name": "x",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt32"
+      }
     },
     {
       "type": "DictionaryAttributeDeclaration",
-      "children": [
-        {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      ]
+      "name": "y",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt32"
+      }
     }
   ],
   "dictionary": {
     "type": "Dictionary",
-    "children": [
+    "primary_key": [
       {
-        "type": "ExpressionList",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          }
-        ]
-      },
-      {
-        "type": "FunctionWithKeyValueArguments",
-        "children": [
-          {
-            "type": "ExpressionList",
-            "children": [
-              {
-                "type": "pair",
-                "children": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "tab"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "Dictionary"
-      },
-      {
-        "type": "Dictionary",
-        "children": [
-          {
-            "type": "ExpressionList"
-          }
-        ]
+        "type": "Identifier",
+        "name": "x"
       }
-    ]
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "clickhouse",
+      "elements": [
+        {
+          "type": "pair",
+          "key": "table",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "tab"
+          }
+        }
+      ]
+    },
+    "lifetime": {
+      "type": "Dictionary",
+      "min_sec": 0,
+      "max_sec": 1000
+    },
+    "layout": {
+      "type": "Dictionary",
+      "layout_type": "flat",
+      "parameters": []
+    }
   }
 }

@@ -19,24 +19,24 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "a"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 10
-              }
-            ]
-          }
-        ]
+        "name": "c1",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 10
+            }
+          ]
+        }
       }
     ]
   },

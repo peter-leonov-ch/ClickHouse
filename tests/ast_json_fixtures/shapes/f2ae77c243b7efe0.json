@@ -43,31 +43,31 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "bb_ticker"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "tab1_bb_ticker_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "bb_ticker"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 4
       },
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "ric"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "tab1_ric_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "ric"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 4
       }
     ]
   },

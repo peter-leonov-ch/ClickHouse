@@ -12,99 +12,90 @@
     },
     {
       "type": "AlterQuery",
-      "children": [
+      "alter_object": "TABLE",
+      "table": {
+        "type": "Identifier",
+        "name": "normal"
+      },
+      "commands": [
         {
-          "type": "ExpressionList",
-          "children": [
+          "type": "AlterCommand",
+          "command_type": "UPDATE",
+          "predicate": {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          },
+          "assignments": [
             {
-              "type": "AlterCommand",
-              "children": [
-                {
-                  "type": "Function",
-                  "name": "equals",
-                  "is_operator": true,
-                  "arguments": [
+              "type": "Assignment",
+              "column": "s",
+              "expression": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
                     {
-                      "type": "Identifier",
-                      "name": "n"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "ExpressionList",
-                  "children": [
-                    {
-                      "type": "Assignment",
-                      "children": [
+                      "type": "SelectQuery",
+                      "select": [
                         {
-                          "type": "Subquery",
-                          "query": {
-                            "type": "SelectWithUnionQuery",
-                            "selects": [
-                              {
-                                "type": "SelectQuery",
-                                "select": [
-                                  {
-                                    "type": "Asterisk"
-                                  }
-                                ],
-                                "tables": {
-                                  "type": "TablesInSelectQuery",
-                                  "children": [
-                                    {
-                                      "type": "TablesInSelectQueryElement",
-                                      "table_expression": {
-                                        "type": "TableExpression",
-                                        "table_function": {
-                                          "type": "Function",
-                                          "name": "remote",
-                                          "arguments": [
-                                            {
-                                              "type": "Literal",
-                                              "value_type": "String",
-                                              "value": "localhost"
-                                            },
-                                            {
-                                              "type": "Function",
-                                              "name": "currentDatabase",
-                                              "arguments": []
-                                            },
-                                            {
-                                              "type": "Literal",
-                                              "value_type": "String",
-                                              "value": "secret"
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  ]
-                                },
-                                "limit_length": {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              }
-                            ]
-                          }
+                          "type": "Asterisk"
                         }
-                      ]
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "table_function": {
+                                "type": "Function",
+                                "name": "remote",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "localhost"
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "currentDatabase",
+                                    "arguments": []
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "secret"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "limit_length": {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 1
+                      }
                     }
                   ]
                 }
-              ]
+              }
             }
           ]
-        },
-        {
-          "type": "Identifier",
-          "name": "normal"
         }
       ]
     }

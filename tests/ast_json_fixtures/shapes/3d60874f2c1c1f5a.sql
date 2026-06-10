@@ -1,0 +1,1 @@
+UPDATE `03604_test` SET c0 = 3 WHERE TRUE

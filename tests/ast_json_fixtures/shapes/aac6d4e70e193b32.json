@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "some_table"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DELETE",
+      "predicate": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    }
+  ]
+}

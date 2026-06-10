@@ -51,112 +51,112 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "a"
-              },
-              {
-                "type": "Identifier",
-                "name": "c"
-              },
-              {
-                "type": "Identifier",
-                "name": "d"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "mm1_idx",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "c"
+            },
+            {
+              "type": "Identifier",
+              "name": "d"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
       },
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "c"
-              },
-              {
-                "type": "Identifier",
-                "name": "d"
-              },
-              {
-                "type": "Identifier",
-                "name": "e"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "mm2_idx",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            },
+            {
+              "type": "Identifier",
+              "name": "d"
+            },
+            {
+              "type": "Identifier",
+              "name": "e"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
       },
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "e"
-          },
-          {
-            "type": "Function",
-            "name": "set",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 100
-              }
-            ]
-          }
-        ]
+        "name": "set_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "e"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "set",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 100
+            }
+          ]
+        },
+        "granularity": 1
       },
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "d"
-              },
-              {
-                "type": "Identifier",
-                "name": "b"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 0.8
-              }
-            ]
-          }
-        ]
+        "name": "blf_idx",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "d"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.8
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

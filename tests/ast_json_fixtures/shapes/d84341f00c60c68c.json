@@ -8,45 +8,35 @@
   "dictionary_attributes": [
     {
       "type": "DictionaryAttributeDeclaration",
-      "children": [
-        {
-          "type": "DataType",
-          "name": "Int"
-        }
-      ]
+      "name": "c0",
+      "data_type": {
+        "type": "DataType",
+        "name": "Int"
+      }
     }
   ],
   "dictionary": {
     "type": "Dictionary",
-    "children": [
+    "primary_key": [
       {
-        "type": "ExpressionList",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "c0"
-          }
-        ]
-      },
-      {
-        "type": "FunctionWithKeyValueArguments",
-        "children": [
-          {
-            "type": "ExpressionList"
-          }
-        ]
-      },
-      {
-        "type": "Dictionary"
-      },
-      {
-        "type": "Dictionary",
-        "children": [
-          {
-            "type": "ExpressionList"
-          }
-        ]
+        "type": "Identifier",
+        "name": "c0"
       }
-    ]
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "null",
+      "elements": []
+    },
+    "lifetime": {
+      "type": "Dictionary",
+      "min_sec": 0,
+      "max_sec": 1
+    },
+    "layout": {
+      "type": "Dictionary",
+      "layout_type": "flat",
+      "parameters": []
+    }
   }
 }

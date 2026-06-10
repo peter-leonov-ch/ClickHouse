@@ -24,19 +24,22 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "File",
-          "kind": "TABLE_ENGINE",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "CSV"
-            }
-          ]
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "File",
+            "kind": "TABLE_ENGINE",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "CSV"
+              }
+            ]
+          }
         }
       }
     ]

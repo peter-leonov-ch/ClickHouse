@@ -35,29 +35,29 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "mapKeys",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "ResourceAttributes"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 0.01
-              }
-            ]
-          }
-        ]
+        "name": "idx_res_attr_value",
+        "expression": {
+          "type": "Function",
+          "name": "mapKeys",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ResourceAttributes"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.01
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

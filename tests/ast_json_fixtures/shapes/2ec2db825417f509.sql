@@ -1,0 +1,1 @@
+CREATE OR REPLACE FUNCTION 02125_function_2 AS x -> x + 1

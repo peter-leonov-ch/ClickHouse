@@ -3,21 +3,19 @@
   "children": [
     {
       "type": "DropQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "table1"
-        }
-      ]
+      "kind": "DROP",
+      "table": {
+        "type": "Identifier",
+        "name": "table1"
+      }
     },
     {
       "type": "DropQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "table2"
-        }
-      ]
+      "kind": "DROP",
+      "table": {
+        "type": "Identifier",
+        "name": "table2"
+      }
     }
   ]
 }

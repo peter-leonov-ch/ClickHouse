@@ -1,0 +1,1 @@
+ALTER TABLE prop_table REMOVE TTL

@@ -1,0 +1,1 @@
+ALTER TABLE t_materialize_delete APPLY DELETED MASK IN PARTITION 5

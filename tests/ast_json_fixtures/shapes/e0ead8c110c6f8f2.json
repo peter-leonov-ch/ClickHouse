@@ -19,31 +19,22 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "x"
-                  }
-                ]
-              },
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "x"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        }
       }
     ]
   },

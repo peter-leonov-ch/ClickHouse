@@ -1,0 +1,17 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "full_duplicates"
+  },
+  "final": true,
+  "deduplicate": true,
+  "deduplicate_by_columns": {
+    "type": "ExpressionList",
+    "children": [
+      {
+        "type": "Asterisk"
+      }
+    ]
+  }
+}

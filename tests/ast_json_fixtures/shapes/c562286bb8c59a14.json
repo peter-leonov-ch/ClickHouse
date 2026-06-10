@@ -35,40 +35,40 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "multiply",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "id"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 2
-                  }
-                ]
-              },
-              {
-                "type": "Identifier",
-                "name": "s"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "a",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "multiply",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "s"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 3
       }
     ]
   },

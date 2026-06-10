@@ -1,0 +1,1 @@
+ALTER TABLE test_alter_if_exists DROP COLUMN c0, MODIFY COLUMN IF EXISTS c0 Int64

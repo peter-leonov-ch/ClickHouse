@@ -20,17 +20,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "key"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "key"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ]
   },
@@ -64,14 +64,17 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "Null",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "Null",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          }
         }
       }
     ]

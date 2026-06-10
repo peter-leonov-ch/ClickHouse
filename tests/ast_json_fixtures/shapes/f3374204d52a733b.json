@@ -27,34 +27,34 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "key"
-              },
-              {
-                "type": "Identifier",
-                "name": "value"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "set",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 100000
-              }
-            ]
-          }
-        ]
+        "name": "key_val_idx",
+        "expression": {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "key"
+            },
+            {
+              "type": "Identifier",
+              "name": "value"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "set",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 100000
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

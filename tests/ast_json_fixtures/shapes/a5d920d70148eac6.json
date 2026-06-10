@@ -34,29 +34,29 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "toUInt32",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "key_string"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "set",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 0
-              }
-            ]
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Function",
+          "name": "toUInt32",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "key_string"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "set",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

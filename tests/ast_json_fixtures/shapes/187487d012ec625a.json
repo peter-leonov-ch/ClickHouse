@@ -35,69 +35,69 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "and",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "lessOrEquals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "i"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "multiply",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 2
-                      },
-                      {
-                        "type": "Identifier",
-                        "name": "b"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "greater",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "plus",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "i"
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 40
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "a"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "c1",
+        "constraint_type": "ASSUME",
+        "expression": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "lessOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "i"
+                },
+                {
+                  "type": "Function",
+                  "name": "multiply",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 2
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "b"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "i"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 40
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "a"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

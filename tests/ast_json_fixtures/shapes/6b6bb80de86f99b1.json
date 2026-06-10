@@ -1,0 +1,18 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "union2"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_ORDER_BY",
+      "order_by": {
+        "type": "Identifier",
+        "name": "a"
+      }
+    }
+  ]
+}

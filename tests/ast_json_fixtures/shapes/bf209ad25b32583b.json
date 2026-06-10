@@ -1,17 +1,14 @@
 {
   "type": "AlterQuery",
-  "children": [
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "commands": [
     {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "AlterCommand"
-        }
-      ]
-    },
-    {
-      "type": "Identifier",
-      "name": "t"
+      "type": "AlterCommand",
+      "command_type": "FREEZE_ALL"
     }
   ]
 }

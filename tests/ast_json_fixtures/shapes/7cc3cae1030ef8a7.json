@@ -8,31 +8,30 @@
   "dictionary_attributes": [
     {
       "type": "DictionaryAttributeDeclaration",
-      "children": [
-        {
-          "type": "DataType",
-          "name": "Nested",
-          "arguments": [
-            {
-              "type": "NameTypePair",
-              "children": [
-                {
-                  "type": "DataType",
-                  "name": "Int"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "name": "c1",
+      "data_type": {
+        "type": "DataType",
+        "name": "Nested",
+        "arguments": [
+          {
+            "type": "NameTypePair",
+            "children": [
+              {
+                "type": "DataType",
+                "name": "Int"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "dictionary": {
     "type": "Dictionary",
-    "children": [
-      {
-        "type": "Dictionary"
-      }
-    ]
+    "range": {
+      "type": "Dictionary",
+      "min_attr_name": "c1",
+      "max_attr_name": "c1.c2"
+    }
   }
 }

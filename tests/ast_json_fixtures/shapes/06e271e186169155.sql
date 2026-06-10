@@ -1,0 +1,1 @@
+ALTER TABLE modify_sample MODIFY SAMPLE BY x

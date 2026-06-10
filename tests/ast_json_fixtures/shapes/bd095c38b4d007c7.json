@@ -36,18 +36,17 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "materialize",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "c0"
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c0"
+              }
+            ]
+          }
         }
       ]
     }

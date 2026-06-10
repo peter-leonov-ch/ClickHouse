@@ -1,0 +1,18 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test_materialize"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "APPLY_DELETED_MASK"
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "REWRITE_PARTS"
+    }
+  ]
+}

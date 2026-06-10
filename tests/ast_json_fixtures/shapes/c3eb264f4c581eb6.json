@@ -1,0 +1,27 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "minmax_compact"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_INDEX",
+      "clear_index": true,
+      "index": {
+        "type": "Identifier",
+        "name": "idx"
+      },
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      }
+    }
+  ]
+}

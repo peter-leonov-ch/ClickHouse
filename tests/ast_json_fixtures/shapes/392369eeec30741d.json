@@ -1,0 +1,9 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "sync": true
+}

@@ -1,0 +1,42 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test_alter_atomic"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "UPDATE",
+      "predicate": {
+        "type": "Literal",
+        "value_type": "Bool",
+        "value": true
+      },
+      "assignments": [
+        {
+          "type": "Assignment",
+          "column": "c0",
+          "expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "RENAME_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "c0"
+      },
+      "rename_to": {
+        "type": "Identifier",
+        "name": "c1"
+      }
+    }
+  ]
+}

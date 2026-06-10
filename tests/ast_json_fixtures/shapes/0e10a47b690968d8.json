@@ -3,36 +3,31 @@
   "children": [
     {
       "type": "AlterQuery",
-      "children": [
+      "alter_object": "TABLE",
+      "table": {
+        "type": "Identifier",
+        "name": "t1"
+      },
+      "commands": [
         {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "AlterCommand",
-              "children": [
-                {
-                  "type": "Function",
-                  "name": "equals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "date"
-                    },
-                    {
-                      "type": "Function",
-                      "name": "today",
-                      "arguments": []
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "t1"
+          "type": "AlterCommand",
+          "command_type": "DELETE",
+          "predicate": {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "date"
+              },
+              {
+                "type": "Function",
+                "name": "today",
+                "arguments": []
+              }
+            ]
+          }
         }
       ]
     }

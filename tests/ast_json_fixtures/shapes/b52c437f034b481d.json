@@ -33,31 +33,31 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "vec"
-          },
-          {
-            "type": "Function",
-            "name": "vector_similarity",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "hnsw"
-              },
-              {
-                "type": "Identifier",
-                "name": "L2Distance"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
-          }
-        ]
+        "name": "vec_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "vec"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "vector_similarity",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "hnsw"
+            },
+            {
+              "type": "Identifier",
+              "name": "L2Distance"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        "granularity": 100000000
       }
     ],
     "primary_key": {

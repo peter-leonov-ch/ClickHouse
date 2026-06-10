@@ -1,0 +1,30 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "str"
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "RENAME_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "x"
+      },
+      "rename_to": {
+        "type": "Identifier",
+        "name": "str"
+      }
+    }
+  ]
+}

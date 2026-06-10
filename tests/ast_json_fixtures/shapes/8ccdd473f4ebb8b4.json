@@ -1,29 +1,23 @@
 {
   "type": "UpdateQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "assignments": [
     {
-      "type": "Identifier",
-      "name": "t0"
-    },
-    {
-      "type": "Literal",
-      "value_type": "UInt64",
-      "value": 1
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Assignment",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ]
+      "type": "Assignment",
+      "column": "c0",
+      "expression": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
     }
-  ]
+  ],
+  "predicate": {
+    "type": "Literal",
+    "value_type": "UInt64",
+    "value": 1
+  }
 }

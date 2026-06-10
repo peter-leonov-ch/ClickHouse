@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MOVE_PARTITION",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        }
+      },
+      "to_table": "t2"
+    }
+  ]
+}

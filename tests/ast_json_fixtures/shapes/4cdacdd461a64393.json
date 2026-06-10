@@ -7,12 +7,12 @@
     },
     {
       "type": "Index",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ]
+      "name": "i5",
+      "expression": {
+        "type": "Identifier",
+        "name": "a"
+      },
+      "granularity": 1
     },
     {
       "type": "Identifier",

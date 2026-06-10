@@ -35,29 +35,29 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "b"
-              },
-              {
-                "type": "Function",
-                "name": "cityHash64",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "a"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "c1",
+        "constraint_type": "ASSUME",
+        "expression": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            },
+            {
+              "type": "Function",
+              "name": "cityHash64",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "a"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

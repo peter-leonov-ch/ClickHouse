@@ -3,27 +3,32 @@
   "children": [
     {
       "type": "OptimizeQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "test_table"
-        }
-      ]
+      "table": {
+        "type": "Identifier",
+        "name": "test_table"
+      },
+      "final": true,
+      "deduplicate": true,
+      "deduplicate_by_columns": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Identifier",
+            "name": "value"
+          }
+        ]
+      }
     },
     {
       "type": "OptimizeQuery",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "t2"
-        },
-        {
-          "type": "Set",
-          "changes": {
-            "max_threads": 10
-          }
-        }
-      ]
+      "table": {
+        "type": "Identifier",
+        "name": "t2"
+      }
     }
   ]
 }

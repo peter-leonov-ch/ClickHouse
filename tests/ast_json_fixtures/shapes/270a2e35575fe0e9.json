@@ -1,0 +1,77 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "null_dict"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "id",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt64"
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "val",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt8"
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "default_val",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt8"
+      },
+      "default_value": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 123
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "nullable_val",
+      "data_type": {
+        "type": "DataType",
+        "name": "Nullable",
+        "arguments": [
+          {
+            "type": "DataType",
+            "name": "UInt8"
+          }
+        ]
+      }
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "primary_key": [
+      {
+        "type": "Identifier",
+        "name": "id"
+      }
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "null",
+      "elements": []
+    },
+    "lifetime": {
+      "type": "Dictionary",
+      "min_sec": 0,
+      "max_sec": 0
+    },
+    "layout": {
+      "type": "Dictionary",
+      "layout_type": "flat",
+      "parameters": []
+    }
+  }
+}

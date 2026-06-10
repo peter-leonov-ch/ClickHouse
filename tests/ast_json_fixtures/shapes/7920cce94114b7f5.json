@@ -69,36 +69,35 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toStartOfHour",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "timestamp"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalHour",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "GROUP_BY",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toStartOfHour",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "timestamp"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalHour",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

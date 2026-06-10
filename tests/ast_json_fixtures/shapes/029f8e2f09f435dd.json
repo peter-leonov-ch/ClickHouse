@@ -80,23 +80,23 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "i32"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": -0.1
-              }
-            ]
-          }
-        ]
+        "name": "bloom_filter_a",
+        "expression": {
+          "type": "Identifier",
+          "name": "i32"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": -0.1
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

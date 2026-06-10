@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_PARTITION",
+      "detach": true,
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      }
+    }
+  ]
+}

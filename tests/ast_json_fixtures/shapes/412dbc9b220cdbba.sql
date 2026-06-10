@@ -1,0 +1,1 @@
+ALTER TABLE old_style ADD COLUMN y UInt32, MODIFY ORDER BY (x, y)

@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "default_table"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_COLUMN",
+      "column_declaration": {
+        "type": "ColumnDeclaration",
+        "name": "value1"
+      },
+      "remove_property": "DEFAULT"
+    }
+  ]
+}

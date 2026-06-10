@@ -25,58 +25,49 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "s"
-          },
-          {
-            "type": "Function",
-            "name": "text",
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "tokenizer"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "sparseGrams"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "s"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "text",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "tokenizer"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "sparseGrams"
+                }
+              ]
+            }
+          ]
+        },
+        "granularity": 100000000
       }
     ],
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "s"
-                  }
-                ]
-              },
-              {
-                "type": "Identifier",
-                "name": "s"
-              }
-            ]
-          }
-        ]
+        "name": "p",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            }
+          ],
+          "order_by": []
+        }
       }
     ]
   },

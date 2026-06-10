@@ -1203,17 +1203,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "RegionID"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "test1",
+        "expression": {
+          "type": "Identifier",
+          "name": "RegionID"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 8129
       }
     ]
   },

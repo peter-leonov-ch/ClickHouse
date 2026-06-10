@@ -74,34 +74,37 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        "partition_by": {
-          "type": "Function",
-          "name": "modulo",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 10
-            }
-          ]
-        },
-        "order_by": {
-          "type": "Identifier",
-          "name": "n"
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "MergeTree",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          },
+          "partition_by": {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 10
+              }
+            ]
+          },
+          "order_by": {
+            "type": "Identifier",
+            "name": "n"
+          }
         }
       }
     ]

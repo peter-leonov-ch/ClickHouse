@@ -1,67 +1,61 @@
 {
   "type": "UpdateQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "lightweight_test"
+  },
+  "assignments": [
     {
-      "type": "Identifier",
-      "name": "lightweight_test"
-    },
-    {
-      "type": "Function",
-      "name": "in",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
+      "type": "Assignment",
+      "column": "value",
+      "expression": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "UPDATED-1"
+      }
+    }
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "in",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "key"
+      },
+      {
+        "type": "Subquery",
+        "query": {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
+                {
+                  "type": "Identifier",
+                  "name": "key"
+                }
+              ],
+              "tables": {
+                "type": "TablesInSelectQuery",
+                "children": [
                   {
-                    "type": "Identifier",
-                    "name": "key"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "keys"
-                        }
+                    "type": "TablesInSelectQueryElement",
+                    "table_expression": {
+                      "type": "TableExpression",
+                      "database_and_table_name": {
+                        "type": "TableIdentifier",
+                        "name": "keys"
                       }
                     }
-                  ]
-                }
+                  }
+                ]
               }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Assignment",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UPDATED-1"
             }
           ]
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

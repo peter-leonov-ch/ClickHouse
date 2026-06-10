@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "alter_test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_COLUMN",
+      "if_exists": true,
+      "column_declaration": {
+        "type": "ColumnDeclaration",
+        "name": "ToDrop",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "database": {
+    "type": "Identifier",
+    "name": "db_1"
+  },
+  "if_exists": true,
+  "sync": true
+}

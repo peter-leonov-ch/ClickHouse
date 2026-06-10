@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "table_for_rename"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "RENAME_COLUMN",
+      "if_exists": true,
+      "column": {
+        "type": "Identifier",
+        "name": "value100"
+      },
+      "rename_to": {
+        "type": "Identifier",
+        "name": "renamed_value100"
+      }
+    }
+  ]
+}

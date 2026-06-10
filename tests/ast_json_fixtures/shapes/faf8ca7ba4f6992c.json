@@ -19,17 +19,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "d"
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "d"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ]
   }

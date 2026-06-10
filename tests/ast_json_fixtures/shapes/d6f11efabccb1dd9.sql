@@ -1,0 +1,1 @@
+OPTIMIZE TABLE full_duplicates FINAL DEDUPLICATE BY *

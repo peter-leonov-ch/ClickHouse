@@ -1,13 +1,11 @@
 {
   "type": "DeleteQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "c0"
-    },
-    {
-      "type": "Identifier",
-      "name": "t0"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "predicate": {
+    "type": "Identifier",
+    "name": "c0"
+  }
 }

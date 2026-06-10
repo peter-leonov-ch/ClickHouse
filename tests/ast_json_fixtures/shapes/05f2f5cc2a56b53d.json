@@ -19,23 +19,23 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "c0"
-          },
-          {
-            "type": "Function",
-            "name": "set",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 0
-              }
-            ]
-          }
-        ]
+        "name": "i1",
+        "expression": {
+          "type": "Identifier",
+          "name": "c0"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "set",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

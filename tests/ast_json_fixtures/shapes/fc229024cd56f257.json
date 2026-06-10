@@ -1,0 +1,14 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_apply_patches"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "APPLY_PATCHES"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "test"
+  },
+  "final": true,
+  "cleanup": true
+}

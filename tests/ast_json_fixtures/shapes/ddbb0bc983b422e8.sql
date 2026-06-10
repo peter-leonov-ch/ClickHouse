@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS test_repl ON CLUSTER test_shard_localhost NO DELAY

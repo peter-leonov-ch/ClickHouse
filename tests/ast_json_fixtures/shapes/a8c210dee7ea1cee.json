@@ -1,0 +1,41 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "UPDATE",
+      "predicate": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 4
+          }
+        ]
+      },
+      "assignments": [
+        {
+          "type": "Assignment",
+          "column": "a",
+          "expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        }
+      ]
+    }
+  ]
+}

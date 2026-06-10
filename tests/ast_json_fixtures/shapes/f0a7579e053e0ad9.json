@@ -1,9 +1,7 @@
 {
   "type": "OptimizeQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "b"
-    }
-  ]
+  "table": {
+    "type": "Identifier",
+    "name": "b"
+  }
 }

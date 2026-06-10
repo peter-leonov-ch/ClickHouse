@@ -1,0 +1,18 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "replicated_constraints1"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_CONSTRAINT",
+      "constraint": {
+        "type": "Identifier",
+        "name": "a_constraint"
+      }
+    }
+  ]
+}

@@ -20,28 +20,22 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Function",
-                    "name": "uniqCombined",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "key"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "uniqCombined",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "key"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
@@ -75,18 +69,21 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        "order_by": {
-          "type": "Identifier",
-          "name": "key"
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "MergeTree",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          },
+          "order_by": {
+            "type": "Identifier",
+            "name": "key"
+          }
         }
       }
     ]

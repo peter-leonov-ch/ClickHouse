@@ -19,28 +19,22 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Function",
-                    "name": "min",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "time"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "proj",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "min",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "time"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },
@@ -63,30 +57,29 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "time"
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalSecond",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "time"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalSecond",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },

@@ -35,49 +35,40 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "collectorReceiptTime"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "ruleId"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "count",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "ruleId"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "collectorReceiptTime"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "ruleId"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "ailog_rule_count",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "collectorReceiptTime"
+            },
+            {
+              "type": "Identifier",
+              "name": "ruleId"
+            },
+            {
+              "type": "Function",
+              "name": "count",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "ruleId"
+                }
+              ]
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "collectorReceiptTime"
+            },
+            {
+              "type": "Identifier",
+              "name": "ruleId"
+            }
+          ]
+        }
       }
     ]
   },

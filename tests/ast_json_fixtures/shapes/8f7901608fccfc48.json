@@ -35,17 +35,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "i_c",
+        "expression": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 4
       }
     ]
   },

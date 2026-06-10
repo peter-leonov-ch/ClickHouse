@@ -19,17 +19,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "str"
-          },
-          {
-            "type": "Function",
-            "name": "text",
-            "arguments": []
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "str"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "text",
+          "arguments": []
+        },
+        "granularity": 100000000
       }
     ]
   },

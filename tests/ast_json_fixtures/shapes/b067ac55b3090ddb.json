@@ -1,0 +1,27 @@
+{
+  "type": "CreateIndexQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "i_b"
+    },
+    {
+      "type": "Index",
+      "name": "i_b",
+      "expression": {
+        "type": "Identifier",
+        "name": "b"
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "bloom_filter",
+        "arguments": []
+      },
+      "granularity": 2
+    },
+    {
+      "type": "Identifier",
+      "name": "t_index"
+    }
+  ]
+}

@@ -55,57 +55,91 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "dt"
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalMonth",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "RECOMPRESS",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dt"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMonth",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "recompression_codec": {
+            "type": "Function",
+            "name": "CODEC",
+            "kind": "CODEC",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "ZSTD",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 17
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "dt"
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalYear",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "mode": "RECOMPRESS",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dt"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalYear",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "recompression_codec": {
+            "type": "Function",
+            "name": "CODEC",
+            "kind": "CODEC",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "LZ4HC",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },

@@ -1,0 +1,10 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "m02006"
+  },
+  "cluster": "test_shard_localhost",
+  "if_exists": true
+}

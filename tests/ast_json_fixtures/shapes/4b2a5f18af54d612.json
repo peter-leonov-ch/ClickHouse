@@ -1,19 +1,17 @@
 {
   "type": "CreateFunctionQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "02181_invalid_lambda"
-    },
-    {
-      "type": "Function",
-      "name": "lambda",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ]
-    }
-  ]
+  "function_name": {
+    "type": "Identifier",
+    "name": "02181_invalid_lambda"
+  },
+  "function_core": {
+    "type": "Function",
+    "name": "lambda",
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "x"
+      }
+    ]
+  }
 }

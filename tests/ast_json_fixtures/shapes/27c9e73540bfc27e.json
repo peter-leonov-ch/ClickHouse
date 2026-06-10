@@ -69,18 +69,25 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "AggregatingMergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        "order_by": {
-          "type": "Identifier",
-          "name": "x"
+        "kind": "to",
+        "table": "nonexist"
+      },
+      {
+        "kind": "inner",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "AggregatingMergeTree",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          },
+          "order_by": {
+            "type": "Identifier",
+            "name": "x"
+          }
         }
       }
     ]

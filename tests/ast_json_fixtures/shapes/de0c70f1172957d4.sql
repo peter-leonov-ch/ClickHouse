@@ -1,0 +1,4 @@
+ALTER TABLE a
+	DROP INDEX IF EXISTS some_index,
+	MODIFY COLUMN y REMOVE MATERIALIZED
+SETTINGS alter_sync = 2, mutations_sync = 2

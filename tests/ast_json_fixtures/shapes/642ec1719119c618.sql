@@ -1,0 +1,1 @@
+ALTER TABLE tab RESET SETTING materialize_skip_indexes_on_merge

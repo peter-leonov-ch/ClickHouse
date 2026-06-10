@@ -1,0 +1,1 @@
+ALTER TABLE tab CLEAR INDEX idx_text

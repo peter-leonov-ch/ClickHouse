@@ -1,52 +1,46 @@
 {
   "type": "UpdateQuery",
-  "children": [
+  "table": {
+    "type": "Identifier",
+    "name": "lwu_on_fly"
+  },
+  "assignments": [
     {
-      "type": "Identifier",
-      "name": "lwu_on_fly"
-    },
-    {
-      "type": "Function",
-      "name": "equals",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "modulo",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "id"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    },
-    {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "Assignment",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 0
-            }
-          ]
-        }
-      ]
+      "type": "Assignment",
+      "column": "u",
+      "expression": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      }
     }
-  ]
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "equals",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "modulo",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
 }

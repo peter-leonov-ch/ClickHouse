@@ -1,0 +1,18 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "if_exists": true,
+  "database_and_tables": {
+    "type": "ExpressionList",
+    "children": [
+      {
+        "type": "TableIdentifier",
+        "name": "test"
+      },
+      {
+        "type": "TableIdentifier",
+        "name": "src"
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "x"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_PROJECTION",
+      "projection_declaration": {
+        "type": "Projection",
+        "name": "p_agg",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "sum",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "j"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

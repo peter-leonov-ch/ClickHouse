@@ -1,0 +1,8 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tp"
+  },
+  "deduplicate": true
+}

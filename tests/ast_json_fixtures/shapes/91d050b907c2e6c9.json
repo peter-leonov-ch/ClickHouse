@@ -27,38 +27,38 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "name"
-          },
-          {
-            "type": "Function",
-            "name": "ngrambf_v1",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1024
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 3
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 0
-              }
-            ]
-          }
-        ]
+        "name": "idx_name",
+        "expression": {
+          "type": "Identifier",
+          "name": "name"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "ngrambf_v1",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1024
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },

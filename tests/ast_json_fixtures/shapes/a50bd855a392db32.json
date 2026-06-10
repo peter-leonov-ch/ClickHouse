@@ -62,18 +62,21 @@
   },
   "targets": {
     "type": "ViewTargets",
-    "children": [
+    "targets": [
       {
-        "type": "Storage",
-        "engine": {
-          "type": "Function",
-          "name": "MergeTree",
-          "kind": "TABLE_ENGINE",
-          "arguments": []
-        },
-        "primary_key": {
-          "type": "Identifier",
-          "name": "value"
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "MergeTree",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          },
+          "primary_key": {
+            "type": "Identifier",
+            "name": "value"
+          }
         }
       }
     ]

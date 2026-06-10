@@ -1,0 +1,1 @@
+OPTIMIZE TABLE partial_duplicates FINAL DEDUPLICATE BY COLUMNS('.*k')

@@ -1,0 +1,1 @@
+ALTER TABLE t_detach_attach_patches_dst REPLACE PARTITION 3 FROM t_detach_attach_patches

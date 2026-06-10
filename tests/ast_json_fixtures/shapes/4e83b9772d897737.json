@@ -28,38 +28,32 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "a"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "multiply",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "b"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 2
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ],
+          "order_by": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "b"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

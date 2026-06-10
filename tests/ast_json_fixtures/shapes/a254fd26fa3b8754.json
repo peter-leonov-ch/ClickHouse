@@ -1,0 +1,34 @@
+{
+  "type": "UpdateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "testing"
+  },
+  "assignments": [
+    {
+      "type": "Assignment",
+      "column": "c",
+      "expression": {
+        "type": "Function",
+        "name": "minus",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "c"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    }
+  ],
+  "predicate": {
+    "type": "Literal",
+    "value_type": "UInt64",
+    "value": 1
+  }
+}

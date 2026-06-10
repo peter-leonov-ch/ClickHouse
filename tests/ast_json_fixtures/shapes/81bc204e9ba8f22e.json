@@ -25,33 +25,33 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "col"
-          },
-          {
-            "type": "Function",
-            "name": "text",
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "tokenizer"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "array"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "col"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "text",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "tokenizer"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "array"
+                }
+              ]
+            }
+          ]
+        },
+        "granularity": 100000000
       }
     ]
   },

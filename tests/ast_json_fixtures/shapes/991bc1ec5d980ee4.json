@@ -51,59 +51,45 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "c"
-                  }
-                ]
-              },
-              {
-                "type": "Identifier",
-                "name": "d"
-              }
-            ]
-          }
-        ]
+        "name": "proj_1",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ],
+          "order_by": []
+        }
       },
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "c"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "tuple",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "e"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "d"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "proj_2",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ],
+          "order_by": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

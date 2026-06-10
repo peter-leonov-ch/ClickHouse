@@ -1,0 +1,22 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_materialize_delete"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "APPLY_DELETED_MASK",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 5
+        }
+      }
+    }
+  ]
+}

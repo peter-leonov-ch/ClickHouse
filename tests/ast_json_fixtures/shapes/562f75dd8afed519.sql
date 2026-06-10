@@ -1,0 +1,1 @@
+ALTER TABLE replace_partition_dest1 REPLACE PARTITION 1 FROM replace_partition_source

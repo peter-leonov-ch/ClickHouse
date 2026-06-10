@@ -1,0 +1,8 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "database": {
+    "type": "Identifier",
+    "name": "'"
+  }
+}

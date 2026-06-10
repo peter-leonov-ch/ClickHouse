@@ -76,18 +76,17 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "02484_plusthreemonths",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "dt"
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "02484_plusthreemonths",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dt"
+              }
+            ]
+          }
         }
       ]
     }

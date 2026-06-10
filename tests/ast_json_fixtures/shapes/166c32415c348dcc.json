@@ -1,0 +1,9 @@
+{
+  "type": "TruncateQuery",
+  "kind": "TRUNCATE",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_00670"
+  }
+}

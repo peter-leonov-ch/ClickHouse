@@ -1,0 +1,56 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "partition_all2"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "UPDATE",
+      "partition": {
+        "type": "Partition_ID",
+        "all": true
+      },
+      "predicate": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "p"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      },
+      "assignments": [
+        {
+          "type": "Assignment",
+          "column": "q",
+          "expression": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "q"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

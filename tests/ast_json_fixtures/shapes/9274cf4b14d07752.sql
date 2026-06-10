@@ -1,0 +1,1 @@
+ALTER TABLE tbl UPDATE a = xi WHERE 1

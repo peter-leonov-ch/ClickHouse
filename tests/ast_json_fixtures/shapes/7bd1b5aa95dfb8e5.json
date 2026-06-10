@@ -63,46 +63,37 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "id"
-                  },
-                  {
-                    "type": "Function",
-                    "alias": "state",
-                    "name": "argMax",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "state"
-                      },
-                      {
-                        "type": "Identifier",
-                        "name": "ts"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "id"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p_digest_posts_state",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Function",
+              "alias": "state",
+              "name": "argMax",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "state"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "ts"
+                }
+              ]
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ]
+        }
       }
     ]
   },
@@ -123,41 +114,40 @@
       "children": [
         {
           "type": "TTLElement",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "ts"
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalSecond",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 0
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "isNull",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "state"
-                }
-              ]
-            }
-          ]
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalSecond",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "where": {
+            "type": "Function",
+            "name": "isNull",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "state"
+              }
+            ]
+          }
         }
       ]
     },

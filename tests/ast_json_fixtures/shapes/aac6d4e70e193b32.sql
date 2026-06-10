@@ -1,0 +1,1 @@
+ALTER TABLE some_table DELETE WHERE 1

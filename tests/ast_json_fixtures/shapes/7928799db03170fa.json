@@ -35,17 +35,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "index_column"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "test1",
+        "expression": {
+          "type": "Identifier",
+          "name": "index_column"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ]
   },

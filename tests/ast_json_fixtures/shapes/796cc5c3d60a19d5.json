@@ -1,0 +1,122 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t22"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DELETE",
+      "predicate": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "叫"
+              },
+              {
+                "type": "Identifier",
+                "name": "c1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Float64",
+                    "value": 792.3673220441809
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "c0"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "c0"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "c1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_SETTING",
+      "settings_changes": {
+        "type": "Set",
+        "changes": {
+          "persistent": 1
+        }
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "UPDATE",
+      "predicate": {
+        "type": "Function",
+        "name": "not",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "f2",
+            "arguments": []
+          }
+        ]
+      },
+      "assignments": [
+        {
+          "type": "Assignment",
+          "column": "c1",
+          "expression": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "would"
+          }
+        }
+      ]
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_SETTING",
+      "settings_changes": {
+        "type": "Set",
+        "changes": {
+          "persistent": 0
+        }
+      }
+    }
+  ]
+}

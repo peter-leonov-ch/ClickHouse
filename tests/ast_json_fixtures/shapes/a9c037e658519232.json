@@ -19,35 +19,26 @@
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "c0"
-                  }
-                ]
-              },
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "c0"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "c0"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p0",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            },
+            {
+              "type": "Identifier",
+              "name": "c0"
+            }
+          ]
+        }
       }
     ]
   },

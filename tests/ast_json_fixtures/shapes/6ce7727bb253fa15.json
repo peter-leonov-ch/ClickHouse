@@ -19,50 +19,44 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "LOG2",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "i"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "minmax",
-            "arguments": []
-          }
-        ]
+        "name": "mm",
+        "expression": {
+          "type": "Function",
+          "name": "LOG2",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ],
     "projections": [
       {
         "type": "Projection",
-        "children": [
-          {
-            "type": "ProjectionSelectQuery",
-            "children": [
-              {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Function",
-                    "name": "MAX",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "i"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "p",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "MAX",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "i"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

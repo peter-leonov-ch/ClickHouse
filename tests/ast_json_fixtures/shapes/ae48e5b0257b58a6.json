@@ -1,0 +1,27 @@
+{
+  "type": "CreateIndexQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "i_a"
+    },
+    {
+      "type": "Index",
+      "name": "i_a",
+      "expression": {
+        "type": "Identifier",
+        "name": "a"
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "minmax",
+        "arguments": []
+      },
+      "granularity": 4
+    },
+    {
+      "type": "Identifier",
+      "name": "t_index"
+    }
+  ]
+}

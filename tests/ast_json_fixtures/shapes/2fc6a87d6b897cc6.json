@@ -31,17 +31,17 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "foo"
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": []
-          }
-        ]
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "foo"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 1
       }
     ]
   },

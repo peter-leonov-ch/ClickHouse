@@ -1,0 +1,38 @@
+{
+  "type": "CreateIndexQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "i2"
+    },
+    {
+      "type": "Index",
+      "name": "i2",
+      "expression": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          }
+        ]
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "minmax",
+        "arguments": []
+      },
+      "granularity": 1
+    },
+    {
+      "type": "Identifier",
+      "name": "t_index_3146"
+    }
+  ]
+}

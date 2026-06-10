@@ -1,0 +1,1 @@
+ALTER TABLE prop_table MODIFY COLUMN column_codec REMOVE CODEC

@@ -1,0 +1,8 @@
+{
+  "type": "TruncateQuery",
+  "kind": "TRUNCATE",
+  "database": {
+    "type": "Identifier",
+    "name": "test_truncate_database"
+  }
+}

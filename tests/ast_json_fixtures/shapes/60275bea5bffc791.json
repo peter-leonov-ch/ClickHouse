@@ -1,9 +1,9 @@
 {
   "type": "DropQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "v"
-    }
-  ]
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "v"
+  },
+  "is_view": true
 }

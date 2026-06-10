@@ -1,0 +1,9 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  }
+}

@@ -20,13 +20,13 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
+        "name": "bogus",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        }
       }
     ]
   }

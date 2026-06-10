@@ -27,29 +27,29 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "a"
-              },
-              {
-                "type": "Function",
-                "name": "toUInt32",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "s"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "c1",
+        "constraint_type": "ASSUME",
+        "expression": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Function",
+              "name": "toUInt32",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s"
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   },

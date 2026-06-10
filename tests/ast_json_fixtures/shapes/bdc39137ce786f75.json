@@ -9,41 +9,41 @@
     "constraints": [
       {
         "type": "Constraint",
-        "children": [
-          {
-            "type": "Function",
-            "name": "if",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Null",
-                "value": null
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              },
-              {
-                "type": "Function",
-                "name": "arrayElement",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "c"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": "c",
+        "constraint_type": "ASSUME",
+        "expression": {
+          "type": "Function",
+          "name": "if",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Function",
+              "name": "arrayElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "c"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   }

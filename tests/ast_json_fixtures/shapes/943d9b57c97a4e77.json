@@ -1,0 +1,9 @@
+{
+  "type": "DetachQuery",
+  "kind": "DETACH",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  }
+}

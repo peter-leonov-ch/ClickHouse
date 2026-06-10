@@ -1,0 +1,41 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "restore_01640"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "FETCH_PARTITION",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toYYYYMM",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toDate",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "2021-01-01"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "from": "\/clickhouse\/{database}\/{shard}\/tables\/test_01640"
+    }
+  ]
+}

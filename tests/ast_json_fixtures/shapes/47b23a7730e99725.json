@@ -1,0 +1,22 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "RENAME_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "j"
+      },
+      "rename_to": {
+        "type": "Identifier",
+        "name": "k"
+      }
+    }
+  ]
+}

@@ -1,42 +1,40 @@
 {
   "type": "CreateFunctionQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "02148_test_function"
-    },
-    {
-      "type": "Function",
-      "name": "lambda",
-      "is_operator": true,
-      "is_lambda_function": true,
-      "kind": "LAMBDA_FUNCTION",
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": []
-        },
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
-              }
-            ]
-          }
+  "function_name": {
+    "type": "Identifier",
+    "name": "02148_test_function"
+  },
+  "function_core": {
+    "type": "Function",
+    "name": "lambda",
+    "is_operator": true,
+    "is_lambda_function": true,
+    "kind": "LAMBDA_FUNCTION",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": []
+      },
+      {
+        "type": "Subquery",
+        "query": {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

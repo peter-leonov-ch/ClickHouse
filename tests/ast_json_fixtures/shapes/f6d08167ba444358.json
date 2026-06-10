@@ -7,17 +7,17 @@
     },
     {
       "type": "Index",
-      "children": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Function",
-          "name": "minmax",
-          "arguments": []
-        }
-      ]
+      "name": "i4",
+      "expression": {
+        "type": "Identifier",
+        "name": "a"
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "minmax",
+        "arguments": []
+      },
+      "granularity": 1
     },
     {
       "type": "Identifier",

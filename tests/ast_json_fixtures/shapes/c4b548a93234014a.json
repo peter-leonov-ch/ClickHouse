@@ -55,55 +55,55 @@
     "indices": [
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "mapKeys",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "map1"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 0.01
-              }
-            ]
-          }
-        ]
+        "name": "idx_map1_key",
+        "expression": {
+          "type": "Function",
+          "name": "mapKeys",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "map1"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.01
+            }
+          ]
+        },
+        "granularity": 1
       },
       {
         "type": "Index",
-        "children": [
-          {
-            "type": "Function",
-            "name": "mapKeys",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "map2"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "bloom_filter",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 0.01
-              }
-            ]
-          }
-        ]
+        "name": "idx_map2_key",
+        "expression": {
+          "type": "Function",
+          "name": "mapKeys",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "map2"
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Float64",
+              "value": 0.01
+            }
+          ]
+        },
+        "granularity": 1
       }
     ]
   },
