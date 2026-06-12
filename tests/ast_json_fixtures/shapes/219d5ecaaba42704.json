@@ -1,0 +1,73 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "field"
+        },
+        {
+          "type": "Function",
+          "name": "countIf",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "num_field"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Float64",
+                  "value": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "data"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "num_field"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Float64",
+            "value": 6
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "field"
+        }
+      ]
+    }
+  ]
+}

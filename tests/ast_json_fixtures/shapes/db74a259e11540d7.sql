@@ -1,0 +1,1 @@
+WITH 1 AS a SELECT (SELECT a)

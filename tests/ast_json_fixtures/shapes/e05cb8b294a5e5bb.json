@@ -1,0 +1,61 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_02327"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "name",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "VALUES",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "Vasya"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "Petya"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

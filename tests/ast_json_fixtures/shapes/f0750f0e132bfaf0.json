@@ -1,0 +1,45 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "test_01457"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tf_remote_explicit_structure"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ]
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "localhost"
+      },
+      {
+        "type": "Function",
+        "name": "currentDatabase",
+        "arguments": []
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "tmp"
+      }
+    ]
+  }
+}

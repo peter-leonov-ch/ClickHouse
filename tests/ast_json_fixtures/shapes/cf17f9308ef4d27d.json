@@ -1,0 +1,123 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "p",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Function",
+          "alias": "actual",
+          "name": "geohashEncode",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "longitude"
+            },
+            {
+              "type": "Identifier",
+              "name": "latitude"
+            },
+            {
+              "type": "Identifier",
+              "name": "p"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "if",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "actual"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "encoded"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Ok"
+            },
+            {
+              "type": "Function",
+              "name": "concat",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "expected: "
+                },
+                {
+                  "type": "Identifier",
+                  "name": "encoded"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "geohash_test_data"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "length",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "encoded"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "p"
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "all"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

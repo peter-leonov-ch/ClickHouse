@@ -1,0 +1,152 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "t1"
+          }
+        },
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "t2"
+          }
+        },
+        {
+          "type": "Literal",
+          "alias": "constant",
+          "value_type": "UInt64",
+          "value": 123
+        },
+        {
+          "type": "Function",
+          "name": "isConstant",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "world"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "t1",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "k",
+                          "name": "arrayJoin",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Array",
+                              "value": "[1, 2]"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 321
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "LEFT",
+              "on": {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "t1.k",
+                    "name_parts": ["t1", "k"]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "t2.k",
+                    "name_parts": ["t2", "k"]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "t2",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "k",
+                          "name": "arrayJoin",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Array",
+                              "value": "[1, 3]"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 123
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "t1.k",
+            "name_parts": ["t1", "k"]
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_table": "eligible_test",
+      "to_table": "eligible_test2"
+    }
+  ]
+}

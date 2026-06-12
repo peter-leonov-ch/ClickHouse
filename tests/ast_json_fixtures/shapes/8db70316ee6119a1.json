@@ -1,0 +1,37 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "check_constraint"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_CONSTRAINT",
+      "constraint_declaration": {
+        "type": "Constraint",
+        "name": "c0",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Subquery",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

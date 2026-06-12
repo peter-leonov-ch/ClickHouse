@@ -1,0 +1,1 @@
+SHOW DICTIONARIES FROM memory_db LIKE 'dict2'

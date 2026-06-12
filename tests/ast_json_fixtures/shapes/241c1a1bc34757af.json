@@ -1,0 +1,9 @@
+{
+  "type": "AttachQuery",
+  "attach": true,
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  }
+}

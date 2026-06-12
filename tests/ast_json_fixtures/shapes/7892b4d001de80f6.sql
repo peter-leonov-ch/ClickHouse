@@ -1,0 +1,1 @@
+CREATE TEMPORARY TABLE constrained (x UInt8, CONSTRAINT bogus CHECK 0)

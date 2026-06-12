@@ -1,0 +1,9 @@
+REPLACE DICTIONARY test_dict
+(
+    id UInt64,
+    value String
+)
+PRIMARY KEY id
+SOURCE(CLICKHOUSE(TABLE view))
+LAYOUT(FLAT())
+LIFETIME(MIN 0 MAX 1000)

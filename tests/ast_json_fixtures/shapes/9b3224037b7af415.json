@@ -1,0 +1,17 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "Null"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Null",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  },
+  "as_table": "Example"
+}

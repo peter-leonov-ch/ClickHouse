@@ -1,0 +1,1 @@
+CREATE TABLE clone_as_foo_replacing_merge_tree_p_x CLONE AS foo_replacing_merge_tree ENGINE=ReplacingMergeTree PRIMARY KEY x

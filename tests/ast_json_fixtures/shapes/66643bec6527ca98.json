@@ -1,0 +1,8 @@
+{
+  "type": "CreateUserQuery",
+  "children": [
+    {
+      "type": "AuthenticationData"
+    }
+  ]
+}

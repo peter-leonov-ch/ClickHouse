@@ -1,0 +1,69 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "hierarchical_dictionary"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "id",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt64"
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "parent_id",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt64"
+      },
+      "hierarchical": true
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "name",
+      "data_type": {
+        "type": "DataType",
+        "name": "String"
+      }
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "primary_key": [
+      {
+        "type": "Identifier",
+        "name": "id"
+      }
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "clickhouse",
+      "elements": [
+        {
+          "type": "pair",
+          "key": "table",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "hierarchy_source"
+          }
+        }
+      ]
+    },
+    "lifetime": {
+      "type": "DictionaryLifetime",
+      "min_sec": 0,
+      "max_sec": 0
+    },
+    "layout": {
+      "type": "DictionaryLayout",
+      "layout_type": "hashed",
+      "parameters": []
+    }
+  }
+}

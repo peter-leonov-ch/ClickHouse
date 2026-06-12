@@ -1,0 +1,67 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "result",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Bool"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_jit_bool"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 3
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

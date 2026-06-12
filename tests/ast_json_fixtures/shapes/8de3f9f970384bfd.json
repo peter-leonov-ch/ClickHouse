@@ -1,0 +1,18 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "partial_duplicates"
+  },
+  "final": true,
+  "deduplicate": true,
+  "deduplicate_by_columns": {
+    "type": "ExpressionList",
+    "children": [
+      {
+        "type": "ColumnsRegexpMatcher",
+        "pattern": ".*k"
+      }
+    ]
+  }
+}

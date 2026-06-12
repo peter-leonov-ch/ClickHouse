@@ -1,0 +1,1 @@
+RENAME TABLE set2 TO set

@@ -1,0 +1,178 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "127.{1,2}"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "view",
+                    "arguments": [
+                      {
+                        "type": "SelectWithUnionQuery",
+                        "selects": [
+                          {
+                            "type": "SelectQuery",
+                            "select": [
+                              {
+                                "type": "Function",
+                                "alias": "number",
+                                "name": "modulo",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "number"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 20
+                                  }
+                                ]
+                              }
+                            ],
+                            "tables": {
+                              "type": "TablesInSelectQuery",
+                              "children": [
+                                {
+                                  "type": "TablesInSelectQueryElement",
+                                  "table_expression": {
+                                    "type": "TableExpression",
+                                    "table_function": {
+                                      "type": "Function",
+                                      "name": "numbers",
+                                      "arguments": [
+                                        {
+                                          "type": "Literal",
+                                          "value_type": "UInt64",
+                                          "value": 40
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "where": {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "modulo",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "number"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": 2
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "minus",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "shardNum",
+                                      "arguments": []
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "number"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "distributed_group_by_no_merge": 2,
+          "distributed_push_down_limit": 1
+        }
+      }
+    }
+  ]
+}

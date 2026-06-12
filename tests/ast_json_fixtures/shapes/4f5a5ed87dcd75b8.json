@@ -1,0 +1,49 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "S",
+          "value_type": "String",
+          "value": "2020-02-05 14:34:12.333"
+        },
+        {
+          "type": "Function",
+          "alias": "DT64",
+          "name": "toDateTime64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "S"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "DT64"
+            },
+            {
+              "type": "Identifier",
+              "name": "S"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

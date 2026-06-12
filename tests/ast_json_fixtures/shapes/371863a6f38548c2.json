@@ -1,0 +1,276 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 13
+        },
+        {
+          "type": "Asterisk"
+        },
+        {
+          "type": "Function",
+          "name": "or",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Int64",
+                  "value": -32
+                },
+                {
+                  "type": "Function",
+                  "name": "dictGetInt32",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toFixedString",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "dictionary_all"
+                        },
+                        {
+                          "type": "Function",
+                          "name": "toLowCardinality",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 14
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toFixedString",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "i32"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "id"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "isNotDistinctFrom",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 9223372036854775806
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toLowCardinality",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 19
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "not",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "payload"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 9223372036854775806
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "isNotNull",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "dictGetFloat64 - plan"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Function",
+          "name": "isNotNull",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab__fuzz_24"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "equals",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 9223372036854775806
+          },
+          {
+            "type": "Identifier",
+            "name": "payload"
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "isNotDistinctFrom",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Function",
+            "name": "isNotDistinctFrom",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 9223372036854775806
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  },
+                  {
+                    "type": "Function",
+                    "name": "isNotNull",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 9223372036854775806
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "qualify": {
+        "type": "Function",
+        "name": "and",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              },
+              {
+                "type": "Function",
+                "name": "isZeroOrNull",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "payload"
+          },
+          "direction": "DESC"
+        }
+      ]
+    }
+  ]
+}

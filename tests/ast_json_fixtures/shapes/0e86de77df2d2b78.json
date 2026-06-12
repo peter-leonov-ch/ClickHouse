@@ -1,0 +1,35 @@
+{
+  "type": "DeleteQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_light"
+  },
+  "predicate": {
+    "type": "Function",
+    "name": "equals",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "modulo",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "c"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
+}

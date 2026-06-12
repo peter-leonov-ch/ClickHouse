@@ -1,0 +1,162 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "post_state"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "ts",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "state",
+        "data_type": {
+          "type": "DataType",
+          "name": "Nullable",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "UInt8"
+            }
+          ]
+        },
+        "ttl": {
+          "type": "Function",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ts"
+            },
+            {
+              "type": "Function",
+              "name": "toIntervalMonth",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "p_digest_posts_state",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Function",
+              "alias": "state",
+              "name": "argMax",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "state"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "ts"
+                }
+              ]
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "id"
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "TTLElement",
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalSecond",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "where": {
+            "type": "Function",
+            "name": "isNull",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "state"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 8192,
+        "deduplicate_merge_projection_mode": "rebuild"
+      }
+    }
+  }
+}

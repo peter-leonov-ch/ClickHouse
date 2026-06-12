@@ -1,0 +1,54 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "current_database",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "03626_parquet_bool.parquet"
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "engine_file_truncate_on_insert": 1
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "Bool",
+            "value": true
+          }
+        ],
+        "settings": {
+          "type": "Set",
+          "changes": {
+            "engine_file_truncate_on_insert": 1
+          }
+        }
+      }
+    ]
+  }
+}

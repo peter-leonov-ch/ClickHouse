@@ -1,0 +1,85 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Identifier",
+          "name": "category"
+        },
+        {
+          "type": "Function",
+          "alias": "combined",
+          "name": "concat",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "category"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            },
+            {
+              "type": "Identifier",
+              "name": "name"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_limit_by_all"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "id"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "category"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "value"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 2
+      },
+      "limit_by": []
+    }
+  ]
+}

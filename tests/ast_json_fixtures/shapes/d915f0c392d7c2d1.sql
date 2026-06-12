@@ -1,0 +1,1 @@
+INSERT INTO tlb (k) SELECT 1

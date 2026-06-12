@@ -1,0 +1,14 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_remove_sample_by"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "REMOVE_SAMPLE_BY"
+    }
+  ]
+}

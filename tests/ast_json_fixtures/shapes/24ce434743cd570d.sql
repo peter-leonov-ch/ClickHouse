@@ -1,0 +1,1 @@
+CREATE TABLE buffer1 AS d5 ENGINE = Buffer(currentDatabase(), d5, 1, 10000, 10000, 10000, 10000, 100000000, 100000000)

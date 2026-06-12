@@ -1,0 +1,52 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "values_01564"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "type": "Constraint",
+        "name": "c1",
+        "constraint_type": "CHECK",
+        "expression": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 10
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  }
+}

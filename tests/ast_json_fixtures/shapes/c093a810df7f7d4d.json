@@ -1,0 +1,38 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int8"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "n"
+    }
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "this is a MergeTree table"
+  }
+}

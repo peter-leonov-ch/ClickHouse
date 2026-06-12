@@ -1,0 +1,39 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "s3",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "http:\/\/localhost:9001\/foo\/{_partition_id}"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "admin"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "admin"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "CSV"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "id Int32, val String"
+      }
+    ]
+  },
+  "format": "Values",
+  "partition_by": {
+    "type": "Identifier",
+    "name": "val"
+  }
+}

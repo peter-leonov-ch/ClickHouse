@@ -1,0 +1,57 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "arr1"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 2
+        },
+        {
+          "type": "Identifier",
+          "name": "l"
+        },
+        {
+          "type": "Function",
+          "name": "arraySlice",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "arr1"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            },
+            {
+              "type": "Identifier",
+              "name": "l"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "array_functions"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

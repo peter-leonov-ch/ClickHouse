@@ -1,0 +1,20 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "cc"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ATTACH_PARTITION",
+      "part": true,
+      "partition": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "all_1_1_0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_detach_attach_patches"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "APPLY_PATCHES",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        }
+      }
+    }
+  ]
+}

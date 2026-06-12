@@ -1,0 +1,11 @@
+{
+  "type": "ExistsViewQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "db_01048"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "v_01048"
+  }
+}

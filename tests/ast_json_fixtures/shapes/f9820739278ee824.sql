@@ -1,0 +1,1 @@
+ALTER TABLE test_alter_atomic DELETE WHERE c0 = 0, RENAME COLUMN c0 TO c1

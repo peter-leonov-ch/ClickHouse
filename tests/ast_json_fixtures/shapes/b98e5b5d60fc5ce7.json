@@ -1,0 +1,101 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_all": true,
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "l.number",
+          "name_parts": ["l", "number"]
+        },
+        {
+          "type": "Function",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "r.number",
+              "name_parts": ["r", "number"]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "grouping",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "l.number",
+              "name_parts": ["l", "number"]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "l",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "INNER",
+              "on": {
+                "type": "Function",
+                "name": "less",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "l.number",
+                    "name_parts": ["l", "number"]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "r.number",
+                    "name_parts": ["r", "number"]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "r",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 2
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

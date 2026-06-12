@@ -1,0 +1,64 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "val"
+        },
+        {
+          "type": "Function",
+          "name": "avg",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toUInt32",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "val"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_group_by_lowcardinality"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "val"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "max_threads": 1,
+          "max_rows_to_group_by": 100,
+          "group_by_overflow_mode": "any"
+        }
+      }
+    }
+  ]
+}

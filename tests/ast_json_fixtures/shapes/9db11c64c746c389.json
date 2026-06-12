@@ -1,0 +1,231 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "start_ts",
+          "name": "CAST",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2024-12-12 12:00:15"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "DateTime64(3, 'UTC')"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "end_ts",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "start_ts"
+            },
+            {
+              "type": "Function",
+              "name": "toIntervalSecond",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 60
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "alias": "step_seconds",
+          "value_type": "UInt64",
+          "value": 15
+        },
+        {
+          "type": "Literal",
+          "alias": "window_seconds",
+          "value_type": "UInt64",
+          "value": 45
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "metric_id"
+        },
+        {
+          "type": "Function",
+          "name": "timeSeriesInstantDeltaToGrid",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "timestamp"
+            },
+            {
+              "type": "Identifier",
+              "name": "value"
+            }
+          ],
+          "parameters": [
+            {
+              "type": "Identifier",
+              "name": "start_ts"
+            },
+            {
+              "type": "Identifier",
+              "name": "end_ts"
+            },
+            {
+              "type": "Identifier",
+              "name": "step_seconds"
+            },
+            {
+              "type": "Identifier",
+              "name": "window_seconds"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "timeSeriesInstantRateToGrid",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "timestamp"
+            },
+            {
+              "type": "Identifier",
+              "name": "value"
+            }
+          ],
+          "parameters": [
+            {
+              "type": "Identifier",
+              "name": "start_ts"
+            },
+            {
+              "type": "Identifier",
+              "name": "end_ts"
+            },
+            {
+              "type": "Identifier",
+              "name": "step_seconds"
+            },
+            {
+              "type": "Identifier",
+              "name": "window_seconds"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_raw_timeseries"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "metric_id"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "greaterOrEquals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "timestamp"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "minus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "start_ts"
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toIntervalSecond",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "window_seconds"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "lessOrEquals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "timestamp"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "end_ts"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "metric_id"
+        }
+      ]
+    }
+  ]
+}

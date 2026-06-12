@@ -1,0 +1,69 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        },
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "dist_01247"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "distributed_push_down_limit": 1
+        }
+      }
+    }
+  ]
+}

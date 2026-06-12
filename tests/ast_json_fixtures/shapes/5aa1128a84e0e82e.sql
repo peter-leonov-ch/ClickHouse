@@ -1,0 +1,1 @@
+CREATE POLICY p1_01296 ON table

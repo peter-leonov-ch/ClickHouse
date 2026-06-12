@@ -1,0 +1,32 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "y_dist"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test_cluster_two_shards_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "y"
+        }
+      ]
+    }
+  },
+  "as_table": "y"
+}

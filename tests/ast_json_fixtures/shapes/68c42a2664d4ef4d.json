@@ -1,0 +1,74 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "date_trunc",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "month"
+            },
+            {
+              "type": "Identifier",
+              "name": "d"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "SUM",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t"
+              },
+              "final": true
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "f2"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "x"
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "x",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Function",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

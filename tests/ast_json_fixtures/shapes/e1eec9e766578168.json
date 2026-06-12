@@ -1,0 +1,9 @@
+{
+  "type": "CreateQuery",
+  "is_clone_as": true,
+  "table": {
+    "type": "Identifier",
+    "name": "clone_as_foo_merge_tree"
+  },
+  "as_table": "foo_merge_tree"
+}

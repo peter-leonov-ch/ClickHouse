@@ -1,0 +1,68 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "127.0.0.{1,2,3}"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "values",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "a UInt8, b UInt8"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Tuple",
+                        "value": "(1, 2)"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Tuple",
+                        "value": "(1, 3)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Identifier",
+          "name": "b"
+        }
+      ]
+    }
+  ]
+}

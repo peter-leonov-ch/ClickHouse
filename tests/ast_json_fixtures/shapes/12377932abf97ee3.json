@@ -1,0 +1,33 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Bool"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "EmbeddedRocksDB",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "c0"
+    }
+  }
+}

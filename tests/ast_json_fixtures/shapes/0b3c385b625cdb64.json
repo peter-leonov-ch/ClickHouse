@@ -1,0 +1,67 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "database_123456789abcde"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tbl"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "b",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "name": "mmi_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "a"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "add_minmax_index_for_numeric_columns": 0
+      }
+    }
+  }
+}

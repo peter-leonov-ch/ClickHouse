@@ -1,0 +1,82 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        },
+        {
+          "type": "Function",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "a",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "b",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "c",
+                          "value_type": "UInt64",
+                          "value": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ],
+      "having": {
+        "type": "Identifier",
+        "name": "c"
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 1
+        }
+      }
+    }
+  ]
+}

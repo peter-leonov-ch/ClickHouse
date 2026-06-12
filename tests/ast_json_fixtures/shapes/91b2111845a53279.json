@@ -1,0 +1,18 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t3"
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "numbers",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    ]
+  }
+}

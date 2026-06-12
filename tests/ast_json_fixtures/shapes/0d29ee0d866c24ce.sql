@@ -1,0 +1,1 @@
+CREATE VIEW test_view_03280 (a,b) AS SELECT 1, 2

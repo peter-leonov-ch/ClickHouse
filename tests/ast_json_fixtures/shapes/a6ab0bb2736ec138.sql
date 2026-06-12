@@ -1,0 +1,1 @@
+DETACH table test1601_detach_permanently_atomic.test_name_reuse PERMANENTLY

@@ -1,0 +1,1 @@
+SELECT count(NULL as a), a FROM t1 WITH TOTALS

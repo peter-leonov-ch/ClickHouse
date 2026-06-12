@@ -1,0 +1,12 @@
+{
+  "type": "Rename",
+  "dictionary": true,
+  "elements": [
+    {
+      "from_database": "test_01155_ordinary",
+      "from_table": "dict",
+      "to_database": "test_01155_atomic",
+      "to_table": "dict"
+    }
+  ]
+}

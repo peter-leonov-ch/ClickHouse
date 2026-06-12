@@ -1,0 +1,70 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "both"
+        },
+        {
+          "type": "Identifier",
+          "name": "database"
+        },
+        {
+          "type": "Identifier",
+          "name": "table"
+        },
+        {
+          "type": "Function",
+          "name": "left",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "replica_name"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "replicas",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "database"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          }
+        ]
+      }
+    }
+  ]
+}

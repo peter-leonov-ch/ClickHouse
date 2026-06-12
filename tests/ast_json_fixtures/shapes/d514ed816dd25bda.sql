@@ -1,0 +1,6 @@
+WITH RECURSIVE t AS (
+    SELECT '7' AS n
+UNION ALL
+    SELECT n+1 FROM t WHERE n < 10
+)
+SELECT n, toTypeName(n) FROM t

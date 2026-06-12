@@ -1,0 +1,7 @@
+{
+  "type": "ShowTables",
+  "from": {
+    "type": "Identifier",
+    "name": "shard_0"
+  }
+}

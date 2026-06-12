@@ -1,0 +1,70 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "number"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [
+            {
+              "type": "Asterisk"
+            }
+          ],
+          "window_definition": {
+            "type": "WindowDefinition",
+            "partition_by": [
+              {
+                "type": "Identifier",
+                "name": "p"
+              }
+            ]
+          }
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "window_mt"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_read_in_order": 0
+        }
+      }
+    }
+  ]
+}

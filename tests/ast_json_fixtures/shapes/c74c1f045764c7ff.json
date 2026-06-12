@@ -1,0 +1,39 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t1"
+              }
+            }
+          }
+        ]
+      },
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,532 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "s.a",
+          "name_parts": ["s", "a"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.b",
+          "name_parts": ["s", "b"]
+        },
+        {
+          "type": "Function",
+          "alias": "dt1",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s.dt1",
+              "name_parts": ["s", "dt1"]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.c",
+          "name_parts": ["s", "c"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.d",
+          "name_parts": ["s", "d"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.f",
+          "name_parts": ["s", "f"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.i",
+          "name_parts": ["s", "i"]
+        },
+        {
+          "type": "Function",
+          "alias": "dt2",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s.dt2",
+              "name_parts": ["s", "dt2"]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "s",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "a",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 4360430
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "b",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 5681495
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt1",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-01 10:44:58"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "c",
+                          "value_type": "String",
+                          "value": "txt"
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "d",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "274.350000000000"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "f",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 268.97
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "i",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 0
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt2",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-02 00:00:00"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "a",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 4341757
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "b",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 5657967
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt1",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-01 16:47:46"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "c",
+                          "value_type": "String",
+                          "value": "txt"
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "d",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "321.380000000000"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "f",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 315.08
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "i",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 0
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt2",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-02 00:00:00"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "a",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 4360430
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "b",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 5681495
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt1",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-02 09:00:07"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "c",
+                          "value_type": "String",
+                          "value": "txt"
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "d",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "274.350000000000"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "f",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 268.97
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "i",
+                          "name": "toDecimal128",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Float64",
+                              "value": 0
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 12
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "dt2",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-11-02 00:00:00"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "Asia\/Istanbul"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "s.a",
+          "name_parts": ["s", "a"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.b",
+          "name_parts": ["s", "b"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.c",
+          "name_parts": ["s", "c"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.d",
+          "name_parts": ["s", "d"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.f",
+          "name_parts": ["s", "f"]
+        },
+        {
+          "type": "Identifier",
+          "name": "s.i",
+          "name_parts": ["s", "i"]
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.a",
+            "name_parts": ["s", "a"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.b",
+            "name_parts": ["s", "b"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.c",
+            "name_parts": ["s", "c"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.d",
+            "name_parts": ["s", "d"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.f",
+            "name_parts": ["s", "f"]
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "s.i",
+            "name_parts": ["s", "i"]
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

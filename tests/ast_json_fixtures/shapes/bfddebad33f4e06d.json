@@ -1,0 +1,33 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_merge"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Merge",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "02111_modify_table_comment"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "t"
+        }
+      ]
+    }
+  },
+  "as_table": "t",
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "this is a Merge table"
+  }
+}

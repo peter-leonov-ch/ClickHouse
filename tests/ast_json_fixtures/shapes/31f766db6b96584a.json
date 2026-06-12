@@ -1,0 +1,126 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "table"
+        },
+        {
+          "type": "Identifier",
+          "name": "name"
+        },
+        {
+          "type": "Function",
+          "name": "argMax",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "part_type"
+            },
+            {
+              "type": "Identifier",
+              "name": "event_time_microseconds"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "argMax",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "deduplication_block_ids"
+            },
+            {
+              "type": "Identifier",
+              "name": "event_time_microseconds"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "part_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "in",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "table"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "['03711_join_with', '03711_table', '03711_mv_table_1', '03711_mv_table_2']"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "database"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "03710_database"
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "database"
+        },
+        {
+          "type": "Identifier",
+          "name": "table"
+        },
+        {
+          "type": "Identifier",
+          "name": "name"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ALL"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

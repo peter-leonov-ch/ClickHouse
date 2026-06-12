@@ -1,0 +1,66 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "k"
+        },
+        {
+          "type": "Function",
+          "name": "sipHash64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t1"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "k"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 998
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_read_in_order": 1,
+          "log_comment": "02898_inorder_190aed82-2423-413b-ad4c-24dcca50f65b"
+        }
+      }
+    }
+  ]
+}

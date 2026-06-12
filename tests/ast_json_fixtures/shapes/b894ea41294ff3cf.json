@@ -1,0 +1,66 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "table_1"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 3
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "additional_result_filter": "x != 2"
+        }
+      }
+    }
+  ]
+}

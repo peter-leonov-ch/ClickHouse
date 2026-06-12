@@ -1,0 +1,93 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "input",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Nullable(String)"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "alias": "mode",
+          "value_type": "String",
+          "value": "aes-256-ofb"
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "input"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "hex",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "aes_encrypt_mysql",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "mode"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "input"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "key32"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "iv"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "encryption_test"
+              }
+            }
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    }
+  ]
+}

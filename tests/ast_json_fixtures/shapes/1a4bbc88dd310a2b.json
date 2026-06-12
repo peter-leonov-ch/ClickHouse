@@ -1,0 +1,53 @@
+{
+  "type": "Explain",
+  "kind": "EXPLAIN SYNTAX",
+  "query": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "format": "TSV",
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ],
+          "tables": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "input",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "x UInt32"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "infile": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "data.file"
+    }
+  }
+}

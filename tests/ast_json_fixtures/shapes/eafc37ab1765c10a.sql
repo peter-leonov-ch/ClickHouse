@@ -1,0 +1,1 @@
+ALTER TABLE table_two REPLACE PARTITION 0 FROM table_one

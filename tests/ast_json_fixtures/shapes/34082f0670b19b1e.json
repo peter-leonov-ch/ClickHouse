@@ -1,0 +1,33 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [],
+          "window_name": "dummy"
+        }
+      ],
+      "window": [
+        {
+          "type": "WindowListElement",
+          "name": "dummy",
+          "definition": {
+            "type": "WindowDefinition",
+            "partition_by": [
+              {
+                "type": "Identifier",
+                "name": "dummy"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

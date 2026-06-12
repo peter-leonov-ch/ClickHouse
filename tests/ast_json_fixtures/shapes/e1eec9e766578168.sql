@@ -1,0 +1,1 @@
+CREATE TABLE clone_as_foo_merge_tree CLONE AS foo_merge_tree

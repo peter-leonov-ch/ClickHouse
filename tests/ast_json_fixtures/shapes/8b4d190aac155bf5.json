@@ -1,0 +1,17 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "out_02231"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Null",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  },
+  "as_table": "buffer_02231"
+}

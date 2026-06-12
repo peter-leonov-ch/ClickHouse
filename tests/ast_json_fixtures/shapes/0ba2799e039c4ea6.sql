@@ -1,0 +1,1 @@
+DELETE FROM t_merge_tree IN PARTITION '2024-08-01' WHERE id = '1'

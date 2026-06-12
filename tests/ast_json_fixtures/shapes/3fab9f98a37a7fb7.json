@@ -1,0 +1,37 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "cnt",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "where": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      },
+      "having": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "cnt"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ]
+}

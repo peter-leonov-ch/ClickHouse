@@ -1,0 +1,69 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "str",
+          "name": "toString",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Asterisk"
+        },
+        {
+          "type": "Function",
+          "alias": "c",
+          "name": "count",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [],
+          "window_definition": {
+            "type": "WindowDefinition"
+          }
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 10
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "str"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

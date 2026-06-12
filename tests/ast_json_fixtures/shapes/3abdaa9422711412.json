@@ -1,0 +1,14 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "format": "Values",
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "bool_true_representation": "да"
+    }
+  }
+}

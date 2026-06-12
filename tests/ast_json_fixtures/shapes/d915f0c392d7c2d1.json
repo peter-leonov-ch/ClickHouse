@@ -1,0 +1,28 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tlb"
+  },
+  "columns": [
+    {
+      "type": "Identifier",
+      "name": "k"
+    }
+  ],
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
+}

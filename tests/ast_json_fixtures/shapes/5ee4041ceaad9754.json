@@ -1,0 +1,62 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "test_projection_deduplicate"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "string",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "test_projection",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "id"
+    }
+  }
+}

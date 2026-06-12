@@ -1,0 +1,1 @@
+WITH b AS bb SELECT bb FROM t2 WHERE a IN (SELECT a FROM t1)

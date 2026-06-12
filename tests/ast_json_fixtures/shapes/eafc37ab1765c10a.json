@@ -1,0 +1,23 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "table_two"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "REPLACE_PARTITION",
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        }
+      },
+      "from_table": "table_one"
+    }
+  ]
+}

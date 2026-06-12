@@ -1,0 +1,13 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  },
+  "columns": [
+    {
+      "type": "Asterisk"
+    }
+  ],
+  "format": "Values"
+}

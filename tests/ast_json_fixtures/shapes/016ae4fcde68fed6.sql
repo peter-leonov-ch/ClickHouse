@@ -1,0 +1,1 @@
+SHOW DATABASE t_2710_db

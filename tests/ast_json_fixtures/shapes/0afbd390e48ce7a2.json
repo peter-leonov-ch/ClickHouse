@@ -1,0 +1,58 @@
+{
+  "type": "UpdateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "mutation_table"
+  },
+  "assignments": [
+    {
+      "type": "Assignment",
+      "column": "dt",
+      "expression": {
+        "type": "Function",
+        "name": "toDateOrNull",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "2020-08-04"
+          }
+        ]
+      }
+    }
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "or",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "name"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "car"
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "isNull",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "dt"
+          }
+        ]
+      }
+    ]
+  }
+}

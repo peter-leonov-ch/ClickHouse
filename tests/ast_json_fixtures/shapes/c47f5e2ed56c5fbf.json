@@ -1,0 +1,60 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "i",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "j",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "x",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Asterisk"
+            }
+          ],
+          "order_by": []
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "i"
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "i"
+    }
+  }
+}

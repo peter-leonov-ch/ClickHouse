@@ -1,0 +1,14 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns": [
+    {
+      "type": "Identifier",
+      "name": "c1"
+    }
+  ],
+  "format": "Values"
+}

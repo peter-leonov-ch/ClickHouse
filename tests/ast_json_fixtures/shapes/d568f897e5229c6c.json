@@ -1,0 +1,23 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t1"
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "127.0.0.1"
+      },
+      {
+        "type": "Identifier",
+        "name": "system.one",
+        "name_parts": ["system", "one"]
+      }
+    ]
+  }
+}

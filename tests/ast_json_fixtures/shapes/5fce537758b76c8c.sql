@@ -1,0 +1,1 @@
+CREATE FUNCTION f1 AS (p0, p1) -> *

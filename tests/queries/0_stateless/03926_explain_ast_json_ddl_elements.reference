@@ -1,0 +1,20 @@
+-- INDEX declaration
+{"type":"Index","name":"idx","expression":{"type":"Identifier","name":"a"},"index_type":{"type":"Function","name":"minmax","arguments":[]},"granularity":4}
+-- CONSTRAINT declaration
+{"name":"c","constraint_type":"CHECK","expr":"greater"}
+-- PROJECTION declaration
+{"type":"ProjectionSelectQuery","select":[{"type":"Identifier","name":"a"}],"group_by":[{"type":"Identifier","name":"a"}]}
+-- TTL DELETE
+{"type":"TTLElement","mode":"DELETE","ttl":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"d"},{"type":"Function","name":"toIntervalDay","arguments":[{"type":"Literal","value_type":"UInt64","value":1}]}]}}
+-- TTL MOVE TO DISK
+{"mode":"MOVE","destination_type":"DISK","destination_name":"cold"}
+-- DELETE
+{"table":"t","predicate":"greater"}
+-- UPDATE with assignments
+{"table":"t","assignments":["a","b"]}
+-- DROP with flags
+{"kind":"DROP","database":"db","table":"t","if_exists":true,"sync":true}
+-- TRUNCATE (drop kind)
+{"kind":"TRUNCATE","table":"t"}
+-- OPTIMIZE with partition
+{"table":"t","partition":"Partition","final":true,"deduplicate":true}

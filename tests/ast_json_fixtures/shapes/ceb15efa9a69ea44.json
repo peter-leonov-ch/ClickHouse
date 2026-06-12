@@ -1,0 +1,12 @@
+{
+  "type": "CreateFunctionQuery",
+  "function_name": {
+    "type": "Identifier",
+    "name": "02181_invalid_lambda"
+  },
+  "function_core": {
+    "type": "Function",
+    "name": "lambda",
+    "arguments": []
+  }
+}

@@ -1,0 +1,433 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "b.c",
+          "value_type": "UInt64",
+          "value": 2
+        },
+        {
+          "type": "Literal",
+          "alias": "a",
+          "value_type": "Array",
+          "value": "[4, 5]"
+        },
+        {
+          "type": "Literal",
+          "alias": "u",
+          "value_type": "UInt64",
+          "value": 6
+        },
+        {
+          "type": "Literal",
+          "alias": "v",
+          "value_type": "UInt64",
+          "value": 3
+        },
+        {
+          "type": "Literal",
+          "alias": "d",
+          "value_type": "UInt64",
+          "value": 2
+        },
+        {
+          "type": "Literal",
+          "alias": "e",
+          "value_type": "Bool",
+          "value": true
+        },
+        {
+          "type": "Literal",
+          "alias": "f",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "alias": "g",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Literal",
+          "alias": "h",
+          "value_type": "UInt64",
+          "value": 2
+        },
+        {
+          "type": "Literal",
+          "alias": "i",
+          "value_type": "String",
+          "value": "Hello"
+        },
+        {
+          "type": "Literal",
+          "alias": "j",
+          "value_type": "String",
+          "value": "World"
+        },
+        {
+          "type": "Literal",
+          "alias": "w",
+          "value_type": "String",
+          "value": "hi"
+        },
+        {
+          "type": "Literal",
+          "alias": "k",
+          "value_type": "Null",
+          "value": null
+        },
+        {
+          "type": "Literal",
+          "alias": "l",
+          "value_type": "Tuple",
+          "value": "(1, 2)"
+        },
+        {
+          "type": "Literal",
+          "alias": "m",
+          "value_type": "UInt64",
+          "value": 2
+        },
+        {
+          "type": "Literal",
+          "alias": "n",
+          "value_type": "UInt64",
+          "value": 3
+        },
+        {
+          "type": "Function",
+          "alias": "o",
+          "name": "array",
+          "is_operator": true,
+          "arguments": []
+        },
+        {
+          "type": "Literal",
+          "alias": "p",
+          "value_type": "Array",
+          "value": "[1]"
+        },
+        {
+          "type": "Literal",
+          "alias": "q",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Identifier",
+          "alias": "r",
+          "name": "q"
+        },
+        {
+          "type": "Literal",
+          "alias": "s",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "alias": "t",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "upyachka",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toIntervalMinute",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "concat",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "caseWithExpression",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "multiIf",
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "or",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "and",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Function",
+                                          "name": "not",
+                                          "is_operator": true,
+                                          "arguments": [
+                                            {
+                                              "type": "Function",
+                                              "name": "isNotNull",
+                                              "is_operator": true,
+                                              "arguments": [
+                                                {
+                                                  "type": "Function",
+                                                  "name": "plus",
+                                                  "is_operator": true,
+                                                  "arguments": [
+                                                    {
+                                                      "type": "Function",
+                                                      "name": "intDiv",
+                                                      "is_operator": true,
+                                                      "arguments": [
+                                                        {
+                                                          "type": "Function",
+                                                          "name": "multiply",
+                                                          "is_operator": true,
+                                                          "arguments": [
+                                                            {
+                                                              "type": "Function",
+                                                              "name": "negate",
+                                                              "is_operator": true,
+                                                              "arguments": [
+                                                                {
+                                                                  "type": "Function",
+                                                                  "name": "arrayElement",
+                                                                  "is_operator": true,
+                                                                  "arguments": [
+                                                                    {
+                                                                      "type": "Identifier",
+                                                                      "name": "a"
+                                                                    },
+                                                                    {
+                                                                      "type": "Identifier",
+                                                                      "name": "b.c"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "Identifier",
+                                                              "name": "u"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Identifier",
+                                                          "name": "v"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "Identifier",
+                                                      "name": "d"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Identifier",
+                                          "name": "e"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "and",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Function",
+                                          "name": "greaterOrEquals",
+                                          "is_operator": true,
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "name": "f"
+                                            },
+                                            {
+                                              "type": "Identifier",
+                                              "name": "g"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Function",
+                                          "name": "lessOrEquals",
+                                          "is_operator": true,
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "name": "f"
+                                            },
+                                            {
+                                              "type": "Identifier",
+                                              "name": "h"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "i"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "j"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "w"
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "k"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "Null",
+                              "value": null
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "array",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "l"
+                            },
+                            {
+                              "type": "Function",
+                              "name": "tuple",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "m"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "n"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "not",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "notEquals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "greater",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "less",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "notEquals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "CAST",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "o"
+                                        },
+                                        {
+                                          "type": "Literal",
+                                          "value_type": "String",
+                                          "value": "Array(INT)"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "p"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "q"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "r"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "s"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

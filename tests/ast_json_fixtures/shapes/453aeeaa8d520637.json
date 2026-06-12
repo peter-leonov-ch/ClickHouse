@@ -1,0 +1,17 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "01504_test_memory"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  },
+  "as_table": "01504_test"
+}

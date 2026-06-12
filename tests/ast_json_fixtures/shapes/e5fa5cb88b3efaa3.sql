@@ -1,0 +1,1 @@
+RENAME DICTIONARY test_01191.table TO test_01191.table1

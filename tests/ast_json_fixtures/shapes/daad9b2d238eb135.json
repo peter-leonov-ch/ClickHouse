@@ -1,0 +1,28 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_INDEX",
+      "index_declaration": {
+        "type": "Index",
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "vec"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "01504_test"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "EmbeddedRocksDB",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "key"
+        },
+        {
+          "type": "Identifier",
+          "name": "value"
+        }
+      ]
+    }
+  }
+}

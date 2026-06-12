@@ -1,0 +1,1 @@
+REPLACE TEMPORARY TABLE tmp (s String) AS SELECT 'a' FROM numbers(10)

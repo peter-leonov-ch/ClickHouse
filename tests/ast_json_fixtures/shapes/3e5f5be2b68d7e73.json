@@ -1,0 +1,9 @@
+{
+  "type": "CreateResourceQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "03232_read"
+    }
+  ]
+}

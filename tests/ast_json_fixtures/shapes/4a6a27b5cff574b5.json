@@ -1,0 +1,27 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "1",
+          "value_type": "UInt64",
+          "value": 3
+        }
+      ],
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Identifier",
+          "name": "1"
+        }
+      ]
+    }
+  ]
+}

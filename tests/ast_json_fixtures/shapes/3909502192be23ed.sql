@@ -1,0 +1,1 @@
+drop table 02681_undrop_uuid_on_cluster on cluster test_shard_localhost format Null

@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "alter_test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_COLUMN",
+      "if_exists": true,
+      "column": {
+        "type": "Identifier",
+        "name": "ToDrop"
+      }
+    }
+  ]
+}

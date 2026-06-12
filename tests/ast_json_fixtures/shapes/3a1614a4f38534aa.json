@@ -1,0 +1,263 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "a1",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "sleep",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "one",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "a2",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "sleep",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "one",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "a3",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "sleep",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "one",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "a4",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "sleep",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "one",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "a5",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "sleep",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "one",
+                          "database": "system"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "02177_CTE_NEW_ANALYZER"
+        },
+        {
+          "type": "Identifier",
+          "name": "a1"
+        },
+        {
+          "type": "Identifier",
+          "name": "a2"
+        },
+        {
+          "type": "Identifier",
+          "name": "a3"
+        },
+        {
+          "type": "Identifier",
+          "name": "a4"
+        },
+        {
+          "type": "Identifier",
+          "name": "a5"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "numbers",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 100
+      }
+    }
+  ]
+}

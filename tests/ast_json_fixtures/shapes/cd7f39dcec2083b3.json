@@ -1,0 +1,9 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_table": "original_mv",
+      "to_table": "new_mv"
+    }
+  ]
+}

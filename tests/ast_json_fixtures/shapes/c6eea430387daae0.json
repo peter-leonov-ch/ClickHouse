@@ -1,0 +1,8 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "log1"
+  },
+  "as_table": "log"
+}

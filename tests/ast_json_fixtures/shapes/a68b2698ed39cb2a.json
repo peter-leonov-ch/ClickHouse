@@ -1,0 +1,67 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Function",
+          "alias": "vv",
+          "name": "finalizeAggregation",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_index_agg_func"
+              },
+              "final": true
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "greaterOrEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "vv"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 10
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "id"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "type": "UseQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "db1"
+  }
+}

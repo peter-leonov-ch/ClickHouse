@@ -1,0 +1,21 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "mt2"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "f1"
+    }
+  },
+  "as_table": "mt1"
+}

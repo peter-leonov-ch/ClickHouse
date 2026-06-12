@@ -1,0 +1,32 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "local_t"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Log",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "a",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
+}

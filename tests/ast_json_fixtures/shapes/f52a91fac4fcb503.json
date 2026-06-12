@@ -1,0 +1,61 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "number",
+          "value_type": "String",
+          "value": "100"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "n",
+                "name": "d_numbers"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "n.number",
+            "name_parts": ["n", "number"]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 100
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 2
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "max_threads": 1,
+          "prefer_localhost_replica": 1
+        }
+      }
+    }
+  ]
+}

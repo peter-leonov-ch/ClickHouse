@@ -1,0 +1,68 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "col1"
+        },
+        {
+          "type": "Function",
+          "alias": "k",
+          "name": "multiIf",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "notEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "col1"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 213
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Москва"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Мир"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "multi_if_check"
+              }
+            }
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE t_column_ops RENAME COLUMN c TO old_b, ADD COLUMN d UInt64 DEFAULT 0

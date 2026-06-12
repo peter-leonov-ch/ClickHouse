@@ -1,0 +1,105 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "a",
+          "name": "arrayJoin",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "['aaa', 'bbb']"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "alias": "b",
+          "value_type": "String",
+          "value": "aaa\u0000bbb"
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "lessOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

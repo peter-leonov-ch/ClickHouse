@@ -1,0 +1,43 @@
+{
+  "type": "KillQueryQuery",
+  "kill_type": "MUTATION",
+  "where": {
+    "type": "Function",
+    "name": "and",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "table"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "mutation_table"
+          }
+        ]
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "database"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          }
+        ]
+      }
+    ]
+  }
+}

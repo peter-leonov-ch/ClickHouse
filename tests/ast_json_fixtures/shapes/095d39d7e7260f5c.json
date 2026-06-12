@@ -1,0 +1,62 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "b1_01361"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Buffer",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "t1_01361"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "as_table": "t1_01361"
+}

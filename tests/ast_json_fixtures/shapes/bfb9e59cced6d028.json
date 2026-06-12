@@ -1,0 +1,39 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "test_r1"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "ReplicatedMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "\/clickhouse\/{database}\/test_01666"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "r1"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "\\"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "min_bytes_for_wide_part": "100G",
+        "replace_long_file_name_to_hash": 1
+      }
+    }
+  },
+  "as_table": "test"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "Rename",
+  "dictionary": true,
+  "elements": [
+    {
+      "from_table": "test_dict_2",
+      "to_table": "test_dict"
+    }
+  ]
+}

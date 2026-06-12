@@ -1,0 +1,29 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t3"
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "127.0.0.1"
+      },
+      {
+        "type": "Function",
+        "name": "numbers",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 100
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tab2"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "vec",
+        "data_type": {
+          "type": "DataType",
+          "name": "Array",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "Float32"
+            }
+          ]
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "name": "vec_idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "vec"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "vector_similarity",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "hnsw"
+            },
+            {
+              "type": "Identifier",
+              "name": "L2Distance"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        "granularity": 100000000
+      }
+    ],
+    "primary_key": {
+      "type": "Identifier",
+      "name": "id"
+    }
+  },
+  "storage": {
+    "type": "Storage",
+    "primary_key": {
+      "type": "Identifier",
+      "name": "id"
+    }
+  }
+}

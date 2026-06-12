@@ -1,0 +1,31 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "distributed_00609"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "test_shard_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "mergetree_00609"
+        }
+      ]
+    }
+  },
+  "as_table": "mergetree_00609"
+}

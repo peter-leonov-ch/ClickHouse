@@ -1,0 +1,196 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "total",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "total_count"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "domain"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "total_count",
+                          "name": "COUNT",
+                          "arguments": [
+                            {
+                              "type": "Asterisk"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "facebookHits",
+                          "name": "SUM",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "if",
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "domain"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "facebook.com"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 1
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 0
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "domain"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "clicks"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "group_by": [
+                        {
+                          "type": "Identifier",
+                          "name": "domain"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "alias": "total_count",
+                          "name": "COUNT",
+                          "arguments": [
+                            {
+                              "type": "Asterisk"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "facebookHits",
+                          "name": "toUInt64",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "domain"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "transactions"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "group_by": [
+                        {
+                          "type": "Identifier",
+                          "name": "domain"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "domain"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "domain"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    }
+  ]
+}

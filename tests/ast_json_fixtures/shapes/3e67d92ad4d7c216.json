@@ -1,0 +1,13 @@
+{
+  "type": "CreateUserQuery",
+  "children": [
+    {
+      "type": "AuthenticationData",
+      "children": [
+        {
+          "type": "PublicSSHKey"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "type": "Explain",
+  "kind": "EXPLAIN QUERY TREE",
+  "query": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "ab"
+          },
+          {
+            "type": "Identifier",
+            "name": "bcd"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

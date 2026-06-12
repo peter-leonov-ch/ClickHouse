@@ -1,0 +1,18 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "bool_test"
+  },
+  "columns": [
+    {
+      "type": "Identifier",
+      "name": "value"
+    },
+    {
+      "type": "Identifier",
+      "name": "f"
+    }
+  ],
+  "format": "CSV"
+}

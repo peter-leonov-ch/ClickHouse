@@ -1,0 +1,120 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Function",
+          "alias": "mA",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "A"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "mB",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "B"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "mC",
+          "name": "max",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "C"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "x"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "mA"
+              },
+              {
+                "type": "Identifier",
+                "name": "mB"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "mA"
+              },
+              {
+                "type": "Identifier",
+                "name": "mC"
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 10
+      }
+    }
+  ]
+}

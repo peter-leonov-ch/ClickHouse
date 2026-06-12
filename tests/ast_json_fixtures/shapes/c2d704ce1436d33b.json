@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "tp_1"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_PROJECTION",
+      "clear_projection": true,
+      "projection": {
+        "type": "Identifier",
+        "name": "pp"
+      }
+    }
+  ]
+}

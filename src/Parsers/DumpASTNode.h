@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Common/JSONBuilder.h>
 #include <Common/logger_useful.h>
 #include <Poco/Util/Application.h>
 #include <IO/Operators.h>
@@ -154,6 +155,48 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
     for (const auto & child : ast.children)
         dumpASTInDotFormat(*child, ostr, false);
 }
+
+
+/// Build a JSONBuilder representation of the AST.
+/// Every node carries:
+///   - "type":     short class name (e.g. "Function", "Identifier", "Literal")
+///   - "alias":    only present when the node has an alias
+///   - "children": only present when the node has child nodes
+/// Selected node classes contribute extra structured fields such as `name`,
+/// `value`, `value_type`, `direction`, etc. — see implementation.
+///
+/// Some classes expose their sub-nodes through named slots instead of the
+/// positional `children` array, which is then omitted for those nodes:
+///   - ASTFunction: `arguments` (always present), `parameters`,
+///     `window_definition` — the inner `ExpressionList` wrappers are inlined.
+///   - ASTOrderByElement: `expression`, `collation`, `fill_from`, `fill_to`,
+///     `fill_step`, `fill_staleness`.
+///   - ASTSelectQuery: one named slot per clause (`with`, `select`, `tables`,
+///     `where`, `group_by`, `order_by`, `limit_length`, ...); list-shaped
+///     clauses inline their `ExpressionList` wrapper.
+///   - The structural wrappers — ASTSelectWithUnionQuery, ASTSubquery,
+///     ASTWithElement, ASTTablesInSelectQueryElement, ASTTableExpression,
+///     ASTTableJoin, ASTArrayJoin, ASTWindowListElement, ASTWindowDefinition,
+///     ASTInterpolateElement — likewise expose named slots.
+///   - Leaf-ish nodes that used to hide state: ASTSetQuery (`changes`),
+///     ASTSampleRatio (`numerator` / `denominator`), ASTAsterisk /
+///     ASTQualifiedAsterisk and the COLUMNS matchers / transformers.
+///   - DDL/DML: ASTCreateQuery, ASTColumns, ASTColumnDeclaration, ASTDataType,
+///     ASTStorage, ASTInsertQuery, ASTIndexDeclaration, ASTConstraintDeclaration,
+///     ASTProjectionDeclaration, ASTProjectionSelectQuery, ASTTTLElement,
+///     ASTPartition, ASTAssignment, ASTDeleteQuery, ASTUpdateQuery,
+///     ASTDropQuery, ASTOptimizeQuery, ASTAlterQuery, ASTAlterCommand,
+///     ASTCreateFunctionQuery, ASTDictionary (and its sub-elements),
+///     ASTDictionaryAttributeDeclaration, ASTFunctionWithKeyValueArguments,
+///     ASTPair, ASTViewTargets, ASTExplainQuery, ASTDescribeQuery,
+///     ASTShowTablesQuery, ASTCreateIndexQuery, ASTDropIndexQuery,
+///     ASTCheckTableQuery, ASTUseQuery, ASTKillQueryQuery, ASTRenameQuery,
+///     ASTSystemQuery, ASTStatisticsDeclaration, ASTNameTypePair, the
+///     qualified COLUMNS matchers, and a generic ASTQueryWithTableAndOutput
+///     fallback (EXISTS / SHOW CREATE / ...).
+/// `children` survives only on homogeneous lists (ExpressionList,
+/// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
+JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 
 /// String stream dumped in dtor

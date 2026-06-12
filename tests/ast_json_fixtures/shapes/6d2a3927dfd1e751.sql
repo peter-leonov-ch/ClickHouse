@@ -1,0 +1,1 @@
+CREATE TABLE clone_as_foo_replicated_merge_tree_p_x CLONE AS foo_replicated_merge_tree ENGINE=ReplicatedMergeTree('/clickhouse/tables/{database}/clone_as_foo_replicated_merge_tree_p_x', 'r1') PRIMARY KEY x

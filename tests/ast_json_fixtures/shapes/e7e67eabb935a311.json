@@ -1,0 +1,459 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "indexOf",
+          "arguments": [
+            {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "arraySort",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "groupUniqArray",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "tid"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "tables": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "transactions_info_log",
+                              "database": "system"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "database"
+                            },
+                            {
+                              "type": "Function",
+                              "name": "currentDatabase",
+                              "arguments": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "table"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "txn_counters"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Identifier",
+              "name": "tid"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "type"
+        },
+        {
+          "type": "Function",
+          "name": "notEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "thread_id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "length",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "query_id"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "length",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "queryID",
+                      "arguments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "type"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "Commit"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "query_id"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "notEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "tid_hash"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "csn"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "part"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "transactions_info_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "in",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tid"
+              },
+              {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "name": "tid"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "transactions_info_log",
+                                "database": "system"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "where": {
+                        "type": "Function",
+                        "name": "and",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "equals",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "database"
+                              },
+                              {
+                                "type": "Function",
+                                "name": "currentDatabase",
+                                "arguments": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "equals",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "table"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": "txn_counters"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "not",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "and",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "equals",
+                                    "is_operator": true,
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "tupleElement",
+                                        "is_operator": true,
+                                        "arguments": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "tid"
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 1
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 1
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "equals",
+                                    "is_operator": true,
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "tupleElement",
+                                        "is_operator": true,
+                                        "arguments": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "tid"
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": 2
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": 1
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "database"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "currentDatabase",
+                    "arguments": []
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "table"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "txn_counters"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "event_time"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

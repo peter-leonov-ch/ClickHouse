@@ -1,0 +1,137 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "using_id",
+          "name": "id"
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "using_id"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "t1_id",
+          "name": "t1.id",
+          "name_parts": ["t1", "id"]
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t1_id"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "t1_value",
+          "name": "t1.value",
+          "name_parts": ["t1", "value"]
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t1_value"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "t2_id",
+          "name": "t2.id",
+          "name_parts": ["t2", "id"]
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t2_id"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "t2_value",
+          "name": "t2.value",
+          "name_parts": ["t2", "value"]
+        },
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t2_value"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "t1",
+                "name": "test_table_join_1"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "FULL",
+              "using": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                }
+              ]
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "t2",
+                "name": "test_table_join_2"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ALL"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

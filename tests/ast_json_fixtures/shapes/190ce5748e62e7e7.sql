@@ -1,0 +1,1 @@
+ALTER TABLE t_detach_attach_patches APPLY PATCHES IN PARTITION 0

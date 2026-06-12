@@ -1,0 +1,751 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "data",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "alias": "val1",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val2",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val3",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val4",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val5",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val6",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val7",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val8",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val9",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val10",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val11",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val12",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val13",
+                      "name": "rand64",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "alias": "val14",
+                      "name": "rand64",
+                      "arguments": []
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "table_function": {
+                            "type": "Function",
+                            "name": "numbers",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 10
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value1",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val1"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value2",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val2"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value3",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val3"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value4",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val4"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value5",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val5"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value6",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val6"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value7",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val7"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value8",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val8"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value9",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val9"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value10",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val10"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value11",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val11"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value12",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val12"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value13",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val13"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Subquery",
+          "alias": "value14",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Function",
+                    "name": "avg",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "val14"
+                      }
+                    ]
+                  }
+                ],
+                "tables": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "data"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "v1",
+          "name": "value1"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v2",
+          "name": "value2"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v3",
+          "name": "value3"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v4",
+          "name": "value4"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v5",
+          "name": "value5"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v6",
+          "name": "value6"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v7",
+          "name": "value7"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v8",
+          "name": "value8"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v9",
+          "name": "value9"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v10",
+          "name": "value10"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v11",
+          "name": "value11"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v12",
+          "name": "value12"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v13",
+          "name": "value13"
+        },
+        {
+          "type": "Identifier",
+          "alias": "v14",
+          "name": "value14"
+        }
+      ]
+    }
+  ]
+}

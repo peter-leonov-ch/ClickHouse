@@ -1,0 +1,150 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "ym:s:goalDimension",
+          "name": "goals_alias.ID",
+          "name_parts": ["goals_alias", "ID"]
+        },
+        {
+          "type": "Function",
+          "name": "uniqIf",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "UserID"
+            },
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "notEquals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "UserID"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "_uniq_Goals"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "visits",
+                "database": "test"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "array_join": {
+              "type": "ArrayJoin",
+              "kind": "INNER",
+              "expressions": [
+                {
+                  "type": "Identifier",
+                  "alias": "goals_alias",
+                  "name": "Goals"
+                },
+                {
+                  "type": "Function",
+                  "alias": "_uniq_Goals",
+                  "name": "arrayEnumerateUniq",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "Goals.ID",
+                      "name_parts": ["Goals", "ID"]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "CounterID"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 842440
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "ym:s:goalDimension"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ym:s:goalDimension"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    }
+  ]
+}

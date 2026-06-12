@@ -1,0 +1,67 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "database",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": ".test-data.json"
+          }
+        ]
+      },
+      {
+        "type": "Identifier",
+        "name": "JSON"
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "numeric",
+            "name": "number"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 10
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

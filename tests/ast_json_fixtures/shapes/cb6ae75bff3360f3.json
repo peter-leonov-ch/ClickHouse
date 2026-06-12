@@ -1,0 +1,30 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "full_duplicates"
+  },
+  "deduplicate": true,
+  "deduplicate_by_columns": {
+    "type": "ExpressionList",
+    "children": [
+      {
+        "type": "Asterisk",
+        "transformers": {
+          "type": "ColumnsTransformerList",
+          "children": [
+            {
+              "type": "ColumnsExceptTransformer",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "pk"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

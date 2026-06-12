@@ -1,0 +1,65 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "table_keeper_map_02525"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "KeeperMap",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "concat",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\/"
+            },
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\/test02525"
+            }
+          ]
+        }
+      ]
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "key"
+    }
+  }
+}

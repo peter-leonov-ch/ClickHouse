@@ -1,0 +1,134 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "03443_data"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "name",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "name": "idx_name",
+        "expression": {
+          "type": "Identifier",
+          "name": "name"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "ngrambf_v1",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1024
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            }
+          ]
+        },
+        "granularity": 1
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "id"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 1
+      }
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "John"
+          }
+        ]
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 2
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "Ksenia"
+          }
+        ]
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 3
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "Alice"
+          }
+        ]
+      }
+    ]
+  }
+}

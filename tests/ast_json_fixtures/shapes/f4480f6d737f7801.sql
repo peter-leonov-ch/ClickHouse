@@ -1,0 +1,1 @@
+EXPLAIN AST SELECT 1 <=> 1 == 1

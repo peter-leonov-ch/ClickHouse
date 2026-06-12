@@ -1,0 +1,1 @@
+SHOW TEMPORARY TABLES LIKE 'temp_tab'

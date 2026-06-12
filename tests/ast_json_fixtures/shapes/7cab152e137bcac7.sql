@@ -1,0 +1,1 @@
+SELECT * FROM numbers(10) LIMIT LENGTH('NNN') + COS(0), toDate('0000-00-02')

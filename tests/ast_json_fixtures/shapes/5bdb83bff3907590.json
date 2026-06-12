@@ -1,0 +1,15 @@
+{
+  "type": "CheckQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "check_query_tiny_log"
+  },
+  "partition": {
+    "type": "Partition",
+    "value": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    }
+  }
+}

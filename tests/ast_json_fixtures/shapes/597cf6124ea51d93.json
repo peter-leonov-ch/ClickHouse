@@ -1,0 +1,7 @@
+{
+  "type": "CheckQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  }
+}

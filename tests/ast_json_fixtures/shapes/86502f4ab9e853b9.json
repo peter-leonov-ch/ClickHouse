@@ -1,0 +1,8 @@
+{
+  "type": "AttachQuery",
+  "attach": true,
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  }
+}

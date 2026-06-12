@@ -1,0 +1,358 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "cte",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "id2"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "tbl"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "joinGet",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "concat",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "currentDatabase",
+                                "arguments": []
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": ".join_engine"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "v"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "id1"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "id2"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "tbl.v",
+                        "name_parts": ["tbl", "v"]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "count",
+          "name": "uniq",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id2"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Asterisk"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "alias": "e",
+                                "name": "tbl"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "where": {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "joinGet",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "concat",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "currentDatabase",
+                                    "arguments": []
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": ".join_engine"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": "v"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "id1"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "id2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "e.v",
+                            "name_parts": ["e", "v"]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "in",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id2"
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "id2"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "cte"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "cte",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "id2"
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "tbl"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "joinGet",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "concat",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "currentDatabase",
+                                "arguments": []
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": ".join_engine"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "v"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "id1"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "id2"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "tbl.v",
+                        "name_parts": ["tbl", "v"]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "count",
+          "name": "uniq",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id2"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "cte"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

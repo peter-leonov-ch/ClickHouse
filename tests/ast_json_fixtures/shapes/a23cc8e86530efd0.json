@@ -1,0 +1,56 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "k",
+          "value_type": "UInt64",
+          "value": 10
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "key",
+          "name": "k"
+        },
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "repl_tbl"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Identifier",
+            "name": "k"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "implicit_True"
+        },
+        {
+          "type": "Function",
+          "alias": "all",
+          "name": "count",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "alias": "is_empty",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "transaction_id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(0, 0, '00000000-0000-0000-0000-000000000000')"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "query_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "current_database"
+              },
+              {
+                "type": "Function",
+                "name": "currentDatabase",
+                "arguments": []
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greaterOrEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "event_date"
+              },
+              {
+                "type": "Function",
+                "name": "yesterday",
+                "arguments": []
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "like",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "query"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-- Verify that the transaction_id column is populated correctly%"
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "transaction_id"
+        }
+      ]
+    }
+  ]
+}

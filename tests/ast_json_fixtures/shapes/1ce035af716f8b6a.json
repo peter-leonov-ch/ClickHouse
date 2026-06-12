@@ -1,0 +1,49 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "value",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(1, 'Value')"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Tuple (id UInt64, value String)"
+            }
+          ]
+        },
+        {
+          "type": "QualifiedColumnsListMatcher",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "value"
+          },
+          "columns": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ],
+          "transformers": {
+            "type": "ColumnsTransformerList",
+            "children": [
+              {
+                "type": "ColumnsApplyTransformer",
+                "func_name": "toString"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

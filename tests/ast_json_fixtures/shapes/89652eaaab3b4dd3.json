@@ -1,0 +1,365 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "group_by_with_cube": true,
+      "select": [
+        {
+          "type": "Function",
+          "alias": "dummy",
+          "name": "firstNonDefault",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "__table3.dummy",
+              "name_parts": ["__table3", "dummy"]
+            },
+            {
+              "type": "Identifier",
+              "name": "__table4.dummy",
+              "name_parts": ["__table4", "dummy"]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+          "name": "__table4.isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+          "name_parts": ["__table4", "isNotNull(map(assumeNotNull(isNull(3)), NULL))"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))",
+          "name": "__table4.isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))",
+          "name_parts": ["__table4", "isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "__table3",
+                "name": "one",
+                "database": "system"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "FULL",
+              "strictness": "ALL",
+              "using": [
+                {
+                  "type": "Identifier",
+                  "name": "dummy"
+                }
+              ]
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "__table4",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "distinct": true,
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "alias": "dummy",
+                          "name": "__table5.dummy",
+                          "name_parts": ["__table5", "dummy"]
+                        },
+                        {
+                          "type": "Identifier",
+                          "alias": "isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+                          "name": "__table5.isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+                          "name_parts": ["__table5", "isNotNull(map(assumeNotNull(isNull(3)), NULL))"]
+                        },
+                        {
+                          "type": "Function",
+                          "alias": "isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))",
+                          "name": "_CAST",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 0
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "UInt8"
+                            }
+                          ]
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "subquery": {
+                                "type": "Subquery",
+                                "alias": "__table5",
+                                "query": {
+                                  "type": "SelectWithUnionQuery",
+                                  "selects": [
+                                    {
+                                      "type": "SelectQuery",
+                                      "select": [
+                                        {
+                                          "type": "Identifier",
+                                          "alias": "dummy",
+                                          "name": "__table6.dummy",
+                                          "name_parts": ["__table6", "dummy"]
+                                        },
+                                        {
+                                          "type": "Function",
+                                          "alias": "isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+                                          "name": "_CAST",
+                                          "arguments": [
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "UInt64",
+                                              "value": 1
+                                            },
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "String",
+                                              "value": "UInt8"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "tables": {
+                                        "type": "TablesInSelectQuery",
+                                        "children": [
+                                          {
+                                            "type": "TablesInSelectQueryElement",
+                                            "table_expression": {
+                                              "type": "TableExpression",
+                                              "table_function": {
+                                                "type": "Function",
+                                                "alias": "__table6",
+                                                "name": "remote",
+                                                "arguments": [
+                                                  {
+                                                    "type": "Literal",
+                                                    "value_type": "String",
+                                                    "value": "127.0.0.3"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "array_join": {
+              "type": "ArrayJoin",
+              "kind": "LEFT",
+              "expressions": [
+                {
+                  "type": "Function",
+                  "alias": "__array_join_exp_2",
+                  "name": "array",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "materialize",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 3
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "_CAST",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 1
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "UInt8"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "array_join": {
+              "type": "ArrayJoin",
+              "kind": "LEFT",
+              "expressions": [
+                {
+                  "type": "Function",
+                  "alias": "__array_join_exp_1",
+                  "name": "map",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "_CAST",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 0
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "UInt8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "materialize",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "_CAST",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 0
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "UInt8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "_CAST",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "1"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "UInt128"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "materialize",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "__table4.isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+          "name_parts": ["__table4", "isNotNull(map(assumeNotNull(isNull(3)), NULL))"]
+        },
+        {
+          "type": "Function",
+          "name": "firstNonDefault",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "__table3.dummy",
+              "name_parts": ["__table3", "dummy"]
+            },
+            {
+              "type": "Identifier",
+              "name": "__table4.dummy",
+              "name_parts": ["__table4", "dummy"]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "__table4.isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))",
+          "name_parts": ["__table4", "isNotDistinctFrom(3, isZeroOrNull(isNotNull(3)))"]
+        },
+        {
+          "type": "Identifier",
+          "name": "__table4.isNotNull(map(assumeNotNull(isNull(3)), NULL))",
+          "name_parts": ["__table4", "isNotNull(map(assumeNotNull(isNull(3)), NULL))"]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_lazy_columns_replication": 1
+        }
+      }
+    }
+  ]
+}

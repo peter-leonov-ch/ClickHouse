@@ -1,0 +1,51 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "a",
+          "name": "avg",
+          "is_window_function": true,
+          "kind": "WINDOW_FUNCTION",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ],
+          "window_definition": {
+            "type": "WindowDefinition"
+          }
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test"
+              }
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "allow_experimental_window_functions": 1
+        }
+      }
+    }
+  ]
+}

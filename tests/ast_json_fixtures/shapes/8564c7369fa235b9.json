@@ -1,0 +1,11 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_database": "test_1603_rename_bug_atomic",
+      "from_table": "bar",
+      "to_database": "test_1603_rename_bug_atomic",
+      "to_table": "foo"
+    }
+  ]
+}

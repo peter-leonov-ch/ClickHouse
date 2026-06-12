@@ -1,0 +1,14 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "ColumnsRegexpMatcher",
+          "pattern": "d"
+        }
+      ]
+    }
+  ]
+}

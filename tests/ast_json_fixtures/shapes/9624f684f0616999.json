@@ -1,0 +1,8 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "table_with_complex_default"
+  },
+  "format": "JSONEachRow"
+}

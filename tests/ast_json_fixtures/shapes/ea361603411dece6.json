@@ -1,0 +1,57 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "dict"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "col",
+      "data_type": {
+        "type": "DataType",
+        "name": "Int64"
+      },
+      "default_value": {
+        "type": "Literal",
+        "value_type": "Null",
+        "value": null
+      }
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "primary_key": [
+      {
+        "type": "Identifier",
+        "name": "col"
+      }
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "null",
+      "elements": []
+    },
+    "lifetime": {
+      "type": "DictionaryLifetime",
+      "min_sec": 0,
+      "max_sec": 1
+    },
+    "layout": {
+      "type": "DictionaryLayout",
+      "layout_type": "ssd_cache",
+      "parameters": [
+        {
+          "type": "pair",
+          "key": "block_size",
+          "value": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        }
+      ]
+    }
+  }
+}

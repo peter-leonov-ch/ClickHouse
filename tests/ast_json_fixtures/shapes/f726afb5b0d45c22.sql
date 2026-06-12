@@ -1,0 +1,1 @@
+CREATE TEMPORARY TABLE tmp2 (n int, PRIMARY KEY (n))

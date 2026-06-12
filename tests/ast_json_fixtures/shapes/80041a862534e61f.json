@@ -1,0 +1,5 @@
+{
+  "type": "SYSTEM",
+  "system_type": "DROP REPLICA",
+  "replica": "r1"
+}

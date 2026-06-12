@@ -1,0 +1,1 @@
+SYSTEM RESTORE REPLICA hourly_data

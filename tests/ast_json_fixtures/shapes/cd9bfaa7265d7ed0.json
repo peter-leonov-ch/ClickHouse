@@ -1,0 +1,47 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "is_populate": true,
+  "table": {
+    "type": "Identifier",
+    "name": "rview"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "c0",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "File",
+            "kind": "TABLE_ENGINE",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "CSV"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

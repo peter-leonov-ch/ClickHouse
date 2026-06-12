@@ -1,0 +1,1 @@
+CREATE TABLE db1.tab(a UInt64, PRIMARY KEY a)

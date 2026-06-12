@@ -1,0 +1,7 @@
+{
+  "type": "ExistsDatabaseQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "db_01048"
+  }
+}

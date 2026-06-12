@@ -1,0 +1,78 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "clusterAllReplicas",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "test_shard_localhost"
+      },
+      {
+        "type": "Function",
+        "name": "currentDatabase",
+        "arguments": []
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "distributed_01099_c"
+      }
+    ]
+  },
+  "columns": [
+    {
+      "type": "Identifier",
+      "name": "n"
+    }
+  ],
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "alias": "tx",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "localhost"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

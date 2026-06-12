@@ -1,0 +1,108 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "index_test"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_INDEX",
+      "index_declaration": {
+        "type": "Index",
+        "name": "i_x",
+        "expression": {
+          "type": "Function",
+          "name": "tupleElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "mortonDecode",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                },
+                {
+                  "type": "Identifier",
+                  "name": "z"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_INDEX",
+      "index_declaration": {
+        "type": "Index",
+        "name": "i_y",
+        "expression": {
+          "type": "Function",
+          "name": "tupleElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "mortonDecode",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                },
+                {
+                  "type": "Identifier",
+                  "name": "z"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "minmax",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "MATERIALIZE_INDEX",
+      "index": {
+        "type": "Identifier",
+        "name": "i_x"
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "MATERIALIZE_INDEX",
+      "index": {
+        "type": "Identifier",
+        "name": "i_y"
+      }
+    }
+  ]
+}

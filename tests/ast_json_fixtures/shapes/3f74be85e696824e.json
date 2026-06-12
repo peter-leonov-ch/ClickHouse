@@ -1,0 +1,41 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "is_create_empty": true,
+  "table": {
+    "type": "Identifier",
+    "name": "mv"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "Memory",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          }
+        }
+      }
+    ]
+  }
+}

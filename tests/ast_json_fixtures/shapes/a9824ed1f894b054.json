@@ -1,0 +1,44 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        },
+        {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "e"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "b"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "enums"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

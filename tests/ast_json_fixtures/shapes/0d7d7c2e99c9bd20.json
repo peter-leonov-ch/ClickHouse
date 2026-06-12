@@ -1,0 +1,102 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "p",
+          "name": "h3ToGeo",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "h3_index"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "round",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "p"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "round",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "p"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 3
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "h3_indexes"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "h3_index"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

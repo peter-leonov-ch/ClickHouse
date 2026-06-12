@@ -1,0 +1,16 @@
+-- CREATE TABLE: columns, types, defaults, codec, comment
+{"type":"ColumnDeclaration","name":"id","data_type":{"type":"DataType","name":"UInt64"}}
+{"type":"ColumnDeclaration","name":"s","data_type":{"type":"DataType","name":"String"},"default_specifier":"DEFAULT","default_expression":{"type":"Literal","value_type":"String","value":"x"},"codec":{"type":"Function","name":"CODEC","kind":"CODEC","arguments":[{"type":"Function","name":"ZSTD","arguments":[]}]}}
+{"type":"ColumnDeclaration","name":"n","data_type":{"type":"DataType","name":"Decimal","arguments":[{"type":"Literal","value_type":"UInt64","value":10},{"type":"Literal","value_type":"UInt64","value":2}]},"comment":{"type":"Literal","value_type":"String","value":"c"}}
+-- storage
+{"type":"Storage","engine":{"type":"Function","name":"MergeTree","kind":"TABLE_ENGINE","arguments":[]},"partition_by":{"type":"Function","name":"toYYYYMM","arguments":[{"type":"Identifier","name":"d"}]},"order_by":{"type":"Identifier","name":"id"},"settings":{"type":"Set","changes":{"index_granularity":8192}}}
+-- nested data types
+[{"name":"Array","args":1},{"name":"String","args":0},{"name":"Map","args":2},{"name":"String","args":0},{"name":"UInt8","args":0}]
+-- CREATE flags and target
+{"is_materialized_view":true,"if_not_exists":true,"table":"mv","select":"SelectWithUnionQuery"}
+-- CREATE TABLE AS
+{"table":"t","as_table":"other"}
+-- INSERT ... SELECT
+{"table":"t","columns":["a","b"],"select":"SelectWithUnionQuery"}
+-- INSERT ... VALUES
+{"database":"db","table":"t"}

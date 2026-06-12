@@ -1,0 +1,36 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "test_table with spaces"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "order_by": {
+      "type": "Identifier",
+      "name": "id"
+    }
+  }
+}

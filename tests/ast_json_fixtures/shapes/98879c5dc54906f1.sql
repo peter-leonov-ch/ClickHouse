@@ -1,0 +1,1 @@
+ALTER TABLE log_for_alter MODIFY SETTING aaa=123

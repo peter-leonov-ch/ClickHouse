@@ -1,0 +1,31 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_COMMENT",
+      "comment": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "World"
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "MODIFY_COLUMN",
+      "column_declaration": {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt16"
+        }
+      }
+    }
+  ]
+}

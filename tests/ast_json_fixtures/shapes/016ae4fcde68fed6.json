@@ -1,0 +1,7 @@
+{
+  "type": "ShowCreateDatabaseQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "t_2710_db"
+  }
+}

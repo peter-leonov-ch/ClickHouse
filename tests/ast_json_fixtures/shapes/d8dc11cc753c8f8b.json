@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START PULLING REPLICATION LOG",
+  "table": {
+    "type": "Identifier",
+    "name": "t1"
+  }
+}

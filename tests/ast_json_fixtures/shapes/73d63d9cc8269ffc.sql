@@ -1,0 +1,1 @@
+SELECT DISTINCT u FROM t_sparse_full ORDER BY id LIMIT 5

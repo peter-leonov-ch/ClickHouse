@@ -1,0 +1,47 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "countDistinct",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "testnull"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "max_memory_usage": 10000000
+        }
+      }
+    }
+  ]
+}

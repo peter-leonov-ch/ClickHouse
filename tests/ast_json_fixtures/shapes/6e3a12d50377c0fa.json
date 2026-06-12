@@ -1,0 +1,7 @@
+{
+  "type": "ShowCreateTableQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  }
+}

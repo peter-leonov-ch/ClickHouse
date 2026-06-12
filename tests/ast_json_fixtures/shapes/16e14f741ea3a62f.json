@@ -1,0 +1,24 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "t.parquet"
+      },
+      {
+        "type": "Identifier",
+        "name": "Parquet"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "x String"
+      }
+    ]
+  },
+  "format": "Values"
+}

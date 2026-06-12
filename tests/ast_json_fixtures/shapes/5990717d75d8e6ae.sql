@@ -1,0 +1,1 @@
+ALTER TABLE sqllt.table MODIFY COLUMN new_col REMOVE COMMENT

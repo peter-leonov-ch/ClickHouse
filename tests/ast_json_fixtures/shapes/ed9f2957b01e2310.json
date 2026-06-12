@@ -1,0 +1,14 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_alter_auto_statistics"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_STATISTICS"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP DISTRIBUTED SENDS",
+  "table": {
+    "type": "Identifier",
+    "name": "buf"
+  }
+}

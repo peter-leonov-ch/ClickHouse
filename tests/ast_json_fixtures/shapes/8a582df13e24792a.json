@@ -1,0 +1,231 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "owner_id",
+          "name": "tb1.owner_id",
+          "name_parts": ["tb1", "owner_id"]
+        },
+        {
+          "type": "Identifier",
+          "name": "type"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "tb1",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "alias": "owner_id",
+                          "name": "number"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "table_function": {
+                                "type": "Function",
+                                "name": "numbers",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 100
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "CROSS"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "alias": "pt",
+                "name": "values",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "type varchar"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "type1"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "type2"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "type3"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "LEFT",
+              "using": [
+                {
+                  "type": "Identifier",
+                  "name": "owner_id"
+                }
+              ]
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "merged",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "alias": "owner_id",
+                          "name": "tb2.owner_id",
+                          "name_parts": ["tb2", "owner_id"]
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "subquery": {
+                                "type": "Subquery",
+                                "alias": "tb2",
+                                "query": {
+                                  "type": "SelectWithUnionQuery",
+                                  "selects": [
+                                    {
+                                      "type": "SelectQuery",
+                                      "select": [
+                                        {
+                                          "type": "Identifier",
+                                          "alias": "owner_id",
+                                          "name": "number"
+                                        }
+                                      ],
+                                      "tables": {
+                                        "type": "TablesInSelectQuery",
+                                        "children": [
+                                          {
+                                            "type": "TablesInSelectQueryElement",
+                                            "table_expression": {
+                                              "type": "TableExpression",
+                                              "table_function": {
+                                                "type": "Function",
+                                                "name": "numbers",
+                                                "arguments": [
+                                                  {
+                                                    "type": "Literal",
+                                                    "value_type": "UInt64",
+                                                    "value": 100
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "group_by": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "owner_id"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "tb1.owner_id",
+            "name_parts": ["tb1", "owner_id"]
+          },
+          {
+            "type": "Identifier",
+            "name": "merged.owner_id",
+            "name_parts": ["merged", "owner_id"]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "tb1.owner_id",
+          "name_parts": ["tb1", "owner_id"]
+        },
+        {
+          "type": "Identifier",
+          "name": "type"
+        }
+      ]
+    }
+  ]
+}

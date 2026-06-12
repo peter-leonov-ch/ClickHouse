@@ -1,0 +1,76 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "x",
+          "name": "neighbor",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toString",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toInt64",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "rand64",
+                  "arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "numbers",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "not",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "ignore",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

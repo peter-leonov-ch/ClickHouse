@@ -1,0 +1,8 @@
+{
+  "type": "ShowCreateTableQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "merged"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Merge",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "short|long"
+        }
+      ]
+    }
+  },
+  "as_table": "short"
+}

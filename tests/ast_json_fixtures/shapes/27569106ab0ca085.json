@@ -1,0 +1,72 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "check_query_comment_column"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "first_column",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        },
+        "comment": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "comment 1"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "second_column",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        },
+        "comment": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "comment 2"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "third_column",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        },
+        "comment": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "comment 3"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "second_column"
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "first_column"
+    },
+    "sample_by": {
+      "type": "Identifier",
+      "name": "first_column"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+INSERT INTO table1 SELECT number FROM numbers(3)
+PARALLEL WITH
+INSERT INTO table1 SELECT number FROM numbers(10, 2)
+PARALLEL WITH
+INSERT INTO table2 SELECT number FROM numbers(20, 1)

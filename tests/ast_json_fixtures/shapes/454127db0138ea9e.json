@@ -1,0 +1,10 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_table": "t0_tmp",
+      "to_table": "t1",
+      "if_exists": true
+    }
+  ]
+}

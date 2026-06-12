@@ -1,0 +1,1 @@
+CREATE TABLE other_table_2 AS mv_from_base_to_target

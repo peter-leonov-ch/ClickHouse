@@ -1,0 +1,1 @@
+ALTER TABLE alter_test DROP COLUMN IF EXISTS ToDrop

@@ -1,0 +1,11 @@
+{
+  "type": "DeleteQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "predicate": {
+    "type": "Identifier",
+    "name": "c0"
+  }
+}

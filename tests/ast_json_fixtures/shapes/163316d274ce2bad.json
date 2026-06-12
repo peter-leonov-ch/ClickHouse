@@ -1,0 +1,35 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "test_01457"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tf_numbers"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "number",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "as_table_function": {
+    "type": "Function",
+    "name": "numbers",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
+}

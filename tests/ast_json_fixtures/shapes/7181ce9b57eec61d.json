@@ -1,0 +1,8 @@
+{
+  "type": "DetachQuery",
+  "kind": "DETACH",
+  "database": {
+    "type": "Identifier",
+    "name": "db_01870"
+  }
+}

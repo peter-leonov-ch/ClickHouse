@@ -1,0 +1,34 @@
+{
+  "type": "UpdateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_shared"
+  },
+  "assignments": [
+    {
+      "type": "Assignment",
+      "column": "c1",
+      "expression": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 100
+      }
+    }
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "equals",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "id"
+      },
+      {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      }
+    ]
+  }
+}

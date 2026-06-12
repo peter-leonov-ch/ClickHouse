@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "STOP MERGES",
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "BackupQuery",
+  "children": [
+    {
+      "type": "Function",
+      "name": "Null",
+      "kind": "BACKUP_NAME",
+      "arguments": []
+    },
+    {
+      "type": "Identifier",
+      "name": "Null"
+    }
+  ]
+}

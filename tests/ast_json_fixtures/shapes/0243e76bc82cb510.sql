@@ -1,0 +1,1 @@
+DELETE FROM 02416_rocksdb WHERE 1 = 1

@@ -1,0 +1,1 @@
+SELECT t1.* APPLY ((x) -> x+1), b + 1 AS a FROM t1 INNER JOIN t2 USING (a) ORDER BY ALL

@@ -1,0 +1,113 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Subquery",
+          "alias": "arr1",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Array",
+                    "value": "[0, 1, 2, 3]"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "common",
+          "name": "arraySort",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arrayIntersect",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "argMax",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "seqs"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "create_time"
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "arr1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tags"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "like",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "id%"
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "id"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

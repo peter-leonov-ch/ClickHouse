@@ -1,0 +1,61 @@
+{
+  "type": "UpdateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "lightweight_test"
+  },
+  "assignments": [
+    {
+      "type": "Assignment",
+      "column": "value",
+      "expression": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "UPDATED-1"
+      }
+    }
+  ],
+  "predicate": {
+    "type": "Function",
+    "name": "in",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "key"
+      },
+      {
+        "type": "Subquery",
+        "query": {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
+                {
+                  "type": "Identifier",
+                  "name": "key"
+                }
+              ],
+              "tables": {
+                "type": "TablesInSelectQuery",
+                "children": [
+                  {
+                    "type": "TablesInSelectQueryElement",
+                    "table_expression": {
+                      "type": "TableExpression",
+                      "database_and_table_name": {
+                        "type": "TableIdentifier",
+                        "name": "keys"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

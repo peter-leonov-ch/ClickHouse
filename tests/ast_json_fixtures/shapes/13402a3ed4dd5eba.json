@@ -1,0 +1,34 @@
+{
+  "type": "ParallelWithQuery",
+  "children": [
+    {
+      "type": "OptimizeQuery",
+      "table": {
+        "type": "Identifier",
+        "name": "test_table"
+      },
+      "final": true,
+      "deduplicate": true,
+      "deduplicate_by_columns": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Identifier",
+            "name": "value"
+          }
+        ]
+      }
+    },
+    {
+      "type": "OptimizeQuery",
+      "table": {
+        "type": "Identifier",
+        "name": "t2"
+      }
+    }
+  ]
+}

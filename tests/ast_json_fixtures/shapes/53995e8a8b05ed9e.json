@@ -1,0 +1,226 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNull",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "t0.c0",
+                  "name_parts": ["t0", "c0"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "COUNT",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "\n?pVa"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t0"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "t0.c0",
+          "name_parts": ["t0", "c0"]
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "isNull",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "t0.c0",
+            "name_parts": ["t0", "c0"]
+          }
+        ]
+      }
+    },
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNull",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "t0.c0",
+                  "name_parts": ["t0", "c0"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "COUNT",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "\n?pVa"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t0"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "t0.c0",
+          "name_parts": ["t0", "c0"]
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "not",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "isNull",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t0.c0",
+                "name_parts": ["t0", "c0"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNull",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "t0.c0",
+                  "name_parts": ["t0", "c0"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "COUNT",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "\n?pVa"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t0"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "t0.c0",
+          "name_parts": ["t0", "c0"]
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "isNull",
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "isNull",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t0.c0",
+                "name_parts": ["t0", "c0"]
+              }
+            ]
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "aggregate_functions_null_for_empty": 1,
+          "enable_optimize_predicate_expression": 0
+        }
+      }
+    }
+  ]
+}

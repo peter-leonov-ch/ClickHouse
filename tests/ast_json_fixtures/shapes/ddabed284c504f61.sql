@@ -1,0 +1,1 @@
+CREATE TEMPORARY TABLE test3 AS test

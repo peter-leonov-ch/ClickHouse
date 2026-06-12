@@ -1,0 +1,9 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "A"
+  },
+  "if_exists": true
+}

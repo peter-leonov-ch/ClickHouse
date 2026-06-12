@@ -1,0 +1,7 @@
+{
+  "type": "ShowCreateViewQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "view"
+  }
+}

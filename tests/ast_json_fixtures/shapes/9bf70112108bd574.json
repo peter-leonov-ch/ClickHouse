@@ -1,0 +1,10 @@
+{
+  "type": "Rename",
+  "exchange": true,
+  "elements": [
+    {
+      "from_table": "t2",
+      "to_table": "t2"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "CreateFunctionQuery",
+  "function_name": {
+    "type": "Identifier",
+    "name": "foo"
+  },
+  "function_core": {
+    "type": "Identifier",
+    "name": "x"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        },
+        {
+          "type": "Function",
+          "alias": "a",
+          "name": "arrayJoin",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "value_1"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "a"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_table"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

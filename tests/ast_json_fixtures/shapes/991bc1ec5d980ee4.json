@@ -1,0 +1,115 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "testing"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "b",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "c",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "d",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "e",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "proj_1",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ],
+          "order_by": []
+        }
+      },
+      {
+        "type": "Projection",
+        "name": "proj_2",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "c"
+            }
+          ],
+          "order_by": [
+            {
+              "type": "ExpressionList",
+              "children": [
+                {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Identifier",
+      "name": "a"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "min_bytes_for_wide_part": 0
+      }
+    }
+  }
+}

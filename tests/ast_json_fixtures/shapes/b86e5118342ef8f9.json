@@ -1,0 +1,94 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "02484_substitute_udf"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "dt",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "number",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "02484_plustwo",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "02484_plusone",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    },
+    "sample_by": {
+      "type": "Function",
+      "name": "02484_plusone",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "TTLElement",
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "02484_plusthreemonths",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dt"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

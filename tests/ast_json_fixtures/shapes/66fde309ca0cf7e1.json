@@ -1,0 +1,24 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t02006"
+  },
+  "cluster": "test_shard_localhost",
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "ADD_COLUMN",
+      "if_not_exists": true,
+      "column_declaration": {
+        "type": "ColumnDeclaration",
+        "name": "f",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    }
+  ]
+}

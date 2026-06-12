@@ -1,0 +1,110 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Subquery",
+        "query": {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
+                {
+                  "type": "Identifier",
+                  "name": "name"
+                }
+              ],
+              "tables": {
+                "type": "TablesInSelectQuery",
+                "children": [
+                  {
+                    "type": "TablesInSelectQueryElement",
+                    "table_expression": {
+                      "type": "TableExpression",
+                      "database_and_table_name": {
+                        "type": "TableIdentifier",
+                        "name": "random_filename"
+                      }
+                    }
+                  }
+                ]
+              },
+              "limit_length": {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "MsgPack"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "c0 Int32, c1 Tuple()"
+      }
+    ]
+  },
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "engine_file_truncate_on_insert": 1
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          },
+          {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": []
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 5
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Set",
+          "changes": {
+            "engine_file_truncate_on_insert": 1
+          }
+        }
+      }
+    ]
+  }
+}

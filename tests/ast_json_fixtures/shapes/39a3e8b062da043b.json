@@ -1,0 +1,10 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "d0"
+  },
+  "if_exists": true,
+  "is_dictionary": true
+}

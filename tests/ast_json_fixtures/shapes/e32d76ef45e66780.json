@@ -1,0 +1,5 @@
+{
+  "type": "ShowTables",
+  "like": "%",
+  "not_like": true
+}

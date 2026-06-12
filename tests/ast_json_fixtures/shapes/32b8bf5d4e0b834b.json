@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "FLUSH DISTRIBUTED",
+  "table": {
+    "type": "Identifier",
+    "name": "dist"
+  }
+}

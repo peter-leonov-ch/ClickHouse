@@ -1,0 +1,1 @@
+SHOW CREATE ROLE sqllt_role FORMAT Null

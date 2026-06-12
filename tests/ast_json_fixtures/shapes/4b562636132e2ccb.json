@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START REPLICATED SENDS",
+  "table": {
+    "type": "Identifier",
+    "name": "r1"
+  }
+}

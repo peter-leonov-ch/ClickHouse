@@ -1,0 +1,1 @@
+INSERT INTO data SELECT 1

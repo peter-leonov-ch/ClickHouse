@@ -1,0 +1,8 @@
+{
+  "type": "InsertQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "a"
+  },
+  "format": "Values"
+}

@@ -1,0 +1,63 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "uuid"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "created_at",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UUID"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "toDate",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "created_at"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "created_at"
+        },
+        {
+          "type": "Identifier",
+          "name": "id"
+        }
+      ]
+    }
+  }
+}

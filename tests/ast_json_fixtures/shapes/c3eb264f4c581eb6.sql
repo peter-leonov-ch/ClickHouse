@@ -1,0 +1,1 @@
+ALTER TABLE minmax_compact CLEAR INDEX idx IN PARTITION 1

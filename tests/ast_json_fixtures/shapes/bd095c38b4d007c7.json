@@ -1,0 +1,54 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "Date"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": []
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "TTLElement",
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c0"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

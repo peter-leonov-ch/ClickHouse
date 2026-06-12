@@ -1,0 +1,1 @@
+SELECT * FROM m PREWHERE f = 0

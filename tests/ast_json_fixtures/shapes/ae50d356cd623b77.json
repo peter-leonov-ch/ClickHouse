@@ -1,0 +1,43 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t4"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int8"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Kafka",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "kafka_broker_list": "localhost:10000",
+        "kafka_topic_list": "test",
+        "kafka_group_name": "test",
+        "kafka_format": "JSONEachRow"
+      }
+    }
+  },
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "this is a Kafka table"
+  }
+}

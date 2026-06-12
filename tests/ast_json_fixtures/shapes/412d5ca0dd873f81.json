@@ -1,0 +1,70 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_bad_constraint"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "s",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "type": "Constraint",
+        "name": "c1",
+        "constraint_type": "ASSUME",
+        "expression": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Function",
+              "name": "toUInt32",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "arguments": []
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "name",
+          "name": "transform",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "name"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "['Henry', 'Irene', 'Dave', 'Cindy']"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "['Henry or Irene', 'Henry or Irene', 'Dave or Cindy', 'Dave or Cindy']"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "department"
+        },
+        {
+          "type": "Identifier",
+          "name": "salary"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Asterisk"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "employees"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "order_by": [
+                        {
+                          "type": "OrderByElement",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "id"
+                          },
+                          "direction": "ASC"
+                        },
+                        {
+                          "type": "OrderByElement",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "name"
+                          },
+                          "direction": "ASC"
+                        },
+                        {
+                          "type": "OrderByElement",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "department"
+                          },
+                          "direction": "ASC"
+                        },
+                        {
+                          "type": "OrderByElement",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "salary"
+                          },
+                          "direction": "ASC"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "salary"
+          },
+          "direction": "DESC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 3
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      }
+    }
+  ]
+}

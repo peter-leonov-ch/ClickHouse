@@ -1,0 +1,33 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "01902_db_repr"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "t_merge1"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Merge",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "01902_db_repr"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "^t$"
+        }
+      ]
+    }
+  },
+  "as_database": "01902_db_repr",
+  "as_table": "t"
+}

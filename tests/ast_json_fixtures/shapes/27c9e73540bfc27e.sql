@@ -1,0 +1,1 @@
+create window view v to nonexist (x Int8) inner engine AggregatingMergeTree order by x as select x from nonexist group by tumble(now()) settings allow_experimental_window_view = 1, allow_experimental_analyzer = 0

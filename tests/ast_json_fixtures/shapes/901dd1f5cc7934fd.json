@@ -1,0 +1,69 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "xy"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "y",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "modulo",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "intHash64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 2
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "y"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "index_granularity": 1
+      }
+    }
+  }
+}

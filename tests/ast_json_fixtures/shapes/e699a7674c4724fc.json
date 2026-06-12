@@ -1,0 +1,26 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "dummy"
+        },
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "dummy"
+        }
+      ]
+    }
+  ]
+}

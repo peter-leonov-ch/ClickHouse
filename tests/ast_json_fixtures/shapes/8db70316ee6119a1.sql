@@ -1,0 +1,1 @@
+ALTER TABLE check_constraint ADD CONSTRAINT c0 CHECK (SELECT 1)

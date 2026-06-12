@@ -1,0 +1,11 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_database": "db_hang",
+      "from_table": "test_mv",
+      "to_database": "db_hang_temp",
+      "to_table": "test_mv"
+    }
+  ]
+}

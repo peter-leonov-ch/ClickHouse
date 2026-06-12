@@ -1,0 +1,1 @@
+EXPLAIN QUERY TREE run_passes = 0 SELECT 1

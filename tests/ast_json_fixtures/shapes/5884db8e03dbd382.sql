@@ -1,0 +1,1 @@
+SELECT * FROM t_filter WHERE f != 0 ORDER BY u LIMIT 5

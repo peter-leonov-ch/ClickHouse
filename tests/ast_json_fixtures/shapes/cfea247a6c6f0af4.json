@@ -1,0 +1,83 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "s",
+          "name": "materialize",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Привет, World"
+            }
+          ]
+        }
+      ],
+      "where": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "like",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "hell%"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "ilike",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "%привет%"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "like",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "world%"
+              }
+            ]
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "optimize_or_like_chain": 0
+        }
+      }
+    }
+  ]
+}

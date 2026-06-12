@@ -1,0 +1,1 @@
+ALTER TABLE t1 DETACH PART 'all_0_0_0'

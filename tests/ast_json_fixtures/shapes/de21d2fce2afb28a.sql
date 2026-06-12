@@ -1,0 +1,1 @@
+SELECT * WHERE toDateTime64(123.345, 3) == 'ABCD'

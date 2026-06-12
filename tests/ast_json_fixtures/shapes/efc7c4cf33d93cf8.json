@@ -1,0 +1,85 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "CD"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "sequence"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "userID"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "sequenceMatch",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "EventTime"
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "eventType"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "C"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "eventType"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "D"
+              }
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "(?1)(?t>=10000000000000)(?2)"
+          }
+        ]
+      }
+    }
+  ]
+}

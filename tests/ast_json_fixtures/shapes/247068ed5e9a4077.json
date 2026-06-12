@@ -1,0 +1,29 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "merge_hits"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Merge",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "test"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "^hits$"
+        }
+      ]
+    }
+  },
+  "as_database": "test",
+  "as_table": "hits"
+}

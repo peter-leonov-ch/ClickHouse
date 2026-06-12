@@ -1,0 +1,10 @@
+{
+  "type": "DetachQuery",
+  "kind": "DETACH",
+  "table": {
+    "type": "Identifier",
+    "name": "test_repl"
+  },
+  "cluster": "test_shard_localhost",
+  "sync": true
+}

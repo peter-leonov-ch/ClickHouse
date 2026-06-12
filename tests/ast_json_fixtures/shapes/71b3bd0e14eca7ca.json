@@ -1,0 +1,130 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 232
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test54378"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "in",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "part_date"
+              },
+              {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "toDate",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2018-04-19"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "toDate",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "2018-04-19"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "toDate",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toDate",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Int64",
+                  "value": -2147483649
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": null
+        }
+      ]
+    }
+  ]
+}

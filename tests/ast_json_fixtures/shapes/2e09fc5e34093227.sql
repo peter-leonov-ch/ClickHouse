@@ -1,0 +1,4 @@
+WITH t0 AS (
+    SELECT * FROM table0 WHERE val LIKE 'b%'
+)
+SELECT * FROM t0 JOIN table2 AS t2 USING id JOIN table1 AS t1 USING id2 ORDER BY ALL

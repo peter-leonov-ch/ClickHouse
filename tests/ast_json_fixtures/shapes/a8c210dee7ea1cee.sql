@@ -1,0 +1,1 @@
+ALTER TABLE test UPDATE a=0 WHERE id<4

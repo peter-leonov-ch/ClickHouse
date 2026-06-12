@@ -1,0 +1,48 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "Null",
+          "value": null
+        },
+        {
+          "type": "Function",
+          "name": "toFloat64",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "-1"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Int64",
+          "value": -2147483648
+        },
+        {
+          "type": "Function",
+          "name": "h3CellAreaM2",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arrayJoin",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Array",
+                  "value": "[9223372036854775807, 65535, NULL]"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

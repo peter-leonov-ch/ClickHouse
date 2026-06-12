@@ -1,0 +1,109 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "log"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "collectorReceiptTime",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "eventId",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "ruleId",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "ailog_rule_count",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "collectorReceiptTime"
+            },
+            {
+              "type": "Identifier",
+              "name": "ruleId"
+            },
+            {
+              "type": "Function",
+              "name": "count",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "ruleId"
+                }
+              ]
+            }
+          ],
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "collectorReceiptTime"
+            },
+            {
+              "type": "Identifier",
+              "name": "ruleId"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "toYYYYMMDD",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "collectorReceiptTime"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "collectorReceiptTime"
+        },
+        {
+          "type": "Identifier",
+          "name": "eventId"
+        }
+      ]
+    }
+  }
+}

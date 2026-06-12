@@ -1,0 +1,31 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "hello"
+        }
+      ]
+    },
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "toLowCardinality",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "hello"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

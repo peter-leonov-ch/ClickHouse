@@ -1,0 +1,71 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "_path",
+          "name": "replaceRegexpAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "_path"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\/[0-9]+\\.csv"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\/<snowflakeid>.csv"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "counter"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t_03363_csv"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "counter"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_by_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1
+      },
+      "limit_by": [
+        {
+          "type": "Identifier",
+          "name": "counter"
+        }
+      ]
+    }
+  ]
+}

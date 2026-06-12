@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "trunc"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_PARTITION",
+      "detach": true,
+      "partition": {
+        "type": "Partition_ID",
+        "all": true
+      }
+    }
+  ]
+}

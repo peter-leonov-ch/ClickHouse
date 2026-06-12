@@ -1,0 +1,31 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test_alter_fail"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "c0"
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "COMMENT_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "c0"
+      },
+      "comment": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "this should fail"
+      }
+    }
+  ]
+}

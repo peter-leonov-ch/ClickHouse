@@ -1,0 +1,66 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "check_system_tables"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "name1",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "name2",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "name3",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "name2"
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "name1"
+    },
+    "sample_by": {
+      "type": "Identifier",
+      "name": "name1"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "min_bytes_for_wide_part": 0,
+        "compress_marks": false,
+        "compress_primary_key": false,
+        "ratio_of_defaults_for_sparse_serialization": 1
+      }
+    }
+  }
+}

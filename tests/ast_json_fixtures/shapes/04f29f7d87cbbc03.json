@@ -1,0 +1,90 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "9223372036854775806"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 7
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "03031_test"
+              }
+            }
+          }
+        ]
+      },
+      "prewhere": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "id"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1024
+          }
+        ]
+      },
+      "where": {
+        "type": "Literal",
+        "value_type": "Float64",
+        "value": 0.0001
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "0.03"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "force_primary_key": 1,
+          "force_data_skipping_indices": "value_1_idx, value_2_idx",
+          "enable_analyzer": 1
+        }
+      }
+    }
+  ]
+}

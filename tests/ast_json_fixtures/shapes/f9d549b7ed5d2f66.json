@@ -1,0 +1,27 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "table_02184"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "partition_by": {
+      "type": "Identifier",
+      "name": "x"
+    }
+  }
+}

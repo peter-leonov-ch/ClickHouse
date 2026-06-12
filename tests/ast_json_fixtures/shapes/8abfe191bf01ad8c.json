@@ -1,0 +1,1043 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "recursive_with": true,
+      "with": [
+        {
+          "type": "WithElement",
+          "name": "digits",
+          "subquery": {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "alias": "digit",
+                      "value_type": "UInt64",
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "plus",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "digit"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ],
+                  "tables": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "digits"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "less",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "digit"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 9
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "S",
+          "name": "s.digit",
+          "name_parts": ["s", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "E",
+          "name": "e.digit",
+          "name_parts": ["e", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "N",
+          "name": "n.digit",
+          "name_parts": ["n", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "D",
+          "name": "d.digit",
+          "name_parts": ["d", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "M",
+          "name": "m.digit",
+          "name_parts": ["m", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "O",
+          "name": "o.digit",
+          "name_parts": ["o", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "R",
+          "name": "r.digit",
+          "name_parts": ["r", "digit"]
+        },
+        {
+          "type": "Identifier",
+          "alias": "Y",
+          "name": "y.digit",
+          "name_parts": ["y", "digit"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "s",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "e",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "n",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "d",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "m",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "o",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "r",
+                "name": "digits"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "COMMA"
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "y",
+                "name": "digits"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "e.digit",
+                "name_parts": ["e", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n.digit",
+                "name_parts": ["n", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d.digit",
+                "name_parts": ["d", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "o.digit",
+                "name_parts": ["o", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "r.digit",
+                "name_parts": ["r", "digit"]
+              },
+              {
+                "type": "Identifier",
+                "name": "y.digit",
+                "name_parts": ["y", "digit"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s.digit",
+                "name_parts": ["s", "digit"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "m.digit",
+                "name_parts": ["m", "digit"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "plus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 1000
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "s.digit",
+                                    "name_parts": ["s", "digit"]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 100
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "e.digit",
+                                    "name_parts": ["e", "digit"]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "multiply",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 10
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "n.digit",
+                                "name_parts": ["n", "digit"]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "d.digit",
+                        "name_parts": ["d", "digit"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "plus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 1000
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "m.digit",
+                                    "name_parts": ["m", "digit"]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 100
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "o.digit",
+                                    "name_parts": ["o", "digit"]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "multiply",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 10
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "r.digit",
+                                "name_parts": ["r", "digit"]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "e.digit",
+                        "name_parts": ["e", "digit"]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "plus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 10000
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "m.digit",
+                                    "name_parts": ["m", "digit"]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": 1000
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "o.digit",
+                                    "name_parts": ["o", "digit"]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "multiply",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": 100
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "n.digit",
+                                "name_parts": ["n", "digit"]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "multiply",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 10
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "e.digit",
+                            "name_parts": ["e", "digit"]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "y.digit",
+                    "name_parts": ["y", "digit"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

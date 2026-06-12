@@ -1,0 +1,107 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "t",
+          "name": "toDate",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "today",
+                  "arguments": []
+                },
+                {
+                  "type": "Function",
+                  "name": "modulo",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "rand",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 4096
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "count",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1000000
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "formatDateTime",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "%F"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

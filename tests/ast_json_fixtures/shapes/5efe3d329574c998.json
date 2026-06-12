@@ -1,0 +1,224 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "where": {
+        "type": "Function",
+        "name": "isNotDistinctFrom",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 2
+          },
+          {
+            "type": "Function",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      ],
+      "qualify": {
+        "type": "Function",
+        "name": "isNotDistinctFrom",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "divide",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "isNotDistinctFrom",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "isNull",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "isNotNull",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": 2
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Asterisk"
+              },
+              {
+                "type": "Asterisk"
+              },
+              {
+                "type": "Function",
+                "name": "materialize",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toNullable",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "materialize",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "materialize",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 2
+                      },
+                      {
+                        "type": "Asterisk"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "type": "Asterisk"
+              },
+              {
+                "type": "Asterisk"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 2
+              },
+              {
+                "type": "Function",
+                "name": "toNullable",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 2
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

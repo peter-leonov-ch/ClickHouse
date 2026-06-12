@@ -1,0 +1,1 @@
+SELECT splitByChar('0', toString(intHash64(number))) AS arr, 3 AS lim, arrayResize(arrayPartialSort(lim, arr), lim) AS sorted, arrayResize(arrayPartialSort(x -> toUInt64OrZero(x), lim, arr), lim) AS sorted_nums FROM system.numbers LIMIT 10

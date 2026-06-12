@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "RESTART REPLICA",
+  "table": {
+    "type": "Identifier",
+    "name": "rmt"
+  }
+}

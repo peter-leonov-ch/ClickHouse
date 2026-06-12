@@ -1,0 +1,112 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "start",
+          "value_type": "UInt64",
+          "value": 1734955380
+        },
+        {
+          "type": "Literal",
+          "alias": "end",
+          "value_type": "UInt64",
+          "value": 1734955680
+        },
+        {
+          "type": "Literal",
+          "alias": "step",
+          "value_type": "UInt64",
+          "value": 15
+        },
+        {
+          "type": "Literal",
+          "alias": "staleness",
+          "value_type": "UInt64",
+          "value": 0
+        },
+        {
+          "type": "Function",
+          "alias": "grid",
+          "name": "timeSeriesRange",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "start"
+            },
+            {
+              "type": "Identifier",
+              "name": "end"
+            },
+            {
+              "type": "Identifier",
+              "name": "step"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayZip",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "grid"
+            },
+            {
+              "type": "Function",
+              "name": "timeSeriesResampleToGridWithStaleness",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "timestamp"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "value"
+                }
+              ],
+              "parameters": [
+                {
+                  "type": "Identifier",
+                  "name": "start"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "end"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "step"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "staleness"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "ts_raw_data"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

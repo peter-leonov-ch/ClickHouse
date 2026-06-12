@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "WAIT VIEW",
+  "table": {
+    "type": "Identifier",
+    "name": "03221_rmv"
+  }
+}

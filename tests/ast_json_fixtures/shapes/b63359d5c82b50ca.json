@@ -1,0 +1,65 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "is_create_empty": true,
+  "table": {
+    "type": "Identifier",
+    "name": "v0"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        },
+        "codec": {
+          "type": "Function",
+          "name": "CODEC",
+          "kind": "CODEC",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "DoubleDelta",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "c0",
+            "value_type": "String",
+            "value": "a"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "table": "tab"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+SELECT a, b, 'original' AS orig FROM test3 ORDER BY a WITH FILL TO 33 STEP 3, b WITH FILL FROM -10 STEP 2

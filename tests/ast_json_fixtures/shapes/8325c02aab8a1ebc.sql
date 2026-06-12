@@ -1,0 +1,1 @@
+ALTER TABLE add_table ADD COLUMN IF NOT EXISTS value1 UInt64

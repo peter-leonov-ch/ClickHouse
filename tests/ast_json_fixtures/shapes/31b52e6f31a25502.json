@@ -1,0 +1,8 @@
+{
+  "type": "DetachQuery",
+  "kind": "DETACH",
+  "table": {
+    "type": "Identifier",
+    "name": "b"
+  }
+}

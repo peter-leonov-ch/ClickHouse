@@ -1,0 +1,25 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "arr",
+          "value_type": "Array",
+          "value": "[1, 2, 3]"
+        }
+      ],
+      "select": [
+        {
+          "type": "QualifiedAsterisk",
+          "qualifier": {
+            "type": "Identifier",
+            "name": "arr"
+          }
+        }
+      ]
+    }
+  ]
+}

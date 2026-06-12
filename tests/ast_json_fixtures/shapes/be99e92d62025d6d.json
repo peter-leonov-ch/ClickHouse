@@ -1,0 +1,23 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "n",
+          "value_type": "UInt64",
+          "value": 11
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "n"
+        }
+      ]
+    }
+  ]
+}

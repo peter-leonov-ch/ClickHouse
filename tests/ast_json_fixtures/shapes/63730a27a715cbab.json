@@ -1,0 +1,124 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ProfileEvents"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "MutationSomePartColumns"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "arrayElement",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ProfileEvents"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "MutatedUncompressedBytes"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "part_log",
+                "database": "system"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "and",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "database"
+              },
+              {
+                "type": "Function",
+                "name": "currentDatabase",
+                "arguments": []
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "table"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "t_apply_patches"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "event_type"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "MutatePart"
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ALL"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

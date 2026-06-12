@@ -1,0 +1,60 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "toUnixTimestamp",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v1"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "v2"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "tab1"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "v1"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 5
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "use_top_k_dynamic_filtering": 1
+        }
+      }
+    }
+  ]
+}

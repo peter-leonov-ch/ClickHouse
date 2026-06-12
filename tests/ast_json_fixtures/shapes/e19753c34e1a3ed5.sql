@@ -1,0 +1,1 @@
+RENAME TABLE t0 TO t1

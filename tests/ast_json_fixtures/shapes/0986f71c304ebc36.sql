@@ -1,0 +1,1 @@
+CREATE TABLE table_02184 (x UInt8) PRIMARY KEY x

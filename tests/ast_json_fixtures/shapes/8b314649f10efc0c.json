@@ -1,0 +1,31 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "temporary_table"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "column",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  }
+}

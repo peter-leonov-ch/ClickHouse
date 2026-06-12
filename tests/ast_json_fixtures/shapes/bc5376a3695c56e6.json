@@ -1,0 +1,10 @@
+{
+  "type": "DropQuery",
+  "kind": "DROP",
+  "table": {
+    "type": "Identifier",
+    "name": "v"
+  },
+  "if_exists": true,
+  "is_view": true
+}

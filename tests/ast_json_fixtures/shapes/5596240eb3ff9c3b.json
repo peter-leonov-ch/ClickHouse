@@ -1,0 +1,30 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "t_306"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "int"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Memory",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    }
+  }
+}

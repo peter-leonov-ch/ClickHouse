@@ -1,0 +1,122 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "alias": "period",
+          "name": "date"
+        },
+        {
+          "type": "Literal",
+          "alias": "having_check",
+          "value_type": "UInt64",
+          "value": 1
+        },
+        {
+          "type": "Function",
+          "alias": "period_start",
+          "name": "min",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "date"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "period_end",
+          "name": "addDays",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "max",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "date"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "total_duration",
+          "name": "dateDiff",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "second"
+            },
+            {
+              "type": "Identifier",
+              "name": "period_start"
+            },
+            {
+              "type": "Identifier",
+              "name": "period_end"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "metric_",
+          "name": "sum",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "metric"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "repro_hits"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "period"
+        }
+      ],
+      "having": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "having_check"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": -1
+          }
+        ]
+      }
+    }
+  ]
+}

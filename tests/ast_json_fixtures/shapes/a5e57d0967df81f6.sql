@@ -1,0 +1,1 @@
+DROP TEMPORARY VIEW IF EXISTS tview_basic

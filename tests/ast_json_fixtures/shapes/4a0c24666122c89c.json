@@ -1,0 +1,32 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "127.0.0.1"
+      },
+      {
+        "type": "Function",
+        "name": "currentDatabase",
+        "arguments": []
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "simple"
+      }
+    ]
+  },
+  "format": "Values",
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "prefer_localhost_replica": 0,
+      "deduplicate_insert": "enable"
+    }
+  }
+}

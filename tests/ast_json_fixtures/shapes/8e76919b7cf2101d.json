@@ -1,0 +1,62 @@
+{
+  "type": "CreateQuery",
+  "is_ordinary_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "v"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "v",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "v"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

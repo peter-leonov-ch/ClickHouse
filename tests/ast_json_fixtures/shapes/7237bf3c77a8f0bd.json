@@ -1,0 +1,198 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "negate",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tan",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "t1.c0",
+                  "name_parts": ["t1", "c0"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "cos",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "sin",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "pow",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "multiply",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "gcd",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "negate",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t1"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "sqrt",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "negate",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "t1.c0",
+                  "name_parts": ["t1", "c0"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "t1.c0",
+          "name_parts": ["t1", "c0"]
+        },
+        {
+          "type": "Function",
+          "name": "pow",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "erf",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c0",
+                      "name_parts": ["t1", "c0"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "t1.c0",
+              "name_parts": ["t1", "c0"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

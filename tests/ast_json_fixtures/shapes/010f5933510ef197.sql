@@ -1,0 +1,1 @@
+CREATE TABLE t (n UInt8) ENGINE=MergeTree ORDER BY n SAMPLE BY tuple()

@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "dst"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "REPLACE_PARTITION",
+      "partition": {
+        "type": "Partition_ID",
+        "all": true
+      },
+      "from_table": "src"
+    }
+  ]
+}

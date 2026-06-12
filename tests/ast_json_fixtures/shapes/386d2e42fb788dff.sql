@@ -1,0 +1,1 @@
+SELECT * FROM numbers(10) LIMIT 3 OFFSET 2

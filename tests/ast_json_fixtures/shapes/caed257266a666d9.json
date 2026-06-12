@@ -1,0 +1,16 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "a"
+        }
+      ]
+    }
+  ]
+}

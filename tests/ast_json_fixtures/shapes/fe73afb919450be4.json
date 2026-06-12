@@ -1,0 +1,19 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "ColumnsListMatcher",
+          "columns": [
+            {
+              "type": "Identifier",
+              "name": "dummy"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

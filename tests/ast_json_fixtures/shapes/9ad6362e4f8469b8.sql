@@ -1,0 +1,1 @@
+ALTER TABLE tab MODIFY COLUMN long_string RESET SETTING min_compress_block_size

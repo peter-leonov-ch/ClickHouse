@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test1"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DELETE",
+      "predicate": {
+        "type": "Identifier",
+        "name": "t.a",
+        "name_parts": ["t", "a"]
+      }
+    }
+  ]
+}

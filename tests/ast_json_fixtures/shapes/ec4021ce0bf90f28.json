@@ -1,0 +1,64 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "a"
+        },
+        {
+          "type": "Function",
+          "name": "negate",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "primary_key"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "less",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "negate",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": -3
+          }
+        ]
+      }
+    }
+  ]
+}

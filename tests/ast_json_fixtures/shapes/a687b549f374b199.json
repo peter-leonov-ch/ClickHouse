@@ -1,0 +1,23 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "one_0023"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
+}

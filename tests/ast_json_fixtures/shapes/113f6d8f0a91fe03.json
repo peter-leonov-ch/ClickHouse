@@ -1,0 +1,28 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "test_merge"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Merge",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "default"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test1"
+        }
+      ]
+    }
+  },
+  "as_table": "test1"
+}

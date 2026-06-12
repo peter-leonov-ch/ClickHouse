@@ -1,0 +1,18 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "tmp"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MATERIALIZE_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "s"
+      }
+    }
+  ]
+}

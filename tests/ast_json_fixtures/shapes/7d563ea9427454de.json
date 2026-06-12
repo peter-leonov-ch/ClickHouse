@@ -1,0 +1,146 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "key"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Asterisk"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "uints8"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "uints8"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "ints8"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ints8"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "ints32"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ints32"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "floats32"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "floats32"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "decs32"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "decs32"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "dates"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "dates"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "uuids"
+        },
+        {
+          "type": "Function",
+          "name": "byteSize",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "uuids"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test_byte_size_array"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "key"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

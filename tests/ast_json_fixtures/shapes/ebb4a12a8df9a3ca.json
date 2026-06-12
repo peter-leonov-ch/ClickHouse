@@ -1,0 +1,28 @@
+{
+  "type": "CreateFunctionQuery",
+  "or_replace": true,
+  "function_name": {
+    "type": "Identifier",
+    "name": "03518_bad_sql_udf"
+  },
+  "function_core": {
+    "type": "Function",
+    "name": "lambda",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "identity",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ]
+      },
+      {
+        "type": "Identifier",
+        "name": "x"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "partition_all"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MOVE_PARTITION",
+      "partition": {
+        "type": "Partition_ID",
+        "all": true
+      },
+      "to_table": "partition_all2"
+    }
+  ]
+}

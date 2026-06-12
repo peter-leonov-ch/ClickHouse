@@ -1,0 +1,12 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START MOVES",
+  "database": {
+    "type": "Identifier",
+    "name": "sqllt"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "table"
+  }
+}

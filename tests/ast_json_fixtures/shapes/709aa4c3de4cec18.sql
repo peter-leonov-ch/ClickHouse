@@ -1,0 +1,1 @@
+EXCHANGE TABLES table_a_exchange AND table_b_exchange

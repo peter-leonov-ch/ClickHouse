@@ -1,0 +1,1 @@
+SELECT key FROM 03701_sorted ORDER BY key LIMIT 1 BY key LIMIT 10

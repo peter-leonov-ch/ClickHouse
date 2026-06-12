@@ -1,0 +1,168 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "Nul\u0000able\u0000String)Nul\u0000\u0000ble(String)Nul\u0000able(String)Nul\u0000able(String)"
+        },
+        {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ""
+        },
+        {
+          "type": "Identifier",
+          "name": "number"
+        },
+        {
+          "type": "Literal",
+          "alias": "k",
+          "value_type": "Null",
+          "value": null
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "or",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "materialize",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Null",
+                                  "value": null
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "materialize",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Int64",
+                                  "value": -9223372036854775808
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "number"
+                        }
+                      ],
+                      "tables": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "numbers",
+                                "database": "system"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "limit_length": {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": 1000000
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "k"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "number"
+          },
+          "direction": "ASC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "k"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1023
+      },
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 1023
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "max_bytes_before_external_sort": 1000000,
+          "max_bytes_ratio_before_external_sort": 0
+        }
+      }
+    }
+  ]
+}

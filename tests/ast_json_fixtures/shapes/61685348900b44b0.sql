@@ -1,0 +1,1 @@
+CREATE TABLE tab2 AS tab1

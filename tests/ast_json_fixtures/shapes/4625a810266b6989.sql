@@ -1,0 +1,1 @@
+SELECT c1 FROM t_exact GROUP BY c1, c0 HAVING c0

@@ -1,0 +1,71 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "lambda",
+          "name": "lambda",
+          "is_operator": true,
+          "is_lambda_function": true,
+          "kind": "LAMBDA_FUNCTION",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "lambda1",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "alias": "lambda1",
+          "name": "lambda"
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "lambda",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

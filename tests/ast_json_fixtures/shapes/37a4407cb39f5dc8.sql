@@ -1,0 +1,9 @@
+ALTER TABLE test_alter_mixed 
+    DROP COLUMN a, 
+    DROP COLUMN IF EXISTS a,
+    MODIFY COLUMN IF EXISTS a Int64,
+    COMMENT COLUMN IF EXISTS a 'should be ignored',
+    RENAME COLUMN IF EXISTS a TO a_renamed,
+    MODIFY COLUMN IF EXISTS b String DEFAULT 'test',
+    DROP COLUMN c,
+    MODIFY COLUMN IF EXISTS c Float32

@@ -1,0 +1,35 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Literal",
+          "alias": "key",
+          "value_type": "String",
+          "value": "a"
+        },
+        {
+          "type": "Literal",
+          "alias": "value",
+          "value_type": "String",
+          "value": "b"
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "ignore",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "begin",
+          "value_type": "UInt64",
+          "value": 100
+        },
+        {
+          "type": "Literal",
+          "alias": "end",
+          "value_type": "UInt64",
+          "value": 200
+        },
+        {
+          "type": "Literal",
+          "alias": "step_sec",
+          "value_type": "UInt64",
+          "value": 10
+        },
+        {
+          "type": "Literal",
+          "alias": "staleness_sec",
+          "value_type": "UInt64",
+          "value": 15
+        },
+        {
+          "type": "Function",
+          "alias": "begin_ts",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "begin"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "DateTime('UTC')"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "end_ts",
+          "name": "CAST",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "end"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "DateTime('UTC')"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "grid",
+          "name": "range",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "begin"
+            },
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "end"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "step_sec"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "step_sec"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "alias": "e",
+          "name": "arrayZip",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "grid"
+            },
+            {
+              "type": "Function",
+              "name": "timeSeriesResampleToGridWithStaleness",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "CAST",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "timestamp"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "DateTime64(6, 'UTC')"
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "value"
+                }
+              ],
+              "parameters": [
+                {
+                  "type": "Identifier",
+                  "name": "begin_ts"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "end_ts"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "step_sec"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "staleness_sec"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "clusterAllReplicas",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test_shard_localhost"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "currentDatabase",
+                    "arguments": []
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "ts_data"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_parallel_replicas": 1,
+          "max_parallel_replicas": 3,
+          "parallel_replicas_for_non_replicated_merge_tree": 1,
+          "prefer_localhost_replica": 0
+        }
+      }
+    }
+  ]
+}

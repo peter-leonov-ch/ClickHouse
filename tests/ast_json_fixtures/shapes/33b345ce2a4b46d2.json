@@ -1,0 +1,21 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "t"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt8"
+        }
+      }
+    ]
+  }
+}

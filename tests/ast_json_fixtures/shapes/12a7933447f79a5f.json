@@ -1,0 +1,174 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "order_by_all": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "right_0.c0",
+          "name_parts": ["right_0", "c0"]
+        },
+        {
+          "type": "Function",
+          "name": "multiply",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "pow",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "pow",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "right_1.c1",
+                      "name_parts": ["right_1", "c1"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c2",
+                      "name_parts": ["t1", "c2"]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "sign",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c2",
+                      "name_parts": ["t1", "c2"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "negate",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "divide",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c2",
+                      "name_parts": ["t1", "c2"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t1.c2",
+                      "name_parts": ["t1", "c2"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "t1.c1",
+          "name_parts": ["t1", "c1"]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "t1"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "RIGHT",
+              "on": {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": ".D"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "m'X"
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "right_0",
+                "name": "t0"
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "RIGHT",
+              "on": {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "t1.c1",
+                    "name_parts": ["t1", "c1"]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "right_1.c1",
+                    "name_parts": ["right_1", "c1"]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "right_1",
+                "name": "t3"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "ALL"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

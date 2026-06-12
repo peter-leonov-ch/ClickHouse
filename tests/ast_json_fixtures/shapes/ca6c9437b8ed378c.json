@@ -1,0 +1,26 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "minmax_compact"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "MATERIALIZE_INDEX",
+      "index": {
+        "type": "Identifier",
+        "name": "idx"
+      },
+      "partition": {
+        "type": "Partition",
+        "value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 1
+        }
+      }
+    }
+  ]
+}

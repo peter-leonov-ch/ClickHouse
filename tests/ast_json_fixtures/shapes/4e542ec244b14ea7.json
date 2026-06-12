@@ -1,0 +1,8 @@
+{
+  "type": "TruncateQuery",
+  "kind": "TRUNCATE",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  }
+}

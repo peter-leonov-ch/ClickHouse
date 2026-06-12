@@ -1,0 +1,72 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "test"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "i"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_offset": {
+        "type": "Function",
+        "name": "multiply",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 10
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 10
+          }
+        ]
+      },
+      "limit_length": {
+        "type": "Function",
+        "name": "multiply",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 4
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 5
+          }
+        ]
+      }
+    }
+  ]
+}

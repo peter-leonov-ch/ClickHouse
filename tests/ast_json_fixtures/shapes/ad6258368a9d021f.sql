@@ -1,0 +1,6 @@
+WITH RECURSIVE
+   x AS
+     (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 5),
+   y AS
+     (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 10)
+ SELECT y.*, x.* FROM y LEFT JOIN x USING (id) ORDER BY y.id

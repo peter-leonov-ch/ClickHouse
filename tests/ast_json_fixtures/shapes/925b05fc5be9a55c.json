@@ -1,0 +1,88 @@
+{
+  "type": "CreateQuery",
+  "is_dictionary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "direct_dictionary"
+  },
+  "dictionary_attributes": [
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "id",
+      "data_type": {
+        "type": "DataType",
+        "name": "UInt64"
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "v1",
+      "data_type": {
+        "type": "DataType",
+        "name": "String"
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "v2",
+      "data_type": {
+        "type": "DataType",
+        "name": "Nullable",
+        "arguments": [
+          {
+            "type": "DataType",
+            "name": "String"
+          }
+        ]
+      },
+      "default_value": {
+        "type": "Literal",
+        "value_type": "Null",
+        "value": null
+      }
+    },
+    {
+      "type": "DictionaryAttributeDeclaration",
+      "name": "v3",
+      "data_type": {
+        "type": "DataType",
+        "name": "Nullable",
+        "arguments": [
+          {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        ]
+      }
+    }
+  ],
+  "dictionary": {
+    "type": "Dictionary",
+    "primary_key": [
+      {
+        "type": "Identifier",
+        "name": "id"
+      }
+    ],
+    "source": {
+      "type": "FunctionWithKeyValueArguments",
+      "name": "clickhouse",
+      "elements": [
+        {
+          "type": "pair",
+          "key": "table",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "dictionary_source_table"
+          }
+        }
+      ]
+    },
+    "layout": {
+      "type": "DictionaryLayout",
+      "layout_type": "direct",
+      "parameters": []
+    }
+  }
+}

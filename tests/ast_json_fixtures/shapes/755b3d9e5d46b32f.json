@@ -1,0 +1,58 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "c0",
+        "data_type": {
+          "type": "DataType",
+          "name": "BFloat16"
+        },
+        "primary_key_specifier": true
+      }
+    ],
+    "primary_key_from_columns": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "c0"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "SummingMergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "primary_key": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "c0"
+        }
+      ]
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "ratio_of_defaults_for_sparse_serialization": 1
+      }
+    }
+  }
+}

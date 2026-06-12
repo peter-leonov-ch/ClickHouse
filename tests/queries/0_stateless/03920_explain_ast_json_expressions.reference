@@ -1,0 +1,13 @@
+-- literal value types
+[{"value_type":"Array","value":"[1, 2, 3]"},{"value_type":"Tuple","value":"(1, 'a')"},{"value_type":"String","value":"k"},{"value_type":"UInt64","value":1},{"value_type":"Null","value":null},{"value_type":"Int64","value":-5},{"value_type":"Float64","value":1.5},{"value_type":"Bool","value":true},{"value_type":"String","value":"str"}]
+-- lambda function: parameter tuple + body via arguments
+{"type":"Function","name":"lambda","is_operator":true,"is_lambda_function":true,"kind":"LAMBDA_FUNCTION","arguments":[{"type":"Function","name":"tuple","is_operator":true,"arguments":[{"type":"Identifier","name":"x"}]},{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"x"},{"type":"Literal","value_type":"UInt64","value":1}]}]}
+-- operators normalize to functions
+[{"name":"in","is_operator":true,"args":2},{"name":"and","is_operator":true,"args":2},{"name":"greaterOrEquals","is_operator":true,"args":2},{"name":"lessOrEquals","is_operator":true,"args":2},{"name":"not","is_operator":true,"args":1},{"name":"or","is_operator":true,"args":2},{"name":"and","is_operator":true,"args":2},{"name":"arrayElement","is_operator":true,"args":2},{"name":"tupleElement","is_operator":true,"args":2}]
+-- CAST forms
+[{"name":"CAST","is_operator":null,"args":2},{"name":"CAST","is_operator":true,"args":2}]
+-- NULLS action on aggregate
+{"name":"first_value","nulls_action":"IGNORE NULLS"}
+-- compound identifier and qualified table
+{"type":"Identifier","name":"db.tbl.col","name_parts":["db","tbl","col"]}
+{"type":"TableIdentifier","name":"tbl","database":"db"}

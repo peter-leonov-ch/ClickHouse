@@ -1,0 +1,16 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "array",
+          "is_operator": true,
+          "arguments": []
+        }
+      ]
+    }
+  ]
+}

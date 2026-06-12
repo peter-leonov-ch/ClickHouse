@@ -1,0 +1,8 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "copy_without_comment"
+  },
+  "as_table": "base"
+}

@@ -1,0 +1,65 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "n",
+          "name": "shardNum",
+          "arguments": []
+        },
+        {
+          "type": "Function",
+          "alias": "c",
+          "name": "shardCount",
+          "arguments": []
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "remote",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "127.0.0.{1,2,3}"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "system.one",
+                    "name_parts": ["system", "one"]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "n"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "prefer_localhost_replica": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "KillQueryQuery",
+  "kill_type": "QUERY",
+  "where": {
+    "type": "Function",
+    "name": "equals",
+    "is_operator": true,
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "query_id"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "3-857d-4a57-9ee0-3c7da5d60a90"
+      }
+    ]
+  }
+}

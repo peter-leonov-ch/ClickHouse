@@ -1,0 +1,7 @@
+{
+  "type": "ExistsDictionaryQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_01048"
+  }
+}

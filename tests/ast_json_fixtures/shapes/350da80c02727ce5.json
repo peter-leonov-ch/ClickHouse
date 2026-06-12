@@ -1,0 +1,13 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "test_01148_atomic"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "rmt3"
+  },
+  "as_database": "test_01148_atomic",
+  "as_table": "rmt2"
+}

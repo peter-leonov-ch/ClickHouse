@@ -1,0 +1,8 @@
+{
+  "type": "Explain",
+  "kind": "EXPLAIN SYNTAX",
+  "query": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR SCHEMA CACHE"
+  }
+}

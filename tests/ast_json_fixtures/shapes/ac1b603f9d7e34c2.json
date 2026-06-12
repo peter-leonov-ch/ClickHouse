@@ -1,0 +1,8 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t2_local"
+  },
+  "as_table": "t1_local"
+}

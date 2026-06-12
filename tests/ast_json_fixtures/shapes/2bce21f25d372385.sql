@@ -1,0 +1,1 @@
+EXCHANGE TABLES test_01109_ordinary.t4 AND test_01109_other_atomic.t3

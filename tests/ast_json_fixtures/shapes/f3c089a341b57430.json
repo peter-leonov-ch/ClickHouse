@@ -1,0 +1,160 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 2
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "foo",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "group_by_with_totals": true,
+                      "group_by_with_cube": true,
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "b",
+                          "value_type": "UInt64",
+                          "value": 2
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "a",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ],
+                      "group_by": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        },
+                        {
+                          "type": "Function",
+                          "name": "toUInt256",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": 1
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_join": {
+              "type": "TableJoin",
+              "kind": "LEFT",
+              "strictness": "ANY",
+              "on": {
+                "type": "Function",
+                "name": "and",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "foo.b",
+                        "name_parts": ["foo", "b"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "bar.b",
+                        "name_parts": ["bar", "b"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "foo.a",
+                        "name_parts": ["foo", "a"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "bar.b",
+                        "name_parts": ["bar", "b"]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "table_expression": {
+              "type": "TableExpression",
+              "subquery": {
+                "type": "Subquery",
+                "alias": "bar",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "alias": "b",
+                          "value_type": "UInt64",
+                          "value": 2
+                        },
+                        {
+                          "type": "Literal",
+                          "alias": "a",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 0
+      }
+    }
+  ]
+}

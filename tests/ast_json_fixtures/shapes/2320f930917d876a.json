@@ -1,0 +1,332 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "actual",
+          "name": "geohashDecode",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "encoded"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "expected:"
+        },
+        {
+          "type": "Identifier",
+          "name": "encoded"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "=>"
+        },
+        {
+          "type": "Identifier",
+          "name": "latitude"
+        },
+        {
+          "type": "Identifier",
+          "name": "longitude"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "length:"
+        },
+        {
+          "type": "Function",
+          "name": "length",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "encoded"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "max lat error:"
+        },
+        {
+          "type": "Function",
+          "alias": "latitude_max_error",
+          "name": "divide",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 180
+            },
+            {
+              "type": "Function",
+              "name": "power",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                },
+                {
+                  "type": "Function",
+                  "name": "multiply",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Float64",
+                      "value": 2.5
+                    },
+                    {
+                      "type": "Function",
+                      "name": "length",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "encoded"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "max lon error:"
+        },
+        {
+          "type": "Function",
+          "alias": "longitude_max_error",
+          "name": "divide",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 360
+            },
+            {
+              "type": "Function",
+              "name": "power",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                },
+                {
+                  "type": "Function",
+                  "name": "multiply",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Float64",
+                      "value": 2.5
+                    },
+                    {
+                      "type": "Function",
+                      "name": "length",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "encoded"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "err:"
+        },
+        {
+          "type": "Function",
+          "alias": "lat_error",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "actual"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "latitude"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "lon_error",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "actual"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "longitude"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "derr:"
+        },
+        {
+          "type": "Function",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "abs",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "lat_error"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "latitude_max_error"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "minus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "abs",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "lon_error"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "longitude_max_error"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "geohash_test_data"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "or",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "abs",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "lat_error"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "latitude_max_error"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "abs",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "lon_error"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "longitude_max_error"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

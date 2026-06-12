@@ -337,6 +337,7 @@ namespace
 struct QueryASTSettings
 {
     bool graph = false;
+    bool json = false;
     bool optimize = false;
 
     constexpr static char name[] = "AST";
@@ -344,6 +345,7 @@ struct QueryASTSettings
     std::unordered_map<std::string, std::reference_wrapper<bool>> boolean_settings =
     {
         {"graph", graph},
+        {"json", json},
         {"optimize", optimize}
     };
 
@@ -646,7 +648,24 @@ QueryPipeline InterpreterExplainQuery::executeImpl()
                 ExplainAnalyzedSyntaxVisitor(data).visit(query);
             }
 
-            if (settings.graph)
+            if (settings.graph && settings.json)
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Options 'graph' and 'json' are mutually exclusive in EXPLAIN AST");
+
+            if (settings.json)
+            {
+                auto ast_json = formatASTAsJSON(*ast.getExplainedQuery());
+
+                auto json_io_settings = getFormatSettings(query_context);
+                json_io_settings.json.quote_64bit_integers = false;
+
+                JSONBuilder::FormatSettings json_format_settings{.settings = json_io_settings};
+                JSONBuilder::FormatContext format_context{.out = buf};
+
+                ast_json->format(json_format_settings, format_context);
+
+                single_line = true;
+            }
+            else if (settings.graph)
                 dumpASTInDotFormat(*ast.getExplainedQuery(), buf);
             else
                 dumpAST(*ast.getExplainedQuery(), buf);

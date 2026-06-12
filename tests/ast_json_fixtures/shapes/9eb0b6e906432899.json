@@ -1,0 +1,80 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "with": [
+        {
+          "type": "Function",
+          "alias": "resolutions",
+          "name": "range",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 0
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 8
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "resolution"
+        },
+        {
+          "type": "Function",
+          "name": "h3PolygonToCells",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ring"
+            },
+            {
+              "type": "Function",
+              "alias": "resolution",
+              "name": "arrayJoin",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "resolutions"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "rings"
+              }
+            }
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "resolution"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

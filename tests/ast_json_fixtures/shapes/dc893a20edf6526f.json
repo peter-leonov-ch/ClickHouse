@@ -1,0 +1,112 @@
+{
+  "type": "AttachQuery",
+  "attach": true,
+  "is_materialized_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "mv"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "n",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "n2",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int64"
+        }
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "n"
+          },
+          {
+            "type": "Function",
+            "alias": "n2",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Identifier",
+                "name": "n"
+              }
+            ]
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "src"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "MergeTree",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          },
+          "partition_by": {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": 10
+              }
+            ]
+          },
+          "order_by": {
+            "type": "Identifier",
+            "name": "n"
+          }
+        }
+      }
+    ]
+  }
+}

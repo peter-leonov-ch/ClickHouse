@@ -1,0 +1,32 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "test_alter_mixed"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "DROP_COLUMN",
+      "column": {
+        "type": "Identifier",
+        "name": "x"
+      }
+    },
+    {
+      "type": "AlterCommand",
+      "command_type": "COMMENT_COLUMN",
+      "if_exists": true,
+      "column": {
+        "type": "Identifier",
+        "name": "x"
+      },
+      "comment": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "test comment"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+CREATE TABLE mem AS log1 ENGINE=Memory

@@ -1,0 +1,82 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "mv_no_indexes"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      }
+    ],
+    "indices": [
+      {
+        "type": "Index",
+        "name": "idx",
+        "expression": {
+          "type": "Identifier",
+          "name": "key"
+        },
+        "index_type": {
+          "type": "Function",
+          "name": "bloom_filter",
+          "arguments": []
+        },
+        "granularity": 1
+      }
+    ]
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "data"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "targets": {
+    "type": "ViewTargets",
+    "targets": [
+      {
+        "kind": "to",
+        "inner_engine": {
+          "type": "Storage",
+          "engine": {
+            "type": "Function",
+            "name": "Null",
+            "kind": "TABLE_ENGINE",
+            "arguments": []
+          }
+        }
+      }
+    ]
+  }
+}

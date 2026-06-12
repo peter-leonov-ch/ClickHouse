@@ -1,0 +1,9 @@
+{
+  "type": "ShowGrantsQuery",
+  "children": [
+    {
+      "type": "Identifier",
+      "name": "Null"
+    }
+  ]
+}

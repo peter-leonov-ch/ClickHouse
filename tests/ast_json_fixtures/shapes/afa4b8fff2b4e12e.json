@@ -1,0 +1,33 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "part"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "p_partkey",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int32"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "order_by": {
+      "type": "Identifier",
+      "name": "p_partkey"
+    },
+    "settings": {
+      "type": "Set",
+      "changes": {
+        "auto_statistics_types": "uniq"
+      }
+    }
+  }
+}

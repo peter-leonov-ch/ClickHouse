@@ -1,0 +1,13 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "copy_with_comment"
+  },
+  "as_table": "base",
+  "comment": {
+    "type": "Literal",
+    "value_type": "String",
+    "value": "new comment"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "ttl"
+  },
+  "partition": {
+    "type": "Partition",
+    "value": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": 10
+    }
+  },
+  "final": true
+}

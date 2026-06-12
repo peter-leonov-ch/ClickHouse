@@ -1,0 +1,93 @@
+{
+  "type": "CreateQuery",
+  "is_materialized_view": true,
+  "table": {
+    "type": "Identifier",
+    "name": "mv2"
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "k",
+            "name": "n1.key",
+            "name_parts": ["n1", "key"]
+          },
+          {
+            "type": "Identifier",
+            "alias": "v1",
+            "name": "n1.value",
+            "name_parts": ["n1", "value"]
+          },
+          {
+            "type": "Identifier",
+            "alias": "v2",
+            "name": "n2.value",
+            "name_parts": ["n2", "value"]
+          }
+        ],
+        "tables": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "n1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "n1.key",
+                      "name_parts": ["n1", "key"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "n2.key",
+                      "name_parts": ["n2", "key"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "n2"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "n1.key",
+              "name_parts": ["n1", "key"]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
+}

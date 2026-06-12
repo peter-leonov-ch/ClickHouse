@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "START TTL MERGES",
+  "table": {
+    "type": "Identifier",
+    "name": "ttl"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "distinct": true,
+      "select": [
+        {
+          "type": "Identifier",
+          "name": "URL"
+        },
+        {
+          "type": "Identifier",
+          "name": "URLDomain"
+        },
+        {
+          "type": "Function",
+          "alias": "x",
+          "name": "position",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "http:\/\/yandex.ru\/"
+            },
+            {
+              "type": "Function",
+              "name": "domain",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "URL"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "hits",
+                "database": "test"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "greater",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 8
+          }
+        ]
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Function",
+            "name": "position",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "http:\/\/yandex.ru\/"
+              },
+              {
+                "type": "Function",
+                "name": "domain",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "URL"
+                  }
+                ]
+              }
+            ]
+          },
+          "direction": "DESC"
+        },
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "URL"
+          },
+          "direction": "ASC"
+        }
+      ],
+      "limit_length": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "type": "CreateQuery",
+  "temporary": true,
+  "table": {
+    "type": "Identifier",
+    "name": "src"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "p",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "k",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "d",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Identifier",
+      "name": "p"
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "k"
+    }
+  }
+}

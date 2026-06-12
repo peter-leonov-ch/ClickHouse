@@ -1,0 +1,33 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "right_table"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Distributed",
+      "kind": "TABLE_ENGINE",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "test_shard_localhost"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "right_table_local"
+        }
+      ]
+    }
+  },
+  "as_table": "right_table_local"
+}

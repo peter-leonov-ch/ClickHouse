@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "SYNC REPLICA",
+  "table": {
+    "type": "Identifier",
+    "name": "r1"
+  }
+}

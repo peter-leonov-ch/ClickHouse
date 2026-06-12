@@ -1,0 +1,8 @@
+{
+  "type": "CheckQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "check_query_tiny_log"
+  },
+  "part_name": "all_0_0_0"
+}

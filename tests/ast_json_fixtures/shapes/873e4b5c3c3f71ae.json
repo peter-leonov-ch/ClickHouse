@@ -1,0 +1,81 @@
+{
+  "type": "CreateQuery",
+  "if_not_exists": true,
+  "table": {
+    "type": "Identifier",
+    "name": "first"
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "inn"
+        },
+        {
+          "type": "Function",
+          "name": "toYYYYMM",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "received"
+            }
+          ]
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Function",
+      "name": "tuple",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "inn"
+        },
+        {
+          "type": "Identifier",
+          "name": "sessionId"
+        }
+      ]
+    }
+  },
+  "select": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "received",
+            "name": "now",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "alias": "inn",
+            "value_type": "String",
+            "value": "123456789"
+          },
+          {
+            "type": "Literal",
+            "alias": "sessionId",
+            "value_type": "String",
+            "value": "42"
+          }
+        ]
+      }
+    ]
+  }
+}

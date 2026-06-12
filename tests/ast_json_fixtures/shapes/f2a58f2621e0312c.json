@@ -1,0 +1,26 @@
+{
+  "type": "Explain",
+  "kind": "EXPLAIN",
+  "query": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "header": 1
+    }
+  }
+}

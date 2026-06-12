@@ -1,0 +1,35 @@
+{
+  "type": "CreateQuery",
+  "database": {
+    "type": "Identifier",
+    "name": "db1"
+  },
+  "table": {
+    "type": "Identifier",
+    "name": "tab"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ],
+    "primary_key": {
+      "type": "Identifier",
+      "name": "a"
+    }
+  },
+  "storage": {
+    "type": "Storage",
+    "primary_key": {
+      "type": "Identifier",
+      "name": "a"
+    }
+  }
+}

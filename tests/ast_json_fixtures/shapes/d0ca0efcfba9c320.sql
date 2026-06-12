@@ -1,0 +1,1 @@
+SELECT DISTINCT x, z FROM tab WHERE x IN (1, 2) AND z < 5

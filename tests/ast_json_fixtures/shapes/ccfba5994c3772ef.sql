@@ -1,0 +1,1 @@
+ALTER TABLE test_b REPLACE PARTITION '0' FROM test_a

@@ -1,0 +1,71 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "foo_with_projection"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "ts",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "x",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      }
+    ],
+    "projections": [
+      {
+        "type": "Projection",
+        "name": "pj",
+        "query": {
+          "type": "ProjectionSelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "ts"
+            },
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ],
+          "order_by": []
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "MergeTree",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "partition_by": {
+      "type": "Function",
+      "name": "toYYYYMMDD",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "ts"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "Identifier",
+      "name": "ts"
+    }
+  }
+}

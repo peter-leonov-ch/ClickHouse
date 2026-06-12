@@ -1,0 +1,100 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "alias": "operand",
+          "name": "toInt64",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "operand"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "low",
+          "name": "toInt32",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "low"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "high",
+          "name": "toInt16",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "high"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "count"
+        },
+        {
+          "type": "Function",
+          "name": "WIDTH_BUCKET",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "operand"
+            },
+            {
+              "type": "Identifier",
+              "name": "low"
+            },
+            {
+              "type": "Identifier",
+              "name": "high"
+            },
+            {
+              "type": "Identifier",
+              "name": "count"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "name": "mytable"
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "notEquals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "count"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "prop_table"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "REMOVE_TTL"
+    }
+  ]
+}

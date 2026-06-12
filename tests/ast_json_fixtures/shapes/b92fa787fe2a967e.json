@@ -1,0 +1,102 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Function",
+          "alias": "lambda_1",
+          "name": "lambda",
+          "is_operator": true,
+          "is_lambda_function": true,
+          "kind": "LAMBDA_FUNCTION",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toString",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 3
+        },
+        {
+          "type": "Function",
+          "name": "arrayMap",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "alias": "lambda_2",
+              "name": "lambda_1"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "[1, 2, 3]"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "arrayMap",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "lambda_2"
+            },
+            {
+              "type": "Function",
+              "name": "materialize",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Array",
+                  "value": "['1', '2', '3']"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "where": {
+        "type": "Function",
+        "name": "toNullable",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": 9
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "lambda_2"
+        }
+      ]
+    }
+  ]
+}

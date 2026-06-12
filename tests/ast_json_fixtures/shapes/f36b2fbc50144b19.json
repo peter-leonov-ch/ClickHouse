@@ -1,0 +1,8 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "copied_table"
+  },
+  "as_table": "src_table"
+}

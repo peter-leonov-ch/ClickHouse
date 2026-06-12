@@ -1,0 +1,8 @@
+{
+  "type": "SYSTEM",
+  "system_type": "PREWARM MARK CACHE",
+  "table": {
+    "type": "Identifier",
+    "name": "t_prewarm_cache"
+  }
+}

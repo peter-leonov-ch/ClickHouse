@@ -1,0 +1,68 @@
+{
+  "type": "CreateQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "ttl_00933_1"
+  },
+  "columns_list": {
+    "type": "Columns",
+    "columns": [
+      {
+        "type": "ColumnDeclaration",
+        "name": "d",
+        "data_type": {
+          "type": "DataType",
+          "name": "DateTime"
+        }
+      },
+      {
+        "type": "ColumnDeclaration",
+        "name": "a",
+        "data_type": {
+          "type": "DataType",
+          "name": "Int"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "type": "Storage",
+    "engine": {
+      "type": "Function",
+      "name": "Log",
+      "kind": "TABLE_ENGINE",
+      "arguments": []
+    },
+    "ttl_table": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "TTLElement",
+          "mode": "DELETE",
+          "ttl": {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalDay",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

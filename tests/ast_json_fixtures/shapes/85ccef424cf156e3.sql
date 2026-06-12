@@ -1,0 +1,1 @@
+SELECT ((SELECT 1) AS a1), NOT ((SELECT 1) AS a1)

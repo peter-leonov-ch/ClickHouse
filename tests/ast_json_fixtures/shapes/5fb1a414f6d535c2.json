@@ -1,0 +1,22 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Asterisk"
+        }
+      ],
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Asterisk"
+          },
+          "direction": "ASC"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "remote",
+    "arguments": [
+      {
+        "type": "Identifier",
+        "name": "remote1"
+      },
+      {
+        "type": "Function",
+        "name": "equals",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "database"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          }
+        ]
+      }
+    ]
+  },
+  "format": "Values"
+}

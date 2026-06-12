@@ -1,0 +1,1 @@
+RENAME DICTIONARY test_01155_atomic.dict TO test_01155_ordinary.dict

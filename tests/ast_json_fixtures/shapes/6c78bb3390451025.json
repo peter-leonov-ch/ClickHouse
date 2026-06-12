@@ -1,0 +1,22 @@
+{
+  "type": "AlterQuery",
+  "alter_object": "TABLE",
+  "table": {
+    "type": "Identifier",
+    "name": "t0"
+  },
+  "commands": [
+    {
+      "type": "AlterCommand",
+      "command_type": "APPLY_DELETED_MASK",
+      "partition": {
+        "type": "Partition_ID",
+        "id": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "1"
+        }
+      }
+    }
+  ]
+}

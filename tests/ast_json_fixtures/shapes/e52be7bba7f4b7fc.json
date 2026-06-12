@@ -1,0 +1,477 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "with": [
+        {
+          "type": "Literal",
+          "alias": "x",
+          "value_type": "String",
+          "value": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        },
+        {
+          "type": "Function",
+          "alias": "spaces",
+          "name": "replaceRegexpAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "."
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "s",
+          "name": "concat",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "substring",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "spaces"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                },
+                {
+                  "type": "Function",
+                  "name": "modulo",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "rand",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 62
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "substring",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                },
+                {
+                  "type": "Function",
+                  "name": "modulo",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "rand",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 62
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "substring",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "spaces"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 1
+                },
+                {
+                  "type": "Function",
+                  "name": "modulo",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "rand",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 3
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 62
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "sl",
+          "name": "trimLeft",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "sr",
+          "name": "trimRight",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "t",
+          "name": "trimBoth",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "slr",
+          "name": "replaceRegexpOne",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "^ +"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "srr",
+          "name": "replaceRegexpOne",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " +$"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "tr",
+          "name": "replaceRegexpOne",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "^ *(.*?) *$"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "\\1"
+            }
+          ]
+        }
+      ],
+      "select": [
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "s"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "sl"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "slr"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "sr"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "srr"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "replaceAll",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "tr"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": " "
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 100000
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "where": {
+        "type": "Function",
+        "name": "not",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "sl"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "slr"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "sr"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "srr"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "t"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "tr"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

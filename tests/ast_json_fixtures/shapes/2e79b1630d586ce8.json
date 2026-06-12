@@ -1,0 +1,13 @@
+{
+  "type": "Rename",
+  "exchange": true,
+  "dictionary": true,
+  "elements": [
+    {
+      "from_database": "01914_db",
+      "from_table": "dictionary_1",
+      "to_database": "01914_db",
+      "to_table": "dictionary_2"
+    }
+  ]
+}

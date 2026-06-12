@@ -1,0 +1,172 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_totals": true,
+      "group_by_with_cube": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "toTypeName",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "topKDistinctState",
+              "nulls_action": "IGNORE NULLS",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "number"
+                    }
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 10
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "table_function": {
+                "type": "Function",
+                "name": "numbers",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": 100
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "map",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "materialize",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toNullable",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 4
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Tuple",
+                      "value": "(3, 4)"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 5
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "map",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(1, 2)"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": 4
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(3, 4)"
+            },
+            {
+              "type": "Function",
+              "name": "toNullable",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

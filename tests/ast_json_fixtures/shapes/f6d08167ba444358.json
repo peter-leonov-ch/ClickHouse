@@ -1,0 +1,25 @@
+{
+  "type": "CreateIndexQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "t_index_3146"
+  },
+  "index_name": {
+    "type": "Identifier",
+    "name": "i4"
+  },
+  "index_declaration": {
+    "type": "Index",
+    "name": "i4",
+    "expression": {
+      "type": "Identifier",
+      "name": "a"
+    },
+    "index_type": {
+      "type": "Function",
+      "name": "minmax",
+      "arguments": []
+    },
+    "granularity": 1
+  }
+}

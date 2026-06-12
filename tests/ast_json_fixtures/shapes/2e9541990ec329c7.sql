@@ -1,0 +1,1 @@
+SELECT * FROM r2 WHERE key=4

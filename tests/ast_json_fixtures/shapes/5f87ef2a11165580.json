@@ -1,0 +1,256 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "array",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(255, 1048575)"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "sipHash128ReferenceKeyed",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 2147483646
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 9223372036854775807
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "array",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Tuple",
+                      "value": "(NULL, 100)"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Tuple",
+                      "value": "(NULL, NULL)"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Tuple",
+                      "value": "(1024, 10)"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 1024
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "hex",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "sipHash128ReferenceKeyed",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(-9223372036854775807, 1.)"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "-1"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            },
+            {
+              "type": "Function",
+              "name": "toUInt64",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 65535
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(9223372036854775807, 9223372036854775806)"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "toUInt64",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 65536
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "arrayJoin",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(NULL, 65537, 255)"
+            },
+            {
+              "type": "Function",
+              "name": "array",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(NULL, NULL)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Tuple",
+                  "value": "(NULL, NULL, NULL, -1)"
+                },
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_analyzer": 1
+        }
+      }
+    }
+  ]
+}

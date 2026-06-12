@@ -1,0 +1,15 @@
+{
+  "type": "OptimizeQuery",
+  "table": {
+    "type": "Identifier",
+    "name": "summing"
+  },
+  "partition": {
+    "type": "Partition",
+    "value": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": 197001
+    }
+  }
+}

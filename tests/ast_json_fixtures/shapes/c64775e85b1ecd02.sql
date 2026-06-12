@@ -1,0 +1,7 @@
+SELECT
+    map('name', errors.name) AS labels,
+    value,
+    'ch_errors_total' AS name
+FROM system.errors
+LIMIT 1
+FORMAT Null

@@ -1,0 +1,11 @@
+{
+  "type": "Rename",
+  "elements": [
+    {
+      "from_database": "sqllt",
+      "from_table": "table_new",
+      "to_database": "sqllt",
+      "to_table": "table"
+    }
+  ]
+}

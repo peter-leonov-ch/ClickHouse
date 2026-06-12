@@ -1,0 +1,1 @@
+SELECT 123 AS x, (SELECT x) AS y

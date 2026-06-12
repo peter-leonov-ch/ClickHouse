@@ -1,0 +1,1 @@
+ALTER TABLE t_detach_attach_patches MOVE PARTITION 2 TO TABLE t_detach_attach_patches_dst

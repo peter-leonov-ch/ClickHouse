@@ -1,0 +1,1 @@
+TRUNCATE DATABASE test_truncate_database

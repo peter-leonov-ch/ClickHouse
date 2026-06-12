@@ -1,0 +1,1 @@
+ALTER TABLE test_alter_if_exists DROP COLUMN x, RENAME COLUMN IF EXISTS x TO z

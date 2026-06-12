@@ -1,0 +1,42 @@
+{
+  "type": "InsertQuery",
+  "table_function": {
+    "type": "Function",
+    "name": "file",
+    "arguments": [
+      {
+        "type": "Function",
+        "name": "concat",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "current_database",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "03630_parquet_bool_bug.parquet"
+          }
+        ]
+      },
+      {
+        "type": "Identifier",
+        "name": "Parquet"
+      },
+      {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "tags Array(Bool)"
+      }
+    ]
+  },
+  "format": "Values",
+  "settings": {
+    "type": "Set",
+    "changes": {
+      "engine_file_truncate_on_insert": 1
+    }
+  }
+}

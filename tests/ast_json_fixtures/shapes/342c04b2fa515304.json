@@ -1,0 +1,184 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "group_by_with_rollup": true,
+      "select": [
+        {
+          "type": "Function",
+          "name": "arrayPartialReverseSort",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arraySort",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "lambda",
+                  "is_operator": true,
+                  "is_lambda_function": true,
+                  "kind": "LAMBDA_FUNCTION",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "y"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "y"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Array",
+                  "value": "[NULL, NULL]"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Array",
+                  "value": "[NULL, NULL]"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "arr"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "arr",
+          "name": "arrayMap",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "lambda",
+              "is_operator": true,
+              "is_lambda_function": true,
+              "kind": "LAMBDA_FUNCTION",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tuple",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Array",
+              "value": "[257, -9223372036854775807, 2, -2147483648, 2147483648, NULL, 65536, -2147483648, 2, 65535]"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "Null",
+          "value": null
+        },
+        {
+          "type": "Literal",
+          "alias": "lim",
+          "value_type": "UInt64",
+          "value": 100
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": 65536
+        },
+        {
+          "type": "Function",
+          "name": "arrayResize",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "arrayPartialSort",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "lambda",
+                  "is_operator": true,
+                  "is_lambda_function": true,
+                  "kind": "LAMBDA_FUNCTION",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "reverse",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "x"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "lim"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "arr"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "lim"
+            }
+          ]
+        }
+      ],
+      "group_by": [
+        {
+          "type": "Literal",
+          "value_type": "Array",
+          "value": "[NULL, 1023, -2, NULL, 255, '0', NULL, 9223372036854775806]"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "type": "SelectWithUnionQuery",
+  "selects": [
+    {
+      "type": "SelectQuery",
+      "select": [
+        {
+          "type": "Function",
+          "name": "MAX",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "left.c0",
+              "name_parts": ["left", "c0"]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "g",
+          "name": "min2",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "left.c0",
+              "name_parts": ["left", "c0"]
+            },
+            {
+              "type": "Function",
+              "name": "multiply",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "negate",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "left.c0",
+                          "name_parts": ["left", "c0"]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "minus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "radians",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "left.c0",
+                          "name_parts": ["left", "c0"]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "radians",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "left.c0",
+                          "name_parts": ["left", "c0"]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "alias": "h",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "notEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "isNotNull",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "isNotNull",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": -1925024212
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "radians",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tan",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1216286224
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "cos",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "or",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "lcm",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "MAX",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "left.c0",
+                              "name_parts": ["left", "c0"]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": -1966575216
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "multiply",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "MAX",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "left.c0",
+                              "name_parts": ["left", "c0"]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": 1180517420
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "not",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "h"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "isNull",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "h"
+            }
+          ]
+        }
+      ],
+      "tables": {
+        "type": "TablesInSelectQuery",
+        "children": [
+          {
+            "type": "TablesInSelectQueryElement",
+            "table_expression": {
+              "type": "TableExpression",
+              "database_and_table_name": {
+                "type": "TableIdentifier",
+                "alias": "left",
+                "name": "t2"
+              }
+            }
+          }
+        ]
+      },
+      "group_by": [
+        {
+          "type": "Identifier",
+          "name": "g"
+        }
+      ],
+      "having": {
+        "type": "Identifier",
+        "name": "h"
+      },
+      "order_by": [
+        {
+          "type": "OrderByElement",
+          "expression": {
+            "type": "Identifier",
+            "name": "g"
+          },
+          "direction": "DESC"
+        }
+      ],
+      "settings": {
+        "type": "Set",
+        "changes": {
+          "enable_optimize_predicate_expression": 0
+        }
+      }
+    }
+  ]
+}
