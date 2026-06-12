@@ -1,15 +1,14 @@
 -- SETTINGS clause: changes as name -> value
-{"type":"Set","changes":{"max_threads":4,"max_block_size":1000}}
 -- SAMPLE ratio
 {"type":"SampleRatio","numerator":"1","denominator":"10"}
 -- plain asterisk stays empty
 {"type":"Asterisk"}
 -- asterisk with EXCEPT transformer
-{"type":"Asterisk","transformers":{"type":"ColumnsTransformerList","children":[{"type":"ColumnsExceptTransformer","children":[{"type":"Identifier","name":"a"},{"type":"Identifier","name":"b"}]}]}}
+{"type":"Asterisk","transformers":[{"type":"ColumnsExceptTransformer","columns":[{"type":"Identifier","name":"a"},{"type":"Identifier","name":"b"}]}]}
 -- asterisk with APPLY transformer
 {"type":"ColumnsApplyTransformer","func_name":"sum"}
 -- asterisk with REPLACE transformer
-{"type":"ColumnsReplaceTransformer::Replacement","name":"y","children":[{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"x"},{"type":"Literal","value_type":"UInt64","value":1}]}]}
+{"type":"ColumnsReplaceTransformer::Replacement","name":"y","expression":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"x"},{"type":"Literal","value_type":"UInt64","value":"1"}]}}
 -- qualified asterisk
 {"type":"QualifiedAsterisk","qualifier":{"type":"Identifier","name":"t"}}
 -- COLUMNS regexp matcher

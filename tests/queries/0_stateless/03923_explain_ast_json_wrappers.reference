@@ -10,16 +10,16 @@
 -- LEFT ARRAY JOIN
 {"type":"ArrayJoin","kind":"LEFT","expressions":[{"type":"Identifier","alias":"e","name":"arr"},{"type":"Identifier","name":"other"}]}
 -- table function
-{"type":"TableExpression","table_function":{"type":"Function","name":"numbers","arguments":[{"type":"Literal","value_type":"UInt64","value":5}]}}
+{"type":"TableExpression","table_function":{"type":"Function","name":"numbers","arguments":[{"type":"Literal","value_type":"UInt64","value":"5"}]}}
 -- subquery in FROM: collapsed wrapper chain
-{"type":"TableExpression","subquery":{"type":"Subquery","query":{"type":"SelectWithUnionQuery","selects":[{"type":"SelectQuery","select":[{"type":"Literal","value_type":"UInt64","value":1}]}]}}}
+{"type":"TableExpression","subquery":{"type":"Subquery","query":{"type":"SelectWithUnionQuery","selects":[{"type":"SelectQuery","select":[{"type":"Literal","value_type":"UInt64","value":"1"}]}]}}}
 -- table with FINAL and SAMPLE
 {"database_and_table_name":"TableIdentifier","final":true,"sample_size":"SampleRatio"}
 -- WITH element (named CTE): subquery collapses to query.selects
-{"name":"cte","query_select":[{"type":"SelectQuery","select":[{"type":"Literal","alias":"a","value_type":"UInt64","value":1}]}]}
+{"name":"cte","query_select":[{"type":"SelectQuery","select":[{"type":"Literal","alias":"a","value_type":"UInt64","value":"1"}]}]}
 -- window definition with a RANGE frame
-{"type":"WindowDefinition","partition_by":[{"type":"Identifier","name":"g"}],"order_by":[{"type":"OrderByElement","expression":{"type":"Identifier","name":"b"},"direction":"ASC"}],"frame_type":"RANGE","frame_begin_type":"Unbounded","frame_begin_preceding":true,"frame_end_type":"Unbounded","frame_end_preceding":false}
+{"type":"WindowDefinition","partition_by":[{"type":"Identifier","name":"g"}],"order_by":[{"type":"OrderByElement","expression":{"type":"Identifier","name":"b"},"direction":"ASC"}],"frame_type":"RANGE","frame_begin":{"type":"Unbounded","preceding":true},"frame_end":{"type":"Unbounded"}}
 -- UNION: selects inlined (no ExpressionList wrapper)
 ["SelectQuery","SelectQuery"]
 -- INTERPOLATE element
-{"type":"InterpolateElement","column":"y","expr":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"y"},{"type":"Literal","value_type":"UInt64","value":1}]}}
+{"type":"InterpolateElement","column":"y","expr":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"y"},{"type":"Literal","value_type":"UInt64","value":"1"}]}}

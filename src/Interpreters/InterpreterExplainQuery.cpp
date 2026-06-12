@@ -515,7 +515,7 @@ QueryPipeline InterpreterExplainQuery::executeImpl()
 
             if (settings.json)
             {
-                auto ast_json = formatASTAsJSON(*ast.getExplainedQuery());
+                auto ast_json = formatASTAsJSONDocument(*ast.getExplainedQuery());
 
                 auto json_io_settings = getFormatSettings(query_context);
                 json_io_settings.json.quote_64bit_integers = false;

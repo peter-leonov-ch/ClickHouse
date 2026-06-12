@@ -171,9 +171,9 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     `window_definition` — the inner `ExpressionList` wrappers are inlined.
 ///   - ASTOrderByElement: `expression`, `collation`, `fill_from`, `fill_to`,
 ///     `fill_step`, `fill_staleness`.
-///   - ASTSelectQuery: one named slot per clause (`with`, `select`, `tables`,
-///     `where`, `group_by`, `order_by`, `limit_length`, ...); list-shaped
-///     clauses inline their `ExpressionList` wrapper.
+///   - ASTSelectQuery: one named slot per clause (`with`, `select`, `from`,
+///     `where`, `group_by`, `order_by`, `limit`, `offset`, `limit_by`, ...);
+///     list-shaped clauses inline their `ExpressionList` wrapper.
 ///   - The structural wrappers — ASTSelectWithUnionQuery, ASTSubquery,
 ///     ASTWithElement, ASTTablesInSelectQueryElement, ASTTableExpression,
 ///     ASTTableJoin, ASTArrayJoin, ASTWindowListElement, ASTWindowDefinition,
@@ -195,8 +195,17 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     qualified COLUMNS matchers, and a generic ASTQueryWithTableAndOutput
 ///     fallback (EXISTS / SHOW CREATE / ...).
 /// `children` survives only on homogeneous lists (ExpressionList,
-/// TablesInSelectQuery, and the column lists under COLUMNS / EXCEPT / REPLACE).
+/// TablesInSelectQuery).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
+
+
+/// Bump on any backwards-incompatible change to the JSON shape. External
+/// consumers (e.g. clickhouse-js-parser) pin reference fixtures on it.
+constexpr int AST_JSON_FORMAT_VERSION = 1;
+
+/// `formatASTAsJSON` wrapped in a versioned document: `{ "version": N, "ast": {...} }`.
+/// This is what `EXPLAIN AST json = 1` emits at top level.
+JSONBuilder::ItemPtr formatASTAsJSONDocument(const IAST & ast);
 
 
 /// String stream dumped in dtor

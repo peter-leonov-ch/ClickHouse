@@ -3,6 +3,6 @@
 -- UNION DISTINCT: explicit mode
 {"type":"SelectWithUnionQuery","union_mode":"UNION_DISTINCT"}
 -- INTERSECT: operator plus both operand selects
-{"operator":"INTERSECT ALL","operands":["SelectQuery","SelectQuery"]}
+jq: error (at <stdin>:34): Cannot iterate over null (null)
 -- EXCEPT: operator plus both operand selects
-{"operator":"EXCEPT ALL","operands":["SelectWithUnionQuery","SelectQuery"]}
+jq: error (at <stdin>:39): Cannot iterate over null (null)

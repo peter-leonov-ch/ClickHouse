@@ -1310,8 +1310,11 @@ static BlockIO executeQueryImpl(
             }
             else if (const auto * explain_query = out_ast->as<ASTExplainQuery>())
             {
-                if (!explain_query->children.empty())
-                    if (const auto * create_of_explain_query = explain_query->children[0]->as<ASTCreateQuery>())
+                /// Use the explained query directly: when EXPLAIN settings are
+                /// present (e.g. `EXPLAIN AST json = 1 ...`) children[0] is the
+                /// settings node, not the explained query.
+                if (const auto & explained_query = explain_query->getExplainedQuery())
+                    if (const auto * create_of_explain_query = explained_query->as<ASTCreateQuery>())
                         is_create_parameterized_view = create_of_explain_query->isParameterizedView();
             }
         }

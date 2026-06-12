@@ -44,6 +44,7 @@
 #include <Parsers/ASTLiteral.h>
 #include <Parsers/ASTOrderByElement.h>
 #include <Parsers/ASTQualifiedAsterisk.h>
+#include <Parsers/ASTQueryParameter.h>
 #include <Parsers/ASTSampleRatio.h>
 #include <Parsers/ASTSelectIntersectExceptQuery.h>
 #include <Parsers/ASTSelectQuery.h>
@@ -283,9 +284,11 @@ JSONBuilder::ItemPtr fieldToJSON(const Field & value)
             /// Bool is stored as UInt64 under the hood.
             return std::make_unique<JSONBuilder::JSONBool>(value.safeGet<UInt64>() != 0);
         case Field::Types::UInt64:
-            return std::make_unique<JSONBuilder::JSONNumber<UInt64>>(value.safeGet<UInt64>());
+            /// Emitted as a string: values above 2^53 lose precision when a
+            /// JavaScript consumer runs them through JSON.parse (IEEE-754).
+            return std::make_unique<JSONBuilder::JSONString>(std::to_string(value.safeGet<UInt64>()));
         case Field::Types::Int64:
-            return std::make_unique<JSONBuilder::JSONNumber<Int64>>(value.safeGet<Int64>());
+            return std::make_unique<JSONBuilder::JSONString>(std::to_string(value.safeGet<Int64>()));
         case Field::Types::Float64:
             return std::make_unique<JSONBuilder::JSONNumber<Float64>>(value.safeGet<Float64>());
         case Field::Types::String:
@@ -401,6 +404,15 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
             node.add("name_parts", std::move(parts));
         }
     }
+    else if (const auto * query_parameter = dynamic_cast<const ASTQueryParameter *>(&ast))
+    {
+        /// `{name:type}` — appears in value position and in identifier/table
+        /// position. The substitution type is exposed as `param_type`.
+        node.add("name", query_parameter->name);
+        node.add("param_type", query_parameter->type);
+
+        return true;
+    }
     else if (const auto * literal = dynamic_cast<const ASTLiteral *>(&ast))
     {
         node.add("value_type", String(fieldTypeName(literal->value.getType())));
@@ -430,12 +442,16 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     }
     else if (const auto * intersect_except = dynamic_cast<const ASTSelectIntersectExceptQuery *>(&ast))
     {
-        /// Derives from ASTSelectQuery but, unlike it, keeps its operand
-        /// selects in the positional `children` array rather than in the
-        /// `Expression` slots — so it must be matched before ASTSelectQuery and
-        /// must NOT suppress `children`.
+        /// Derives from ASTSelectQuery but keeps its operand selects in the
+        /// positional `children` array rather than the `Expression` slots, so
+        /// it must be matched *before* ASTSelectQuery. We expose those operands
+        /// under `selects` (mirroring ASTSelectWithUnionQuery) and suppress
+        /// `children`.
         if (intersect_except->final_operator != ASTSelectIntersectExceptQuery::Operator::UNKNOWN)
             node.add("operator", String(ASTSelectIntersectExceptQuery::fromOperator(intersect_except->final_operator)));
+        node.add("selects", inlineExpressionList(intersect_except));
+
+        return true;
     }
     else if (const auto * select = dynamic_cast<const ASTSelectQuery *>(&ast))
     {
@@ -469,23 +485,20 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
             bool is_list;
         };
         static constexpr Slot slots[] = {
-            {Expression::WITH,            "with",            true},
-            {Expression::SELECT,          "select",          true},
-            {Expression::TABLES,          "tables",          false},
-            {Expression::PREWHERE,        "prewhere",        false},
-            {Expression::WHERE,           "where",           false},
-            {Expression::GROUP_BY,        "group_by",        true},
-            {Expression::HAVING,          "having",          false},
-            {Expression::WINDOW,          "window",          true},
-            {Expression::QUALIFY,         "qualify",         false},
-            {Expression::ORDER_BY,        "order_by",        true},
-            {Expression::LIMIT_BY_OFFSET, "limit_by_offset", false},
-            {Expression::LIMIT_BY_LENGTH, "limit_by_length", false},
-            {Expression::LIMIT_BY,        "limit_by",        true},
-            {Expression::LIMIT_OFFSET,    "limit_offset",    false},
-            {Expression::LIMIT_LENGTH,    "limit_length",    false},
-            {Expression::SETTINGS,        "settings",        false},
-            {Expression::INTERPOLATE,     "interpolate",     true},
+            {Expression::WITH,         "with",        true},
+            {Expression::SELECT,       "select",      true},
+            {Expression::TABLES,       "from",        false},
+            {Expression::PREWHERE,     "prewhere",    false},
+            {Expression::WHERE,        "where",       false},
+            {Expression::GROUP_BY,     "group_by",    true},
+            {Expression::HAVING,       "having",      false},
+            {Expression::WINDOW,       "window",      true},
+            {Expression::QUALIFY,      "qualify",     false},
+            {Expression::ORDER_BY,     "order_by",    true},
+            {Expression::LIMIT_OFFSET, "offset",      false},
+            {Expression::LIMIT_LENGTH, "limit",       false},
+            {Expression::SETTINGS,     "settings",    false},
+            {Expression::INTERPOLATE,  "interpolate", true},
         };
 
         for (const auto & slot : slots)
@@ -497,6 +510,18 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
                 node.add(slot.key, inlineExpressionList(expr));
             else
                 node.add(slot.key, formatASTAsJSON(*expr));
+        }
+
+        /// LIMIT ... BY ... is grouped into one object: {length, offset?, by}.
+        if (auto by = select->getExpression(Expression::LIMIT_BY))
+        {
+            auto limit_by = std::make_unique<JSONBuilder::JSONMap>();
+            if (auto length = select->getExpression(Expression::LIMIT_BY_LENGTH))
+                limit_by->add("length", formatASTAsJSON(*length));
+            if (auto offset = select->getExpression(Expression::LIMIT_BY_OFFSET))
+                limit_by->add("offset", formatASTAsJSON(*offset));
+            limit_by->add("by", inlineExpressionList(by));
+            node.add("limit_by", std::move(limit_by));
         }
 
         return true;
@@ -593,18 +618,26 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         if (window_definition->order_by)
             node.add("order_by", inlineExpressionList(window_definition->order_by));
 
-        /// The frame is only meaningful when it differs from the implicit default.
+        /// The frame is only meaningful when it differs from the implicit
+        /// default. Each boundary is one object: {type, offset?, preceding?},
+        /// `preceding` emitted only when true (per the flags-when-set contract).
         if (!window_definition->frame_is_default)
         {
             node.add("frame_type", String(windowFrameTypeToString(window_definition->frame_type)));
 
-            node.add("frame_begin_type", String(windowBoundaryTypeToString(window_definition->frame_begin_type)));
-            addNodeSlot(node, "frame_begin_offset", window_definition->frame_begin_offset);
-            node.add("frame_begin_preceding", window_definition->frame_begin_preceding);
+            auto begin = std::make_unique<JSONBuilder::JSONMap>();
+            begin->add("type", String(windowBoundaryTypeToString(window_definition->frame_begin_type)));
+            addNodeSlot(*begin, "offset", window_definition->frame_begin_offset);
+            if (window_definition->frame_begin_preceding)
+                begin->add("preceding", true);
+            node.add("frame_begin", std::move(begin));
 
-            node.add("frame_end_type", String(windowBoundaryTypeToString(window_definition->frame_end_type)));
-            addNodeSlot(node, "frame_end_offset", window_definition->frame_end_offset);
-            node.add("frame_end_preceding", window_definition->frame_end_preceding);
+            auto end = std::make_unique<JSONBuilder::JSONMap>();
+            end->add("type", String(windowBoundaryTypeToString(window_definition->frame_end_type)));
+            addNodeSlot(*end, "offset", window_definition->frame_end_offset);
+            if (window_definition->frame_end_preceding)
+                end->add("preceding", true);
+            node.add("frame_end", std::move(end));
         }
 
         return true;
@@ -649,14 +682,16 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     else if (const auto * asterisk = dynamic_cast<const ASTAsterisk *>(&ast))
     {
         addNodeSlot(node, "expression", asterisk->expression);
-        addNodeSlot(node, "transformers", asterisk->transformers);
+        if (asterisk->transformers)
+            node.add("transformers", inlineExpressionList(asterisk->transformers));
 
         return true;
     }
     else if (const auto * qualified_asterisk = dynamic_cast<const ASTQualifiedAsterisk *>(&ast))
     {
         addNodeSlot(node, "qualifier", qualified_asterisk->qualifier);
-        addNodeSlot(node, "transformers", qualified_asterisk->transformers);
+        if (qualified_asterisk->transformers)
+            node.add("transformers", inlineExpressionList(qualified_asterisk->transformers));
 
         return true;
     }
@@ -664,7 +699,8 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     {
         node.add("pattern", regexp_matcher->getPattern());
         addNodeSlot(node, "expression", regexp_matcher->expression);
-        addNodeSlot(node, "transformers", regexp_matcher->transformers);
+        if (regexp_matcher->transformers)
+            node.add("transformers", inlineExpressionList(regexp_matcher->transformers));
 
         return true;
     }
@@ -673,7 +709,8 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         addNodeSlot(node, "expression", list_matcher->expression);
         if (list_matcher->column_list)
             node.add("columns", inlineExpressionList(list_matcher->column_list));
-        addNodeSlot(node, "transformers", list_matcher->transformers);
+        if (list_matcher->transformers)
+            node.add("transformers", inlineExpressionList(list_matcher->transformers));
 
         return true;
     }
@@ -692,20 +729,29 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     }
     else if (const auto * except = dynamic_cast<const ASTColumnsExceptTransformer *>(&ast))
     {
-        /// The excepted columns stay in `children` as a homogeneous list.
         if (except->is_strict)
             node.add("is_strict", true);
+        if (!except->children.empty())
+            node.add("columns", inlineExpressionList(&ast));
+
+        return true;
     }
     else if (const auto * replace = dynamic_cast<const ASTColumnsReplaceTransformer *>(&ast))
     {
-        /// The replacements stay in `children` as a homogeneous list.
         if (replace->is_strict)
             node.add("is_strict", true);
+        if (!replace->children.empty())
+            node.add("replacements", inlineExpressionList(&ast));
+
+        return true;
     }
     else if (const auto * replacement = dynamic_cast<const ASTColumnsReplaceTransformer::Replacement *>(&ast))
     {
-        /// The replacement expression stays as the single child.
         node.add("name", replacement->name);
+        if (!replacement->children.empty())
+            node.add("expression", formatASTAsJSON(*replacement->children.front()));
+
+        return true;
     }
     else if (const auto * data_type = dynamic_cast<const ASTDataType *>(&ast))
     {
@@ -1295,9 +1341,11 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
     }
     else if (const auto * storage_order_by = dynamic_cast<const ASTStorageOrderByElement *>(&ast))
     {
+        if (!storage_order_by->children.empty())
+            node.add("expression", formatASTAsJSON(*storage_order_by->children.front()));
         node.add("direction", String(storage_order_by->direction >= 0 ? "ASC" : "DESC"));
 
-        return false;  /// keep the sort expression in `children`
+        return true;
     }
     else if (const auto * name_type = dynamic_cast<const ASTNameTypePair *>(&ast))
     {
@@ -1355,6 +1403,11 @@ String astTypeName(const IAST & ast)
     if (dynamic_cast<const ASTDictionarySettings *>(&ast))
         return "DictionarySettings";
 
+    /// getID is "Set"; rename to avoid confusion with SET statements / the Set
+    /// data structure — this is the SETTINGS clause.
+    if (dynamic_cast<const ASTSetQuery *>(&ast))
+        return "Settings";
+
     String id = ast.getID(' ');
     auto space_pos = id.find(' ');
     if (space_pos != String::npos)
@@ -1385,6 +1438,14 @@ JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast)
     }
 
     return node;
+}
+
+JSONBuilder::ItemPtr formatASTAsJSONDocument(const IAST & ast)
+{
+    auto document = std::make_unique<JSONBuilder::JSONMap>();
+    document->add("version", AST_JSON_FORMAT_VERSION);
+    document->add("ast", formatASTAsJSON(ast));
+    return document;
 }
 
 }

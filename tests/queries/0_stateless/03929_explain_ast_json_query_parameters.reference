@@ -1,0 +1,4 @@
+-- top-level document carries a format version
+{"version":1,"ast_type":"SelectWithUnionQuery"}
+-- query parameters in value and identifier/table position
+[{"name":"tbl","param_type":"Identifier"},{"name":"x","param_type":"UInt64"}]

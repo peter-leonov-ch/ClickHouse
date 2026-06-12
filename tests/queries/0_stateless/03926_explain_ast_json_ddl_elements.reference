@@ -5,7 +5,7 @@
 -- PROJECTION declaration
 {"type":"ProjectionSelectQuery","select":[{"type":"Identifier","name":"a"}],"group_by":[{"type":"Identifier","name":"a"}]}
 -- TTL DELETE
-{"type":"TTLElement","mode":"DELETE","ttl":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"d"},{"type":"Function","name":"toIntervalDay","arguments":[{"type":"Literal","value_type":"UInt64","value":1}]}]}}
+{"type":"TTLElement","mode":"DELETE","ttl":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"d"},{"type":"Function","name":"toIntervalDay","arguments":[{"type":"Literal","value_type":"UInt64","value":"1"}]}]}}
 -- TTL MOVE TO DISK
 {"mode":"MOVE","destination_type":"DISK","destination_name":"cold"}
 -- DELETE
