@@ -1,51 +1,54 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "max",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tt_m"
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tt_m"
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "b"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "b"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

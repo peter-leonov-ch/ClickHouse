@@ -1,258 +1,261 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "d",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 60
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 60
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 24
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "k",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "v",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "y"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "est",
-          "name": "minus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "divide",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "multiply",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "plus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "z"
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "d"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "minus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "plus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "z"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "d"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "divide",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "multiply",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "alias": "z",
-                      "name": "toUInt64",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "minus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "k"
-                            },
-                            {
-                              "type": "Function",
-                              "name": "toDateTime",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "String",
-                                  "value": "2000-01-01"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "String",
-                                  "value": "UTC"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "minus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "z"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "delta",
-          "name": "minus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "est"
-            },
-            {
-              "type": "Identifier",
-              "name": "v"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tab"
+            "type": "Function",
+            "alias": "d",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "60"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "60"
+                  }
+                ]
               },
-              "final": true
-            }
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "24"
+              }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "k"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "k",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "v",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "y"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "est",
+            "name": "minus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "divide",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "multiply",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "z"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "d"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "minus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "plus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "z"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "d"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "divide",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "multiply",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "alias": "z",
+                        "name": "toUInt64",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "minus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "k"
+                              },
+                              {
+                                "type": "Function",
+                                "name": "toDateTime",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "2000-01-01"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "UTC"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "minus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "z"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "delta",
+            "name": "minus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "est"
+              },
+              {
+                "type": "Identifier",
+                "name": "v"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                },
+                "final": true
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "k"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 8,
-          "optimize_aggregation_in_order": 1,
-          "split_parts_ranges_into_intersecting_and_non_intersecting_final": 1
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "8",
+            "optimize_aggregation_in_order": "1",
+            "split_parts_ranges_into_intersecting_and_non_intersecting_final": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

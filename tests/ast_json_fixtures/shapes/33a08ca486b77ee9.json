@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_database": "sqllt",
-      "from_table": "table",
-      "to_database": "sqllt",
-      "to_table": "table_new"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_database": "sqllt",
+        "from_table": "table",
+        "to_database": "sqllt",
+        "to_table": "table_new"
+      }
+    ]
+  }
 }

@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "attach_partition_t2"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "REPLACE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        }
-      },
-      "from_table": "attach_partition_t1"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "attach_partition_t2"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "REPLACE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": []
+          }
+        },
+        "from_table": "attach_partition_t1"
+      }
+    ]
+  }
 }

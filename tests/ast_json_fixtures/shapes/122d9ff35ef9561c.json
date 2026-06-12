@@ -1,5 +1,8 @@
 {
-  "type": "SYSTEM",
-  "system_type": "RELOAD DICTIONARIES",
-  "cluster": "test_shard_localhost"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "RELOAD DICTIONARIES",
+    "cluster": "test_shard_localhost"
+  }
 }

@@ -1,11 +1,14 @@
 {
-  "type": "DescribeQuery",
-  "table_expression": {
-    "type": "TableExpression",
-    "table_function": {
-      "type": "Function",
-      "name": "null",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "DescribeQuery",
+    "table_expression": {
+      "type": "TableExpression",
+      "table_function": {
+        "type": "Function",
+        "name": "null",
+        "arguments": []
+      }
     }
   }
 }

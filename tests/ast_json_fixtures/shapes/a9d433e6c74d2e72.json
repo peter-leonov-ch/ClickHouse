@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "QualifiedAsterisk",
-          "qualifier": {
-            "type": "Identifier",
-            "name": "t.t.t",
-            "name_parts": ["t", "t", "t"]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tables",
-                "database": "system"
-              }
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "t.t.t",
+              "name_parts": ["t", "t", "t"]
             }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "database"
-          },
-          {
-            "type": "Function",
-            "name": "currentDatabase",
-            "arguments": []
-          }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tables",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "database"
+            },
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,55 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          },
+          {
+            "type": "Function",
+            "alias": "l",
+            "name": "length",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "arr"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "prewhere_column_missing"
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "alias": "l",
-          "name": "length",
+          "name": "equals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
-              "name": "arr"
+              "name": "l"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "prewhere_column_missing"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "l"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

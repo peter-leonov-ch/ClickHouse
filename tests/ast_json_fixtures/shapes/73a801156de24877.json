@@ -1,80 +1,83 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "nORX"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "nORX"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greaterOrEquals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "B"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1000
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "A"
-          },
-          "direction": "ASC"
+          ]
         },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Function",
-            "name": "negate",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "B"
-              }
-            ]
+        "where": {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "B"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1000"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "A"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 1
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "negate",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "B"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

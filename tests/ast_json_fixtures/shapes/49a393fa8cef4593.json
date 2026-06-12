@@ -1,87 +1,90 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "x"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "dt",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "i",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "partition_by": {
-      "type": "Function",
-      "name": "indexHint",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "dt"
-        }
-      ]
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "dt"
+      "name": "x"
     },
-    "ttl_table": {
-      "type": "ExpressionList",
-      "children": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "TTLElement",
-          "mode": "DELETE",
-          "ttl": {
-            "type": "Function",
-            "name": "plus",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "dt"
-              },
-              {
-                "type": "Function",
-                "name": "toIntervalDay",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 15
-                  }
-                ]
-              }
-            ]
+          "type": "ColumnDeclaration",
+          "name": "dt",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "i",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
           }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity": 8192
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "indexHint",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "dt"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "dt"
+      },
+      "ttl_table": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "TTLElement",
+            "mode": "DELETE",
+            "ttl": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "dt"
+                },
+                {
+                  "type": "Function",
+                  "name": "toIntervalDay",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "15"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "8192"
+        }
       }
     }
   }

@@ -1,125 +1,128 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "A.k",
-          "name_parts": ["A", "k"]
-        },
-        {
-          "type": "Function",
-          "name": "toString",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "A.t",
-              "name_parts": ["A", "t"]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "A.a",
-          "name_parts": ["A", "a"]
-        },
-        {
-          "type": "Identifier",
-          "name": "B.b",
-          "name_parts": ["B", "b"]
-        },
-        {
-          "type": "Function",
-          "name": "toString",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "B.t",
-              "name_parts": ["B", "t"]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "B.k",
-          "name_parts": ["B", "k"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "A"
-              }
-            }
+            "type": "Identifier",
+            "name": "A.k",
+            "name_parts": ["A", "k"]
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "strictness": "ASOF",
-              "using": [
-                {
-                  "type": "Identifier",
-                  "name": "k"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "t"
-                }
-              ]
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "B"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
+            "name": "toString",
             "arguments": [
-              {
-                "type": "Identifier",
-                "name": "A.k",
-                "name_parts": ["A", "k"]
-              },
               {
                 "type": "Identifier",
                 "name": "A.t",
                 "name_parts": ["A", "t"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
               }
             ]
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Identifier",
+            "name": "A.a",
+            "name_parts": ["A", "a"]
+          },
+          {
+            "type": "Identifier",
+            "name": "B.b",
+            "name_parts": ["B", "b"]
+          },
+          {
+            "type": "Function",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "B.t",
+                "name_parts": ["B", "t"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "B.k",
+            "name_parts": ["B", "k"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "A"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "strictness": "ASOF",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "k"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "t"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "B"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "A.k",
+                  "name_parts": ["A", "k"]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "A.t",
+                  "name_parts": ["A", "t"]
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

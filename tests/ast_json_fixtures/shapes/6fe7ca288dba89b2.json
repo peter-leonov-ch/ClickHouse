@@ -1,124 +1,127 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "filtered_groups",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "a"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "pr_1"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "greaterOrEquals",
-                    "is_operator": true,
-                    "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "filtered_groups",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
                       {
                         "type": "Identifier",
                         "name": "a"
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 100
                       }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "pr_2"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "pr_2.a",
-                    "name_parts": ["pr_2", "a"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "filtered_groups.a",
-                    "name_parts": ["filtered_groups", "a"]
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "pr_1"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "greaterOrEquals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "a"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "100"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "filtered_groups"
-              }
             }
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_parallel_replicas": 1,
-          "parallel_replicas_for_non_replicated_merge_tree": 1,
-          "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
-          "max_parallel_replicas": 3
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "pr_2"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "pr_2.a",
+                      "name_parts": ["pr_2", "a"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "filtered_groups.a",
+                      "name_parts": ["filtered_groups", "a"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "filtered_groups"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_parallel_replicas": "1",
+            "parallel_replicas_for_non_replicated_merge_tree": "1",
+            "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
+            "max_parallel_replicas": "3"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,9 +1,13 @@
 # SQL → JSON-AST fixtures
 
-A static corpus mapping SQL queries to their parsed AST as produced by
-`EXPLAIN AST json = 1` (see `../../AST.md`). Intended as golden files for
-verifying an alternative parser / AST serializer against the reference
-ClickHouse implementation.
+A static, vendorable corpus mapping SQL queries to their parsed AST as
+produced by `EXPLAIN AST json = 1` (see `../../AST.md`). Intended as golden
+files for verifying an alternative parser / AST serializer against the
+reference ClickHouse implementation.
+
+The `.json` files are the full document, `{ "version": N, "ast": {...} }`;
+pin against `version` so a schema break is detectable. 64-bit integer
+literal values are JSON strings (see `../../AST.md`).
 
 ## Layout
 
@@ -33,10 +37,9 @@ operations, asterisk transformers and `COLUMNS(...)`, and one maximal
 
 The JSON shape is documented in `../../AST.md`. In short: each node has a
 `type`; sub-nodes appear under named slots; `children` survives only on
-homogeneous lists (`ExpressionList`, `TablesInSelectQuery`, and the column
-lists under `COLUMNS` / `EXCEPT` / `REPLACE`). Absent optional fields are
-omitted (no `null`s). The queries only need to parse — referenced tables /
-columns do not have to exist.
+homogeneous lists (`ExpressionList`, `TablesInSelectQuery`). Absent optional
+fields are omitted (no `null`s). The queries only need to parse — referenced
+tables / columns do not have to exist.
 
 ## Verifying your parser
 

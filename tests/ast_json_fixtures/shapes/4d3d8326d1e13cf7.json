@@ -1,23 +1,26 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "Null",
-          "value": null
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Literal",
-          "value_type": "Null",
-          "value": null
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          }
+        ]
+      }
+    ]
+  }
 }

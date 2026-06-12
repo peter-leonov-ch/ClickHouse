@@ -1,46 +1,49 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "n.b",
-          "name_parts": ["n", "b"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "nested"
+            "type": "Identifier",
+            "name": "n.b",
+            "name_parts": ["n", "b"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "nested"
+                }
               }
             }
+          ]
+        },
+        "prewhere": {
+          "type": "Identifier",
+          "name": "filter"
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "prewhere": {
-        "type": "Identifier",
-        "name": "filter"
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

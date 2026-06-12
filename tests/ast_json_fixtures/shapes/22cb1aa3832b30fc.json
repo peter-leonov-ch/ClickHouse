@@ -1,51 +1,54 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "fat_granularity"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "like",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Identifier",
-            "name": "fat"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "256\\_%"
+            "name": "x"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 2
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "fat_granularity"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "like",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "fat"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "256\\_%"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "2"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

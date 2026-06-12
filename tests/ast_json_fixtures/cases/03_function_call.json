@@ -1,24 +1,27 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "f",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            },
-            {
-              "type": "Identifier",
-              "name": "y"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "f",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              },
+              {
+                "type": "Identifier",
+                "name": "y"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,21 +1,21 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "full_duplicates"
-  },
-  "deduplicate": true,
-  "deduplicate_by_columns": {
-    "type": "ExpressionList",
-    "children": [
-      {
-        "type": "Asterisk",
-        "transformers": {
-          "type": "ColumnsTransformerList",
-          "children": [
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "full_duplicates"
+    },
+    "deduplicate": true,
+    "deduplicate_by_columns": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Asterisk",
+          "transformers": [
             {
               "type": "ColumnsExceptTransformer",
-              "children": [
+              "columns": [
                 {
                   "type": "Identifier",
                   "name": "pk"
@@ -24,7 +24,7 @@
             }
           ]
         }
-      }
-    ]
+      ]
+    }
   }
 }

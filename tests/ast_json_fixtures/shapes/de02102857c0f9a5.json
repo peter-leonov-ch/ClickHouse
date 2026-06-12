@@ -1,59 +1,62 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "mt"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "UPDATE",
-      "partition": {
-        "type": "Partition_ID",
-        "id": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "1"
-        }
-      },
-      "predicate": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "assignments": [
-        {
-          "type": "Assignment",
-          "column": "n",
-          "expression": {
-            "type": "Function",
-            "name": "plus",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "n"
-              },
-              {
-                "type": "Function",
-                "name": "notIn",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "n"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "m"
-                  }
-                ]
-              }
-            ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "mt"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "UPDATE",
+        "partition": {
+          "type": "Partition_ID",
+          "id": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "1"
           }
-        }
-      ]
-    }
-  ]
+        },
+        "predicate": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "assignments": [
+          {
+            "type": "Assignment",
+            "column": "n",
+            "expression": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "n"
+                },
+                {
+                  "type": "Function",
+                  "name": "notIn",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "n"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "m"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

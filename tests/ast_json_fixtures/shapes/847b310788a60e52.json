@@ -1,110 +1,113 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "s",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{1,2}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "numbers",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 10
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "notEquals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "alias": "key",
-            "name": "intDiv",
+            "alias": "s",
+            "name": "sum",
             "arguments": [
               {
                 "type": "Identifier",
                 "name": "number"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 2
               }
             ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{1,2}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "notEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "alias": "key",
+              "name": "intDiv",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "key"
-          },
-          "direction": "ASC",
-          "with_fill": true
-        }
-      ],
-      "interpolate": [
-        {
-          "type": "InterpolateElement",
-          "column": "s",
-          "expr": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 100500
           }
-        }
-      ]
-    }
-  ]
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
+            },
+            "direction": "ASC",
+            "with_fill": true
+          }
+        ],
+        "interpolate": [
+          {
+            "type": "InterpolateElement",
+            "column": "s",
+            "expr": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "100500"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

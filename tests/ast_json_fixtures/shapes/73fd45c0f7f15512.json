@@ -1,8 +1,11 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_json_10"
-  },
-  "format": "JSONAsObject"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_json_10"
+    },
+    "format": "JSONAsObject"
+  }
 }

@@ -1,34 +1,37 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "x",
-          "value_type": "UInt64",
-          "value": 123
-        },
-        {
-          "type": "Subquery",
-          "alias": "y",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Identifier",
-                    "name": "x"
-                  }
-                ]
-              }
-            ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": "123"
+          },
+          {
+            "type": "Subquery",
+            "alias": "y",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  ]
+                }
+              ]
+            }
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

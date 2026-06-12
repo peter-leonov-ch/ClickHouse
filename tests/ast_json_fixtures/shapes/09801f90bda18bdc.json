@@ -1,71 +1,74 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "02356_destination"
-  },
-  "columns": [
-    {
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
       "type": "Identifier",
-      "name": "a"
+      "name": "02356_destination"
     },
-    {
-      "type": "Identifier",
-      "name": "b"
-    }
-  ],
-  "settings": {
-    "type": "Set",
-    "changes": {
-      "max_threads": 1,
-      "max_block_size": 100
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
+    "columns": [
       {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Asterisk"
-          }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+        "type": "Identifier",
+        "name": "a"
+      },
+      {
+        "type": "Identifier",
+        "name": "b"
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_threads": "1",
+        "max_block_size": "100"
+      }
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "table_function": {
-                  "type": "Function",
-                  "name": "generateRandom",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "a Int64, b String"
-                    }
-                  ]
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "generateRandom",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "a Int64, b String"
+                      }
+                    ]
+                  }
                 }
               }
+            ]
+          },
+          "limit": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "100"
+          },
+          "settings": {
+            "type": "Settings",
+            "changes": {
+              "max_threads": "1",
+              "max_block_size": "100"
             }
-          ]
-        },
-        "limit_length": {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 100
-        },
-        "settings": {
-          "type": "Set",
-          "changes": {
-            "max_threads": 1,
-            "max_block_size": 100
           }
         }
-      }
-    ]
+      ]
+    }
   }
 }

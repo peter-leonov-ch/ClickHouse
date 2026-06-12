@@ -1,24 +1,27 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "window": [
-        {
-          "type": "WindowListElement",
-          "name": "w1",
-          "definition": {
-            "type": "WindowDefinition"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           }
-        }
-      ]
-    }
-  ]
+        ],
+        "window": [
+          {
+            "type": "WindowListElement",
+            "name": "w1",
+            "definition": {
+              "type": "WindowDefinition"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

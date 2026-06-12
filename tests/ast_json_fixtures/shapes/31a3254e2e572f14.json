@@ -1,94 +1,97 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Identifier",
-          "name": "value1"
-        },
-        {
-          "type": "Identifier",
-          "name": "value2"
-        },
-        {
-          "type": "Function",
-          "alias": "start_ts",
-          "name": "toUInt64",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "min",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "time"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_cube": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "join_inner_table__fuzz_146"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Identifier",
-          "name": "value1"
-        },
-        {
-          "type": "Identifier",
-          "name": "value2"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "key"
           },
-          "direction": "ASC",
-          "nulls_first": false
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
+            "type": "Identifier",
+            "name": "value1"
+          },
+          {
             "type": "Identifier",
             "name": "value2"
           },
-          "direction": "DESC",
-          "nulls_first": false
+          {
+            "type": "Function",
+            "alias": "start_ts",
+            "name": "toUInt64",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "min",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "time"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "join_inner_table__fuzz_146"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Identifier",
+            "name": "value1"
+          },
+          {
+            "type": "Identifier",
+            "name": "value2"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
+            },
+            "direction": "ASC",
+            "nulls_first": false
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "value2"
+            },
+            "direction": "DESC",
+            "nulls_first": false
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "9223372036854775806"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 9223372036854775806
       }
-    }
-  ]
+    ]
+  }
 }

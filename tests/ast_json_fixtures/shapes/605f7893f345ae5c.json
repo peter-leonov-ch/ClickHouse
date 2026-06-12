@@ -1,30 +1,33 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "mt"
-  },
-  "storage": {
-    "type": "Storage",
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "n"
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "alias": "n",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
+      "name": "mt"
+    },
+    "storage": {
+      "type": "Storage",
+      "order_by": {
+        "type": "Identifier",
+        "name": "n"
       }
-    ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "n",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

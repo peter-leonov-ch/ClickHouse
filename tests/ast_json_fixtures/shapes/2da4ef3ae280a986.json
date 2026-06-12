@@ -1,12 +1,15 @@
 {
-  "type": "DeleteQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "predicate": {
-    "type": "Literal",
-    "value_type": "Bool",
-    "value": true
+  "version": 1,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
+    },
+    "predicate": {
+      "type": "Literal",
+      "value_type": "Bool",
+      "value": true
+    }
   }
 }

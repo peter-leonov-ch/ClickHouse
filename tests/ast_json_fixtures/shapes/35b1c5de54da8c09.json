@@ -1,13 +1,16 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tmp"
-  },
-  "columns": [
-    {
-      "type": "Asterisk"
-    }
-  ],
-  "format": "Values"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tmp"
+    },
+    "columns": [
+      {
+        "type": "Asterisk"
+      }
+    ],
+    "format": "Values"
+  }
 }

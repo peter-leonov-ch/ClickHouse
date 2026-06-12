@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "toDate",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "toDate",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "ui"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "d"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "pk_func"
+                },
+                "final": true
+              }
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "ui"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "pk_func"
-              },
-              "final": true
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "d"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

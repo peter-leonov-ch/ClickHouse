@@ -1,30 +1,33 @@
 {
-  "type": "AttachQuery",
-  "attach": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "n",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt8"
+  "version": 1,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt8"
+          }
         }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
       }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Memory",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
     }
   }
 }

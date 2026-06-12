@@ -1,24 +1,27 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "data2"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "FETCH_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": []
-        }
-      },
-      "from": "\/tables\/{database}\/data1"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "data2"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "FETCH_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": []
+          }
+        },
+        "from": "\/tables\/{database}\/data1"
+      }
+    ]
+  }
 }

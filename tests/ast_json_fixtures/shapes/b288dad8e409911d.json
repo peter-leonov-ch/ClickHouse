@@ -1,347 +1,350 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "weightedmeanmag",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arraySum",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "divide",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "tupleElement",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "x"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "multiply",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "x"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "x"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "arrayZip",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "mag"
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "magerr"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "arraySum",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "divide",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Float64",
-                          "value": 1
-                        },
-                        {
-                          "type": "Function",
-                          "name": "multiply",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "x"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "x"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Identifier",
-                  "name": "magerr"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "chi2",
-          "name": "arraySum",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "lambda",
-              "is_operator": true,
-              "is_lambda_function": true,
-              "kind": "LAMBDA_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "divide",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "multiply",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "minus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "x"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "weightedmeanmag"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "minus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "x"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "weightedmeanmag"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "multiply",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "tupleElement",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "x"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 2
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "tupleElement",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "x"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 2
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "arrayZip",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "mag"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "magerr"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "mag",
-          "value_type": "Array",
-          "value": "[1, 2, 3, 4]"
-        },
-        {
-          "type": "Literal",
-          "alias": "magerr",
-          "value_type": "Array",
-          "value": "[0.1, 0.2, 0.1, 0.2]"
-        }
-      ],
-      "where": {
-        "type": "Function",
-        "name": "isFinite",
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "Identifier",
-            "name": "chi2"
+            "type": "Function",
+            "alias": "weightedmeanmag",
+            "name": "divide",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arraySum",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "divide",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tupleElement",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "multiply",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayZip",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "mag"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "magerr"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "arraySum",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "divide",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Float64",
+                            "value": 1
+                          },
+                          {
+                            "type": "Function",
+                            "name": "multiply",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "magerr"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "chi2",
+            "name": "arraySum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "divide",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "multiply",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "minus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "weightedmeanmag"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "minus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "weightedmeanmag"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "multiply",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tupleElement",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "tupleElement",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "x"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "2"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "arrayZip",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "mag"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "magerr"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "mag",
+            "value_type": "Array",
+            "value": "[1, 2, 3, 4]"
+          },
+          {
+            "type": "Literal",
+            "alias": "magerr",
+            "value_type": "Array",
+            "value": "[0.1, 0.2, 0.1, 0.2]"
           }
-        ]
+        ],
+        "where": {
+          "type": "Function",
+          "name": "isFinite",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "chi2"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

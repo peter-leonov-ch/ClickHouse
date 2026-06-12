@@ -1,11 +1,14 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "partition_all2"
-  },
-  "partition": {
-    "type": "Partition_ID",
-    "all": true
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "partition_all2"
+    },
+    "partition": {
+      "type": "Partition_ID",
+      "all": true
+    }
   }
 }

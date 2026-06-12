@@ -1,48 +1,51 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "toTypeName",
-          "arguments": [
-            {
-              "type": "Asterisk"
-            }
-          ]
-        },
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "format",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "TSV"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "0123"
-                  }
-                ]
+            "type": "Function",
+            "name": "toTypeName",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          },
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "format",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "TSV"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "0123"
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

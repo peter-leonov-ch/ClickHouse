@@ -1,79 +1,82 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "uniq",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "SearchPhrase"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits_s3",
+                  "database": "test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "name": "uniq",
+          "name": "notEquals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
               "name": "SearchPhrase"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
             }
           ]
         },
-        {
-          "type": "Function",
-          "alias": "c",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "hits_s3",
-                "database": "test"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "notEquals",
-        "is_operator": true,
-        "arguments": [
+        "group_by": [
           {
             "type": "Identifier",
             "name": "SearchPhrase"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": ""
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "SearchPhrase"
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "c"
+            },
+            "direction": "DESC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "c"
-          },
-          "direction": "DESC"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

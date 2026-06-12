@@ -1,104 +1,107 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.{2..11}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "view",
-                    "arguments": [
-                      {
-                        "type": "SelectWithUnionQuery",
-                        "selects": [
-                          {
-                            "type": "SelectQuery",
-                            "select": [
-                              {
-                                "type": "Asterisk"
-                              }
-                            ],
-                            "tables": {
-                              "type": "TablesInSelectQuery",
-                              "children": [
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.{2..11}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "view",
+                      "arguments": [
+                        {
+                          "type": "SelectWithUnionQuery",
+                          "selects": [
+                            {
+                              "type": "SelectQuery",
+                              "select": [
                                 {
-                                  "type": "TablesInSelectQueryElement",
-                                  "table_expression": {
-                                    "type": "TableExpression",
-                                    "table_function": {
-                                      "type": "Function",
-                                      "name": "numbers",
-                                      "arguments": [
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "Float64",
-                                          "value": 1000000
-                                        }
-                                      ]
+                                  "type": "Asterisk"
+                                }
+                              ],
+                              "from": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "table_function": {
+                                        "type": "Function",
+                                        "name": "numbers",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Float64",
+                                            "value": 1000000
+                                          }
+                                        ]
+                                      }
                                     }
                                   }
-                                }
-                              ]
+                                ]
+                              }
                             }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "number"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 20
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "distributed_group_by_no_merge": 0,
-          "max_memory_usage": "100Mi"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "number"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "20"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_group_by_no_merge": "0",
+            "max_memory_usage": "100Mi"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

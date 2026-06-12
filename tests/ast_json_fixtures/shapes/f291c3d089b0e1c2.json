@@ -1,47 +1,50 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "labels",
-          "name": "errors.name",
-          "name_parts": ["errors", "name"]
-        },
-        {
-          "type": "Identifier",
-          "name": "value"
-        },
-        {
-          "type": "Literal",
-          "alias": "name",
-          "value_type": "String",
-          "value": "ch_errors_total"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "errors",
-                "database": "system"
+            "type": "Identifier",
+            "alias": "labels",
+            "name": "errors.name",
+            "name_parts": ["errors", "name"]
+          },
+          {
+            "type": "Identifier",
+            "name": "value"
+          },
+          {
+            "type": "Literal",
+            "alias": "name",
+            "value_type": "String",
+            "value": "ch_errors_total"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "errors",
+                  "database": "system"
+                }
               }
             }
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

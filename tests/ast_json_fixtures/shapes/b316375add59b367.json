@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "partition_all2"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_INDEX",
-      "clear_index": true,
-      "index": {
-        "type": "Identifier",
-        "name": "p"
-      },
-      "partition": {
-        "type": "Partition_ID",
-        "all": true
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "partition_all2"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_INDEX",
+        "clear_index": true,
+        "index": {
+          "type": "Identifier",
+          "name": "p"
+        },
+        "partition": {
+          "type": "Partition_ID",
+          "all": true
+        }
       }
-    }
-  ]
+    ]
+  }
 }

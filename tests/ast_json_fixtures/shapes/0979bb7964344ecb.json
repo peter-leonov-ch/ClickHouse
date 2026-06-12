@@ -1,316 +1,319 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "r1",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "if",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "greaterOrEquals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "a"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 0
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "notEquals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "b"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 100
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "c"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 0
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "r2",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "if",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "greaterOrEquals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "a"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 0
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "notEquals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "b"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 100
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "greater",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "c"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 220
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 0
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "t",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "intDiv",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "toUInt32",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "rtime"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 20
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 20
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1000
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "m",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "r1"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 100
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "r1"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "r2"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "alias": "r1",
+            "name": "sum",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "cluster",
+                "name": "if",
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "test_cluster_two_shards"
-                  },
-                  {
                     "type": "Function",
-                    "name": "currentDatabase",
-                    "arguments": []
+                    "name": "and",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "greaterOrEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "a"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "0"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "notEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "b"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "100"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "c"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
-                    "type": "Identifier",
-                    "name": "test_alias"
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "0"
                   }
                 ]
               }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "day"
+            ]
           },
           {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "2022-01-01"
+            "type": "Function",
+            "alias": "r2",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "if",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "and",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "greaterOrEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "a"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "0"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "notEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "b"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "100"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "greater",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "c"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "220"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "0"
+                  }
+                ]
+              }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "t"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "t",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "intDiv",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "toUInt32",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "rtime"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "20"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1000"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "m",
+            "name": "divide",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "r1"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "100"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "r1"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "r2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "cluster",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "test_cluster_two_shards"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "test_alias"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "day"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2022-01-01"
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "t"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "t"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

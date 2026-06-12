@@ -1,173 +1,176 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "\/01650_drop_part_and_deduplication_partitioned_table\/blocks\/"
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 60
-        },
-        {
-          "type": "Identifier",
-          "name": "k1"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Asterisk"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.{1,2}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "view",
-                    "arguments": [
-                      {
-                        "type": "SelectWithUnionQuery",
-                        "selects": [
-                          {
-                            "type": "SelectQuery",
-                            "group_by_with_grouping_sets": true,
-                            "select": [
-                              {
-                                "type": "Literal",
-                                "alias": "k1",
-                                "value_type": "UInt64",
-                                "value": 1
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 65535
-                              },
-                              {
-                                "type": "Literal",
-                                "alias": "k2",
-                                "value_type": "UInt64",
-                                "value": 2
-                              },
-                              {
-                                "type": "Literal",
-                                "alias": "v",
-                                "value_type": "UInt64",
-                                "value": 3
-                              }
-                            ],
-                            "tables": {
-                              "type": "TablesInSelectQuery",
-                              "children": [
+            "type": "Literal",
+            "value_type": "String",
+            "value": "\/01650_drop_part_and_deduplication_partitioned_table\/blocks\/"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "60"
+          },
+          {
+            "type": "Identifier",
+            "name": "k1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Asterisk"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.{1,2}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "view",
+                      "arguments": [
+                        {
+                          "type": "SelectWithUnionQuery",
+                          "selects": [
+                            {
+                              "type": "SelectQuery",
+                              "group_by_with_grouping_sets": true,
+                              "select": [
                                 {
-                                  "type": "TablesInSelectQueryElement",
-                                  "table_expression": {
-                                    "type": "TableExpression",
-                                    "table_function": {
+                                  "type": "Literal",
+                                  "alias": "k1",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "65535"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "alias": "k2",
+                                  "value_type": "UInt64",
+                                  "value": "2"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "alias": "v",
+                                  "value_type": "UInt64",
+                                  "value": "3"
+                                }
+                              ],
+                              "from": {
+                                "type": "TablesInSelectQuery",
+                                "children": [
+                                  {
+                                    "type": "TablesInSelectQueryElement",
+                                    "table_expression": {
+                                      "type": "TableExpression",
+                                      "table_function": {
+                                        "type": "Function",
+                                        "name": "numbers",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": "2"
+                                          },
+                                          {
+                                            "type": "Function",
+                                            "name": "cityHash64",
+                                            "arguments": [
+                                              {
+                                                "type": "Identifier",
+                                                "name": "k1"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "where": {
+                                "type": "Function",
+                                "name": "toLowCardinality",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "60"
+                                  }
+                                ]
+                              },
+                              "group_by": [
+                                {
+                                  "type": "ExpressionList",
+                                  "children": [
+                                    {
                                       "type": "Function",
-                                      "name": "numbers",
+                                      "name": "toLowCardinality",
                                       "arguments": [
                                         {
                                           "type": "Literal",
                                           "value_type": "UInt64",
-                                          "value": 2
-                                        },
-                                        {
-                                          "type": "Function",
-                                          "name": "cityHash64",
-                                          "arguments": [
-                                            {
-                                              "type": "Identifier",
-                                              "name": "k1"
-                                            }
-                                          ]
+                                          "value": "2"
                                         }
                                       ]
                                     }
-                                  }
+                                  ]
                                 }
-                              ]
-                            },
-                            "where": {
-                              "type": "Function",
-                              "name": "toLowCardinality",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 60
-                                }
-                              ]
-                            },
-                            "group_by": [
-                              {
-                                "type": "ExpressionList",
-                                "children": [
+                              ],
+                              "having": {
+                                "type": "Function",
+                                "name": "equals",
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "k1"
+                                  },
                                   {
                                     "type": "Function",
-                                    "name": "toLowCardinality",
+                                    "name": "toNullable",
                                     "arguments": [
                                       {
                                         "type": "Literal",
                                         "value_type": "UInt64",
-                                        "value": 2
+                                        "value": "60"
                                       }
                                     ]
                                   }
                                 ]
                               }
-                            ],
-                            "having": {
-                              "type": "Function",
-                              "name": "equals",
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "k1"
-                                },
-                                {
-                                  "type": "Function",
-                                  "name": "toNullable",
-                                  "arguments": [
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "UInt64",
-                                      "value": 60
-                                    }
-                                  ]
-                                }
-                              ]
                             }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "final": true
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "final": true
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,68 +1,71 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "a",
-          "name": "intDiv",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "intDiv",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "z"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "100"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b",
+            "name": "COUNT",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "z"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 100
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_lwu_defaults"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "Function",
-          "alias": "b",
-          "name": "COUNT",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_lwu_defaults"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "a"
-          },
-          "direction": "ASC"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "a"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

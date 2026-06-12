@@ -1,175 +1,29 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "IF",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.00009999999747378752
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "IF",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 104
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1048576
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "c1.key",
-          "name_parts": ["c1", "key"]
-        },
-        {
-          "type": "Function",
-          "name": "IF",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "c2.key",
-          "name_parts": ["c2", "key"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "c1",
-                "name": "codecTest"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "COMMA"
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "c2",
-                "name": "codecTest"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "ignore",
+            "name": "IF",
             "arguments": [
               {
-                "type": "Function",
-                "name": "IF",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 255
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "Int64",
-                    "value": -2
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "Null",
-                    "value": null
-                  }
-                ]
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
               },
               {
-                "type": "Function",
-                "name": "arrayJoin",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "Array",
-                    "value": "[65537]"
-                  }
-                ]
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
               },
               {
-                "type": "Function",
-                "name": "IF",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 3
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1024
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 9223372036854775807
-                  }
-                ]
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.00009999999747378752
               }
             ]
           },
@@ -179,13 +33,13 @@
             "arguments": [
               {
                 "type": "Literal",
-                "value_type": "Null",
-                "value": null
+                "value_type": "UInt64",
+                "value": "104"
               },
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 256
+                "value": "1048576"
               },
               {
                 "type": "Literal",
@@ -195,57 +49,206 @@
             ]
           },
           {
+            "type": "Identifier",
+            "name": "c1.key",
+            "name_parts": ["c1", "key"]
+          },
+          {
             "type": "Function",
-            "name": "equals",
-            "is_operator": true,
+            "name": "IF",
             "arguments": [
               {
-                "type": "Function",
-                "name": "IF",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "Null",
-                    "value": null
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "1048576"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "Null",
-                    "value": null
-                  }
-                ]
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
               },
               {
-                "type": "Function",
-                "name": "minus",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "c1.key",
-                    "name_parts": ["c1", "key"]
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "Null",
-                    "value": null
-                  }
-                ]
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
               }
             ]
+          },
+          {
+            "type": "Identifier",
+            "name": "c2.key",
+            "name_parts": ["c2", "key"]
           }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 65535
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "c1",
+                  "name": "codecTest"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "COMMA"
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "c2",
+                  "name": "codecTest"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "ignore",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "IF",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "255"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Int64",
+                      "value": "-2"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "arrayJoin",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Array",
+                      "value": "[65537]"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "IF",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "3"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1024"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "9223372036854775807"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "IF",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "256"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "IF",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "1048576"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "minus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "c1.key",
+                      "name_parts": ["c1", "key"]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "Null",
+                      "value": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "65535"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

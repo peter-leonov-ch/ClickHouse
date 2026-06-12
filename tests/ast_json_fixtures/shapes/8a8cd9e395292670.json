@@ -1,81 +1,84 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "pool"
-        },
-        {
-          "type": "Identifier",
-          "name": "database"
-        },
-        {
-          "type": "Identifier",
-          "name": "table"
-        },
-        {
-          "type": "Function",
-          "alias": "has_uuid",
-          "name": "notEquals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "table_uuid"
-            },
-            {
-              "type": "Function",
-              "name": "toUUIDOrDefault",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "log_name"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "background_schedule_pool",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+            "type": "Identifier",
+            "name": "pool"
+          },
           {
             "type": "Identifier",
             "name": "database"
           },
           {
+            "type": "Identifier",
+            "name": "table"
+          },
+          {
             "type": "Function",
-            "name": "currentDatabase",
-            "arguments": []
+            "alias": "has_uuid",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "table_uuid"
+              },
+              {
+                "type": "Function",
+                "name": "toUUIDOrDefault",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "log_name"
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "background_schedule_pool",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "database"
+            },
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

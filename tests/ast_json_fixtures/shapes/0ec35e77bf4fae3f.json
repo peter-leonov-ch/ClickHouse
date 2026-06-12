@@ -1,8 +1,11 @@
 {
-  "type": "ShowCreateTableQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tmp"
+  "version": 1,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tmp"
+    }
   }
 }

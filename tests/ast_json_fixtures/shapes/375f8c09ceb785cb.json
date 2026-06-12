@@ -1,60 +1,63 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "table_02513"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "table_02513"
+                }
               }
             }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "modulo",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "n"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 11
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "modulo",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "n"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 13
-          }
-        ]
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "n"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "11"
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "n"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "13"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

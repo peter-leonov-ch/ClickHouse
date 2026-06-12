@@ -1,86 +1,89 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "left.x",
-          "name_parts": ["left", "x"]
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "isNull",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "right.x",
-                  "name_parts": ["right", "x"]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Boolean"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "left"
-              }
-            }
+            "type": "Identifier",
+            "name": "left.x",
+            "name_parts": ["left", "x"]
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "LEFT",
-              "on": {
+            "type": "Function",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "equals",
+                "name": "isNull",
                 "is_operator": true,
                 "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "left.x",
-                    "name_parts": ["left", "x"]
-                  },
                   {
                     "type": "Identifier",
                     "name": "right.x",
                     "name_parts": ["right", "x"]
                   }
                 ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Boolean"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "left"
+                }
               }
             },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "right"
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "LEFT",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "left.x",
+                      "name_parts": ["left", "x"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "right.x",
+                      "name_parts": ["right", "x"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "right"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

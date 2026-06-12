@@ -1,36 +1,39 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "RENAME_COLUMN",
-      "column": {
-        "type": "Identifier",
-        "name": "c0.c1"
-      },
-      "rename_to": {
-        "type": "Identifier",
-        "name": "c0.c2"
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_COLUMN",
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "c0.c1"
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "RENAME_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "c0.c1"
+        },
+        "rename_to": {
+          "type": "Identifier",
+          "name": "c0.c2"
+        }
       },
-      "settings_changes": {
-        "type": "Set",
-        "changes": {
-          "max_compress_block_size": 1
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "c0.c1"
+        },
+        "settings_changes": {
+          "type": "Settings",
+          "changes": {
+            "max_compress_block_size": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

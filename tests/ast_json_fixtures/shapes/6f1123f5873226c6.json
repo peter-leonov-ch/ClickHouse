@@ -1,3 +1,6 @@
 {
-  "type": "DropWorkloadQuery"
+  "version": 1,
+  "ast": {
+    "type": "DropWorkloadQuery"
+  }
 }

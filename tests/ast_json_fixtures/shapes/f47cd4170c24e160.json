@@ -1,52 +1,55 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "dist_01213"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
             "type": "Identifier",
             "name": "id"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "optimize_skip_unused_shards": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "dist_01213"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_skip_unused_shards": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

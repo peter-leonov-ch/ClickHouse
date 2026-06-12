@@ -1,12 +1,46 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "notEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": ""
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "name": "notEquals",
+          "name": "less",
           "is_operator": true,
           "arguments": [
             {
@@ -16,47 +50,16 @@
             {
               "type": "Literal",
               "value_type": "String",
-              "value": ""
+              "value": "99999999"
             }
           ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "less",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "s"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "99999999"
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,126 +1,129 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "_shard_num"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "_shard_num"
+          },
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Identifier",
+            "name": "b.host_name",
+            "name_parts": ["b", "host_name"]
+          },
+          {
+            "type": "Function",
+            "name": "in",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b.host_address",
+                "name_parts": ["b", "host_address"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "('::1', '127.0.0.1')"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "b.port",
+            "name_parts": ["b", "port"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "a",
+                  "name": "dist_1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "_shard_num"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "b.shard_num",
+                      "name_parts": ["b", "shard_num"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "b",
+                  "name": "clusters",
+                  "database": "system"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Identifier",
-          "name": "b.host_name",
-          "name_parts": ["b", "host_name"]
-        },
-        {
+        "where": {
           "type": "Function",
-          "name": "in",
+          "name": "equals",
           "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
-              "name": "b.host_address",
-              "name_parts": ["b", "host_address"]
+              "name": "b.cluster",
+              "name_parts": ["b", "cluster"]
             },
             {
               "type": "Literal",
-              "value_type": "Tuple",
-              "value": "('::1', '127.0.0.1')"
+              "value_type": "String",
+              "value": "test_cluster_two_shards_localhost"
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "b.port",
-          "name_parts": ["b", "port"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "a",
-                "name": "dist_1"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "_shard_num"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "b.shard_num",
-                    "name_parts": ["b", "shard_num"]
-                  }
-                ]
-              }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
             },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "b",
-                "name": "clusters",
-                "database": "system"
-              }
-            }
+            "direction": "ASC"
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "b.cluster",
-            "name_parts": ["b", "cluster"]
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "test_cluster_two_shards_localhost"
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "key"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
         }
       }
-    }
-  ]
+    ]
+  }
 }

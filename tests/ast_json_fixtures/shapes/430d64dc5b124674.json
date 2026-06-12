@@ -1,71 +1,74 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "x",
-          "value_type": "UInt64",
-          "value": 2
-        },
-        {
-          "type": "Function",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Array",
-              "value": "[NULL, NULL, NULL]"
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": "2"
+          },
+          {
+            "type": "Function",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "[NULL, NULL, NULL]"
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "[NULL, NULL, NULL]"
+              }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC",
+            "with_fill": true,
+            "fill_from": {
               "type": "Literal",
               "value_type": "UInt64",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
+              "value": "1"
+            },
+            "fill_to": {
               "type": "Literal",
-              "value_type": "Array",
-              "value": "[NULL, NULL, NULL]"
+              "value_type": "UInt64",
+              "value": "10"
             }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "x"
-          },
-          "direction": "ASC",
-          "with_fill": true,
-          "fill_from": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          },
-          "fill_to": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 10
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

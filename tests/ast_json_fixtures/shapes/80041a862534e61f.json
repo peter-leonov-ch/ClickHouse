@@ -1,5 +1,8 @@
 {
-  "type": "SYSTEM",
-  "system_type": "DROP REPLICA",
-  "replica": "r1"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "DROP REPLICA",
+    "replica": "r1"
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "type": "CreateQuery",
-  "database": {
-    "type": "Identifier",
-    "name": "'"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "'"
+    }
   }
 }

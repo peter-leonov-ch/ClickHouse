@@ -1,65 +1,68 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "arrayReduce",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "quantile(0.5)"
-            },
-            {
-              "type": "Function",
-              "name": "CAST",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "[]"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "Array(Float64)"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "name": "arrayReduce",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "quantile(0.5)"
+              },
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "CAST",
                 "arguments": [
                   {
                     "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1000
+                    "value_type": "String",
+                    "value": "[]"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Array(Float64)"
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1000"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

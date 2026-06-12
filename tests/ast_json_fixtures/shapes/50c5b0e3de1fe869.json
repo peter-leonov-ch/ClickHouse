@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "dist_01223"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "dist_01223"
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "key"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "distributed_aggregation_memory_efficient": 1
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_aggregation_memory_efficient": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

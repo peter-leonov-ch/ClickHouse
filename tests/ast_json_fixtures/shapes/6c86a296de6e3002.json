@@ -1,26 +1,29 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "tab"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_STATISTICS",
-      "statistics_declaration": {
-        "type": "Stat",
-        "columns": {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "b"
-            }
-          ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_STATISTICS",
+        "statistics_declaration": {
+          "type": "Stat",
+          "columns": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

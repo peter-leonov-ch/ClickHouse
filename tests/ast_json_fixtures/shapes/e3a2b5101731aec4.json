@@ -1,54 +1,57 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "number",
-          "value_type": "String",
-          "value": "100"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "n",
-                "name": "d_numbers"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "n.number",
-            "name_parts": ["n", "number"]
-          },
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Literal",
-            "value_type": "UInt64",
-            "value": 100
+            "alias": "number",
+            "value_type": "String",
+            "value": "100"
           }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "n",
+                  "name": "d_numbers"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "n.number",
+              "name_parts": ["n", "number"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "100"
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "2"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

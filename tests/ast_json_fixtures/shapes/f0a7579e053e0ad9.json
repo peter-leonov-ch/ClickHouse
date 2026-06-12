@@ -1,7 +1,10 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "b"
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "b"
+    }
   }
 }

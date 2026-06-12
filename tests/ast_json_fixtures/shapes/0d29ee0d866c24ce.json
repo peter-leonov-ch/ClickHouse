@@ -1,38 +1,41 @@
 {
-  "type": "CreateQuery",
-  "is_ordinary_view": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_view_03280"
-  },
-  "aliases": [
-    {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_ordinary_view": true,
+    "table": {
       "type": "Identifier",
-      "name": "a"
+      "name": "test_view_03280"
     },
-    {
-      "type": "Identifier",
-      "name": "b"
-    }
-  ],
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
+    "aliases": [
       {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2
-          }
-        ]
+        "type": "Identifier",
+        "name": "a"
+      },
+      {
+        "type": "Identifier",
+        "name": "b"
       }
-    ]
+    ],
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

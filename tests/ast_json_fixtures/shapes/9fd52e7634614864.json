@@ -1,52 +1,55 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "hex",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "wkb",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "a"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "geom1"
+            "type": "Function",
+            "name": "hex",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "wkb",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "a"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "geom1"
+                }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

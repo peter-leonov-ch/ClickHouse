@@ -1,71 +1,74 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "y",
+            "name": "concat",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "t"
+              },
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "alias": "y",
-          "name": "concat",
+          "name": "equals",
           "is_operator": true,
           "arguments": [
             {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "t"
+              "type": "Identifier",
+              "name": "y"
             },
             {
-              "type": "Identifier",
-              "name": "x"
+              "type": "Literal",
+              "value_type": "String",
+              "value": "true"
             }
           ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tab"
-              }
-            }
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "0"
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "y"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "true"
-          }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 0
         }
       }
-    }
-  ]
+    ]
+  }
 }

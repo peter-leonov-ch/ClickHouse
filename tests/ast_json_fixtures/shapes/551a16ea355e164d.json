@@ -1,9 +1,12 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "full_duplicates"
-  },
-  "final": true,
-  "deduplicate": true
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "full_duplicates"
+    },
+    "final": true,
+    "deduplicate": true
+  }
 }

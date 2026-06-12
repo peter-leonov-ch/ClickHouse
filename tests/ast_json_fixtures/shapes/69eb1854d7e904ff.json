@@ -1,174 +1,177 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "[RE7"
-        },
-        {
-          "type": "Subquery",
-          "alias": "riwwq",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "\u0000"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "Subquery",
-          "alias": "xuvv",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Function",
-                    "name": "reverse",
-                    "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "[RE7"
+          },
+          {
+            "type": "Subquery",
+            "alias": "riwwq",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "\u0000"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Subquery",
+            "alias": "xuvv",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "reverse",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "array",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Function",
+                                        "name": "bitTestAll",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Null",
+                                            "value": null
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "Subquery",
+                              "alias": "ddfweeuy",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "String",
+                                        "value": "\u0000"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": ""
+          },
+          {
+            "type": "Subquery",
+            "alias": "wqgdswyc",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Asterisk"
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
                       {
-                        "type": "Function",
-                        "name": "array",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Subquery",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Function",
-                                      "name": "bitTestAll",
-                                      "arguments": [
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "Null",
-                                          "value": null
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "type": "Subquery",
-                            "alias": "ddfweeuy",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "String",
-                                      "value": "\u0000"
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "table_function": {
+                            "type": "Function",
+                            "name": "file",
+                            "arguments": []
                           }
-                        ]
+                        }
                       }
                     ]
                   }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": ""
-        },
-        {
-          "type": "Subquery",
-          "alias": "wqgdswyc",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Asterisk"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
+                }
+              ]
+            }
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
                     {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "table_function": {
-                          "type": "Function",
-                          "name": "file",
-                          "arguments": []
+                      "type": "Asterisk"
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "table_function": {
+                            "type": "Function",
+                            "name": "file",
+                            "arguments": []
+                          }
                         }
                       }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Asterisk"
+                    ]
                   }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "table_function": {
-                          "type": "Function",
-                          "name": "file",
-                          "arguments": []
-                        }
-                      }
-                    }
-                  ]
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

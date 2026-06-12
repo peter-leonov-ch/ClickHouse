@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "PREWARM PRIMARY INDEX CACHE",
-  "table": {
-    "type": "Identifier",
-    "name": "t_prewarm_cache_rmt_1"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "PREWARM PRIMARY INDEX CACHE",
+    "table": {
+      "type": "Identifier",
+      "name": "t_prewarm_cache_rmt_1"
+    }
   }
 }

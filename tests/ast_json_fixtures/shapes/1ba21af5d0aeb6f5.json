@@ -1,22 +1,25 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "dst"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "dst"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

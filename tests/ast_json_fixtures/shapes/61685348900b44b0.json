@@ -1,8 +1,11 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tab2"
-  },
-  "as_table": "tab1"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tab2"
+    },
+    "as_table": "tab1"
+  }
 }

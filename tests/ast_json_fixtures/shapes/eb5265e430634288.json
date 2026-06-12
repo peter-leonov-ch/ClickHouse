@@ -1,97 +1,100 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "alias": "lhs",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.{1,2}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "currentDatabase",
-                    "arguments": []
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "test_01081"
-                  }
-                ]
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "rhs.dummy",
-                    "name_parts": ["rhs", "dummy"]
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "rhs",
-                "name": "one",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Literal",
             "value_type": "UInt64",
-            "value": 1
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 0
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "alias": "lhs",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.{1,2}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "test_01081"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "rhs.dummy",
+                      "name_parts": ["rhs", "dummy"]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "rhs",
+                  "name": "one",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,166 +1,169 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "ps_partkey"
-        },
-        {
-          "type": "Identifier",
-          "name": "ps_suppkey"
-        },
-        {
-          "type": "Subquery",
-          "alias": "half_sum_quantity",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "ps_partkey"
+          },
+          {
+            "type": "Identifier",
+            "name": "ps_suppkey"
+          },
+          {
+            "type": "Subquery",
+            "alias": "half_sum_quantity",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "multiply",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Float64",
+                          "value": 0.5
+                        },
+                        {
+                          "type": "Function",
+                          "name": "sum",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "l_quantity"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "lineitem"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
                     "type": "Function",
-                    "name": "multiply",
+                    "name": "and",
                     "is_operator": true,
                     "arguments": [
                       {
-                        "type": "Literal",
-                        "value_type": "Float64",
-                        "value": 0.5
-                      },
-                      {
                         "type": "Function",
-                        "name": "sum",
+                        "name": "equals",
+                        "is_operator": true,
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "name": "l_quantity"
+                            "name": "l_partkey"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "ps_partkey"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "l_suppkey"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "ps_suppkey"
                           }
                         ]
                       }
                     ]
                   }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "lineitem"
-                        }
-                      }
-                    }
-                  ]
-                },
-                "where": {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "l_partkey"
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "ps_partkey"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "l_suppkey"
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "ps_suppkey"
-                        }
-                      ]
-                    }
-                  ]
                 }
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "partsupp"
-              }
+              ]
             }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "ps_partkey"
-              },
-              {
-                "type": "Identifier",
-                "name": "ps_suppkey"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "partsupp"
+                }
               }
-            ]
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "ps_partkey"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "ps_suppkey"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "((114, 115), (369, 7870))"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ps_partkey"
+            },
+            "direction": "ASC"
           },
           {
-            "type": "Literal",
-            "value_type": "Tuple",
-            "value": "((114, 115), (369, 7870))"
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ps_suppkey"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ps_partkey"
-          },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ps_suppkey"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

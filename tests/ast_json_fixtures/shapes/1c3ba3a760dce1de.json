@@ -1,96 +1,99 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_all": true,
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "isEven",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "modulo",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 0
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "Bool",
-              "value": true
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_all": true,
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "alias": "isEven",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "remote",
+                "name": "equals",
+                "is_operator": true,
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "localhos{t,t,t}"
-                  },
-                  {
                     "type": "Function",
-                    "name": "numbers",
+                    "name": "modulo",
+                    "is_operator": true,
                     "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "number"
+                      },
                       {
                         "type": "Literal",
                         "value_type": "UInt64",
-                        "value": 10
+                        "value": "2"
                       }
                     ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "0"
                   }
                 ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Bool",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "localhos{t,t,t}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "all"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "all"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

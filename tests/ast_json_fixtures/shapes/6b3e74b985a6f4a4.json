@@ -1,73 +1,76 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "value",
-          "name": "map",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "1234"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "type",
-          "value_type": "String",
-          "value": "Array(Tuple(UInt64, UInt64))"
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "value"
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "value"
-            },
-            {
-              "type": "Identifier",
-              "name": "type"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "materialize",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "value"
-                }
-              ]
-            },
-            {
-              "type": "Identifier",
-              "name": "type"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "value",
+            "name": "map",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "1234"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "type",
+            "value_type": "String",
+            "value": "Array(Tuple(UInt64, UInt64))"
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "value"
+          },
+          {
+            "type": "Function",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "value"
+              },
+              {
+                "type": "Identifier",
+                "name": "type"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "materialize",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "value"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "type"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

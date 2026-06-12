@@ -1,55 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "_file"
-        },
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "file",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "02884_{1,2}.csv"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "_file"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 1
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "file",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "02884_{1,2}.csv"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "_file"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

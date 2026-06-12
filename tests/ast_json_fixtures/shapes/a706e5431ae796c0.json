@@ -1,88 +1,15 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "stats",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Function",
-                      "alias": "avg_u",
-                      "name": "avg",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "tup.u",
-                          "name_parts": ["tup", "u"]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "max_u",
-                      "name": "max",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "tup.u",
-                          "name_parts": ["tup", "u"]
-                        }
-                      ]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "tuple_test"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        },
-        {
-          "type": "Identifier",
-          "name": "tup.u",
-          "name_parts": ["tup", "u"]
-        },
-        {
-          "type": "Function",
-          "alias": "diff_from_avg",
-          "name": "minus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "tup.u",
-              "name_parts": ["tup", "u"]
-            },
-            {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "stats",
+            "subquery": {
               "type": "Subquery",
               "query": {
                 "type": "SelectWithUnionQuery",
@@ -91,11 +18,31 @@
                     "type": "SelectQuery",
                     "select": [
                       {
-                        "type": "Identifier",
-                        "name": "avg_u"
+                        "type": "Function",
+                        "alias": "avg_u",
+                        "name": "avg",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "tup.u",
+                            "name_parts": ["tup", "u"]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "max_u",
+                        "name": "max",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "tup.u",
+                            "name_parts": ["tup", "u"]
+                          }
+                        ]
                       }
                     ],
-                    "tables": {
+                    "from": {
                       "type": "TablesInSelectQuery",
                       "children": [
                         {
@@ -104,7 +51,7 @@
                             "type": "TableExpression",
                             "database_and_table_name": {
                               "type": "TableIdentifier",
-                              "name": "stats"
+                              "name": "tuple_test"
                             }
                           }
                         }
@@ -114,45 +61,101 @@
                 ]
               }
             }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tuple_test"
-              }
-            }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "isNotNull",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
-            "type": "Identifier",
-            "name": "tup"
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "id"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Identifier",
+            "name": "tup.u",
+            "name_parts": ["tup", "u"]
+          },
+          {
+            "type": "Function",
+            "alias": "diff_from_avg",
+            "name": "minus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tup.u",
+                "name_parts": ["tup", "u"]
+              },
+              {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Identifier",
+                          "name": "avg_u"
+                        }
+                      ],
+                      "from": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "database_and_table_name": {
+                                "type": "TableIdentifier",
+                                "name": "stats"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tuple_test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "isNotNull",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "tup"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "id"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,24 +1,27 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "x_as"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "x_as"
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "enable_block_number_column": 1,
-        "enable_block_offset_column": 1
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "enable_block_number_column": "1",
+          "enable_block_offset_column": "1"
+        }
       }
-    }
-  },
-  "as_table": "x"
+    },
+    "as_table": "x"
+  }
 }

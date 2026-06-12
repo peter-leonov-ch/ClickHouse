@@ -1,61 +1,64 @@
 {
-  "type": "CreateQuery",
-  "is_dictionary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "hierarchy_flat_dictionary"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "id",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      }
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_dictionary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "hierarchy_flat_dictionary"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "parent_id",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      },
-      "hierarchical": true
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "primary_key": [
+    "dictionary_attributes": [
       {
-        "type": "Identifier",
-        "name": "id"
+        "type": "DictionaryAttributeDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "parent_id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        "hierarchical": true
       }
     ],
-    "source": {
-      "type": "FunctionWithKeyValueArguments",
-      "name": "clickhouse",
-      "elements": [
+    "dictionary": {
+      "type": "Dictionary",
+      "primary_key": [
         {
-          "type": "pair",
-          "key": "table",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "hierarchy_source_table"
-          }
+          "type": "Identifier",
+          "name": "id"
         }
-      ]
-    },
-    "lifetime": {
-      "type": "DictionaryLifetime",
-      "min_sec": 1,
-      "max_sec": 1000
-    },
-    "layout": {
-      "type": "DictionaryLayout",
-      "layout_type": "flat",
-      "parameters": []
+      ],
+      "source": {
+        "type": "FunctionWithKeyValueArguments",
+        "name": "clickhouse",
+        "elements": [
+          {
+            "type": "pair",
+            "key": "table",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "hierarchy_source_table"
+            }
+          }
+        ]
+      },
+      "lifetime": {
+        "type": "DictionaryLifetime",
+        "min_sec": 1,
+        "max_sec": 1000
+      },
+      "layout": {
+        "type": "DictionaryLayout",
+        "layout_type": "flat",
+        "parameters": []
+      }
     }
   }
 }

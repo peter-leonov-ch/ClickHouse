@@ -1,38 +1,41 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        },
-        {
-          "type": "Identifier",
-          "name": "_row_exists"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_apply_deleted_mask"
+            "type": "Asterisk"
+          },
+          {
+            "type": "Identifier",
+            "name": "_row_exists"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_apply_deleted_mask"
+                }
               }
             }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "apply_deleted_mask": "0"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "apply_deleted_mask": 0
         }
       }
-    }
-  ]
+    ]
+  }
 }

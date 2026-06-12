@@ -1,192 +1,195 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "l",
-                "name": "tab_l"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "l.a",
-                    "name_parts": ["l", "a"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "m.a",
-                    "name_parts": ["m", "a"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "m",
-                "name": "tab_m"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "and",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "multiply",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "l.a",
-                            "name_parts": ["l", "a"]
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 2
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "multiply",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "r.a",
-                            "name_parts": ["r", "a"]
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 2
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "plus",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "l.b",
-                            "name_parts": ["l", "b"]
-                          },
-                          {
-                            "type": "Identifier",
-                            "name": "l.c",
-                            "name_parts": ["l", "c"]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "multiply",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "r.c",
-                            "name_parts": ["r", "c"]
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 2
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "l.d",
-                        "name_parts": ["l", "d"]
-                      },
-                      {
-                        "type": "Identifier",
-                        "name": "r.d",
-                        "name_parts": ["r", "d"]
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "r",
-                "name": "tab_r"
-              }
-            }
+            "type": "Asterisk"
           }
-        ]
-      },
-      "where": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "l",
+                  "name": "tab_l"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "l.a",
+                      "name_parts": ["l", "a"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "m.a",
+                      "name_parts": ["m", "a"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "m",
+                  "name": "tab_m"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "multiply",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "l.a",
+                              "name_parts": ["l", "a"]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "multiply",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "r.a",
+                              "name_parts": ["r", "a"]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "plus",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "l.b",
+                              "name_parts": ["l", "b"]
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "l.c",
+                              "name_parts": ["l", "c"]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "multiply",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "r.c",
+                              "name_parts": ["r", "c"]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "l.d",
+                          "name_parts": ["l", "d"]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "r.d",
+                          "name_parts": ["r", "d"]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "r",
+                  "name": "tab_r"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

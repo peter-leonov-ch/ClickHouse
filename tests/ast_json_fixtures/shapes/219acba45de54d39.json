@@ -1,34 +1,37 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "rename_table_multiple"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_COLUMN",
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "value1",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "rename_table_multiple"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "value1",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        }
+      },
+      {
+        "type": "AlterCommand",
+        "command_type": "RENAME_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "value1"
+        },
+        "rename_to": {
+          "type": "Identifier",
+          "name": "value1_string"
         }
       }
-    },
-    {
-      "type": "AlterCommand",
-      "command_type": "RENAME_COLUMN",
-      "column": {
-        "type": "Identifier",
-        "name": "value1"
-      },
-      "rename_to": {
-        "type": "Identifier",
-        "name": "value1_string"
-      }
-    }
-  ]
+    ]
+  }
 }

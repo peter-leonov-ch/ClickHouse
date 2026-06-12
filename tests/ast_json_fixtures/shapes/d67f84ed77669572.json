@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "tmp_table_01818"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MOVE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "ClickHouse"
-        }
-      },
-      "to_table": "main_table_01818"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tmp_table_01818"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MOVE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "ClickHouse"
+          }
+        },
+        "to_table": "main_table_01818"
+      }
+    ]
+  }
 }

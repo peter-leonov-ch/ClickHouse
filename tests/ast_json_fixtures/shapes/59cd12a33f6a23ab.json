@@ -1,64 +1,67 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        },
-        {
-          "type": "Function",
-          "name": "arrayElement",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "c"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "key1"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "optimize_lazy_materialization_with_map_data_type"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
             "type": "Identifier",
             "name": "b"
           },
-          "direction": "ASC"
+          {
+            "type": "Function",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "key1"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "optimize_lazy_materialization_with_map_data_type"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "b"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

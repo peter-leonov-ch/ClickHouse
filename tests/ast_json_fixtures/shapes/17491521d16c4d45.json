@@ -1,8 +1,11 @@
 {
-  "type": "CheckQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "mt_table"
-  },
-  "part_name": "201801_1_1_2"
+  "version": 1,
+  "ast": {
+    "type": "CheckQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "mt_table"
+    },
+    "part_name": "201801_1_1_2"
+  }
 }

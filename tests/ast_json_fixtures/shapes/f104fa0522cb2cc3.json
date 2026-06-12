@@ -1,331 +1,334 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Identifier",
-              "name": "n_"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "alias": "n",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "alias": "n_",
-          "name": "bitOr",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "bitShiftLeft",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "bitOr",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "bitShiftLeft",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "bitOr",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "bitShiftLeft",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "bitOr",
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "bitShiftLeft",
-                                      "arguments": [
-                                        {
-                                          "type": "Function",
-                                          "name": "bitOr",
-                                          "arguments": [
-                                            {
-                                              "type": "Function",
-                                              "name": "bitShiftLeft",
-                                              "arguments": [
-                                                {
-                                                  "type": "Function",
-                                                  "name": "bitOr",
-                                                  "arguments": [
-                                                    {
-                                                      "type": "Function",
-                                                      "name": "bitShiftLeft",
-                                                      "arguments": [
-                                                        {
-                                                          "type": "Function",
-                                                          "name": "bitOr",
-                                                          "arguments": [
-                                                            {
-                                                              "type": "Function",
-                                                              "name": "bitShiftLeft",
-                                                              "arguments": [
-                                                                {
-                                                                  "type": "Identifier",
-                                                                  "name": "b7"
-                                                                },
-                                                                {
-                                                                  "type": "Literal",
-                                                                  "value_type": "UInt64",
-                                                                  "value": 1
-                                                                }
-                                                              ]
-                                                            },
-                                                            {
-                                                              "type": "Identifier",
-                                                              "name": "b6"
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "Literal",
-                                                          "value_type": "UInt64",
-                                                          "value": 1
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "Identifier",
-                                                      "name": "b5"
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Literal",
-                                                  "value_type": "UInt64",
-                                                  "value": 1
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Identifier",
-                                              "name": "b4"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "UInt64",
-                                          "value": 1
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Identifier",
-                                      "name": "b3"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "b2"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "b1"
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Identifier",
-              "name": "b0"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b7",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 7
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b6",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 6
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b5",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 5
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b4",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 4
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b3",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b2",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b1",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "b0",
-          "name": "bitTest",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 0
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "numbers",
-                "database": "system"
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Identifier",
+                "name": "n_"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "alias": "n",
+            "name": "number"
+          },
+          {
+            "type": "Function",
+            "alias": "n_",
+            "name": "bitOr",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "bitShiftLeft",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "bitOr",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "bitShiftLeft",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "bitOr",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "bitShiftLeft",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "bitOr",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "bitShiftLeft",
+                                        "arguments": [
+                                          {
+                                            "type": "Function",
+                                            "name": "bitOr",
+                                            "arguments": [
+                                              {
+                                                "type": "Function",
+                                                "name": "bitShiftLeft",
+                                                "arguments": [
+                                                  {
+                                                    "type": "Function",
+                                                    "name": "bitOr",
+                                                    "arguments": [
+                                                      {
+                                                        "type": "Function",
+                                                        "name": "bitShiftLeft",
+                                                        "arguments": [
+                                                          {
+                                                            "type": "Function",
+                                                            "name": "bitOr",
+                                                            "arguments": [
+                                                              {
+                                                                "type": "Function",
+                                                                "name": "bitShiftLeft",
+                                                                "arguments": [
+                                                                  {
+                                                                    "type": "Identifier",
+                                                                    "name": "b7"
+                                                                  },
+                                                                  {
+                                                                    "type": "Literal",
+                                                                    "value_type": "UInt64",
+                                                                    "value": "1"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Identifier",
+                                                                "name": "b6"
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Literal",
+                                                            "value_type": "UInt64",
+                                                            "value": "1"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Identifier",
+                                                        "name": "b5"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Literal",
+                                                    "value_type": "UInt64",
+                                                    "value": "1"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Identifier",
+                                                "name": "b4"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": "1"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Identifier",
+                                        "name": "b3"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "b2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "b1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "b0"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b7",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "7"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b6",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "6"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b5",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b4",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "4"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b3",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b2",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b1",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b0",
+            "name": "bitTest",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
               }
             }
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 256
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "256"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

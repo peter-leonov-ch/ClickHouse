@@ -1,7 +1,10 @@
 {
-  "type": "ShowTables",
-  "from": {
-    "type": "Identifier",
-    "name": "shard_0"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "from": {
+      "type": "Identifier",
+      "name": "shard_0"
+    }
   }
 }

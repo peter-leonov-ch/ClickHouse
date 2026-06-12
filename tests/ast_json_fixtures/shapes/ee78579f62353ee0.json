@@ -1,220 +1,223 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "sample_frequency",
-          "value_type": "UInt64",
-          "value": 44100
-        },
-        {
-          "type": "Identifier",
-          "alias": "tick",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "alias": "time",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "tick"
-            },
-            {
-              "type": "Identifier",
-              "name": "sample_frequency"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "delay",
-          "name": "lambda",
-          "is_operator": true,
-          "is_lambda_function": true,
-          "kind": "LAMBDA_FUNCTION",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "time"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "wave"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "delay_"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "decay"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "count"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "arraySum",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "n1"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "wave",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "minus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "time"
-                            },
-                            {
-                              "type": "Function",
-                              "name": "multiply",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "delay_"
-                                },
-                                {
-                                  "type": "Identifier",
-                                  "name": "n1"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "range",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "count"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "kick",
-          "name": "delay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "time"
-            },
-            {
-              "type": "Function",
-              "name": "lambda",
-              "is_operator": true,
-              "is_lambda_function": true,
-              "kind": "LAMBDA_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "time"
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "Float64",
-                  "value": 0.5
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.2
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.5
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 5
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "kick"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "numbers",
-                "database": "system"
+            "type": "Literal",
+            "alias": "sample_frequency",
+            "value_type": "UInt64",
+            "value": "44100"
+          },
+          {
+            "type": "Identifier",
+            "alias": "tick",
+            "name": "number"
+          },
+          {
+            "type": "Function",
+            "alias": "time",
+            "name": "divide",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tick"
+              },
+              {
+                "type": "Identifier",
+                "name": "sample_frequency"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "delay",
+            "name": "lambda",
+            "is_operator": true,
+            "is_lambda_function": true,
+            "kind": "LAMBDA_FUNCTION",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "time"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "wave"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "delay_"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "decay"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "count"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "arraySum",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "n1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "wave",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "minus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "time"
+                              },
+                              {
+                                "type": "Function",
+                                "name": "multiply",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "delay_"
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "n1"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "range",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "count"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "kick",
+            "name": "delay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "time"
+              },
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "time"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "Float64",
+                    "value": 0.5
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.2
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.5
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "kick"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
               }
             }
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 5
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "5"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

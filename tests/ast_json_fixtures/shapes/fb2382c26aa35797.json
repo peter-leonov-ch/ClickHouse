@@ -1,5 +1,8 @@
 {
-  "type": "ShowTables",
-  "databases": true,
-  "like": "%01470"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "databases": true,
+    "like": "%01470"
+  }
 }

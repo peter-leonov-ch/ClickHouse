@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "STOP REPLICATION QUEUES",
-  "table": {
-    "type": "Identifier",
-    "name": "checksums_r2"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "STOP REPLICATION QUEUES",
+    "table": {
+      "type": "Identifier",
+      "name": "checksums_r2"
+    }
   }
 }

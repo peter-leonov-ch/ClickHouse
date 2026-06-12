@@ -1,75 +1,78 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "ip_range",
-          "name": "IPv4CIDRToRange",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ip"
-            },
-            {
-              "type": "Identifier",
-              "name": "cidr"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "ip"
-        },
-        {
-          "type": "Identifier",
-          "name": "cidr"
-        },
-        {
-          "type": "Function",
-          "name": "IPv4NumToString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "ip_range"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "ip_range"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "ipv4_range"
+            "type": "Function",
+            "alias": "ip_range",
+            "name": "IPv4CIDRToRange",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ip"
+              },
+              {
+                "type": "Identifier",
+                "name": "cidr"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "ip"
+          },
+          {
+            "type": "Identifier",
+            "name": "cidr"
+          },
+          {
+            "type": "Function",
+            "name": "IPv4NumToString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ip_range"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "ip_range"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "ipv4_range"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

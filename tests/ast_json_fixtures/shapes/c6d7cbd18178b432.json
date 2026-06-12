@@ -1,261 +1,138 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "w",
-          "value_type": "UInt64",
-          "value": 4096
-        },
-        {
-          "type": "Literal",
-          "alias": "h",
-          "value_type": "UInt64",
-          "value": 4096
-        },
-        {
-          "type": "Function",
-          "alias": "pixels",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "w"
-            },
-            {
-              "type": "Identifier",
-              "name": "h"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "num",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "coverage"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "idx",
-          "name": "intDiv",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "num"
-            },
-            {
-              "type": "Function",
-              "name": "intDiv",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "multiply",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 32768
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 32768
-                    }
-                  ]
-                },
-                {
-                  "type": "Identifier",
-                  "name": "pixels"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "coord",
-          "name": "mortonDecode",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            },
-            {
-              "type": "Identifier",
-              "name": "idx"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "b",
-          "value_type": "UInt64",
-          "value": 255
-        },
-        {
-          "type": "Function",
-          "alias": "r",
-          "name": "least",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 255
-            },
-            {
-              "type": "Function",
-              "name": "uniq",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "test_name"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "g",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 255
-                },
-                {
-                  "type": "Function",
-                  "name": "uniq",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "test_name"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "max",
-              "is_window_function": true,
-              "kind": "WINDOW_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "uniq",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "test_name"
-                    }
-                  ]
-                }
-              ],
-              "window_definition": {
-                "type": "WindowDefinition"
-              }
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "r"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UInt8"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "g"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UInt8"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "b"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UInt8"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "coord"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+            "type": "Literal",
+            "alias": "w",
+            "value_type": "UInt64",
+            "value": "4096"
+          },
+          {
+            "type": "Literal",
+            "alias": "h",
+            "value_type": "UInt64",
+            "value": "4096"
+          },
+          {
             "type": "Function",
-            "name": "plus",
+            "alias": "pixels",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "w"
+              },
+              {
+                "type": "Identifier",
+                "name": "h"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "num",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "coverage"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "idx",
+            "name": "intDiv",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "num"
+              },
+              {
+                "type": "Function",
+                "name": "intDiv",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "multiply",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "32768"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "32768"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "pixels"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "coord",
+            "name": "mortonDecode",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "type": "Identifier",
+                "name": "idx"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "b",
+            "value_type": "UInt64",
+            "value": "255"
+          },
+          {
+            "type": "Function",
+            "alias": "r",
+            "name": "least",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "255"
+              },
+              {
+                "type": "Function",
+                "name": "uniq",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "test_name"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "g",
+            "name": "divide",
             "is_operator": true,
             "arguments": [
               {
@@ -264,59 +141,185 @@
                 "is_operator": true,
                 "arguments": [
                   {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "255"
+                  },
+                  {
                     "type": "Function",
-                    "name": "tupleElement",
-                    "is_operator": true,
+                    "name": "uniq",
                     "arguments": [
                       {
                         "type": "Identifier",
-                        "name": "coord"
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 2
+                        "name": "test_name"
                       }
                     ]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "w"
                   }
                 ]
               },
               {
                 "type": "Function",
-                "name": "tupleElement",
-                "is_operator": true,
+                "name": "max",
+                "is_window_function": true,
+                "kind": "WINDOW_FUNCTION",
                 "arguments": [
                   {
-                    "type": "Identifier",
-                    "name": "coord"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
+                    "type": "Function",
+                    "name": "uniq",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "test_name"
+                      }
+                    ]
                   }
-                ]
+                ],
+                "window_definition": {
+                  "type": "WindowDefinition"
+                }
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "r"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UInt8"
               }
             ]
           },
-          "direction": "ASC",
-          "with_fill": true,
-          "fill_from": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
+          {
+            "type": "Function",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "g"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UInt8"
+              }
+            ]
           },
-          "fill_to": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 10
+          {
+            "type": "Function",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UInt8"
+              }
+            ]
           }
-        }
-      ]
-    }
-  ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "coord"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "multiply",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "tupleElement",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "coord"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "2"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "w"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "tupleElement",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "coord"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "direction": "ASC",
+            "with_fill": true,
+            "fill_from": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            },
+            "fill_to": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "10"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,14 +1,17 @@
 {
-  "type": "CreateQuery",
-  "database": {
-    "type": "Identifier",
-    "name": "test_02184"
-  },
-  "storage": {
-    "type": "Storage",
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "database": {
       "type": "Identifier",
-      "name": "kek"
+      "name": "test_02184"
+    },
+    "storage": {
+      "type": "Storage",
+      "order_by": {
+        "type": "Identifier",
+        "name": "kek"
+      }
     }
   }
 }

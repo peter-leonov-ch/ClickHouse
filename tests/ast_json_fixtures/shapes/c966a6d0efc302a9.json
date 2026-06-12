@@ -1,12 +1,15 @@
 {
-  "type": "DropIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_index"
-  },
-  "if_exists": true,
-  "index_name": {
-    "type": "Identifier",
-    "name": "i_a"
+  "version": 1,
+  "ast": {
+    "type": "DropIndexQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_index"
+    },
+    "if_exists": true,
+    "index_name": {
+      "type": "Identifier",
+      "name": "i_a"
+    }
   }
 }

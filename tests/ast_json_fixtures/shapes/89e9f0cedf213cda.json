@@ -1,48 +1,51 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "normal"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "key",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
+      "type": "Identifier",
+      "name": "normal"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "key",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "value",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
         }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
       },
-      {
-        "type": "ColumnDeclaration",
-        "name": "value",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "1"
         }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
-    },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity": 1
       }
     }
   }

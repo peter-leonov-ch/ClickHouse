@@ -1,10 +1,13 @@
 {
-  "type": "Rename",
-  "exchange": true,
-  "elements": [
-    {
-      "from_table": "table_a_exchange",
-      "to_table": "table_b_exchange"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "exchange": true,
+    "elements": [
+      {
+        "from_table": "table_a_exchange",
+        "to_table": "table_b_exchange"
+      }
+    ]
+  }
 }

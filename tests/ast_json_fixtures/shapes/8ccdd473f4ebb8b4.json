@@ -1,23 +1,26 @@
 {
-  "type": "UpdateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "assignments": [
-    {
-      "type": "Assignment",
-      "column": "c0",
-      "expression": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+  "version": 1,
+  "ast": {
+    "type": "UpdateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
+    },
+    "assignments": [
+      {
+        "type": "Assignment",
+        "column": "c0",
+        "expression": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
+    ],
+    "predicate": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": "1"
     }
-  ],
-  "predicate": {
-    "type": "Literal",
-    "value_type": "UInt64",
-    "value": 1
   }
 }

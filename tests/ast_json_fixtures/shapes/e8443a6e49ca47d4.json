@@ -1,9 +1,12 @@
 {
-  "type": "SHOW",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "Null"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SHOW",
+    "children": [
+      {
+        "type": "Identifier",
+        "name": "Null"
+      }
+    ]
+  }
 }

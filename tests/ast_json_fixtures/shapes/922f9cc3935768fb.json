@@ -1,58 +1,61 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "shift_right_bit",
-          "value_type": "UInt64",
-          "value": 7
-        },
-        {
-          "type": "Identifier",
-          "alias": "arg",
-          "name": "str"
-        },
-        {
-          "type": "Function",
-          "alias": "string_res",
-          "name": "bin",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "shift_right_bit",
+            "value_type": "UInt64",
+            "value": "7"
+          },
+          {
+            "type": "Identifier",
+            "alias": "arg",
+            "name": "str"
+          },
+          {
+            "type": "Function",
+            "alias": "string_res",
+            "name": "bin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "bitShiftLeft",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "str"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "7"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Function",
-              "name": "bitShiftLeft",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "str"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 7
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_bit_shift_left_string_integer"
                 }
-              ]
+              }
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_bit_shift_left_string_integer"
-              }
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

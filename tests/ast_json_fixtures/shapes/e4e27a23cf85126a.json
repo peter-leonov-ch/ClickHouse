@@ -1,22 +1,25 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "file",
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "data1622.json"
-      },
-      {
-        "type": "Identifier",
-        "name": "TSV"
-      },
-      {
-        "type": "Identifier",
-        "name": "value String"
-      }
-    ]
-  },
-  "format": "Values"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "data1622.json"
+        },
+        {
+          "type": "Identifier",
+          "name": "TSV"
+        },
+        {
+          "type": "Identifier",
+          "name": "value String"
+        }
+      ]
+    },
+    "format": "Values"
+  }
 }

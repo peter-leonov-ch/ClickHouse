@@ -1,3 +1,6 @@
 {
-  "type": "ShowFunctions"
+  "version": 1,
+  "ast": {
+    "type": "ShowFunctions"
+  }
 }

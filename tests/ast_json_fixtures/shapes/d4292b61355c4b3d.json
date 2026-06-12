@@ -1,42 +1,45 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "file",
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "arrays_02735.parquet",
-        "name_parts": ["arrays_02735", "parquet"]
-      }
-    ]
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Asterisk"
-          }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "arrays_02735.parquet",
+          "name_parts": ["arrays_02735", "parquet"]
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "arrays_02735"
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "arrays_02735"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

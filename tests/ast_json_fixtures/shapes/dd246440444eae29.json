@@ -1,49 +1,15 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "category",
-          "name": "tupleElement",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "data"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_nullable_tuples"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "isNotNull",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
             "type": "Function",
+            "alias": "category",
             "name": "tupleElement",
             "arguments": [
               {
@@ -53,22 +19,59 @@
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 2
+                "value": "2"
               }
             ]
           }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_nullable_tuples"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "isNotNull",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tupleElement",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "data"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "category"
+            },
+            "direction": "ASC"
+          }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "category"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

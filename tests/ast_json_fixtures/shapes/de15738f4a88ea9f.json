@@ -1,18 +1,21 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "tp"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_PROJECTION",
-      "projection": {
-        "type": "Identifier",
-        "name": "p"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tp"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_PROJECTION",
+        "projection": {
+          "type": "Identifier",
+          "name": "p"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,73 +1,18 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "col2"
-        },
-        {
-          "type": "Function",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col2"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test1"
-              }
-            }
+            "type": "Identifier",
+            "name": "col2"
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "FULL",
-              "using": [
-                {
-                  "type": "Identifier",
-                  "name": "col1"
-                }
-              ]
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test2"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "CAST",
-        "is_operator": true,
-        "arguments": [
-          {
             "type": "Function",
-            "name": "multiply",
+            "name": "plus",
             "is_operator": true,
             "arguments": [
               {
@@ -77,17 +22,75 @@
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 2
+                "value": "1"
               }
             ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "UInt8"
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "FULL",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "col1"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test2"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "CAST",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "multiply",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "col2"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "UInt8"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

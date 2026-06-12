@@ -1,13 +1,16 @@
 {
-  "type": "CreateUserQuery",
-  "children": [
-    {
-      "type": "AuthenticationData",
-      "children": [
-        {
-          "type": "PublicSSHKey"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "CreateUserQuery",
+    "children": [
+      {
+        "type": "AuthenticationData",
+        "children": [
+          {
+            "type": "PublicSSHKey"
+          }
+        ]
+      }
+    ]
+  }
 }

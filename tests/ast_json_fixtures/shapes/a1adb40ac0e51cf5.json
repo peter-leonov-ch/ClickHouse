@@ -1,99 +1,102 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "mytable"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "operand",
-        "data_type": {
-          "type": "DataType",
-          "name": "Float64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "low",
-        "data_type": {
-          "type": "DataType",
-          "name": "Float64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "high",
-        "data_type": {
-          "type": "DataType",
-          "name": "Float64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "count",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
-    ],
-    "primary_key": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "operand"
-        },
-        {
-          "type": "Identifier",
-          "name": "low"
-        },
-        {
-          "type": "Identifier",
-          "name": "high"
-        },
-        {
-          "type": "Identifier",
-          "name": "count"
-        }
-      ]
-    }
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "mytable"
     },
-    "primary_key": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "operand"
+          "type": "ColumnDeclaration",
+          "name": "operand",
+          "data_type": {
+            "type": "DataType",
+            "name": "Float64"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "low"
+          "type": "ColumnDeclaration",
+          "name": "low",
+          "data_type": {
+            "type": "DataType",
+            "name": "Float64"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "high"
+          "type": "ColumnDeclaration",
+          "name": "high",
+          "data_type": {
+            "type": "DataType",
+            "name": "Float64"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "count"
+          "type": "ColumnDeclaration",
+          "name": "count",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
         }
-      ]
+      ],
+      "primary_key": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "operand"
+          },
+          {
+            "type": "Identifier",
+            "name": "low"
+          },
+          {
+            "type": "Identifier",
+            "name": "high"
+          },
+          {
+            "type": "Identifier",
+            "name": "count"
+          }
+        ]
+      }
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "operand"
+          },
+          {
+            "type": "Identifier",
+            "name": "low"
+          },
+          {
+            "type": "Identifier",
+            "name": "high"
+          },
+          {
+            "type": "Identifier",
+            "name": "count"
+          }
+        ]
+      }
     }
   }
 }

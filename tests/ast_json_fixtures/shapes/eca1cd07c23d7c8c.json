@@ -1,22 +1,22 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "insert_select_dst"
-  },
-  "columns": [
-    {
-      "type": "QualifiedAsterisk",
-      "qualifier": {
-        "type": "Identifier",
-        "name": "insert_select_dst"
-      },
-      "transformers": {
-        "type": "ColumnsTransformerList",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "insert_select_dst"
+    },
+    "columns": [
+      {
+        "type": "QualifiedAsterisk",
+        "qualifier": {
+          "type": "Identifier",
+          "name": "insert_select_dst"
+        },
+        "transformers": [
           {
             "type": "ColumnsExceptTransformer",
-            "children": [
+            "columns": [
               {
                 "type": "Identifier",
                 "name": "middle_a"
@@ -29,34 +29,34 @@
           }
         ]
       }
-    }
-  ],
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Asterisk"
-          }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+    ],
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "insert_select_src"
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "insert_select_src"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

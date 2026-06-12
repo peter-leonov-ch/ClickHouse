@@ -1,143 +1,45 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "res",
-          "name": "minSampleSizeConversion",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "p1"
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.01
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.8
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.05
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "conversion Float64 1"
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "minimum_sample_size_conversion"
+            "type": "Function",
+            "alias": "res",
+            "name": "minSampleSizeConversion",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "p1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.01
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.8
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.05
               }
-            }
+            ]
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "conversion Float64 1"
+          },
+          {
             "type": "Function",
             "name": "roundBankers",
             "arguments": [
@@ -153,20 +55,121 @@
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 1
+                    "value": "1"
                   }
                 ]
               },
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 2
+                "value": "2"
               }
             ]
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "roundBankers",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "res"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "roundBankers",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "res"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "3"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "minimum_sample_size_conversion"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "roundBankers",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tupleElement",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "res"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

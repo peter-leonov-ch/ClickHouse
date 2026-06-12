@@ -1,34 +1,37 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "table_for_alter"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "ADD_COLUMN",
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "Data2",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "table_for_alter"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_SETTING",
-      "settings_changes": {
-        "type": "Set",
-        "changes": {
-          "check_delay_period": 5,
-          "check_delay_period": 10,
-          "check_delay_period": 15
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "Data2",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      },
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_SETTING",
+        "settings_changes": {
+          "type": "Settings",
+          "changes": {
+            "check_delay_period": "5",
+            "check_delay_period": "10",
+            "check_delay_period": "15"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,88 +1,91 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "n",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "modulo",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "number"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "min",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "n"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "alias": "n",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "modulo",
+                "is_operator": true,
                 "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 100
+                    "value": "3"
                   }
                 ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "min",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "n"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "n"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

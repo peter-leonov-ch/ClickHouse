@@ -1,3 +1,6 @@
 {
-  "type": "DROP"
+  "version": 1,
+  "ast": {
+    "type": "DROP"
+  }
 }

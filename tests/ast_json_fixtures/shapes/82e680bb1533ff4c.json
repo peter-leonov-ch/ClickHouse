@@ -1,28 +1,31 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "key",
-          "value_type": "String",
-          "value": "a"
-        },
-        {
-          "type": "Literal",
-          "alias": "value",
-          "value_type": "String",
-          "value": "b"
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "key",
+            "value_type": "String",
+            "value": "a"
+          },
+          {
+            "type": "Literal",
+            "alias": "value",
+            "value_type": "String",
+            "value": "b"
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,56 +1,59 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "Enabled"
-        },
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "account_test"
-              },
-              "final": true
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "id"
-          },
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Literal",
-            "value_type": "UInt64",
-            "value": 11338881281426660955
+            "value_type": "String",
+            "value": "Enabled"
+          },
+          {
+            "type": "Asterisk"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "split_parts_ranges_into_intersecting_and_non_intersecting_final": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "account_test"
+                },
+                "final": true
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "11338881281426660955"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "split_parts_ranges_into_intersecting_and_non_intersecting_final": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

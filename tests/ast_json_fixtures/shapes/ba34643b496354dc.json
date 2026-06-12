@@ -1,236 +1,239 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "test1",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Function",
-                      "alias": "n",
-                      "name": "minus",
-                      "is_operator": true,
-                      "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "test1",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "alias": "n",
+                        "name": "minus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
                         {
-                          "type": "Identifier",
-                          "name": "number"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "42"
+                                }
+                              ]
+                            }
+                          }
                         }
                       ]
                     }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "table_function": {
-                            "type": "Function",
-                            "name": "numbers",
-                            "arguments": [
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 42
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
                   }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "z",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "max",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "n"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test1"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "using": [
-                {
-                  "type": "Identifier",
-                  "name": "n"
-                }
-              ]
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "x",
-                "name": "test1"
+                ]
               }
             }
           }
-        ]
-      },
-      "having": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
             "type": "Function",
-            "name": "minus",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "z"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
-          },
-          {
-            "type": "Function",
+            "alias": "z",
             "name": "plus",
             "is_operator": true,
             "arguments": [
               {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Function",
-                          "name": "plus",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "min",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "minus",
-                                  "is_operator": true,
-                                  "arguments": [
-                                    {
-                                      "type": "Identifier",
-                                      "name": "n"
-                                    },
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "UInt64",
-                                      "value": 1
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 41
-                            }
-                          ]
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "test1"
-                              }
-                            }
-                          }
-                        ]
+                "type": "Function",
+                "name": "max",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "n"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
                       }
-                    }
-                  ]
-                }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 2
+                "value": "1"
               }
             ]
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "n"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "x",
+                  "name": "test1"
+                }
+              }
+            }
+          ]
+        },
+        "having": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "minus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "z"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Function",
+                            "name": "plus",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "min",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "minus",
+                                    "is_operator": true,
+                                    "arguments": [
+                                      {
+                                        "type": "Identifier",
+                                        "name": "n"
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": "1"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "41"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "test1"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

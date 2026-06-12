@@ -1,17 +1,20 @@
 {
-  "type": "DeleteQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_lwu_deletes_3"
-  },
-  "predicate": {
-    "type": "Function",
-    "name": "notEmpty",
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "v2"
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwu_deletes_3"
+    },
+    "predicate": {
+      "type": "Function",
+      "name": "notEmpty",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "v2"
+        }
+      ]
+    }
   }
 }

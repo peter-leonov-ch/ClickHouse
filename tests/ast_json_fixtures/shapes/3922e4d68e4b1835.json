@@ -1,208 +1,217 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "min",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "wa"
-        },
-        {
-          "type": "Function",
-          "name": "min",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "wo"
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "wa"
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "wo"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "number"
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "p",
-                          "name": "intDiv",
-                          "arguments": [
+            "type": "Function",
+            "name": "min",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "wa"
+          },
+          {
+            "type": "Function",
+            "name": "min",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "wo"
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "wa"
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "wo"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "p",
+                            "name": "intDiv",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "number"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "3"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "o",
+                            "name": "mod",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "number"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "5"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
                             {
-                              "type": "Identifier",
-                              "name": "number"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 3
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "o",
-                          "name": "mod",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "number"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 5
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "numbers",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "31"
+                                    }
+                                  ]
+                                }
+                              }
                             }
                           ]
                         }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "table_function": {
-                                "type": "Function",
-                                "name": "numbers",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 31
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      },
-      "window": [
-        {
-          "type": "WindowListElement",
-          "name": "wa",
-          "definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
-              {
-                "type": "Identifier",
-                "name": "p"
-              }
-            ],
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "o"
-                },
-                "direction": "ASC"
-              }
-            ],
-            "frame_type": "RANGE",
-            "frame_begin_type": "Unbounded",
-            "frame_begin_preceding": true,
-            "frame_end_type": "Unbounded",
-            "frame_end_preceding": false
-          }
+          ]
         },
-        {
-          "type": "WindowListElement",
-          "name": "wo",
-          "definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
-              {
-                "type": "Identifier",
-                "name": "p"
-              }
-            ],
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
+        "window": [
+          {
+            "type": "WindowListElement",
+            "name": "wa",
+            "definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
                   "type": "Identifier",
-                  "name": "o"
-                },
-                "direction": "ASC"
+                  "name": "p"
+                }
+              ],
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "o"
+                  },
+                  "direction": "ASC"
+                }
+              ],
+              "frame_type": "RANGE",
+              "frame_begin": {
+                "type": "Unbounded",
+                "preceding": true
+              },
+              "frame_end": {
+                "type": "Unbounded"
               }
-            ],
-            "frame_type": "ROWS",
-            "frame_begin_type": "Unbounded",
-            "frame_begin_preceding": true,
-            "frame_end_type": "Unbounded",
-            "frame_end_preceding": false
+            }
+          },
+          {
+            "type": "WindowListElement",
+            "name": "wo",
+            "definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
+                  "type": "Identifier",
+                  "name": "p"
+                }
+              ],
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "o"
+                  },
+                  "direction": "ASC"
+                }
+              ],
+              "frame_type": "ROWS",
+              "frame_begin": {
+                "type": "Unbounded",
+                "preceding": true
+              },
+              "frame_end": {
+                "type": "Unbounded"
+              }
+            }
           }
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_block_size": 2
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_block_size": "2"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

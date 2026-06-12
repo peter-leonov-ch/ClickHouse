@@ -1,53 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        },
-        {
-          "type": "Identifier",
-          "name": "category"
-        },
-        {
-          "type": "Identifier",
-          "name": "value"
-        },
-        {
-          "type": "Identifier",
-          "name": "name"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_limit_by_all_old_planner"
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Identifier",
+            "name": "category"
+          },
+          {
+            "type": "Identifier",
+            "name": "value"
+          },
+          {
+            "type": "Identifier",
+            "name": "name"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_limit_by_all_old_planner"
+                }
               }
             }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "allow_experimental_analyzer": "0"
           }
-        ]
-      },
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "allow_experimental_analyzer": 0
+        },
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          "by": []
         }
       }
-    }
-  ]
+    ]
+  }
 }

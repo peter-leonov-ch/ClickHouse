@@ -1,84 +1,87 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        },
-        {
-          "type": "Function",
-          "name": "cramersVBiasCorrected",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "Identifier",
-              "name": "b"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_cube": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 3
-                  }
-                ]
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          },
+          {
+            "type": "Function",
+            "name": "cramersVBiasCorrected",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "3"
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "alias": "a",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "alias": "b",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            },
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
           ]
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_use_nulls": 1
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "alias": "a",
+            "name": "number"
+          },
+          {
+            "type": "Function",
+            "alias": "b",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              },
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

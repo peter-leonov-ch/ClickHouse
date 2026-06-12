@@ -1,11 +1,14 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tview_basic"
-  },
-  "if_exists": true,
-  "is_view": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tview_basic"
+    },
+    "if_exists": true,
+    "is_view": true
+  }
 }

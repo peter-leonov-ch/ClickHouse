@@ -1,293 +1,296 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "row",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "array",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "tuple",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "toNullable",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "Null",
-                                  "value": null
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "Int64",
-                              "value": -9223372036854775808
-                            },
-                            {
-                              "type": "Function",
-                              "name": "toNullable",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "Float64",
-                                  "value": 3.4028234663852886e38
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "arrayJoin",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "array",
-                                  "is_operator": true,
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "tuple",
-                                      "arguments": [
-                                        {
-                                          "type": "Function",
-                                          "name": "array",
-                                          "is_operator": true,
-                                          "arguments": [
-                                            {
-                                              "type": "Function",
-                                              "name": "tuple",
-                                              "is_operator": true,
-                                              "arguments": [
-                                                {
-                                                  "type": "Function",
-                                                  "name": "toNullable",
-                                                  "arguments": [
-                                                    {
-                                                      "type": "Literal",
-                                                      "value_type": "Null",
-                                                      "value": null
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Literal",
-                                                  "value_type": "UInt64",
-                                                  "value": 2147483647
-                                                },
-                                                {
-                                                  "type": "Function",
-                                                  "name": "toNullable",
-                                                  "arguments": [
-                                                    {
-                                                      "type": "Literal",
-                                                      "value_type": "Float64",
-                                                      "value": 0.5
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Identifier",
-                                                  "name": "k2"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "k2"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "array",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1024
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "k2"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "Int64",
-          "value": -9223372036854775807
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 256
-        },
-        {
-          "type": "Function",
-          "alias": "k",
-          "name": "tupleElement",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "row"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1048576
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1024
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t__fuzz_282"
-              },
-              "final": true
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
+            "alias": "row",
+            "name": "arrayJoin",
             "arguments": [
               {
                 "type": "Function",
-                "name": "toNullable",
+                "name": "array",
+                "is_operator": true,
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "655.36"
+                    "type": "Function",
+                    "name": "tuple",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "toNullable",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Null",
+                                    "value": null
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "Int64",
+                                "value": "-9223372036854775808"
+                              },
+                              {
+                                "type": "Function",
+                                "name": "toNullable",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Float64",
+                                    "value": 3.4028234663852886e38
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "arrayJoin",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "array",
+                                    "is_operator": true,
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "tuple",
+                                        "arguments": [
+                                          {
+                                            "type": "Function",
+                                            "name": "array",
+                                            "is_operator": true,
+                                            "arguments": [
+                                              {
+                                                "type": "Function",
+                                                "name": "tuple",
+                                                "is_operator": true,
+                                                "arguments": [
+                                                  {
+                                                    "type": "Function",
+                                                    "name": "toNullable",
+                                                    "arguments": [
+                                                      {
+                                                        "type": "Literal",
+                                                        "value_type": "Null",
+                                                        "value": null
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Literal",
+                                                    "value_type": "UInt64",
+                                                    "value": "2147483647"
+                                                  },
+                                                  {
+                                                    "type": "Function",
+                                                    "name": "toNullable",
+                                                    "arguments": [
+                                                      {
+                                                        "type": "Literal",
+                                                        "value_type": "Float64",
+                                                        "value": 0.5
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Identifier",
+                                                    "name": "k2"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "k2"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "array",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1024"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "k2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": "-9223372036854775807"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "256"
+          },
+          {
+            "type": "Function",
+            "alias": "k",
+            "name": "tupleElement",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "row"
               },
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 2
+                "value": "1048576"
               },
-              {
-                "type": "Function",
-                "name": "toNullable",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "0.2147483648"
-                  }
-                ]
-              },
-              {
-                "type": "Identifier",
-                "name": "k2"
-              }
-            ]
-          },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Function",
-            "name": "toNullable",
-            "arguments": [
               {
                 "type": "Literal",
-                "value_type": "String",
-                "value": "102.3"
+                "value_type": "UInt64",
+                "value": "1024"
               }
             ]
-          },
-          "direction": "DESC",
-          "nulls_first": true
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t__fuzz_282"
+                },
+                "final": true
+              }
+            }
+          ]
         },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "10.25"
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "655.36"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                },
+                {
+                  "type": "Function",
+                  "name": "toNullable",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "0.2147483648"
+                    }
+                  ]
+                },
+                {
+                  "type": "Identifier",
+                  "name": "k2"
+                }
+              ]
+            },
+            "direction": "ASC"
           },
-          "direction": "DESC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "k"
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "toNullable",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "102.3"
+                }
+              ]
+            },
+            "direction": "DESC",
+            "nulls_first": true
           },
-          "direction": "ASC",
-          "nulls_first": true
-        }
-      ]
-    }
-  ]
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "10.25"
+            },
+            "direction": "DESC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k"
+            },
+            "direction": "ASC",
+            "nulls_first": true
+          }
+        ]
+      }
+    ]
+  }
 }

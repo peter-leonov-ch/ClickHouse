@@ -1,61 +1,64 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "group_by_with_rollup": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_use_nulls": 1,
-          "enable_positional_arguments": 1
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "group_by_with_rollup": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1",
+            "enable_positional_arguments": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

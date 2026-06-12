@@ -1,79 +1,82 @@
 {
-  "type": "CreateQuery",
-  "is_materialized_view": true,
-  "is_populate": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_view_filtered"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "EventDate",
-        "data_type": {
-          "type": "DataType",
-          "name": "Date"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "CounterID",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      }
-    ]
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Identifier",
-            "name": "CounterID"
-          },
-          {
-            "type": "Identifier",
-            "name": "EventDate"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "is_populate": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test_view_filtered"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "EventDate",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
           }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
-            {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "test_table"
-                }
-              }
-            }
-          ]
         },
-        "where": {
-          "type": "Function",
-          "name": "less",
-          "is_operator": true,
-          "arguments": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "CounterID",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "CounterID"
+            },
             {
               "type": "Identifier",
               "name": "EventDate"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "2013-01-01"
             }
-          ]
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "test_table"
+                  }
+                }
+              }
+            ]
+          },
+          "where": {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "EventDate"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2013-01-01"
+              }
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

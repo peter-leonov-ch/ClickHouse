@@ -1,46 +1,49 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "x"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "x"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": []
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Function",
-            "alias": "a",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": []
-          },
-          {
-            "type": "Function",
-            "alias": "b",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": []
-          }
-        ]
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": []
       }
-    ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "alias": "a",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": []
+            },
+            {
+              "type": "Function",
+              "alias": "b",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
   }
 }

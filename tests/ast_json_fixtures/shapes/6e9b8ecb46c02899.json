@@ -1,76 +1,79 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_rollup": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "x",
-          "name": "tuple",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "array",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "number"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_rollup": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "alias": "x",
+            "name": "tuple",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "array",
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
+                    "type": "Identifier",
+                    "name": "number"
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "name": "array",
-          "arguments": [
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "number"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
             }
           ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        },
+        "group_by": [
+          {
             "type": "Identifier",
-            "name": "x"
+            "name": "number"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "array",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

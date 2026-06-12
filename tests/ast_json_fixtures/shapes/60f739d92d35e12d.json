@@ -1,67 +1,72 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{2,3}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "currentDatabase",
-                    "arguments": []
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "data_00184"
-                  }
-                ]
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "data_00184"
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_group_by_no_merge": "2"
           }
-        ]
-      },
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "distributed_group_by_no_merge": 2
+        },
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "number"
+            }
+          ]
         }
       }
-    }
-  ]
+    ]
+  }
 }

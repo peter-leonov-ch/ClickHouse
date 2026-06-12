@@ -1,111 +1,114 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "res",
-          "name": "concat",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "tup"
-            },
-            {
-              "type": "Identifier",
-              "name": "tup"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "res"
-        },
-        {
-          "type": "Function",
-          "name": "tupleElement",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "res"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tupleElement",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "res"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tupleElement",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "res"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tupleElement",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "res"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 4
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_02833"
+            "type": "Function",
+            "alias": "res",
+            "name": "concat",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "tup"
+              },
+              {
+                "type": "Identifier",
+                "name": "tup"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "res"
+          },
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "res"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "res"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "res"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "tupleElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "res"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "4"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_02833"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

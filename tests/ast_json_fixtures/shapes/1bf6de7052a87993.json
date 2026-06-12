@@ -1,135 +1,138 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "lc_00931"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "lc_00931"
+                }
               }
             }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "or",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "less",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "key"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "greater",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "key"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "50000"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "not",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "has",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "value"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toString",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "key"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "length",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "value"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_block_size": "8192",
+            "max_threads": "1"
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "or",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "less",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "key"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 100
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "greater",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "key"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 50000
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "not",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "has",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "toString",
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "key"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "length",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value"
-                  }
-                ]
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_block_size": 8192,
-          "max_threads": 1
         }
       }
-    }
-  ]
+    ]
+  }
 }

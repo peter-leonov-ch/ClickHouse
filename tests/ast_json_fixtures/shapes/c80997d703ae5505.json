@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "WAIT VIEW",
-  "table": {
-    "type": "Identifier",
-    "name": "03221_rmv"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "WAIT VIEW",
+    "table": {
+      "type": "Identifier",
+      "name": "03221_rmv"
+    }
   }
 }

@@ -1,10 +1,13 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t1"
-  },
-  "if_exists": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "t1"
+    },
+    "if_exists": true
+  }
 }

@@ -1,48 +1,51 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        },
-        {
-          "type": "Identifier",
-          "name": "_block_number"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "table_with_some_columns"
+            "type": "Asterisk"
+          },
+          {
+            "type": "Identifier",
+            "name": "_block_number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "table_with_some_columns"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "not",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "ignore",
-            "arguments": [
-              {
-                "type": "Asterisk"
-              }
-            ]
-          }
-        ]
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "not",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "ignore",
+              "arguments": [
+                {
+                  "type": "Asterisk"
+                }
+              ]
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

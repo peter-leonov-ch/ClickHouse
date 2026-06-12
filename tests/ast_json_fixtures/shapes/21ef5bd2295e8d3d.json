@@ -1,55 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x3"
-        },
-        {
-          "type": "Identifier",
-          "name": "x2"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 2
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "x3"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Identifier",
+            "name": "x2"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x3"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

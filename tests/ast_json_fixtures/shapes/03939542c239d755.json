@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
+            "type": "Asterisk"
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
           "children": [
             {
-              "type": "Identifier",
-              "name": "d"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "str"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "str"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

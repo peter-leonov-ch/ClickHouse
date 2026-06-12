@@ -1,429 +1,432 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_all": true,
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_all": true,
+        "group_by_with_cube": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "c0",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c1",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c2",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c3",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c4",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c5",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c6",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c7",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c8",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c9",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c10",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c11",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c12",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c13",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c14",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c15",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c16",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c17",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c18",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c19",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c20",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c21",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c22",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c23",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c24",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c25",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c26",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c27",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c28",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c29",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c30",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c31",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c32",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c33",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c34",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c35",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c36",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c37",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c38",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c39",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c40",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c41",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c42",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c43",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c44",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c45",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c46",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c47",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c48",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c49",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c50",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c51",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c52",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c53",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c54",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c55",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c56",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c57",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c58",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c59",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c60",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c61",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c62",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c63",
-                          "value_type": "String",
-                          "value": ""
-                        },
-                        {
-                          "type": "Literal",
-                          "alias": "c64",
-                          "value_type": "String",
-                          "value": ""
-                        }
-                      ]
-                    }
-                  ]
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "c0",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c1",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c2",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c3",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c4",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c5",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c6",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c7",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c8",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c9",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c10",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c11",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c12",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c13",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c14",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c15",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c16",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c17",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c18",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c19",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c20",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c21",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c22",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c23",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c24",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c25",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c26",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c27",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c28",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c29",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c30",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c31",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c32",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c33",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c34",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c35",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c36",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c37",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c38",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c39",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c40",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c41",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c42",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c43",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c44",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c45",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c46",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c47",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c48",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c49",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c50",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c51",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c52",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c53",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c54",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c55",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c56",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c57",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c58",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c59",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c60",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c61",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c62",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c63",
+                            "value_type": "String",
+                            "value": ""
+                          },
+                          {
+                            "type": "Literal",
+                            "alias": "c64",
+                            "value_type": "String",
+                            "value": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

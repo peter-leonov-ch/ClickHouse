@@ -1,106 +1,112 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "name": "fIrSt_VaLue",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "w"
-        },
-        {
-          "type": "Function",
-          "name": "lAsT_vAlUe",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "w"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "window": [
-        {
-          "type": "WindowListElement",
-          "name": "w",
-          "definition": {
-            "type": "WindowDefinition",
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "number"
-                },
-                "direction": "ASC"
-              }
-            ],
-            "frame_type": "RANGE",
-            "frame_begin_type": "Offset",
-            "frame_begin_offset": {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            "frame_begin_preceding": true,
-            "frame_end_type": "Offset",
-            "frame_end_offset": {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            "frame_end_preceding": false
-          }
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "number"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "fIrSt_VaLue",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "w"
+          },
+          {
+            "type": "Function",
+            "name": "lAsT_vAlUe",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "w"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "window": [
+          {
+            "type": "WindowListElement",
+            "name": "w",
+            "definition": {
+              "type": "WindowDefinition",
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
+                  "direction": "ASC"
+                }
+              ],
+              "frame_type": "RANGE",
+              "frame_begin": {
+                "type": "Offset",
+                "offset": {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                },
+                "preceding": true
+              },
+              "frame_end": {
+                "type": "Offset",
+                "offset": {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              }
+            }
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "number"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

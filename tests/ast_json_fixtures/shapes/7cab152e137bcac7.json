@@ -1,75 +1,78 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      },
-      "limit_offset": {
-        "type": "Function",
-        "name": "plus",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "LENGTH",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "NNN"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "COS",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 0
-              }
-            ]
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Function",
-        "name": "toDate",
-        "arguments": [
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "0000-00-02"
-          }
-        ]
+          ]
+        },
+        "offset": {
+          "type": "Function",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "LENGTH",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "NNN"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "COS",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "limit": {
+          "type": "Function",
+          "name": "toDate",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "0000-00-02"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

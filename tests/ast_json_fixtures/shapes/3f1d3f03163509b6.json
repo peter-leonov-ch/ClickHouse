@@ -1,86 +1,89 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "toStartOfHour",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "v",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "value"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "agg"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "alias": "a",
-          "name": "toStartOfHour",
+          "name": "greater",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
               "name": "ts"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "v",
-          "name": "sum",
-          "arguments": [
+            },
             {
-              "type": "Identifier",
-              "name": "value"
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2021-12-06 22:00:00"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "agg"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
+        },
+        "group_by": [
           {
             "type": "Identifier",
-            "name": "ts"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "2021-12-06 22:00:00"
+            "name": "a"
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "a"
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "v"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "5"
         }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "v"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 5
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "x"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "x"
+                }
               }
             }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "_part_offset"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_bytes_to_read": "98312"
           }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "_part_offset"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_bytes_to_read": 98312
         }
       }
-    }
-  ]
+    ]
+  }
 }

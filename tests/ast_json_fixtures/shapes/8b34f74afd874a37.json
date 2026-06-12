@@ -1,77 +1,80 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "col"
-        },
-        {
-          "type": "Function",
-          "name": "like",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "%a"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "ilike",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "%a"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tab"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Identifier",
             "name": "col"
           },
           {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "AA"
+            "type": "Function",
+            "name": "like",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "%a"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "ilike",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "%a"
+              }
+            ]
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "col"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "AA"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

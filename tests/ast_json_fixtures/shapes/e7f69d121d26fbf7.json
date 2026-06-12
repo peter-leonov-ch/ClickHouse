@@ -1,23 +1,26 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "avro"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "File",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "Avro"
-        }
-      ]
-    }
-  },
-  "as_database": "test",
-  "as_table": "hits"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "avro"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "File",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "Avro"
+          }
+        ]
+      }
+    },
+    "as_database": "test",
+    "as_table": "hits"
+  }
 }

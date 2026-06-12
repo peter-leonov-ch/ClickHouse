@@ -1,251 +1,254 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Asterisk"
-        },
-        {
-          "type": "Identifier",
-          "name": "e2"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
-            }
+            "type": "Asterisk"
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "FULL",
-              "on": {
-                "type": "Function",
-                "name": "and",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "alias": "e2",
-                    "name": "or",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "and",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "or",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "equals",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t1.y",
-                                    "name_parts": ["t1", "y"]
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t2.y",
-                                    "name_parts": ["t2", "y"]
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "and",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "isNull",
-                                    "is_operator": true,
-                                    "arguments": [
-                                      {
-                                        "type": "Identifier",
-                                        "name": "t1.y",
-                                        "name_parts": ["t1", "y"]
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "Function",
-                                    "name": "isNull",
-                                    "is_operator": true,
-                                    "arguments": [
-                                      {
-                                        "type": "Identifier",
-                                        "name": "t2.y",
-                                        "name_parts": ["t2", "y"]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "notEquals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "COALESCE",
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t1.x",
-                                    "name_parts": ["t1", "x"]
-                                  },
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 0
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 2
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "and",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "equals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "t1.x",
-                                "name_parts": ["t1", "x"]
-                              },
-                              {
-                                "type": "Identifier",
-                                "name": "t2.x",
-                                "name_parts": ["t2", "x"]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "and",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "isNotNull",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t2.x",
-                                    "name_parts": ["t2", "x"]
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "isNotNull",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t1.x",
-                                    "name_parts": ["t1", "x"]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "t1.x",
-                        "name_parts": ["t1", "x"]
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "t2.x",
-                        "name_parts": ["t2", "x"]
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
-                      }
-                    ]
-                  }
-                ]
+            "type": "Identifier",
+            "name": "e2"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
               }
             },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t2"
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "FULL",
+                "on": {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "alias": "e2",
+                      "name": "or",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "and",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "or",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t1.y",
+                                      "name_parts": ["t1", "y"]
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t2.y",
+                                      "name_parts": ["t2", "y"]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "and",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "isNull",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "t1.y",
+                                          "name_parts": ["t1", "y"]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "isNull",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "t2.y",
+                                          "name_parts": ["t2", "y"]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "notEquals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "COALESCE",
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t1.x",
+                                      "name_parts": ["t1", "x"]
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "0"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "and",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t1.x",
+                                  "name_parts": ["t1", "x"]
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "t2.x",
+                                  "name_parts": ["t2", "x"]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "and",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "isNotNull",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t2.x",
+                                      "name_parts": ["t2", "x"]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "isNotNull",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t1.x",
+                                      "name_parts": ["t1", "x"]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t1.x",
+                          "name_parts": ["t1", "x"]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t2.x",
+                          "name_parts": ["t2", "x"]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t2"
+                }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

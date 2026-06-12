@@ -1,8 +1,11 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "type_json_dst"
-  },
-  "as_table": "type_json_src"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "type_json_dst"
+    },
+    "as_table": "type_json_src"
+  }
 }

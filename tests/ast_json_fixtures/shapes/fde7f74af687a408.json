@@ -1,3 +1,6 @@
 {
-  "type": "ShowTables"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables"
+  }
 }

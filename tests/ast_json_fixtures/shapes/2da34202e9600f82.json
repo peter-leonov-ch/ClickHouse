@@ -1,125 +1,128 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "res",
-          "name": "minSampleSizeConversion",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.01
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.8
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.05
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "conversion const 2"
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "roundBankers",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tupleElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "res"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "res",
+            "name": "minSampleSizeConversion",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.01
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.8
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.05
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "conversion const 2"
+          },
+          {
+            "type": "Function",
+            "name": "roundBankers",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "res"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "roundBankers",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "res"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "roundBankers",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "res"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "3"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

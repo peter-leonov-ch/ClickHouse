@@ -1,8 +1,11 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "table_with_complex_default"
-  },
-  "format": "JSONEachRow"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "table_with_complex_default"
+    },
+    "format": "JSONEachRow"
+  }
 }

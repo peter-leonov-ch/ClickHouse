@@ -1,189 +1,192 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "explain",
-          "name": "trimLeft",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "explain"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Asterisk"
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+            "type": "Function",
+            "alias": "explain",
+            "name": "trimLeft",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "explain"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "table_function": {
-                                "type": "Function",
-                                "name": "viewExplain",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "EXPLAIN"
-                                  },
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "indexes = 1"
-                                  },
-                                  {
-                                    "type": "Subquery",
-                                    "query": {
-                                      "type": "SelectWithUnionQuery",
-                                      "selects": [
-                                        {
-                                          "type": "SelectQuery",
-                                          "select": [
-                                            {
-                                              "type": "Function",
-                                              "name": "count",
-                                              "arguments": []
-                                            }
-                                          ],
-                                          "tables": {
-                                            "type": "TablesInSelectQuery",
-                                            "children": [
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "viewExplain",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "EXPLAIN"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "indexes = 1"
+                                    },
+                                    {
+                                      "type": "Subquery",
+                                      "query": {
+                                        "type": "SelectWithUnionQuery",
+                                        "selects": [
+                                          {
+                                            "type": "SelectQuery",
+                                            "select": [
                                               {
-                                                "type": "TablesInSelectQueryElement",
-                                                "table_expression": {
-                                                  "type": "TableExpression",
-                                                  "database_and_table_name": {
-                                                    "type": "TableIdentifier",
-                                                    "name": "tab"
+                                                "type": "Function",
+                                                "name": "count",
+                                                "arguments": []
+                                              }
+                                            ],
+                                            "from": {
+                                              "type": "TablesInSelectQuery",
+                                              "children": [
+                                                {
+                                                  "type": "TablesInSelectQueryElement",
+                                                  "table_expression": {
+                                                    "type": "TableExpression",
+                                                    "database_and_table_name": {
+                                                      "type": "TableIdentifier",
+                                                      "name": "tab"
+                                                    }
                                                   }
                                                 }
-                                              }
-                                            ]
-                                          },
-                                          "where": {
-                                            "type": "Function",
-                                            "name": "equals",
-                                            "is_operator": true,
-                                            "arguments": [
-                                              {
-                                                "type": "Identifier",
-                                                "name": "col"
-                                              },
-                                              {
-                                                "type": "Literal",
-                                                "value_type": "Float64",
-                                                "value": null
-                                              }
-                                            ]
+                                              ]
+                                            },
+                                            "where": {
+                                              "type": "Function",
+                                              "name": "equals",
+                                              "is_operator": true,
+                                              "arguments": [
+                                                {
+                                                  "type": "Identifier",
+                                                  "name": "col"
+                                                },
+                                                {
+                                                  "type": "Literal",
+                                                  "value_type": "Float64",
+                                                  "value": null
+                                                }
+                                              ]
+                                            }
                                           }
-                                        }
-                                      ]
+                                        ]
+                                      }
                                     }
-                                  }
-                                ]
+                                  ]
+                                }
                               }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "or",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "like",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "explain"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "%Description:%"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "like",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "explain"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "%Parts:%"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "like",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "explain"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "%Granules:%"
-              }
-            ]
-          }
-        ]
-      },
-      "limit_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "explain"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "%Description:%"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "explain"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "%Parts:%"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "explain"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "%Granules:%"
+                }
+              ]
+            }
+          ]
+        },
+        "offset": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "2"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

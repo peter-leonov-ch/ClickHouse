@@ -1,4 +1,7 @@
 {
-  "type": "SYSTEM",
-  "system_type": "CLEAR TEXT INDEX HEADER CACHE"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR TEXT INDEX HEADER CACHE"
+  }
 }

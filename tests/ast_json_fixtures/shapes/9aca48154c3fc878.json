@@ -1,18 +1,21 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "test"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MATERIALIZE_PROJECTION",
-      "projection": {
-        "type": "Identifier",
-        "name": "p1"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MATERIALIZE_PROJECTION",
+        "projection": {
+          "type": "Identifier",
+          "name": "p1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

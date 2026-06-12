@@ -1,85 +1,88 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "uk_price_paid"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "name": "count",
-          "arguments": []
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toYear",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "date"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2023"
+            }
+          ]
+        },
+        "qualify": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "price"
+            },
+            {
+              "type": "Function",
+              "name": "quantile",
+              "is_window_function": true,
+              "kind": "WINDOW_FUNCTION",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "price"
+                }
+              ],
+              "parameters": [
+                {
+                  "type": "Literal",
+                  "value_type": "Float64",
+                  "value": 0.9
+                }
+              ],
+              "window_definition": {
+                "type": "WindowDefinition"
+              }
+            }
+          ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "uk_price_paid"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "toYear",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "date"
-              }
-            ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2023
-          }
-        ]
-      },
-      "qualify": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "price"
-          },
-          {
-            "type": "Function",
-            "name": "quantile",
-            "is_window_function": true,
-            "kind": "WINDOW_FUNCTION",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "price"
-              }
-            ],
-            "parameters": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 0.9
-              }
-            ],
-            "window_definition": {
-              "type": "WindowDefinition"
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

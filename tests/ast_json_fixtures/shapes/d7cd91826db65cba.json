@@ -1,99 +1,102 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "test",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Asterisk"
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "c",
-                      "name": "count",
-                      "is_window_function": true,
-                      "kind": "WINDOW_FUNCTION",
-                      "arguments": [],
-                      "window_definition": {
-                        "type": "WindowDefinition"
-                      }
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "test",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
                       {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "table_function": {
-                            "type": "Function",
-                            "name": "numbers",
-                            "arguments": [
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 10
-                              }
-                            ]
-                          }
+                        "type": "Asterisk"
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "c",
+                        "name": "count",
+                        "is_window_function": true,
+                        "kind": "WINDOW_FUNCTION",
+                        "arguments": [],
+                        "window_definition": {
+                          "type": "WindowDefinition"
                         }
                       }
-                    ]
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "10"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
                   }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "toString",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
                 }
               ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Function",
-            "name": "toString",
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "number"
-              }
-            ]
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

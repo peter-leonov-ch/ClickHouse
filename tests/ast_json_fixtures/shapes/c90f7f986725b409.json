@@ -1,3 +1,6 @@
 {
-  "type": "ShowColumns"
+  "version": 1,
+  "ast": {
+    "type": "ShowColumns"
+  }
 }

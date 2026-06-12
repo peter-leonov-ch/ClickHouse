@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "START TTL MERGES",
-  "table": {
-    "type": "Identifier",
-    "name": "ttl"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "START TTL MERGES",
+    "table": {
+      "type": "Identifier",
+      "name": "ttl"
+    }
   }
 }

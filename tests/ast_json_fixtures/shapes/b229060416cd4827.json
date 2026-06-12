@@ -1,8 +1,11 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "receiver_02572"
-  },
-  "as_table": "data_02572"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "receiver_02572"
+    },
+    "as_table": "data_02572"
+  }
 }

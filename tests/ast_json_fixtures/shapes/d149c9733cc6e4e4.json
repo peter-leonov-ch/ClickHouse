@@ -1,175 +1,89 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "table_uuid_",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Identifier",
-                    "name": "uuid"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "table_uuid_",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
                     {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "tables",
-                          "database": "system"
+                      "type": "Identifier",
+                      "name": "uuid"
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "tables",
+                            "database": "system"
+                          }
                         }
                       }
-                    }
-                  ]
-                },
-                "where": {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "database"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "currentDatabase",
-                          "arguments": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "table"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "data_02491"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "notEquals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "table_uuid"
-            },
-            {
-              "type": "Function",
-              "name": "toUUIDOrDefault",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "Null",
-                  "value": null
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "and",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "database"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "currentDatabase",
+                            "arguments": []
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "table"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "data_02491"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "event_type"
-        },
-        {
-          "type": "Identifier",
-          "name": "merge_reason"
-        },
-        {
-          "type": "Identifier",
-          "name": "part_name"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "part_log",
-                "database": "system"
-              }
-            }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
             "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "database"
-              },
-              {
-                "type": "Function",
-                "name": "currentDatabase",
-                "arguments": []
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "table"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "data_02491"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
+            "name": "notEquals",
             "is_operator": true,
             "arguments": [
               {
@@ -177,23 +91,112 @@
                 "name": "table_uuid"
               },
               {
-                "type": "Identifier",
-                "name": "table_uuid_"
+                "type": "Function",
+                "name": "toUUIDOrDefault",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
               }
             ]
+          },
+          {
+            "type": "Identifier",
+            "name": "event_type"
+          },
+          {
+            "type": "Identifier",
+            "name": "merge_reason"
+          },
+          {
+            "type": "Identifier",
+            "name": "part_name"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "part_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "table"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "data_02491"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "table_uuid"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "table_uuid_"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "event_time_microseconds"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "event_time_microseconds"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

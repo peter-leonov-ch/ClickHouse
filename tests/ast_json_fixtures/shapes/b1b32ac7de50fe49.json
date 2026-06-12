@@ -1,43 +1,46 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "inner_distributed"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Distributed",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "test_cluster_two_shards"
-        },
-        {
-          "type": "Function",
-          "name": "currentDatabase",
-          "arguments": []
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "inner"
-        },
-        {
-          "type": "Function",
-          "name": "intHash64",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "organization_id"
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "as_table": "inner"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "inner_distributed"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Distributed",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "test_cluster_two_shards"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "inner"
+          },
+          {
+            "type": "Function",
+            "name": "intHash64",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "organization_id"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "as_table": "inner"
+  }
 }

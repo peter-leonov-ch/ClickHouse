@@ -1,45 +1,48 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "v"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_QUERY",
-      "select": {
-        "type": "SelectWithUnionQuery",
-        "selects": [
-          {
-            "type": "SelectQuery",
-            "select": [
-              {
-                "type": "Literal",
-                "alias": "x",
-                "value_type": "Null",
-                "value": null
-              }
-            ],
-            "tables": {
-              "type": "TablesInSelectQuery",
-              "children": [
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "v"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_QUERY",
+        "select": {
+          "type": "SelectWithUnionQuery",
+          "selects": [
+            {
+              "type": "SelectQuery",
+              "select": [
                 {
-                  "type": "TablesInSelectQueryElement",
-                  "table_expression": {
-                    "type": "TableExpression",
-                    "database_and_table_name": {
-                      "type": "TableIdentifier",
-                      "name": "src"
+                  "type": "Literal",
+                  "alias": "x",
+                  "value_type": "Null",
+                  "value": null
+                }
+              ],
+              "from": {
+                "type": "TablesInSelectQuery",
+                "children": [
+                  {
+                    "type": "TablesInSelectQueryElement",
+                    "table_expression": {
+                      "type": "TableExpression",
+                      "database_and_table_name": {
+                        "type": "TableIdentifier",
+                        "name": "src"
+                      }
                     }
                   }
-                }
-              ]
+                ]
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,8 +1,11 @@
 {
-  "type": "DetachQuery",
-  "kind": "DETACH",
-  "table": {
-    "type": "Identifier",
-    "name": "b"
+  "version": 1,
+  "ast": {
+    "type": "DetachQuery",
+    "kind": "DETACH",
+    "table": {
+      "type": "Identifier",
+      "name": "b"
+    }
   }
 }

@@ -1,29 +1,32 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "arr",
-          "name": "materialize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Array",
-              "value": "[1, 2, 3]"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "arr.size0",
-          "name_parts": ["arr", "size0"]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "arr",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "[1, 2, 3]"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "arr.size0",
+            "name_parts": ["arr", "size0"]
+          }
+        ]
+      }
+    ]
+  }
 }

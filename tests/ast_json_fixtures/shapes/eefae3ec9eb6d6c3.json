@@ -1,169 +1,172 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "recursive_with": true,
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "recursive",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "id"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "tab"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "recursive_with": true,
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "recursive",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
                       {
                         "type": "Identifier",
                         "name": "id"
-                      },
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "tab"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "id"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "uuid3"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
                       {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "uuid3"
+                        "type": "Identifier",
+                        "alias": "id",
+                        "name": "parent"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "tab"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "in",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "tab.id",
+                              "name_parts": ["tab", "id"]
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "recursive"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "notEquals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "parent"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "empty"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "parent"
                       }
                     ]
                   }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "alias": "id",
-                      "name": "parent"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "tab"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "in",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "tab.id",
-                            "name_parts": ["tab", "id"]
-                          },
-                          {
-                            "type": "Identifier",
-                            "name": "recursive"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "notEquals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "parent"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "empty"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "parent"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "recursive"
+                ]
               }
             }
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "recursive"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "id"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "id"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

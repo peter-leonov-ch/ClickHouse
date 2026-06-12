@@ -1,34 +1,37 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN AST",
-  "query": {
-    "type": "AlterQuery",
-    "alter_object": "TABLE",
-    "table": {
-      "type": "Identifier",
-      "name": "t1"
-    },
-    "commands": [
-      {
-        "type": "AlterCommand",
-        "command_type": "DELETE",
-        "predicate": {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "date"
-            },
-            {
-              "type": "Function",
-              "name": "today",
-              "arguments": []
-            }
-          ]
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN AST",
+    "query": {
+      "type": "AlterQuery",
+      "alter_object": "TABLE",
+      "table": {
+        "type": "Identifier",
+        "name": "t1"
+      },
+      "commands": [
+        {
+          "type": "AlterCommand",
+          "command_type": "DELETE",
+          "predicate": {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "date"
+              },
+              {
+                "type": "Function",
+                "name": "today",
+                "arguments": []
+              }
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

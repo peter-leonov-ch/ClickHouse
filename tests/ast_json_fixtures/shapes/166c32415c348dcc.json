@@ -1,9 +1,12 @@
 {
-  "type": "TruncateQuery",
-  "kind": "TRUNCATE",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_00670"
+  "version": 1,
+  "ast": {
+    "type": "TruncateQuery",
+    "kind": "TRUNCATE",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test_00670"
+    }
   }
 }

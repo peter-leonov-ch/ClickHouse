@@ -1,117 +1,120 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Function",
+            "alias": "k",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{1,2}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "alias": "k",
-          "name": "toString",
+          "name": "greater",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
               "name": "number"
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "queryID",
+                  "arguments": []
+                },
+                {
+                  "type": "Function",
+                  "name": "initialQueryID",
+                  "arguments": []
+                }
+              ]
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{1,2}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "numbers",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 10
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "number"
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
+            "type": "ExpressionList",
+            "children": [
               {
-                "type": "Function",
-                "name": "queryID",
-                "arguments": []
-              },
-              {
-                "type": "Function",
-                "name": "initialQueryID",
-                "arguments": []
+                "type": "Identifier",
+                "name": "k"
               }
             ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
               "type": "Identifier",
               "name": "k"
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "k"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_two_level_threshold": 9,
-          "max_bytes_before_external_group_by": 10000000000,
-          "max_bytes_ratio_before_external_group_by": 0
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_two_level_threshold": "9",
+            "max_bytes_before_external_group_by": "10000000000",
+            "max_bytes_ratio_before_external_group_by": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

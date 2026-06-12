@@ -1,260 +1,263 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "with_table",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "p.a_id",
-                      "name_parts": ["p", "a_id"]
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "p.b_id",
-                      "name_parts": ["p", "b_id"]
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "p.c_id",
-                      "name_parts": ["p", "c_id"]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "p",
-                            "name": "parent"
-                          }
-                        }
-                      },
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_join": {
-                          "type": "TableJoin",
-                          "kind": "LEFT",
-                          "on": {
-                            "type": "Function",
-                            "name": "and",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "equals",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "jt1.a_id",
-                                    "name_parts": ["jt1", "a_id"]
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "p.a_id",
-                                    "name_parts": ["p", "a_id"]
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "equals",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "jt1.b_id",
-                                    "name_parts": ["jt1", "b_id"]
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "p.b_id",
-                                    "name_parts": ["p", "b_id"]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        },
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "jt1",
-                            "name": "join_table_1"
-                          }
-                        }
-                      },
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_join": {
-                          "type": "TableJoin",
-                          "kind": "LEFT",
-                          "on": {
-                            "type": "Function",
-                            "name": "equals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "jt2.c_id",
-                                "name_parts": ["jt2", "c_id"]
-                              },
-                              {
-                                "type": "Identifier",
-                                "name": "p.c_id",
-                                "name_parts": ["p", "c_id"]
-                              }
-                            ]
-                          }
-                        },
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "jt2",
-                            "name": "join_table_2"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "p.a_id",
-                            "name_parts": ["p", "a_id"]
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "UInt64",
-                            "value": 0
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "or",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "equals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "jt2.c_id",
-                                "name_parts": ["jt2", "c_id"]
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 0
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "equals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "p.created_at",
-                                "name_parts": ["p", "created_at"]
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 0
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "p.a_id",
-          "name_parts": ["p", "a_id"]
-        },
-        {
-          "type": "Identifier",
-          "name": "p.b_id",
-          "name_parts": ["p", "b_id"]
-        },
-        {
-          "type": "Function",
-          "alias": "f_count",
-          "name": "COUNT",
-          "arguments": [
-            {
-              "type": "Asterisk"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "with_table"
+            "type": "WithElement",
+            "name": "with_table",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "p.a_id",
+                        "name_parts": ["p", "a_id"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "p.b_id",
+                        "name_parts": ["p", "b_id"]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "p.c_id",
+                        "name_parts": ["p", "c_id"]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "p",
+                              "name": "parent"
+                            }
+                          }
+                        },
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_join": {
+                            "type": "TableJoin",
+                            "kind": "LEFT",
+                            "on": {
+                              "type": "Function",
+                              "name": "and",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "jt1.a_id",
+                                      "name_parts": ["jt1", "a_id"]
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "p.a_id",
+                                      "name_parts": ["p", "a_id"]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "jt1.b_id",
+                                      "name_parts": ["jt1", "b_id"]
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "p.b_id",
+                                      "name_parts": ["p", "b_id"]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "jt1",
+                              "name": "join_table_1"
+                            }
+                          }
+                        },
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_join": {
+                            "type": "TableJoin",
+                            "kind": "LEFT",
+                            "on": {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "jt2.c_id",
+                                  "name_parts": ["jt2", "c_id"]
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "p.c_id",
+                                  "name_parts": ["p", "c_id"]
+                                }
+                              ]
+                            }
+                          },
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "jt2",
+                              "name": "join_table_2"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "p.a_id",
+                              "name_parts": ["p", "a_id"]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": "0"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "or",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "jt2.c_id",
+                                  "name_parts": ["jt2", "c_id"]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "0"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "p.created_at",
+                                  "name_parts": ["p", "created_at"]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "0"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
               }
             }
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "p.a_id",
-          "name_parts": ["p", "a_id"]
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "p.a_id",
+            "name_parts": ["p", "a_id"]
+          },
+          {
+            "type": "Identifier",
+            "name": "p.b_id",
+            "name_parts": ["p", "b_id"]
+          },
+          {
+            "type": "Function",
+            "alias": "f_count",
+            "name": "COUNT",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "with_table"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "p.b_id",
-          "name_parts": ["p", "b_id"]
-        }
-      ]
-    }
-  ]
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "p.a_id",
+            "name_parts": ["p", "a_id"]
+          },
+          {
+            "type": "Identifier",
+            "name": "p.b_id",
+            "name_parts": ["p", "b_id"]
+          }
+        ]
+      }
+    ]
+  }
 }

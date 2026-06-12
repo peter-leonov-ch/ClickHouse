@@ -1,5 +1,8 @@
 {
-  "type": "ShowTables",
-  "databases": true,
-  "like": "sqllt"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "databases": true,
+    "like": "sqllt"
+  }
 }

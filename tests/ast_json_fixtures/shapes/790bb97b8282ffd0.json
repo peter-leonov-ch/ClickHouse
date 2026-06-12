@@ -1,15 +1,18 @@
 {
-  "type": "BackupQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "Null",
-      "kind": "BACKUP_NAME",
-      "arguments": []
-    },
-    {
-      "type": "Identifier",
-      "name": "Null"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "BackupQuery",
+    "children": [
+      {
+        "type": "Function",
+        "name": "Null",
+        "kind": "BACKUP_NAME",
+        "arguments": []
+      },
+      {
+        "type": "Identifier",
+        "name": "Null"
+      }
+    ]
+  }
 }

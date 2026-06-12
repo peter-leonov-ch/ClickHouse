@@ -1,122 +1,125 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "03408_local"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "id",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "03408_local"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "id",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "val",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
         }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
       },
-      {
-        "type": "ColumnDeclaration",
-        "name": "val",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "min_bytes_for_wide_part": "1"
         }
       }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
-    },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "min_bytes_for_wide_part": 1
-      }
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Function",
-            "name": "modulo",
-            "is_operator": true,
-            "arguments": [
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "modulo",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "leftPad",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toString",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "number"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "0"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
               {
-                "type": "Identifier",
-                "name": "number"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 10
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "leftPad",
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "toString",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "number"
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "50"
+                      }
+                    ]
                   }
-                ]
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 2
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "0"
+                }
               }
             ]
           }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
-            {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "table_function": {
-                  "type": "Function",
-                  "name": "numbers",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 50
-                    }
-                  ]
-                }
-              }
-            }
-          ]
         }
-      }
-    ]
+      ]
+    }
   }
 }

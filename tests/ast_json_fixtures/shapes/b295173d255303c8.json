@@ -1,21 +1,24 @@
 {
-  "type": "ParallelWithQuery",
-  "children": [
-    {
-      "type": "DropQuery",
-      "kind": "DROP",
-      "table": {
-        "type": "Identifier",
-        "name": "table1"
+  "version": 1,
+  "ast": {
+    "type": "ParallelWithQuery",
+    "children": [
+      {
+        "type": "DropQuery",
+        "kind": "DROP",
+        "table": {
+          "type": "Identifier",
+          "name": "table1"
+        }
+      },
+      {
+        "type": "DropQuery",
+        "kind": "DROP",
+        "table": {
+          "type": "Identifier",
+          "name": "table2"
+        }
       }
-    },
-    {
-      "type": "DropQuery",
-      "kind": "DROP",
-      "table": {
-        "type": "Identifier",
-        "name": "table2"
-      }
-    }
-  ]
+    ]
+  }
 }

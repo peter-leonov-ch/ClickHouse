@@ -1,44 +1,47 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "json",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "{\"a.b\" : 42, \"a\" : {\"b\" : \"Hello World!\"}}"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "JSON(`a%2Eb` UInt8)"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "json.a%2Eb",
-          "name_parts": ["json", "a%2Eb"]
-        },
-        {
-          "type": "Function",
-          "name": "toTypeName",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "json.a%2Eb",
-              "name_parts": ["json", "a%2Eb"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "json",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "{\"a.b\" : 42, \"a\" : {\"b\" : \"Hello World!\"}}"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "JSON(`a%2Eb` UInt8)"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.a%2Eb",
+            "name_parts": ["json", "a%2Eb"]
+          },
+          {
+            "type": "Function",
+            "name": "toTypeName",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "json.a%2Eb",
+                "name_parts": ["json", "a%2Eb"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

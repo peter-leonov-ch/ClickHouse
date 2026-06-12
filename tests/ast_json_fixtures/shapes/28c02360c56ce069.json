@@ -1,3 +1,6 @@
 {
-  "type": "DropNamedCollectionQuery"
+  "version": 1,
+  "ast": {
+    "type": "DropNamedCollectionQuery"
+  }
 }

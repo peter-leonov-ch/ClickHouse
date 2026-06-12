@@ -1,20 +1,23 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "_table"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 0
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "_table"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

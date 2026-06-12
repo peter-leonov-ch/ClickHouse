@@ -1,9 +1,12 @@
 {
-  "type": "ShowTables",
-  "dictionaries": true,
-  "from": {
-    "type": "Identifier",
-    "name": "memory_db"
-  },
-  "like": "dict2"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "dictionaries": true,
+    "from": {
+      "type": "Identifier",
+      "name": "memory_db"
+    },
+    "like": "dict2"
+  }
 }

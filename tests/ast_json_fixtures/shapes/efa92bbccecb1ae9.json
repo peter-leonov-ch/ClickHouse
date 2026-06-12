@@ -1,119 +1,107 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "base64Decode",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "base64Encode",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "normalizeQuery",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "query"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "name": "base64Decode",
+          "name": "and",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Function",
-              "name": "base64Encode",
+              "name": "equals",
+              "is_operator": true,
               "arguments": [
                 {
+                  "type": "Identifier",
+                  "name": "type"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "QueryFinish"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "log_comment"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "ad15a651"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "current_database"
+                },
+                {
                   "type": "Function",
-                  "name": "normalizeQuery",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "query"
-                    }
-                  ]
+                  "name": "currentDatabase",
+                  "arguments": []
                 }
               ]
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "query_log",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "type"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "QueryFinish"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "log_comment"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "ad15a651"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "current_database"
-              },
-              {
-                "type": "Function",
-                "name": "currentDatabase",
-                "arguments": []
-              }
-            ]
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "normalizeQuery",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "query"
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Function",
             "name": "normalizeQuery",
             "arguments": [
@@ -122,10 +110,25 @@
                 "name": "query"
               }
             ]
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "normalizeQuery",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "query"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

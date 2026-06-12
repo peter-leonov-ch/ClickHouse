@@ -1,36 +1,39 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "dist_01213"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Distributed",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "test_cluster_two_shards_localhost"
-        },
-        {
-          "type": "Function",
-          "name": "currentDatabase",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "local_01213"
-        },
-        {
-          "type": "Identifier",
-          "name": "id"
-        }
-      ]
-    }
-  },
-  "as_table": "local_01213"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
+      "type": "Identifier",
+      "name": "dist_01213"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Distributed",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "test_cluster_two_shards_localhost"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "local_01213"
+          },
+          {
+            "type": "Identifier",
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "as_table": "local_01213"
+  }
 }

@@ -1,13 +1,16 @@
 {
-  "type": "DetachQuery",
-  "kind": "DETACH",
-  "database": {
-    "type": "Identifier",
-    "name": "test1601_detach_permanently_atomic"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "test_name_reuse"
-  },
-  "permanently": true
+  "version": 1,
+  "ast": {
+    "type": "DetachQuery",
+    "kind": "DETACH",
+    "database": {
+      "type": "Identifier",
+      "name": "test1601_detach_permanently_atomic"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "test_name_reuse"
+    },
+    "permanently": true
+  }
 }

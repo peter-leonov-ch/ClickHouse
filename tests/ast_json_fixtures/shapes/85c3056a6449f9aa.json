@@ -1,3 +1,6 @@
 {
-  "type": "GrantQuery"
+  "version": 1,
+  "ast": {
+    "type": "GrantQuery"
+  }
 }

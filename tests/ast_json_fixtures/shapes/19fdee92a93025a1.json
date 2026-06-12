@@ -1,14 +1,17 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "ColumnsRegexpMatcher",
-          "pattern": "d"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "ColumnsRegexpMatcher",
+            "pattern": "d"
+          }
+        ]
+      }
+    ]
+  }
 }

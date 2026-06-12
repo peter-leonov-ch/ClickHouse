@@ -1,41 +1,44 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "materialize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "a"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "key",
-          "value_type": "String",
-          "value": "a"
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_use_nulls": 1
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "group_by_with_cube": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "a"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "key",
+            "value_type": "String",
+            "value": "a"
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

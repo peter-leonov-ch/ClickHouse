@@ -1,71 +1,76 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "_path",
-          "name": "replaceRegexpAll",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "_path",
+            "name": "replaceRegexpAll",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "_path"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\/[0-9]+\\.csv"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\/<snowflakeid>.csv"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "counter"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "_path"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "\/[0-9]+\\.csv"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "\/<snowflakeid>.csv"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_03363_csv"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "counter"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_03363_csv"
-              }
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "counter"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "counter"
+        ],
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           },
-          "direction": "ASC"
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "counter"
+            }
+          ]
         }
-      ],
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "counter"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

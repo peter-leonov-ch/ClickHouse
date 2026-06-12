@@ -1,284 +1,287 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "e1",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "CAST",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "2022-01-30"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "Date"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalDay",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "toIntervalMonth",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "e2",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "CAST",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2022-01-30"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "Date"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toIntervalDay",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalMonth",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "e3",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "CAST",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2022-01-30"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "Date"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toIntervalDay",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalMonth",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "e4",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "CAST",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2022-01-30"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "Date"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toIntervalDay",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toIntervalMonth",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "and",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "e1"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "e2"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "e2"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "e3"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "e3"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "e4"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "e1"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "e1",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "CAST",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "2022-01-30"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "Date"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toIntervalDay",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMonth",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "e2",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2022-01-30"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Date"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toIntervalDay",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toIntervalMonth",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "e3",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2022-01-30"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Date"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toIntervalDay",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toIntervalMonth",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "e4",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2022-01-30"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Date"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toIntervalDay",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toIntervalMonth",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "e1"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "e2"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "e2"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "e3"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "e3"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "e4"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "e1"
+          }
+        ]
+      }
+    ]
+  }
 }

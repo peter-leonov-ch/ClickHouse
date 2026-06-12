@@ -1,41 +1,44 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "name"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
+            "type": "Identifier",
+            "name": "name"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "name"
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "name"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "force_optimize_projection_name": "projection_name"
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "force_optimize_projection_name": "projection_name"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

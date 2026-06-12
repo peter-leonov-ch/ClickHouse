@@ -1,411 +1,414 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "cutoff_time",
+            "name": "minus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "now",
+                "arguments": []
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalHour",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "WithElement",
+            "name": "query_ids",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "query_id"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "query_log",
+                              "database": "system"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "current_database"
+                            },
+                            {
+                              "type": "Function",
+                              "name": "currentDatabase",
+                              "arguments": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "greaterOrEquals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "event_time"
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "cutoff_time"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "type"
+          },
+          {
+            "type": "Identifier",
+            "name": "has_watch"
+          },
+          {
+            "type": "Identifier",
+            "name": "op_num"
+          },
+          {
+            "type": "Identifier",
+            "name": "path"
+          },
+          {
+            "type": "Identifier",
+            "name": "is_ephemeral"
+          },
+          {
+            "type": "Identifier",
+            "name": "is_sequential"
+          },
+          {
+            "type": "Identifier",
+            "name": "version"
+          },
+          {
+            "type": "Identifier",
+            "name": "requests_size"
+          },
+          {
+            "type": "Identifier",
+            "name": "request_idx"
+          },
+          {
+            "type": "Identifier",
+            "name": "error"
+          },
+          {
+            "type": "Identifier",
+            "name": "watch_type"
+          },
+          {
+            "type": "Identifier",
+            "name": "watch_state"
+          },
+          {
+            "type": "Identifier",
+            "name": "path_created"
+          },
+          {
+            "type": "Identifier",
+            "name": "stat_version"
+          },
+          {
+            "type": "Identifier",
+            "name": "stat_cversion"
+          },
+          {
+            "type": "Identifier",
+            "name": "stat_dataLength"
+          },
+          {
+            "type": "Identifier",
+            "name": "stat_numChildren"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "zookeeper_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "alias": "cutoff_time",
-          "name": "minus",
+          "name": "and",
           "is_operator": true,
           "arguments": [
             {
               "type": "Function",
-              "name": "now",
-              "arguments": []
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "event_time"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "cutoff_time"
+                }
+              ]
             },
             {
               "type": "Function",
-              "name": "toIntervalHour",
+              "name": "in",
+              "is_operator": true,
               "arguments": [
                 {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
+                  "type": "Function",
+                  "name": "tuple",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "session_id"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "xid"
+                    }
+                  ]
+                },
+                {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "session_id"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "xid"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "zookeeper_log",
+                                  "database": "system"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "where": {
+                          "type": "Function",
+                          "name": "and",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "greaterOrEquals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "event_time"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "cutoff_time"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "like",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "path"
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "concat",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "\/test\/01158\/"
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "currentDatabase",
+                                      "arguments": []
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "\/rmt\/blocks\/%"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "notIn",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "op_num"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Tuple",
+                                  "value": "(1, 12, 500)"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "or",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "query_id"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": ""
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "in",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "query_id"
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "query_ids"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             }
           ]
         },
-        {
-          "type": "WithElement",
-          "name": "query_ids",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "query_id"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "query_log",
-                            "database": "system"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "current_database"
-                          },
-                          {
-                            "type": "Function",
-                            "name": "currentDatabase",
-                            "arguments": []
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "greaterOrEquals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "event_time"
-                          },
-                          {
-                            "type": "Identifier",
-                            "name": "cutoff_time"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "type"
-        },
-        {
-          "type": "Identifier",
-          "name": "has_watch"
-        },
-        {
-          "type": "Identifier",
-          "name": "op_num"
-        },
-        {
-          "type": "Identifier",
-          "name": "path"
-        },
-        {
-          "type": "Identifier",
-          "name": "is_ephemeral"
-        },
-        {
-          "type": "Identifier",
-          "name": "is_sequential"
-        },
-        {
-          "type": "Identifier",
-          "name": "version"
-        },
-        {
-          "type": "Identifier",
-          "name": "requests_size"
-        },
-        {
-          "type": "Identifier",
-          "name": "request_idx"
-        },
-        {
-          "type": "Identifier",
-          "name": "error"
-        },
-        {
-          "type": "Identifier",
-          "name": "watch_type"
-        },
-        {
-          "type": "Identifier",
-          "name": "watch_state"
-        },
-        {
-          "type": "Identifier",
-          "name": "path_created"
-        },
-        {
-          "type": "Identifier",
-          "name": "stat_version"
-        },
-        {
-          "type": "Identifier",
-          "name": "stat_cversion"
-        },
-        {
-          "type": "Identifier",
-          "name": "stat_dataLength"
-        },
-        {
-          "type": "Identifier",
-          "name": "stat_numChildren"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "zookeeper_log",
-                "database": "system"
-              }
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "xid"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "type"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "request_idx"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "greaterOrEquals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "event_time"
-              },
-              {
-                "type": "Identifier",
-                "name": "cutoff_time"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "in",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "tuple",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "session_id"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "xid"
-                  }
-                ]
-              },
-              {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "session_id"
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "xid"
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "zookeeper_log",
-                                "database": "system"
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "where": {
-                        "type": "Function",
-                        "name": "and",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "greaterOrEquals",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "event_time"
-                              },
-                              {
-                                "type": "Identifier",
-                                "name": "cutoff_time"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "like",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "path"
-                              },
-                              {
-                                "type": "Function",
-                                "name": "concat",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "\/test\/01158\/"
-                                  },
-                                  {
-                                    "type": "Function",
-                                    "name": "currentDatabase",
-                                    "arguments": []
-                                  },
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "\/rmt\/blocks\/%"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "notIn",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "op_num"
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "Tuple",
-                                "value": "(1, 12, 500)"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "or",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "equals",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "query_id"
-                                  },
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": ""
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "in",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "query_id"
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "query_ids"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "xid"
-          },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "type"
-          },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "request_idx"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

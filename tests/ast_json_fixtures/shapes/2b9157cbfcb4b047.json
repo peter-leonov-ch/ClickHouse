@@ -1,287 +1,290 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "common.key",
-                          "name_parts": ["common", "key"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "common.value",
-                          "name_parts": ["common", "value"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "trees.name",
-                          "name_parts": ["trees", "name"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "trees.name2",
-                          "name_parts": ["trees", "name2"]
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "subquery": {
-                                "type": "Subquery",
-                                "alias": "common",
-                                "query": {
-                                  "type": "SelectWithUnionQuery",
-                                  "selects": [
-                                    {
-                                      "type": "SelectQuery",
-                                      "select": [
-                                        {
-                                          "type": "Asterisk"
-                                        }
-                                      ],
-                                      "tables": {
-                                        "type": "TablesInSelectQuery",
-                                        "children": [
-                                          {
-                                            "type": "TablesInSelectQueryElement",
-                                            "table_expression": {
-                                              "type": "TableExpression",
-                                              "database_and_table_name": {
-                                                "type": "TableIdentifier",
-                                                "name": "tableCommon"
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            }
+                            "type": "Identifier",
+                            "name": "common.key",
+                            "name_parts": ["common", "key"]
                           },
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_join": {
-                              "type": "TableJoin",
-                              "kind": "INNER",
-                              "on": {
-                                "type": "Function",
-                                "name": "equals",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Identifier",
-                                    "name": "common.key",
-                                    "name_parts": ["common", "key"]
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "trees.key",
-                                    "name_parts": ["trees", "key"]
-                                  }
-                                ]
-                              }
-                            },
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "subquery": {
-                                "type": "Subquery",
-                                "alias": "trees",
-                                "query": {
-                                  "type": "SelectWithUnionQuery",
-                                  "selects": [
-                                    {
-                                      "type": "SelectQuery",
-                                      "select": [
-                                        {
-                                          "type": "Asterisk"
-                                        }
-                                      ],
-                                      "tables": {
-                                        "type": "TablesInSelectQuery",
-                                        "children": [
+                            "type": "Identifier",
+                            "name": "common.value",
+                            "name_parts": ["common", "value"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "trees.name",
+                            "name_parts": ["trees", "name"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "trees.name2",
+                            "name_parts": ["trees", "name2"]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "subquery": {
+                                  "type": "Subquery",
+                                  "alias": "common",
+                                  "query": {
+                                    "type": "SelectWithUnionQuery",
+                                    "selects": [
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
                                           {
-                                            "type": "TablesInSelectQueryElement",
-                                            "table_expression": {
-                                              "type": "TableExpression",
-                                              "database_and_table_name": {
-                                                "type": "TableIdentifier",
-                                                "name": "tableTrees"
+                                            "type": "Asterisk"
+                                          }
+                                        ],
+                                        "from": {
+                                          "type": "TablesInSelectQuery",
+                                          "children": [
+                                            {
+                                              "type": "TablesInSelectQueryElement",
+                                              "table_expression": {
+                                                "type": "TableExpression",
+                                                "database_and_table_name": {
+                                                  "type": "TableIdentifier",
+                                                  "name": "tableCommon"
+                                                }
                                               }
                                             }
-                                          }
-                                        ]
+                                          ]
+                                        }
                                       }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_join": {
+                                "type": "TableJoin",
+                                "kind": "INNER",
+                                "on": {
+                                  "type": "Function",
+                                  "name": "equals",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "common.key",
+                                      "name_parts": ["common", "key"]
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "trees.key",
+                                      "name_parts": ["trees", "key"]
                                     }
                                   ]
                                 }
+                              },
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "subquery": {
+                                  "type": "Subquery",
+                                  "alias": "trees",
+                                  "query": {
+                                    "type": "SelectWithUnionQuery",
+                                    "selects": [
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
+                                          {
+                                            "type": "Asterisk"
+                                          }
+                                        ],
+                                        "from": {
+                                          "type": "TablesInSelectQuery",
+                                          "children": [
+                                            {
+                                              "type": "TablesInSelectQueryElement",
+                                              "table_expression": {
+                                                "type": "TableExpression",
+                                                "database_and_table_name": {
+                                                  "type": "TableIdentifier",
+                                                  "name": "tableTrees"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "common.key",
-          "name_parts": ["common", "key"]
-        },
-        {
-          "type": "Identifier",
-          "name": "common.value",
-          "name_parts": ["common", "value"]
-        },
-        {
-          "type": "Identifier",
-          "name": "flowers.name",
-          "name_parts": ["flowers", "name"]
-        },
-        {
-          "type": "Literal",
-          "alias": "name2",
-          "value_type": "Null",
-          "value": null
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "common",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Asterisk"
+                          ]
                         }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "tableCommon"
-                              }
-                            }
-                          }
-                        ]
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
+          ]
+        }
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "common.key",
+            "name_parts": ["common", "key"]
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "common.key",
-                    "name_parts": ["common", "key"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "flowers.key",
-                    "name_parts": ["flowers", "key"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "flowers",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Asterisk"
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+            "type": "Identifier",
+            "name": "common.value",
+            "name_parts": ["common", "value"]
+          },
+          {
+            "type": "Identifier",
+            "name": "flowers.name",
+            "name_parts": ["flowers", "name"]
+          },
+          {
+            "type": "Literal",
+            "alias": "name2",
+            "value_type": "Null",
+            "value": null
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "common",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "tableFlowers"
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "tableCommon"
+                                }
                               }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "common.key",
+                      "name_parts": ["common", "key"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "flowers.key",
+                      "name_parts": ["flowers", "key"]
                     }
                   ]
                 }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "flowers",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "tableFlowers"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

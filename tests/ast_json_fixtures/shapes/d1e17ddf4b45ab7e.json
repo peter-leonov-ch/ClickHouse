@@ -1,62 +1,65 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "expr",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toIntervalSecond",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toIntervalSecond",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "expr"
-        },
-        {
-          "type": "Function",
-          "name": "toTypeName",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "expr"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "expr",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toIntervalSecond",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toIntervalSecond",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "expr"
+          },
+          {
+            "type": "Function",
+            "name": "toTypeName",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "expr"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

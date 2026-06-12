@@ -1,76 +1,79 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "x",
-          "name": "concat",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "x",
+            "name": "concat",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "func.name",
+                "name_parts": ["func", "name"]
+              },
+              {
+                "type": "Identifier",
+                "name": "comb.name",
+                "name_parts": ["comb", "name"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "func.name",
-              "name_parts": ["func", "name"]
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "func",
+                  "name": "functions",
+                  "database": "system"
+                }
+              }
             },
             {
-              "type": "Identifier",
-              "name": "comb.name",
-              "name_parts": ["comb", "name"]
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "name"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "comb",
+                  "name": "aggregate_function_combinators",
+                  "database": "system"
+                }
+              }
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "func",
-                "name": "functions",
-                "database": "system"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "using": [
-                {
-                  "type": "Identifier",
-                  "name": "name"
-                }
-              ]
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "comb",
-                "name": "aggregate_function_combinators",
-                "database": "system"
-              }
-            }
+        },
+        "where": {
+          "type": "Identifier",
+          "name": "is_aggregate"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
           }
-        ]
-      },
-      "where": {
-        "type": "Identifier",
-        "name": "is_aggregate"
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
         }
       }
-    }
-  ]
+    ]
+  }
 }

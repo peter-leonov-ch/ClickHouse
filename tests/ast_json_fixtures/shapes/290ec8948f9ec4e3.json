@@ -1,95 +1,98 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "str"
+              }
+            ]
+          },
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "plus",
+                "is_operator": true,
                 "arguments": [
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 10
+                    "value": "3"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "3"
                   }
                 ]
               }
-            }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "all"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "str"
-            }
-          ]
-        },
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "all"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

@@ -1,38 +1,41 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "QualifiedColumnsListMatcher",
-          "qualifier": {
-            "type": "Identifier",
-            "name": "test_table"
-          },
-          "columns": [
-            {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "QualifiedColumnsListMatcher",
+            "qualifier": {
               "type": "Identifier",
-              "name": "id"
+              "name": "test_table"
+            },
+            "columns": [
+              {
+                "type": "Identifier",
+                "name": "id"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_table"
+                }
+              }
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_table"
-              }
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

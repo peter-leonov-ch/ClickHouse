@@ -249,9 +249,13 @@ def main():
             for stmt, js in pairs:
                 if args.dedupe == "shape":
                     try:
-                        sig = ast_shape(json.loads(js), args.shape_depth)
+                        doc = json.loads(js)
                     except json.JSONDecodeError:
                         continue
+                    # Shape the AST itself, not the { version, ast } wrapper, so
+                    # depth granularity is measured from the real root.
+                    root = doc["ast"] if isinstance(doc, dict) and "ast" in doc else doc
+                    sig = ast_shape(root, args.shape_depth)
                     cand = (len(stmt), stmt)
                     if sig not in reps or cand < reps[sig][0]:
                         reps[sig] = (cand, js)

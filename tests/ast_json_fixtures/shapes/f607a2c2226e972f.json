@@ -1,65 +1,70 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "Num"
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": [
-            {
-              "type": "Asterisk"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "limit_by"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "Num"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "Num"
           },
-          "direction": "ASC"
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "limit_by"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "Num"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "Num"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          },
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "Num"
+            }
+          ]
         }
-      ],
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "Num"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

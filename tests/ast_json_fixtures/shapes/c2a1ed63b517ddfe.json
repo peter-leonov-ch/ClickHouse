@@ -1,69 +1,72 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "c0",
-        "data_type": {
-          "type": "DataType",
-          "name": "Variant",
-          "arguments": []
-        },
-        "primary_key_specifier": true
-      }
-    ],
-    "primary_key_from_columns": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "c0"
-        }
-      ]
-    }
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Redis",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "<host>:<port>"
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 0
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "<password>"
-        }
-      ]
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
     },
-    "primary_key": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "c0"
+          "type": "ColumnDeclaration",
+          "name": "c0",
+          "data_type": {
+            "type": "DataType",
+            "name": "Variant",
+            "arguments": []
+          },
+          "primary_key_specifier": true
         }
-      ]
+      ],
+      "primary_key_from_columns": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "c0"
+          }
+        ]
+      }
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Redis",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "<host>:<port>"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "0"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "<password>"
+          }
+        ]
+      },
+      "primary_key": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "c0"
+          }
+        ]
+      }
     }
   }
 }

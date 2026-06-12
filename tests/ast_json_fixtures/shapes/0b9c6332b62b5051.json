@@ -1,5 +1,8 @@
 {
-  "type": "ShowTables",
-  "temporary": true,
-  "like": "temp_tab"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "temporary": true,
+    "like": "temp_tab"
+  }
 }

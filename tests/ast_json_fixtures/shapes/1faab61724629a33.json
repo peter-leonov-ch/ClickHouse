@@ -1,123 +1,126 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        },
-        {
-          "type": "Function",
-          "alias": "a",
-          "name": "if",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "modulo",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 0
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.5
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "b",
-          "value_type": "UInt64",
-          "value": 30
-        },
-        {
-          "type": "Function",
-          "alias": "s",
-          "name": "sum",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "a"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "b"
-                }
-              ]
-            }
-          ],
-          "window_definition": {
-            "type": "WindowDefinition",
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "number"
-                },
-                "direction": "ASC"
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Asterisk"
+          },
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "if",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "equals",
+                "is_operator": true,
                 "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "modulo",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "number"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      }
+                    ]
+                  },
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 10
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.5
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "b",
+            "value_type": "UInt64",
+            "value": "30"
+          },
+          {
+            "type": "Function",
+            "alias": "s",
+            "name": "sum",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "a"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "b"
                   }
                 ]
               }
+            ],
+            "window_definition": {
+              "type": "WindowDefinition",
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
+                  "direction": "ASC"
+                }
+              ]
             }
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

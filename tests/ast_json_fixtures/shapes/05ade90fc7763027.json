@@ -1,46 +1,49 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "01686_test"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "key",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "value",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "EmbeddedRocksDB",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "primary_key": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "key"
+      "name": "01686_test"
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "optimize_for_bulk_insert": 0
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "key",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "value",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "EmbeddedRocksDB",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "key"
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "optimize_for_bulk_insert": "0"
+        }
       }
     }
   }

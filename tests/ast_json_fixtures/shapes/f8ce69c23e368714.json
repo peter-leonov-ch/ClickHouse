@@ -1,8 +1,11 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "a"
-  },
-  "format": "Values"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "a"
+    },
+    "format": "Values"
+  }
 }

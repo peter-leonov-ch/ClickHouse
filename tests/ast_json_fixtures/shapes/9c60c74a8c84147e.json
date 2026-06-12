@@ -1,12 +1,15 @@
 {
-  "type": "DeleteQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_lwd_vertical"
-  },
-  "predicate": {
-    "type": "Literal",
-    "value_type": "UInt64",
-    "value": 1
+  "version": 1,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwd_vertical"
+    },
+    "predicate": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": "1"
+    }
   }
 }

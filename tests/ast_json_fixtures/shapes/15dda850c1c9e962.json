@@ -1,6 +1,9 @@
 {
-  "type": "Set",
-  "changes": {
-    "final": 1
+  "version": 1,
+  "ast": {
+    "type": "Settings",
+    "changes": {
+      "final": "1"
+    }
   }
 }

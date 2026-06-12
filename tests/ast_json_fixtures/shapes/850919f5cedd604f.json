@@ -1,27 +1,30 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "ttl"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_TTL",
-      "ttl": {
-        "type": "ExpressionList",
-        "children": [
-          {
-            "type": "TTLElement",
-            "mode": "DELETE",
-            "ttl": {
-              "type": "Identifier",
-              "name": "a"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "ttl"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_TTL",
+        "ttl": {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "TTLElement",
+              "mode": "DELETE",
+              "ttl": {
+                "type": "Identifier",
+                "name": "a"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

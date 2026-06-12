@@ -1,18 +1,82 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "hits.date",
-          "name_parts": ["hits", "date"]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "hits.date",
+            "name_parts": ["hits", "date"]
+          },
+          {
+            "type": "Function",
+            "alias": "filtered",
+            "name": "arrayFilter",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "in",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Tuple",
+                        "value": "(2, 3)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "data"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits"
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "alias": "filtered",
-          "name": "arrayFilter",
+          "name": "arrayExists",
           "arguments": [
             {
               "type": "Function",
@@ -55,75 +119,14 @@
               "name": "data"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "hits"
-              }
-            }
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "arrayExists",
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "lambda",
-            "is_operator": true,
-            "is_lambda_function": true,
-            "kind": "LAMBDA_FUNCTION",
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "tuple",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "x"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "in",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "x"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "Tuple",
-                    "value": "(2, 3)"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "Identifier",
-            "name": "data"
-          }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,49 +1,82 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "c0"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 257
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_having"
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "c0"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "257"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_having"
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-9223372036854775808"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Literal",
+            "value_type": "Int64",
+            "value": "-2147483649"
+          },
+          {
+            "type": "Identifier",
+            "name": "c0"
           }
-        ]
-      },
-      "group_by": [
-        {
+        ],
+        "having": {
           "type": "Function",
           "name": "equals",
           "is_operator": true,
@@ -55,47 +88,17 @@
             {
               "type": "Literal",
               "value_type": "Int64",
-              "value": -9223372036854775808
+              "value": "-9223372036854775808"
             }
           ]
         },
-        {
-          "type": "Literal",
-          "value_type": "Null",
-          "value": null
-        },
-        {
-          "type": "Literal",
-          "value_type": "Int64",
-          "value": -2147483649
-        },
-        {
-          "type": "Identifier",
-          "name": "c0"
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "c0"
-          },
-          {
-            "type": "Literal",
-            "value_type": "Int64",
-            "value": -9223372036854775808
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_optimize_predicate_expression": "0"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_optimize_predicate_expression": 0
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,48 +1,51 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "1",
-                          "value_type": "String",
-                          "value": "str"
-                        }
-                      ]
-                    }
-                  ]
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "1",
+                            "value_type": "String",
+                            "value": "str"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+          ]
+        },
+        "where": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,41 +1,44 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "bar",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Function",
-                    "name": "toLowCardinality",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "a"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "bar",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "toLowCardinality",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "a"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "bar"
-        }
-      ]
-    }
-  ]
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "bar"
+          }
+        ]
+      }
+    ]
+  }
 }

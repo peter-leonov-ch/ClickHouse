@@ -1,4 +1,7 @@
 {
-  "type": "SYSTEM",
-  "system_type": "ENABLE FAILPOINT"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "ENABLE FAILPOINT"
+  }
 }

@@ -1,62 +1,65 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "count",
+                "arguments": []
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "null_in__fuzz_6"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "71"
+        },
+        "where": {
           "type": "Function",
-          "name": "equals",
+          "name": "in",
           "is_operator": true,
           "arguments": [
             {
-              "type": "Function",
-              "name": "count",
-              "arguments": []
+              "type": "Identifier",
+              "name": "i"
             },
             {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
+              "type": "Identifier",
+              "name": "test_set"
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "null_in__fuzz_6"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 71
-      },
-      "where": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "i"
-          },
-          {
-            "type": "Identifier",
-            "name": "test_set"
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

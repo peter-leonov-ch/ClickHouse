@@ -1,13 +1,16 @@
 {
-  "type": "DetachQuery",
-  "kind": "DETACH",
-  "database": {
-    "type": "Identifier",
-    "name": "db_01018"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "dict1"
-  },
-  "is_dictionary": true
+  "version": 1,
+  "ast": {
+    "type": "DetachQuery",
+    "kind": "DETACH",
+    "database": {
+      "type": "Identifier",
+      "name": "db_01018"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "dict1"
+    },
+    "is_dictionary": true
+  }
 }

@@ -1,8 +1,11 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "database": {
-    "type": "Identifier",
-    "name": "'"
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "database": {
+      "type": "Identifier",
+      "name": "'"
+    }
   }
 }

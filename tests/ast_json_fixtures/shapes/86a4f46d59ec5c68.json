@@ -1,44 +1,47 @@
 {
-  "type": "KillQueryQuery",
-  "kill_type": "MUTATION",
-  "sync": true,
-  "where": {
-    "type": "Function",
-    "name": "and",
-    "is_operator": true,
-    "arguments": [
-      {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "database"
-          },
-          {
-            "type": "Function",
-            "name": "currentDatabase",
-            "arguments": []
-          }
-        ]
-      },
-      {
-        "type": "Function",
-        "name": "like",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "command"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "%throwIf%"
-          }
-        ]
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "KillQueryQuery",
+    "kill_type": "MUTATION",
+    "sync": true,
+    "where": {
+      "type": "Function",
+      "name": "and",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "database"
+            },
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "like",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "command"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "%throwIf%"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

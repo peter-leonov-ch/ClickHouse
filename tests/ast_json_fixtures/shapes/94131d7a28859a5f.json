@@ -1,66 +1,69 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "mode",
-          "value_type": "String",
-          "value": "aes-256-ecb"
-        },
-        {
-          "type": "Function",
-          "alias": "ciphertext",
-          "name": "unhex",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "D1B43643E1D0E9390E39BA4EAE150851"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "key",
-          "value_type": "String",
-          "value": "test_key________________________"
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "hex",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "aes_decrypt_mysql",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "mode"
-                },
-                {
-                  "type": "Function",
-                  "name": "toNullable",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "ciphertext"
-                    }
-                  ]
-                },
-                {
-                  "type": "Identifier",
-                  "name": "key"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "mode",
+            "value_type": "String",
+            "value": "aes-256-ecb"
+          },
+          {
+            "type": "Function",
+            "alias": "ciphertext",
+            "name": "unhex",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "D1B43643E1D0E9390E39BA4EAE150851"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "key",
+            "value_type": "String",
+            "value": "test_key________________________"
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "hex",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "aes_decrypt_mysql",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "mode"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toNullable",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "ciphertext"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "key"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

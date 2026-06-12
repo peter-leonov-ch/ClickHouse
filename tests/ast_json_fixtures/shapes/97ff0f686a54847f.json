@@ -1,66 +1,69 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "json",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "{\"a\" : [{\"b\" : 42}]}"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "JSON(a Array(JSON))"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "json.a.b",
-          "name_parts": ["json", "a", "b"]
-        },
-        {
-          "type": "Function",
-          "alias": "json2",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "json"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "JSON"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "dynamicType",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "json2.a",
-              "name_parts": ["json2", "a"]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "json2.a.:`Array(JSON)`.b",
-          "name_parts": ["json2", "a", ":`Array(JSON)`", "b"]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "json",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "{\"a\" : [{\"b\" : 42}]}"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "JSON(a Array(JSON))"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.a.b",
+            "name_parts": ["json", "a", "b"]
+          },
+          {
+            "type": "Function",
+            "alias": "json2",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "json"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "JSON"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "dynamicType",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "json2.a",
+                "name_parts": ["json2", "a"]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "json2.a.:`Array(JSON)`.b",
+            "name_parts": ["json2", "a", ":`Array(JSON)`", "b"]
+          }
+        ]
+      }
+    ]
+  }
 }

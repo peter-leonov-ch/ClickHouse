@@ -1,14 +1,17 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "FREEZE_ALL"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "FREEZE_ALL"
+      }
+    ]
+  }
 }

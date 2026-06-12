@@ -1,18 +1,21 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tp"
-  },
-  "final": true,
-  "deduplicate": true,
-  "deduplicate_by_columns": {
-    "type": "ExpressionList",
-    "children": [
-      {
-        "type": "Identifier",
-        "name": "type"
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tp"
+    },
+    "final": true,
+    "deduplicate": true,
+    "deduplicate_by_columns": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "type"
+        }
+      ]
+    }
   }
 }

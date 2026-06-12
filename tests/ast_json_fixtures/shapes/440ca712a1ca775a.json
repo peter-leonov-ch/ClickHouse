@@ -1,9 +1,12 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "arrays_out_02735"
-  },
-  "as_table": "arrays_02735"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "arrays_out_02735"
+    },
+    "as_table": "arrays_02735"
+  }
 }

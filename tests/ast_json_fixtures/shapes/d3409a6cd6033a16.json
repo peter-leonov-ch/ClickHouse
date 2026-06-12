@@ -1,109 +1,112 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Function",
+            "alias": "x",
+            "name": "toBool",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "sin",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "SUM",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "number",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "having": {
           "type": "Function",
-          "alias": "x",
-          "name": "toBool",
+          "name": "and",
+          "is_operator": true,
           "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            },
             {
               "type": "Function",
               "name": "sin",
               "arguments": [
                 {
-                  "type": "Function",
-                  "name": "SUM",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    }
-                  ]
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
                 }
               ]
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "number",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          },
-          {
-            "type": "Function",
-            "name": "sin",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_optimize_predicate_expression": "0"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_optimize_predicate_expression": 0
         }
       }
-    }
-  ]
+    ]
+  }
 }

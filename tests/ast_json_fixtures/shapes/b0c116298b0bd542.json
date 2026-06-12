@@ -1,77 +1,80 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "test_table"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "EventDate",
-        "data_type": {
-          "type": "DataType",
-          "name": "Date"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "CounterID",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "UserID",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "EventTime",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "America\/Los_Angeles"
-            }
-          ]
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "UTCEventTime",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "partition_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "EventDate"
+      "name": "test_table"
     },
-    "primary_key": {
-      "type": "Identifier",
-      "name": "CounterID"
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "EventDate",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "CounterID",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "UserID",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "EventTime",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "America\/Los_Angeles"
+              }
+            ]
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "UTCEventTime",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "partition_by": {
+        "type": "Identifier",
+        "name": "EventDate"
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "CounterID"
+      }
     }
   }
 }

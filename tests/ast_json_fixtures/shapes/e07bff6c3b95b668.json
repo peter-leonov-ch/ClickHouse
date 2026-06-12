@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "RELOAD DICTIONARY",
-  "table": {
-    "type": "Identifier",
-    "name": "d1"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "RELOAD DICTIONARY",
+    "table": {
+      "type": "Identifier",
+      "name": "d1"
+    }
   }
 }

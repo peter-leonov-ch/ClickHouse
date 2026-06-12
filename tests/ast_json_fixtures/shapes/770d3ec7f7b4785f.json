@@ -1,8 +1,11 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "database": {
-    "type": "Identifier",
-    "name": "db_dict"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "database": {
+      "type": "Identifier",
+      "name": "db_dict"
+    }
   }
 }

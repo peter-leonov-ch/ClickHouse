@@ -1,199 +1,202 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "c",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Literal",
-                      "alias": "ID",
-                      "value_type": "UInt64",
-                      "value": 1
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "dt",
-                      "name": "toDate",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "2023-06-24"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Literal",
-                      "alias": "p",
-                      "value_type": "UInt64",
-                      "value": 0
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "params",
-          "name": "multiIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "t.ID",
-                  "name_parts": ["t", "ID"]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "formatRowNoNewline",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "JSONEachRow"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "dd"
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": ""
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "dd"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "t",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "ID"
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "dd",
-                          "name": "multiIf",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "equals",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "p"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 0
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "toString",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "plus",
-                                  "arguments": [
-                                    {
-                                      "type": "Identifier",
-                                      "name": "dt"
-                                    },
-                                    {
-                                      "type": "Function",
-                                      "name": "toIntervalHour",
-                                      "arguments": [
-                                        {
-                                          "type": "Identifier",
-                                          "name": "p"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "String",
-                              "value": "2022-01-01"
-                            }
-                          ]
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+            "type": "WithElement",
+            "name": "c",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "alias": "ID",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "dt",
+                        "name": "toDate",
+                        "arguments": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "c"
-                              }
-                            }
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "2023-06-24"
                           }
                         ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "p",
+                        "value_type": "UInt64",
+                        "value": "0"
                       }
-                    }
-                  ]
-                }
+                    ]
+                  }
+                ]
               }
             }
           }
-        ]
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "params",
+            "name": "multiIf",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "t.ID",
+                    "name_parts": ["t", "ID"]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "formatRowNoNewline",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "JSONEachRow"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "dd"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "dd"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "t",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "ID"
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "dd",
+                            "name": "multiIf",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "equals",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "p"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "0"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "toString",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "plus",
+                                    "arguments": [
+                                      {
+                                        "type": "Identifier",
+                                        "name": "dt"
+                                      },
+                                      {
+                                        "type": "Function",
+                                        "name": "toIntervalHour",
+                                        "arguments": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "p"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": "2022-01-01"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "c"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,65 +1,68 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "02577_keepermap_delete_update"
-  },
-  "cluster": "test_shard_localhost",
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "UPDATE",
-      "predicate": {
-        "type": "Function",
-        "name": "less",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "02577_keepermap_delete_update"
+    },
+    "cluster": "test_shard_localhost",
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "UPDATE",
+        "predicate": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "value2"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "100"
+            }
+          ]
+        },
+        "assignments": [
           {
-            "type": "Identifier",
-            "name": "value2"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 100
+            "type": "Assignment",
+            "column": "value2",
+            "expression": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "multiply",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "value2"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
+            }
           }
         ]
-      },
-      "assignments": [
-        {
-          "type": "Assignment",
-          "column": "value2",
-          "expression": {
-            "type": "Function",
-            "name": "plus",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "multiply",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "value2"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 2
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

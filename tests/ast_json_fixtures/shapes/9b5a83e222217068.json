@@ -1,8 +1,11 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN SYNTAX",
-  "query": {
-    "type": "SYSTEM",
-    "system_type": "CLEAR SCHEMA CACHE"
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN SYNTAX",
+    "query": {
+      "type": "SYSTEM",
+      "system_type": "CLEAR SCHEMA CACHE"
+    }
   }
 }

@@ -1,21 +1,24 @@
 {
-  "type": "CreateIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tab2"
-  },
-  "unique": true,
-  "index_name": {
-    "type": "Identifier",
-    "name": "idx_tab2_0"
-  },
-  "index_declaration": {
-    "type": "Index",
-    "name": "idx_tab2_0",
-    "expression": {
+  "version": 1,
+  "ast": {
+    "type": "CreateIndexQuery",
+    "table": {
       "type": "Identifier",
-      "name": "col1"
+      "name": "tab2"
     },
-    "granularity": 1
+    "unique": true,
+    "index_name": {
+      "type": "Identifier",
+      "name": "idx_tab2_0"
+    },
+    "index_declaration": {
+      "type": "Index",
+      "name": "idx_tab2_0",
+      "expression": {
+        "type": "Identifier",
+        "name": "col1"
+      },
+      "granularity": 1
+    }
   }
 }

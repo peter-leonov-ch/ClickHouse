@@ -1,56 +1,61 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "c0"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "c0"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "c0"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_const_name_size": "0"
+          }
+        },
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           },
-          "direction": "ASC"
-        }
-      ],
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "c0"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "optimize_const_name_size": 0
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            }
+          ]
         }
       }
-    }
-  ]
+    ]
+  }
 }

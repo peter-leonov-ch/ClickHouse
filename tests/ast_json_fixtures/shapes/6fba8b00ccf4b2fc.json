@@ -1,88 +1,91 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "x",
-          "value_type": "UInt64",
-          "value": 1
-        },
-        {
-          "type": "Identifier",
-          "alias": "y",
-          "name": "x"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "localhost"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "currentDatabase",
-                    "arguments": []
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t0"
-                  }
-                ]
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          {
+            "type": "Identifier",
+            "alias": "y",
+            "name": "x"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "localhost"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t0"
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      }
-    },
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        },
-        {
-          "type": "Identifier",
-          "name": "c1"
+          ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t0"
-              }
-            }
-          }
-        ]
       },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
-          "parallel_replicas_for_non_replicated_merge_tree": 1
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          {
+            "type": "Identifier",
+            "name": "c1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t0"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
+            "parallel_replicas_for_non_replicated_merge_tree": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_database": "test_01148_atomic",
-      "from_table": "rmt3",
-      "to_database": "test_01148_ordinary",
-      "to_table": "rmt3"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_database": "test_01148_atomic",
+        "from_table": "rmt3",
+        "to_database": "test_01148_ordinary",
+        "to_table": "rmt3"
+      }
+    ]
+  }
 }

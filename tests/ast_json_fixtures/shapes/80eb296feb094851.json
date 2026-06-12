@@ -1,102 +1,105 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "a"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Function",
+            "name": "any",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "c"
+          },
+          {
+            "type": "Identifier",
+            "name": "d"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "name": "any",
+          "name": "equals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
               "name": "b"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "c"
-        },
-        {
-          "type": "Identifier",
-          "name": "d"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tab"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+        "group_by": [
           {
             "type": "Identifier",
-            "name": "b"
+            "name": "a"
           },
           {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "c"
-        },
-        {
-          "type": "Identifier",
-          "name": "d"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "c"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "d"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "c"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "optimize_aggregation_in_order": 1,
-          "query_plan_aggregation_in_order": 1
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_aggregation_in_order": "1",
+            "query_plan_aggregation_in_order": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

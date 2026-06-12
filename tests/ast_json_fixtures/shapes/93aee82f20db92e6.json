@@ -1,125 +1,128 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "k",
-          "name": "arrayMap",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "lambda",
-              "is_operator": true,
-              "is_lambda_function": true,
-              "kind": "LAMBDA_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "range",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "modulo",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 10
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "alias": "k",
+            "name": "arrayMap",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "remote",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
                 "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
                   {
                     "type": "Literal",
                     "value_type": "String",
-                    "value": "127.0.0.{2,3}"
-                  },
+                    "value": "."
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "range",
+                "arguments": [
                   {
                     "type": "Function",
-                    "name": "numbers",
+                    "name": "modulo",
+                    "is_operator": true,
                     "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "number"
+                      },
                       {
                         "type": "Literal",
                         "value_type": "UInt64",
-                        "value": 10
+                        "value": "10"
                       }
                     ]
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
           "children": [
             {
-              "type": "Identifier",
-              "name": "k"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "k"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_use_nulls": 1
+        },
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "k"
+              }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

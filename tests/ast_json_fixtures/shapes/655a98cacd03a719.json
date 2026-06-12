@@ -1,96 +1,99 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "COUNT",
+                "arguments": []
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_table"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
           "name": "equals",
           "is_operator": true,
           "arguments": [
             {
-              "type": "Function",
-              "name": "COUNT",
-              "arguments": []
+              "type": "Identifier",
+              "name": "day"
             },
             {
               "type": "Literal",
-              "value_type": "UInt64",
-              "value": 10
+              "value_type": "String",
+              "value": "2020-01-01"
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_table"
-              }
-            }
-          }
-        ]
       },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "day"
-          },
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Literal",
-            "value_type": "String",
-            "value": "2020-01-01"
+            "value_type": "UInt64",
+            "value": "1"
           }
-        ]
-      }
-    },
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_rows_to_read": "11"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_rows_to_read": 11
         }
       }
-    }
-  ]
+    ]
+  }
 }

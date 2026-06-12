@@ -1,52 +1,55 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "S",
-          "value_type": "String",
-          "value": "2020-02-05 14:34:12.333"
-        },
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "S",
+            "value_type": "String",
+            "value": "2020-02-05 14:34:12.333"
+          },
+          {
+            "type": "Function",
+            "alias": "DT64",
+            "name": "toDateTime64",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "S"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "where": {
           "type": "Function",
-          "alias": "DT64",
-          "name": "toDateTime64",
+          "name": "less",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
-              "name": "S"
+              "name": "DT64"
             },
             {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
+              "type": "Identifier",
+              "name": "S"
             }
           ]
         }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "where": {
-        "type": "Function",
-        "name": "less",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "DT64"
-          },
-          {
-            "type": "Identifier",
-            "name": "S"
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

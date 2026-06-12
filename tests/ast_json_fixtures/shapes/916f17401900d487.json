@@ -1,79 +1,82 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "toDateTime",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toDateTime",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2022-12-12 23:23:23"
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Europe\/Zurich"
-            }
-          ]
-        },
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "toDateTime",
+            "arguments": [
               {
-                "type": "SelectQuery",
-                "select": [
+                "type": "Function",
+                "name": "toDateTime",
+                "arguments": [
                   {
-                    "type": "Function",
-                    "name": "toDateTime",
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "toDateTime",
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "2022-12-12 23:23:23"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "Europe\/Zurich"
-                      }
-                    ]
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2022-12-12 23:23:23"
                   }
-                ],
-                "settings": {
-                  "type": "Set",
-                  "changes": {
-                    "session_timezone": "Europe\/Helsinki"
-                  }
-                }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Europe\/Zurich"
               }
             ]
+          },
+          {
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "toDateTime",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "toDateTime",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "2022-12-12 23:23:23"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "Europe\/Zurich"
+                        }
+                      ]
+                    }
+                  ],
+                  "settings": {
+                    "type": "Settings",
+                    "changes": {
+                      "session_timezone": "Europe\/Helsinki"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "session_timezone": "America\/Denver"
           }
         }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "session_timezone": "America\/Denver"
-        }
       }
-    }
-  ]
+    ]
+  }
 }

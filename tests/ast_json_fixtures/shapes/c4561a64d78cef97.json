@@ -1,9 +1,12 @@
 {
-  "type": "CreateWorkloadQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "another_root"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "CreateWorkloadQuery",
+    "children": [
+      {
+        "type": "Identifier",
+        "name": "another_root"
+      }
+    ]
+  }
 }

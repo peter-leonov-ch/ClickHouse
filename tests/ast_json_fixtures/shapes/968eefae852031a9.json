@@ -1,12 +1,15 @@
 {
-  "type": "Rename",
-  "dictionary": true,
-  "elements": [
-    {
-      "from_database": "test_01155_atomic",
-      "from_table": "dict",
-      "to_database": "test_01155_ordinary",
-      "to_table": "dict"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "dictionary": true,
+    "elements": [
+      {
+        "from_database": "test_01155_atomic",
+        "from_table": "dict",
+        "to_database": "test_01155_ordinary",
+        "to_table": "dict"
+      }
+    ]
+  }
 }

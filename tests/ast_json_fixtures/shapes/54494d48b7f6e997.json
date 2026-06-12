@@ -1,75 +1,78 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "s"
-        },
-        {
-          "type": "Identifier",
-          "name": "s.size",
-          "name_parts": ["s", "size"]
-        },
-        {
-          "type": "Identifier",
-          "name": "t.a",
-          "name_parts": ["t", "a"]
-        },
-        {
-          "type": "Identifier",
-          "name": "t.a.size",
-          "name_parts": ["t", "a", "size"]
-        },
-        {
-          "type": "Identifier",
-          "name": "t.b",
-          "name_parts": ["t", "b"]
-        },
-        {
-          "type": "Identifier",
-          "name": "t.b.size",
-          "name_parts": ["t", "b", "size"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_new_wide"
+            "type": "Identifier",
+            "name": "s"
+          },
+          {
+            "type": "Identifier",
+            "name": "s.size",
+            "name_parts": ["s", "size"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t.a",
+            "name_parts": ["t", "a"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t.a.size",
+            "name_parts": ["t", "a", "size"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t.b",
+            "name_parts": ["t", "b"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t.b.size",
+            "name_parts": ["t", "b", "size"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_new_wide"
+                }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "all"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "all"
-          },
-          "direction": "ASC"
+        ],
+        "offset": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "2"
         }
-      ],
-      "limit_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,34 +1,37 @@
 {
-  "type": "CreateQuery",
-  "replace_table": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t1"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "n",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "replace_table": true,
+    "table": {
       "type": "Identifier",
-      "name": "n"
+      "name": "t1"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "n"
+      }
     }
   }
 }

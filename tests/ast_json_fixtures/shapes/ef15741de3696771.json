@@ -1,67 +1,70 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "file",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "toNullable",
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "concat",
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "currentDatabase",
-                            "arguments": []
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "\/03727_prewhere_intermediate_columns.parquet"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Identifier",
-        "name": "x"
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "x"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "file",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toNullable",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "concat",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "currentDatabase",
+                              "arguments": []
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "\/03727_prewhere_intermediate_columns.parquet"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

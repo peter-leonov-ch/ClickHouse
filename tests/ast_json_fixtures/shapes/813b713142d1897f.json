@@ -1,64 +1,67 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "assert_exists",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "count",
+                "arguments": []
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "events",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "alias": "assert_exists",
-          "name": "equals",
+          "name": "in",
           "is_operator": true,
           "arguments": [
             {
-              "type": "Function",
-              "name": "count",
-              "arguments": []
+              "type": "Identifier",
+              "name": "name"
             },
             {
               "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
+              "value_type": "Tuple",
+              "value": "('FilterTransformPassedRows', 'FilterTransformPassedBytes')"
             }
           ]
+        },
+        "having": {
+          "type": "Identifier",
+          "name": "assert_exists"
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "events",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "name"
-          },
-          {
-            "type": "Literal",
-            "value_type": "Tuple",
-            "value": "('FilterTransformPassedRows', 'FilterTransformPassedBytes')"
-          }
-        ]
-      },
-      "having": {
-        "type": "Identifier",
-        "name": "assert_exists"
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,52 +1,86 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "a",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "alias": "b",
+            "name": "b"
+          },
+          {
+            "type": "Function",
+            "alias": "c",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "d",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_lazy_mat_prewhere_parallel"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "alias": "b",
-          "name": "b"
-        },
-        {
+        "where": {
           "type": "Function",
-          "alias": "c",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "c"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "d",
-          "name": "plus",
+          "name": "greater",
           "is_operator": true,
           "arguments": [
             {
@@ -56,57 +90,26 @@
             {
               "type": "Literal",
               "value_type": "UInt64",
-              "value": 1
+              "value": "1"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_lazy_mat_prewhere_parallel"
-              }
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "c"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "d"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "c"
-          },
-          "direction": "ASC"
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
       }
-    }
-  ]
+    ]
+  }
 }

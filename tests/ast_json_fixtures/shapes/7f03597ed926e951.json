@@ -1,21 +1,24 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t1"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_PARTITION",
-      "detach": true,
-      "part": true,
-      "partition": {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "all_0_0_0"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t1"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_PARTITION",
+        "detach": true,
+        "part": true,
+        "partition": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "all_0_0_0"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

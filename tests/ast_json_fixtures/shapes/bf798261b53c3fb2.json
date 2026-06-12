@@ -1,3 +1,6 @@
 {
-  "type": "ShowSetting"
+  "version": 1,
+  "ast": {
+    "type": "ShowSetting"
+  }
 }

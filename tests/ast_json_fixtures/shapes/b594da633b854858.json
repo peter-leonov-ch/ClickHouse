@@ -1,29 +1,32 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "database": {
-    "type": "Identifier",
-    "name": "shard_0"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "from_0"
-  },
-  "cluster": "test_cluster_two_shards_different_databases",
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MOVE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        }
-      },
-      "to_database": "shard_0",
-      "to_table": "to"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "database": {
+      "type": "Identifier",
+      "name": "shard_0"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "from_0"
+    },
+    "cluster": "test_cluster_two_shards_different_databases",
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MOVE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": []
+          }
+        },
+        "to_database": "shard_0",
+        "to_table": "to"
+      }
+    ]
+  }
 }

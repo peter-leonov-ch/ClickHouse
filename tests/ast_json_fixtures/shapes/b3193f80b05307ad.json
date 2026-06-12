@@ -1,50 +1,53 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "Null",
-          "value": null
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "toUUID",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0"
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0.0000065535"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "group_by_with_cube": true,
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "toUUID",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0.0000065535"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  }
 }

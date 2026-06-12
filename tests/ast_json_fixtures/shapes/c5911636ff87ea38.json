@@ -1,13 +1,16 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "v_test1",
-      "to_table": "v_test11"
-    },
-    {
-      "from_table": "v_test2",
-      "to_table": "v_test22"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "v_test1",
+        "to_table": "v_test11"
+      },
+      {
+        "from_table": "v_test2",
+        "to_table": "v_test22"
+      }
+    ]
+  }
 }

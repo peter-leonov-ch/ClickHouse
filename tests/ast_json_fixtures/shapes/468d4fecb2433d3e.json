@@ -1,107 +1,110 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{1,2}"
-                  },
-                  {
-                    "type": "Function",
-                    "name": "numbers",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 99
-                      }
-                    ]
-                  }
-                ]
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{1,2}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "numbers",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "99"
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "materialize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
+        ],
+        "having": {
           "type": "Function",
-          "name": "materialize",
+          "name": "and",
+          "is_operator": true,
           "arguments": [
             {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "count",
+                  "arguments": []
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "argMax",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                },
+                {
+                  "type": "Function",
+                  "name": "tuple",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "0"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "greater",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "count",
-                "arguments": []
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "argMax",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              },
-              {
-                "type": "Function",
-                "name": "tuple",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

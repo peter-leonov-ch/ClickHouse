@@ -1,46 +1,49 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 2
-        },
-        {
-          "type": "Function",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t_lightweight_mut_7"
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          },
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_lightweight_mut_7"
+                }
               }
             }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "apply_mutations_on_fly": "0"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "apply_mutations_on_fly": 0
         }
       }
-    }
-  ]
+    ]
+  }
 }

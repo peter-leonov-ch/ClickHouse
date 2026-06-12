@@ -1,82 +1,85 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "data_01875_1"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "partition_by": {
-      "type": "Function",
-      "name": "plus",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "bitShiftRight",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 8
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "number"
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
+      "name": "data_01875_1"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "plus",
+        "is_operator": true,
+        "arguments": [
           {
-            "type": "Asterisk"
+            "type": "Function",
+            "name": "bitShiftRight",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+        ]
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "number"
+      }
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "table_function": {
-                  "type": "Function",
-                  "name": "numbers",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 16384
-                    }
-                  ]
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "16384"
+                      }
+                    ]
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

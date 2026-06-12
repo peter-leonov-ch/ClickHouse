@@ -1,7 +1,10 @@
 {
-  "type": "UndropQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "02681_undrop_log"
+  "version": 1,
+  "ast": {
+    "type": "UndropQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "02681_undrop_log"
+    }
   }
 }

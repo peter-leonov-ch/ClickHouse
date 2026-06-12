@@ -1,54 +1,57 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Identifier",
-                    "name": "_shard_num"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
+            "type": "Subquery",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Identifier",
+                      "name": "_shard_num"
+                    }
+                  ]
+                }
+              ]
             }
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "_shard_num"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "allow_experimental_correlated_subqueries": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "_shard_num"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "allow_experimental_correlated_subqueries": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

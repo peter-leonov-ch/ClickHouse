@@ -1,66 +1,11 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "rank",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [],
-          "window_definition": {
-            "type": "WindowDefinition",
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "c0"
-                },
-                "direction": "ASC"
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "v0",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "c0",
-                          "value_type": "String",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      },
-      "qualify": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
             "name": "rank",
@@ -80,14 +25,72 @@
                 }
               ]
             }
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "v0",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "c0",
+                            "value_type": "String",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "qualify": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "rank",
+              "is_window_function": true,
+              "kind": "WINDOW_FUNCTION",
+              "arguments": [],
+              "window_definition": {
+                "type": "WindowDefinition",
+                "order_by": [
+                  {
+                    "type": "OrderByElement",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "c0"
+                    },
+                    "direction": "ASC"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

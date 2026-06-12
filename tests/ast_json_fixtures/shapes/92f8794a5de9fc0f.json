@@ -1,57 +1,60 @@
 {
-  "type": "UpdateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_shared"
-  },
-  "assignments": [
-    {
-      "type": "Assignment",
-      "column": "c1",
-      "expression": {
-        "type": "Function",
-        "name": "multiply",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "c1"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 10
-          }
-        ]
+  "version": 1,
+  "ast": {
+    "type": "UpdateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_shared"
+    },
+    "assignments": [
+      {
+        "type": "Assignment",
+        "column": "c1",
+        "expression": {
+          "type": "Function",
+          "name": "multiply",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c1"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "10"
+            }
+          ]
+        }
       }
+    ],
+    "predicate": {
+      "type": "Function",
+      "name": "equals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      ]
     }
-  ],
-  "predicate": {
-    "type": "Function",
-    "name": "equals",
-    "is_operator": true,
-    "arguments": [
-      {
-        "type": "Function",
-        "name": "modulo",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "id"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2
-          }
-        ]
-      },
-      {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      }
-    ]
   }
 }

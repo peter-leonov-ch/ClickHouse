@@ -1,8 +1,11 @@
 {
-  "type": "ExistsViewQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tview_basic"
+  "version": 1,
+  "ast": {
+    "type": "ExistsViewQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tview_basic"
+    }
   }
 }

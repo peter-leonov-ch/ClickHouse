@@ -1,65 +1,68 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "02271_temporary_table_show_rows_bytes"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "A",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int64"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Memory",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Asterisk"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "02271_temporary_table_show_rows_bytes"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "A",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int64"
           }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "table_function": {
-                  "type": "Function",
-                  "name": "numbers",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1000
-                    }
-                  ]
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1000"
+                      }
+                    ]
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

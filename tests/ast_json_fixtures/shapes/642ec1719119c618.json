@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "tab"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "RESET_SETTING",
-      "settings_resets": {
-        "type": "ExpressionList",
-        "children": [
-          {
-            "type": "Identifier",
-            "name": "materialize_skip_indexes_on_merge"
-          }
-        ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "RESET_SETTING",
+        "settings_resets": {
+          "type": "ExpressionList",
+          "children": [
+            {
+              "type": "Identifier",
+              "name": "materialize_skip_indexes_on_merge"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

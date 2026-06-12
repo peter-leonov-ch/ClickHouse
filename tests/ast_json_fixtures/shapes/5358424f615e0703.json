@@ -1,210 +1,213 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "toFixedString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toFixedString",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toFixedString",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "toFixedString",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "toFixedString",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "toFixedString",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "String",
-                                  "value": "%W"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 2
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 2
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toLowCardinality",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "toLowCardinality",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "toNullable",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "toFixedString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toFixedString",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2018-01-02 22:33:44"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 19
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 19
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "hasSubsequence",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toNullable",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "toLowCardinality",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "garbage"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "gr"
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "2018-01-02 22:33:44"
-        },
-        {
-          "type": "Function",
-          "name": "toFixedString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toFixedString",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2018-01-02 22:33:44"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 19
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 19
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "gr"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "2018-01-02 22:33:44"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFixedString",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toFixedString",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "toFixedString",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "toFixedString",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "toFixedString",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "%W"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "2"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toLowCardinality",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "toLowCardinality",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "toNullable",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFixedString",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2018-01-02 22:33:44"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "19"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "19"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "hasSubsequence",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toNullable",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "toLowCardinality",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "garbage"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "gr"
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "2018-01-02 22:33:44"
+          },
+          {
+            "type": "Function",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFixedString",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2018-01-02 22:33:44"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "19"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "19"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "gr"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "2018-01-02 22:33:44"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

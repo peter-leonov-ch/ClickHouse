@@ -1,163 +1,166 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "array",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Tuple",
-              "value": "(9223372036854775807, 1.1754943508222875e-38)"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "Literal",
-          "value_type": "Null",
-          "value": null
-        },
-        {
-          "type": "Function",
-          "name": "polygonsSymDifferenceCartesian",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "array",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "array",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(0.5, 0.5)"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "array",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(0., 1.0001)"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "alias": "x",
-                  "name": "array",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(1., 1.0001)"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "array",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "array",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "array",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Tuple",
-                          "value": "(3.4028234663852886e38, 0.9999)"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "group_by_with_grouping_sets": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "array",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(9223372036854775807, 1.1754943508222875e-38)"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Function",
+            "name": "polygonsSymDifferenceCartesian",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "array",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "array",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(0.5, 0.5)"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "array",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(1.1754943508222875e-38, 1.1920928955078125e-7)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(0., 1.0001)"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "alias": "x",
+                    "name": "array",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(1., 1.0001)"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "array",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "array",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": "(3.4028234663852886e38, 0.9999)"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

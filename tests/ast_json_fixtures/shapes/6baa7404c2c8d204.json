@@ -1,13 +1,40 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "t",
-          "subquery": {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "t",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "t"
+          },
+          {
             "type": "Subquery",
             "query": {
               "type": "SelectWithUnionQuery",
@@ -16,69 +43,45 @@
                   "type": "SelectQuery",
                   "select": [
                     {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
+                      "type": "Asterisk"
                     }
-                  ]
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "t"
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             }
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "t"
-        },
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Asterisk"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "t"
-                        }
-                      }
-                    }
-                  ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
                 }
               }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
-              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

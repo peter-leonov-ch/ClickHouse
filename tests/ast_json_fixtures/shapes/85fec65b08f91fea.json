@@ -1,106 +1,109 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "v0",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "c0",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ],
-                      "where": {
-                        "type": "Function",
-                        "name": "exists",
-                        "is_operator": true,
-                        "arguments": [
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "v0",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "Subquery",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "UInt64",
-                                      "value": 1
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
+                            "type": "Literal",
+                            "alias": "c0",
+                            "value_type": "UInt64",
+                            "value": "1"
                           }
-                        ]
-                      },
-                      "limit_length": {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
+                        ],
+                        "where": {
+                          "type": "Function",
+                          "name": "exists",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": "1"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "v0.c0",
-          "name_parts": ["v0", "c0"]
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+          ]
+        },
+        "group_by": [
           {
             "type": "Identifier",
             "name": "v0.c0",
             "name_parts": ["v0", "c0"]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "exact_rows_before_limit": 1
+        ],
+        "having": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "v0.c0",
+              "name_parts": ["v0", "c0"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "exact_rows_before_limit": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

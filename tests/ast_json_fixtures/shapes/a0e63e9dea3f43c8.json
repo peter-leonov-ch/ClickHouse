@@ -1,110 +1,113 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "t1.dummy",
-          "name_parts": ["t1", "dummy"]
-        },
-        {
-          "type": "QualifiedAsterisk",
-          "qualifier": {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
             "type": "Identifier",
-            "name": "t2"
+            "name": "t1.dummy",
+            "name_parts": ["t1", "dummy"]
+          },
+          {
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "t2"
+            }
+          },
+          {
+            "type": "Identifier",
+            "name": "t3.dummy",
+            "name_parts": ["t3", "dummy"]
           }
-        },
-        {
-          "type": "Identifier",
-          "name": "t3.dummy",
-          "name_parts": ["t3", "dummy"]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t1",
+                  "name": "one",
+                  "database": "system"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.dummy",
+                      "name_parts": ["t1", "dummy"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t2.dummy",
+                      "name_parts": ["t2", "dummy"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t2",
+                  "name": "one",
+                  "database": "system"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.dummy",
+                      "name_parts": ["t1", "dummy"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t3.dummy",
+                      "name_parts": ["t3", "dummy"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t3",
+                  "name": "one",
+                  "database": "system"
+                }
+              }
+            }
+          ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "t1",
-                "name": "one",
-                "database": "system"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "t1.dummy",
-                    "name_parts": ["t1", "dummy"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t2.dummy",
-                    "name_parts": ["t2", "dummy"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "t2",
-                "name": "one",
-                "database": "system"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "t1.dummy",
-                    "name_parts": ["t1", "dummy"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t3.dummy",
-                    "name_parts": ["t3", "dummy"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "t3",
-                "name": "one",
-                "database": "system"
-              }
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,31 +1,34 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "test_alter_if_exists"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_COLUMN",
-      "column": {
-        "type": "Identifier",
-        "name": "x"
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test_alter_if_exists"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "RENAME_COLUMN",
-      "if_exists": true,
-      "column": {
-        "type": "Identifier",
-        "name": "x"
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "x"
+        }
       },
-      "rename_to": {
-        "type": "Identifier",
-        "name": "z"
+      {
+        "type": "AlterCommand",
+        "command_type": "RENAME_COLUMN",
+        "if_exists": true,
+        "column": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "rename_to": {
+          "type": "Identifier",
+          "name": "z"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

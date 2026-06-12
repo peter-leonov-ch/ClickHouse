@@ -1,78 +1,81 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "v",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "v",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "CAST",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "111111111111111111111111111111111111111"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "UInt128"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
               {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Function",
-                    "name": "CAST",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "111111111111111111111111111111111111111"
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "UInt128"
-                      }
-                    ]
-                  }
-                ]
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v"
               }
             ]
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "sum",
-          "arguments": [
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

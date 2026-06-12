@@ -1,7 +1,10 @@
 {
-  "type": "ShowCreateViewQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "view"
+  "version": 1,
+  "ast": {
+    "type": "ShowCreateViewQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "view"
+    }
   }
 }

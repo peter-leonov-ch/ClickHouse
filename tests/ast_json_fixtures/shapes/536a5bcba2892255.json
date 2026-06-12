@@ -1,75 +1,78 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "3"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              },
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "modulo",
+                "is_operator": true,
                 "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 3
+                    "value": "2"
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
               "type": "Identifier",
               "name": "number"
             },
-            {
-              "type": "Function",
-              "name": "modulo",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "number"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "number"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,84 +1,87 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "n10"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "file",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "concat",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "current_database",
-                        "arguments": []
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "03596_parquet_prewhere_page_skip_bug.parquet"
-                      }
-                    ]
-                  }
-                ]
+            "type": "Identifier",
+            "name": "n10"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "file",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "concat",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "current_database",
+                          "arguments": []
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "03596_parquet_prewhere_page_skip_bug.parquet"
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "n"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": "(131, 174, 175, 176)"
+            }
+          ]
+        },
+        "order_by": [
           {
-            "type": "Identifier",
-            "name": "n"
-          },
-          {
-            "type": "Literal",
-            "value_type": "Tuple",
-            "value": "(131, 174, 175, 176)"
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "all"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "all"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "input_format_parquet_page_filter_push_down": 0,
-          "input_format_parquet_filter_push_down": 0,
-          "input_format_parquet_bloom_filter_push_down": 0,
-          "input_format_parquet_max_block_size": 10
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "input_format_parquet_page_filter_push_down": "0",
+            "input_format_parquet_filter_push_down": "0",
+            "input_format_parquet_bloom_filter_push_down": "0",
+            "input_format_parquet_max_block_size": "10"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

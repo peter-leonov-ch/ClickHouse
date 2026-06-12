@@ -1,9 +1,12 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "table": {
-    "type": "Identifier",
-    "name": "data_02716_1"
-  },
-  "if_empty": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "data_02716_1"
+    },
+    "if_empty": true
+  }
 }

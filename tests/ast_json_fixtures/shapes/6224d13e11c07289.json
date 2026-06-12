@@ -1,35 +1,38 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "add_table"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "ADD_COLUMN",
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "value3",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "add_table"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "ADD_COLUMN",
-      "if_not_exists": true,
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "value3",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "value3",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      },
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_COLUMN",
+        "if_not_exists": true,
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "value3",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

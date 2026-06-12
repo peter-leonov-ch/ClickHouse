@@ -1,134 +1,137 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "Identifier",
-          "name": "_row_number"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "file",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "toNullable",
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "concat",
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "currentDatabase",
-                            "arguments": []
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "\/03727_prewhere_intermediate_columns.parquet"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "or",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 60
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 100
-              }
-            ]
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 60
-              }
-            ]
-          },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "x"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "input_format_parquet_allow_missing_columns": 0,
-          "optimize_move_to_prewhere": 1
+          {
+            "type": "Identifier",
+            "name": "_row_number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "file",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toNullable",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "concat",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "currentDatabase",
+                              "arguments": []
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "\/03727_prewhere_intermediate_columns.parquet"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "60"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "100"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "60"
+                }
+              ]
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "input_format_parquet_allow_missing_columns": "0",
+            "optimize_move_to_prewhere": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,132 +1,135 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "UserID"
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "EventTime"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "DateTime('Asia\/Dubai')"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "pp.Key1",
-          "name_parts": ["pp", "Key1"]
-        },
-        {
-          "type": "Identifier",
-          "name": "pp.Key2",
-          "name_parts": ["pp", "Key2"]
-        },
-        {
-          "type": "Identifier",
-          "name": "ParsedParams.Key1",
-          "name_parts": ["ParsedParams", "Key1"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "hits",
-                "database": "test"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "array_join": {
-              "type": "ArrayJoin",
-              "kind": "INNER",
-              "expressions": [
-                {
-                  "type": "Identifier",
-                  "alias": "pp",
-                  "name": "ParsedParams"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "CounterID"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1704509
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "UserID"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "EventTime"
+          {
+            "type": "Function",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "EventTime"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "DateTime('Asia\/Dubai')"
+              }
+            ]
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "pp.Key1",
             "name_parts": ["pp", "Key1"]
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "pp.Key2",
             "name_parts": ["pp", "Key2"]
           },
-          "direction": "ASC"
+          {
+            "type": "Identifier",
+            "name": "ParsedParams.Key1",
+            "name_parts": ["ParsedParams", "Key1"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits",
+                  "database": "test"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "array_join": {
+                "type": "ArrayJoin",
+                "kind": "INNER",
+                "expressions": [
+                  {
+                    "type": "Identifier",
+                    "alias": "pp",
+                    "name": "ParsedParams"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "CounterID"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1704509"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "UserID"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "EventTime"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "pp.Key1",
+              "name_parts": ["pp", "Key1"]
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "pp.Key2",
+              "name_parts": ["pp", "Key2"]
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "100"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 100
       }
-    }
-  ]
+    ]
+  }
 }

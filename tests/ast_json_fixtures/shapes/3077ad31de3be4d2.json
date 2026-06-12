@@ -1,8 +1,11 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "test_float"
-  },
-  "format": "TabSeparated"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "test_float"
+    },
+    "format": "TabSeparated"
+  }
 }

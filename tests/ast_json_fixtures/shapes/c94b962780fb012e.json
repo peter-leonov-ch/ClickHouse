@@ -1,173 +1,116 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "v1.id",
-          "name_parts": ["v1", "id"]
-        },
-        {
-          "type": "Identifier",
-          "name": "v2.id",
-          "name_parts": ["v2", "id"]
-        },
-        {
-          "type": "Function",
-          "name": "L1Distance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "LinfDistance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "LpDistance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "L2Distance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "L2SquaredDistance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "cosineDistance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "v1.v",
-              "name_parts": ["v1", "v"]
-            },
-            {
-              "type": "Identifier",
-              "name": "v2.v",
-              "name_parts": ["v2", "v"]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "v1",
-                "name": "vec2d"
-              }
-            }
+            "type": "Identifier",
+            "name": "v1.id",
+            "name_parts": ["v1", "id"]
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "COMMA"
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "v2",
-                "name": "vec2d"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+            "type": "Identifier",
+            "name": "v2.id",
+            "name_parts": ["v2", "id"]
+          },
           {
             "type": "Function",
-            "name": "length",
+            "name": "L1Distance",
             "arguments": [
               {
                 "type": "Identifier",
                 "name": "v1.v",
                 "name_parts": ["v1", "v"]
+              },
+              {
+                "type": "Identifier",
+                "name": "v2.v",
+                "name_parts": ["v2", "v"]
               }
             ]
           },
           {
             "type": "Function",
-            "name": "length",
+            "name": "LinfDistance",
             "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1.v",
+                "name_parts": ["v1", "v"]
+              },
+              {
+                "type": "Identifier",
+                "name": "v2.v",
+                "name_parts": ["v2", "v"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "LpDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1.v",
+                "name_parts": ["v1", "v"]
+              },
+              {
+                "type": "Identifier",
+                "name": "v2.v",
+                "name_parts": ["v2", "v"]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L2Distance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1.v",
+                "name_parts": ["v1", "v"]
+              },
+              {
+                "type": "Identifier",
+                "name": "v2.v",
+                "name_parts": ["v2", "v"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L2SquaredDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1.v",
+                "name_parts": ["v1", "v"]
+              },
+              {
+                "type": "Identifier",
+                "name": "v2.v",
+                "name_parts": ["v2", "v"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "cosineDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1.v",
+                "name_parts": ["v1", "v"]
+              },
               {
                 "type": "Identifier",
                 "name": "v2.v",
@@ -175,18 +118,78 @@
               }
             ]
           }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "v1",
+                  "name": "vec2d"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "COMMA"
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "v2",
+                  "name": "vec2d"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "length",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "v1.v",
+                  "name_parts": ["v1", "v"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "length",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "v2.v",
+                  "name_parts": ["v2", "v"]
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
+          }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

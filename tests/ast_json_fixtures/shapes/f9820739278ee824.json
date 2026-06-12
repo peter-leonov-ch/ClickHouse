@@ -1,42 +1,45 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "test_alter_atomic"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DELETE",
-      "predicate": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "c0"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test_alter_atomic"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "RENAME_COLUMN",
-      "column": {
-        "type": "Identifier",
-        "name": "c0"
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DELETE",
+        "predicate": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c0"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        }
       },
-      "rename_to": {
-        "type": "Identifier",
-        "name": "c1"
+      {
+        "type": "AlterCommand",
+        "command_type": "RENAME_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "c0"
+        },
+        "rename_to": {
+          "type": "Identifier",
+          "name": "c1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,10 +1,13 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "table": {
-    "type": "Identifier",
-    "name": "a"
-  },
-  "if_exists": true,
-  "sync": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "a"
+    },
+    "if_exists": true,
+    "sync": true
+  }
 }

@@ -1,138 +1,141 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "full_duplicates"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "pk",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "sk",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "val",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "partition_key",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "mat",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "full_duplicates"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "pk",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
         },
-        "default_specifier": "MATERIALIZED",
-        "default_expression": {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 12345
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "alias",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+        {
+          "type": "ColumnDeclaration",
+          "name": "sk",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
         },
-        "default_specifier": "ALIAS",
-        "default_expression": {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 2
+        {
+          "type": "ColumnDeclaration",
+          "name": "val",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "partition_key",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "mat",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          },
+          "default_specifier": "MATERIALIZED",
+          "default_expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "12345"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "alias",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          },
+          "default_specifier": "ALIAS",
+          "default_expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          }
         }
+      ],
+      "primary_key": {
+        "type": "Identifier",
+        "name": "pk"
       }
-    ],
-    "primary_key": {
-      "type": "Identifier",
-      "name": "pk"
-    }
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
     },
-    "partition_by": {
-      "type": "Function",
-      "name": "plus",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "partition_key"
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    },
-    "primary_key": {
-      "type": "Identifier",
-      "name": "pk"
-    },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "pk"
-        },
-        {
-          "type": "Function",
-          "name": "toString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "multiply",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "sk"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 10
-                }
-              ]
-            }
-          ]
-        }
-      ]
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "plus",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "partition_key"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ]
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "pk"
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "pk"
+          },
+          {
+            "type": "Function",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "sk"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "10"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }

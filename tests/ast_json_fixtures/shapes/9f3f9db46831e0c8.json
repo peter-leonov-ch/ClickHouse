@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "STOP REPLICATED SENDS",
-  "table": {
-    "type": "Identifier",
-    "name": "r1"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "STOP REPLICATED SENDS",
+    "table": {
+      "type": "Identifier",
+      "name": "r1"
+    }
   }
 }

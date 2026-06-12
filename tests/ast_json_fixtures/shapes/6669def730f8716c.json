@@ -1,9 +1,12 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tmp"
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tmp"
+    }
   }
 }

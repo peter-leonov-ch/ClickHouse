@@ -1,100 +1,103 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "a",
-          "name": "arrayMap",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "lambda",
-              "is_operator": true,
-              "is_lambda_function": true,
-              "kind": "LAMBDA_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "plus",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "Array",
-              "value": "[0]"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "where": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "arrayMap",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "[0]"
+              }
+            ]
+          }
+        ],
+        "select": [
           {
             "type": "Literal",
             "value_type": "UInt64",
-            "value": 1
-          },
-          {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Function",
-                      "name": "arrayJoin",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "a"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+            "value": "1"
           }
-        ]
+        ],
+        "where": {
+          "type": "Function",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            },
+            {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "arrayJoin",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "a"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

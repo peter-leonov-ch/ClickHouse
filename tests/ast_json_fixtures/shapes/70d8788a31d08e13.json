@@ -1,87 +1,90 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "resolutions",
-          "name": "range",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 0
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 8
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "ring",
-          "name": "array",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Tuple",
-              "value": "(-122.40898669999721, 37.81331899998324)"
-            },
-            {
-              "type": "Literal",
-              "value_type": "Tuple",
-              "value": "(-122.35447369999936, 37.71980619999785)"
-            },
-            {
-              "type": "Literal",
-              "value_type": "Tuple",
-              "value": "(-122.4798767000009, 37.815157199999845)"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "resolution"
-        },
-        {
-          "type": "Function",
-          "name": "h3PolygonToCells",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ring"
-            },
-            {
-              "type": "Function",
-              "alias": "resolution",
-              "name": "arrayJoin",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "resolutions"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "resolutions",
+            "name": "range",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "ring",
+            "name": "array",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(-122.40898669999721, 37.81331899998324)"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(-122.35447369999936, 37.71980619999785)"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(-122.4798767000009, 37.815157199999845)"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
             "type": "Identifier",
             "name": "resolution"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "h3PolygonToCells",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ring"
+              },
+              {
+                "type": "Function",
+                "alias": "resolution",
+                "name": "arrayJoin",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "resolutions"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "resolution"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

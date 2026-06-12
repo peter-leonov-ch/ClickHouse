@@ -1,78 +1,81 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "fact_3_id"
-        },
-        {
-          "type": "Identifier",
-          "name": "fact_4_id"
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "grouping_sets"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "fact_3_id"
-            },
-            {
-              "type": "Identifier",
-              "name": "fact_4_id"
-            }
-          ]
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "fact_3_id"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "fact_4_id"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "optimize_aggregation_in_order": 1
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "grouping_sets"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "fact_3_id"
+              },
+              {
+                "type": "Identifier",
+                "name": "fact_4_id"
+              }
+            ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "fact_3_id"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "fact_4_id"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_aggregation_in_order": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

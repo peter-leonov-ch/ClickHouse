@@ -1,18 +1,21 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "modify_sample"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_SAMPLE_BY",
-      "sample_by": {
-        "type": "Identifier",
-        "name": "x"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "modify_sample"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_SAMPLE_BY",
+        "sample_by": {
+          "type": "Identifier",
+          "name": "x"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

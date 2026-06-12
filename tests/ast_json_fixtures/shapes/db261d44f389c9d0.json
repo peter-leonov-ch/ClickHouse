@@ -1,35 +1,38 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "foo_00234"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "id",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
+      "type": "Identifier",
+      "name": "foo_00234"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "id",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
     }
   }
 }

@@ -1,10 +1,48 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "j"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "i"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
           "type": "Function",
           "name": "equals",
           "is_operator": true,
@@ -16,46 +54,11 @@
             {
               "type": "Literal",
               "value_type": "UInt64",
-              "value": 2
+              "value": "2"
             }
           ]
-        },
-        {
-          "type": "Identifier",
-          "name": "i"
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "j"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,160 +1,42 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "MIN",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "sign",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "cos",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "max2",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "t1.c0",
-                      "name_parts": ["t1", "c0"]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "divide",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            },
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "sign",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "exp",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "negate",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "negate",
+            "name": "MIN",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "multiply",
             "is_operator": true,
             "arguments": [
               {
@@ -164,12 +46,11 @@
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "plus",
-                    "is_operator": true,
+                    "name": "sign",
                     "arguments": [
                       {
                         "type": "Function",
-                        "name": "MIN",
+                        "name": "cos",
                         "arguments": [
                           {
                             "type": "Identifier",
@@ -177,11 +58,35 @@
                             "name_parts": ["t1", "c0"]
                           }
                         ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "negate",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "max2",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "t1.c0",
+                        "name_parts": ["t1", "c0"]
                       },
                       {
                         "type": "Function",
-                        "name": "MIN",
+                        "name": "divide",
+                        "is_operator": true,
                         "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          },
                           {
                             "type": "Identifier",
                             "name": "t1.c0",
@@ -197,38 +102,45 @@
           },
           {
             "type": "Function",
-            "name": "isNotNull",
+            "name": "multiply",
             "is_operator": true,
             "arguments": [
               {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "sign",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "pow",
+                "name": "negate",
+                "is_operator": true,
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "greater",
-                    "is_operator": true,
+                    "name": "exp",
                     "arguments": [
                       {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "{b"
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "-657301241"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "log",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "Int64",
-                        "value": -1004522121
+                        "type": "Function",
+                        "name": "negate",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          }
+                        ]
                       }
                     ]
                   }
@@ -236,43 +148,10 @@
               }
             ]
           }
-        ]
-      }
-    },
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+        ],
+        "having": {
           "type": "Function",
-          "name": "MIN",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "multiply",
+          "name": "and",
           "is_operator": true,
           "arguments": [
             {
@@ -282,16 +161,35 @@
               "arguments": [
                 {
                   "type": "Function",
-                  "name": "sign",
+                  "name": "negate",
+                  "is_operator": true,
                   "arguments": [
                     {
                       "type": "Function",
-                      "name": "cos",
+                      "name": "plus",
+                      "is_operator": true,
                       "arguments": [
                         {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
+                          "type": "Function",
+                          "name": "MIN",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "t1.c0",
+                              "name_parts": ["t1", "c0"]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "MIN",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "t1.c0",
+                              "name_parts": ["t1", "c0"]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -301,80 +199,38 @@
             },
             {
               "type": "Function",
-              "name": "negate",
+              "name": "isNotNull",
               "is_operator": true,
               "arguments": [
                 {
                   "type": "Function",
-                  "name": "max2",
+                  "name": "pow",
                   "arguments": [
                     {
-                      "type": "Identifier",
-                      "name": "t1.c0",
-                      "name_parts": ["t1", "c0"]
+                      "type": "Function",
+                      "name": "greater",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "{b"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "-657301241"
+                        }
+                      ]
                     },
                     {
                       "type": "Function",
-                      "name": "divide",
-                      "is_operator": true,
+                      "name": "log",
                       "arguments": [
                         {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            },
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "sign",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "exp",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "negate",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": "-1004522121"
                         }
                       ]
                     }
@@ -384,15 +240,41 @@
             }
           ]
         }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "not",
-        "is_operator": true,
-        "arguments": [
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "and",
+            "name": "MIN",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "multiply",
             "is_operator": true,
             "arguments": [
               {
@@ -402,35 +284,16 @@
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "negate",
-                    "is_operator": true,
+                    "name": "sign",
                     "arguments": [
                       {
                         "type": "Function",
-                        "name": "plus",
-                        "is_operator": true,
+                        "name": "cos",
                         "arguments": [
                           {
-                            "type": "Function",
-                            "name": "MIN",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "t1.c0",
-                                "name_parts": ["t1", "c0"]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "MIN",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "t1.c0",
-                                "name_parts": ["t1", "c0"]
-                              }
-                            ]
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
                           }
                         ]
                       }
@@ -440,38 +303,80 @@
               },
               {
                 "type": "Function",
-                "name": "isNotNull",
+                "name": "negate",
                 "is_operator": true,
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "pow",
+                    "name": "max2",
                     "arguments": [
                       {
-                        "type": "Function",
-                        "name": "greater",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "{b"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "-657301241"
-                          }
-                        ]
+                        "type": "Identifier",
+                        "name": "t1.c0",
+                        "name_parts": ["t1", "c0"]
                       },
                       {
                         "type": "Function",
-                        "name": "log",
+                        "name": "divide",
+                        "is_operator": true,
                         "arguments": [
                           {
-                            "type": "Literal",
-                            "value_type": "Int64",
-                            "value": -1004522121
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "sign",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "negate",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "exp",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "negate",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
                           }
                         ]
                       }
@@ -481,135 +386,21 @@
               }
             ]
           }
-        ]
-      }
-    },
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+        ],
+        "having": {
           "type": "Function",
-          "name": "MIN",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "multiply",
+          "name": "not",
           "is_operator": true,
           "arguments": [
             {
               "type": "Function",
-              "name": "negate",
+              "name": "and",
               "is_operator": true,
               "arguments": [
                 {
                   "type": "Function",
-                  "name": "sign",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "cos",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "max2",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "t1.c0",
-                      "name_parts": ["t1", "c0"]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "divide",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "multiply",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            },
-            {
-              "type": "Identifier",
-              "name": "t1.c0",
-              "name_parts": ["t1", "c0"]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "sign",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "negate",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "exp",
+                  "name": "negate",
+                  "is_operator": true,
                   "arguments": [
                     {
                       "type": "Function",
@@ -617,9 +408,74 @@
                       "is_operator": true,
                       "arguments": [
                         {
-                          "type": "Identifier",
-                          "name": "t1.c0",
-                          "name_parts": ["t1", "c0"]
+                          "type": "Function",
+                          "name": "plus",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "MIN",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t1.c0",
+                                  "name_parts": ["t1", "c0"]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "MIN",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t1.c0",
+                                  "name_parts": ["t1", "c0"]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "isNotNull",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "pow",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "greater",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "{b"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "-657301241"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "log",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Int64",
+                              "value": "-1004522121"
+                            }
+                          ]
                         }
                       ]
                     }
@@ -629,15 +485,41 @@
             }
           ]
         }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "isNull",
-        "is_operator": true,
-        "arguments": [
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "and",
+            "name": "MIN",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "multiply",
             "is_operator": true,
             "arguments": [
               {
@@ -647,35 +529,16 @@
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "negate",
-                    "is_operator": true,
+                    "name": "sign",
                     "arguments": [
                       {
                         "type": "Function",
-                        "name": "plus",
-                        "is_operator": true,
+                        "name": "cos",
                         "arguments": [
                           {
-                            "type": "Function",
-                            "name": "MIN",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "t1.c0",
-                                "name_parts": ["t1", "c0"]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "MIN",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "t1.c0",
-                                "name_parts": ["t1", "c0"]
-                              }
-                            ]
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
                           }
                         ]
                       }
@@ -685,38 +548,80 @@
               },
               {
                 "type": "Function",
-                "name": "isNotNull",
+                "name": "negate",
                 "is_operator": true,
                 "arguments": [
                   {
                     "type": "Function",
-                    "name": "pow",
+                    "name": "max2",
                     "arguments": [
                       {
-                        "type": "Function",
-                        "name": "greater",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "{b"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "-657301241"
-                          }
-                        ]
+                        "type": "Identifier",
+                        "name": "t1.c0",
+                        "name_parts": ["t1", "c0"]
                       },
                       {
                         "type": "Function",
-                        "name": "log",
+                        "name": "divide",
+                        "is_operator": true,
                         "arguments": [
                           {
-                            "type": "Literal",
-                            "value_type": "Int64",
-                            "value": -1004522121
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "multiply",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t1.c0",
+                "name_parts": ["t1", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "sign",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "negate",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "exp",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "negate",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.c0",
+                            "name_parts": ["t1", "c0"]
                           }
                         ]
                       }
@@ -726,15 +631,113 @@
               }
             ]
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "aggregate_functions_null_for_empty": 1,
-          "enable_optimize_predicate_expression": 0
+        ],
+        "having": {
+          "type": "Function",
+          "name": "isNull",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "negate",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "plus",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "MIN",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t1.c0",
+                                  "name_parts": ["t1", "c0"]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "MIN",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t1.c0",
+                                  "name_parts": ["t1", "c0"]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "isNotNull",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "pow",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "greater",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "{b"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "-657301241"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "log",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Int64",
+                              "value": "-1004522121"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "aggregate_functions_null_for_empty": "1",
+            "enable_optimize_predicate_expression": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

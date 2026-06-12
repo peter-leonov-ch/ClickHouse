@@ -1,58 +1,61 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_rollup": true,
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "arraySort",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "groupArrayIntersect",
-              "arguments": [
-                {
-                  "type": "Asterisk"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_rollup": true,
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_numbers__fuzz_29"
+            "type": "Function",
+            "name": "arraySort",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "groupArrayIntersect",
+                "arguments": [
+                  {
+                    "type": "Asterisk"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_numbers__fuzz_29"
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

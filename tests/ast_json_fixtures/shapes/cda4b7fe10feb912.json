@@ -1,64 +1,67 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "min_number",
-          "name": "min",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
+            "type": "Function",
+            "alias": "min_number",
+            "name": "min",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "having": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "min_number"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        }
-      ],
-      "having": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "min_number"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

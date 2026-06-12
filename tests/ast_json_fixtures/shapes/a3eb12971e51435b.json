@@ -1,146 +1,149 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_rollup": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Identifier",
-          "name": "value1"
-        },
-        {
-          "type": "Identifier",
-          "name": "value2"
-        },
-        {
-          "type": "Function",
-          "alias": "start_ts",
-          "name": "toUInt64",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "min",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "time"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_rollup": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "join_inner_table__fuzz_1"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+            "type": "Identifier",
+            "name": "key"
+          },
           {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "id"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "833c9e22-c245-4eb5-8745-117a9a1f26b1"
-              }
-            ]
+            "type": "Identifier",
+            "name": "value1"
+          },
+          {
+            "type": "Identifier",
+            "name": "value2"
           },
           {
             "type": "Function",
-            "name": "greater",
-            "is_operator": true,
+            "alias": "start_ts",
+            "name": "toUInt64",
             "arguments": [
               {
-                "type": "Identifier",
-                "name": "number"
-              },
-              {
                 "type": "Function",
-                "name": "toUInt64",
+                "name": "min",
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "1610517366120"
+                    "type": "Identifier",
+                    "name": "time"
                   }
                 ]
               }
             ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "key"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "join_inner_table__fuzz_1"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "value1"
+        "prewhere": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "833c9e22-c245-4eb5-8745-117a9a1f26b1"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Function",
+                  "name": "toUInt64",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "1610517366120"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "value2"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "key"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "value1"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "value2"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC",
-          "nulls_first": false
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "value1"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "value2"
+            },
+            "direction": "ASC",
+            "nulls_first": false
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

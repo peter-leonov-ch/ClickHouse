@@ -1,59 +1,62 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t_group_by_lowcardinality"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "p_date",
-        "data_type": {
-          "type": "DataType",
-          "name": "Date"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "val",
-        "data_type": {
-          "type": "DataType",
-          "name": "LowCardinality",
-          "arguments": [
-            {
-              "type": "DataType",
-              "name": "Nullable",
-              "arguments": [
-                {
-                  "type": "DataType",
-                  "name": "String"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "partition_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
       "type": "Identifier",
-      "name": "p_date"
+      "name": "t_group_by_lowcardinality"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "p_date",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "val",
+          "data_type": {
+            "type": "DataType",
+            "name": "LowCardinality",
+            "arguments": [
+              {
+                "type": "DataType",
+                "name": "Nullable",
+                "arguments": [
+                  {
+                    "type": "DataType",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Identifier",
+        "name": "p_date"
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
     }
   }
 }

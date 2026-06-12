@@ -1,9 +1,12 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "table": {
-    "type": "Identifier",
-    "name": "v"
-  },
-  "is_view": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "v"
+    },
+    "is_view": true
+  }
 }

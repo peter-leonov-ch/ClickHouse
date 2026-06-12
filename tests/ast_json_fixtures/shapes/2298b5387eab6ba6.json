@@ -1,126 +1,129 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "tid",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "processed_at",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "created_at",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "amount",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int64"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "ReplacingMergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
     },
-    "partition_by": {
-      "type": "Function",
-      "name": "toStartOfQuarter",
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "created_at"
+          "type": "ColumnDeclaration",
+          "name": "tid",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "processed_at",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "created_at",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "amount",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int64"
+          }
         }
       ]
     },
-    "primary_key": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "created_at"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "processed_at"
-            }
-          ]
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplacingMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "toStartOfQuarter",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "created_at"
+          }
+        ]
+      },
+      "primary_key": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "created_at"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "processed_at"
+              }
+            ]
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "created_at"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "processed_at"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "tid"
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "1"
         }
-      ]
-    },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "created_at"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "processed_at"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "tid"
-        }
-      ]
-    },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity": 1
       }
     }
   }

@@ -1,4 +1,7 @@
 {
-  "type": "SYSTEM",
-  "system_type": "CLEAR INDEX MARK CACHE"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR INDEX MARK CACHE"
+  }
 }

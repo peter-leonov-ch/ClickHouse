@@ -1,9 +1,12 @@
 {
-  "type": "DetachQuery",
-  "kind": "DETACH",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tmp"
+  "version": 1,
+  "ast": {
+    "type": "DetachQuery",
+    "kind": "DETACH",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tmp"
+    }
   }
 }

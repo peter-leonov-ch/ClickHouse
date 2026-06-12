@@ -1,7 +1,10 @@
 {
-  "type": "ShowCreateTableQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
+  "version": 1,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    }
   }
 }

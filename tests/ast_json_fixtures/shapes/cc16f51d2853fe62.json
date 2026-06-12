@@ -1,78 +1,81 @@
 {
-  "type": "CreateQuery",
-  "is_materialized_view": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_view"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "Rows",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "MaxHitTime",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "America\/Los_Angeles"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Function",
-            "alias": "Rows",
-            "name": "count",
-            "arguments": []
-          },
-          {
-            "type": "Function",
-            "alias": "MaxHitTime",
-            "name": "max",
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test_view"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "Rows",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "MaxHitTime",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime",
             "arguments": [
               {
-                "type": "Identifier",
-                "name": "UTCEventTime"
+                "type": "Literal",
+                "value_type": "String",
+                "value": "America\/Los_Angeles"
               }
             ]
           }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "test_table"
+              "type": "Function",
+              "alias": "Rows",
+              "name": "count",
+              "arguments": []
+            },
+            {
+              "type": "Function",
+              "alias": "MaxHitTime",
+              "name": "max",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "UTCEventTime"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "test_table"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

@@ -1,99 +1,102 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "s"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tb"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "FULL",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "a"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tabc"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
           "type": "Function",
-          "alias": "a",
-          "name": "plus",
+          "name": "greater",
           "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
-              "name": "b"
+              "name": "a"
             },
             {
               "type": "Literal",
               "value_type": "UInt64",
-              "value": 1
+              "value": "2"
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "s"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tb"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "FULL",
-              "using": [
-                {
-                  "type": "Identifier",
-                  "name": "a"
-                }
-              ]
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
             },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tabc"
-              }
-            }
+            "direction": "ASC"
           }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
         }
       }
-    }
-  ]
+    ]
+  }
 }

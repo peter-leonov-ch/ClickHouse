@@ -1,72 +1,77 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "limit_by"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "limit_by"
+                }
               }
             }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "id"
-          },
-          "direction": "ASC"
+          ]
         },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "val"
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "id"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC"
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "val"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "offset": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
+        },
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          },
+          "offset": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ]
         }
-      ],
-      "limit_by_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        }
-      ],
-      "limit_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
       }
-    }
-  ]
+    ]
+  }
 }

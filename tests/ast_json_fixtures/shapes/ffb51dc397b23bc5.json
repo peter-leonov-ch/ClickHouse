@@ -1,60 +1,63 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tmp_a"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "k1",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "k2",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "d1",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "d2",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "if_not_exists": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tmp_a"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "k1",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "k2",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "d1",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "d2",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
     }
   }
 }

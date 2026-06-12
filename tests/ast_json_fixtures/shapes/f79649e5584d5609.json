@@ -1,64 +1,69 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "alias": "x",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{2,3}"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "system.one",
-                    "name_parts": ["system", "one"]
-                  }
-                ]
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "system.one",
+                      "name_parts": ["system", "one"]
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "dummy"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "dummy"
+        ],
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           },
-          "direction": "ASC"
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
         }
-      ],
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

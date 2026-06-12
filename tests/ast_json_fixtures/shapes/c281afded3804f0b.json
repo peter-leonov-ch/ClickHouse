@@ -1,293 +1,296 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "query_id_",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Identifier",
-                    "name": "query_id"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "query_id_",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
                     {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "query_log",
-                          "database": "system"
+                      "type": "Identifier",
+                      "name": "query_id"
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "query_log",
+                            "database": "system"
+                          }
                         }
                       }
-                    }
-                  ]
-                },
-                "where": {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "current_database"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "currentDatabase",
-                          "arguments": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "arrayElement",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "Settings"
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "String",
-                              "value": "log_processors_profiles"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "name"
-        },
-        {
-          "type": "Function",
-          "alias": "elapsed",
-          "name": "multiIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "name"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "ExpressionTransform"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "if",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "greaterOrEquals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "elapsed_us"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "Float64",
-                      "value": 900000
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                },
-                {
-                  "type": "Identifier",
-                  "name": "elapsed_us"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "name"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "SourceFromSingleChunk"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "if",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "greaterOrEquals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "output_wait_elapsed_us"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "Float64",
-                      "value": 900000
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                },
-                {
-                  "type": "Identifier",
-                  "name": "output_wait_elapsed_us"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "if",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "greaterOrEquals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "input_wait_elapsed_us"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "Float64",
-                      "value": 1000000
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                },
-                {
-                  "type": "Identifier",
-                  "name": "input_wait_elapsed_us"
+                    ]
+                  },
+                  "where": {
+                    "type": "Function",
+                    "name": "and",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "current_database"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "currentDatabase",
+                            "arguments": []
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "arrayElement",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "Settings"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": "log_processors_profiles"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "input_rows"
-        },
-        {
-          "type": "Identifier",
-          "name": "input_bytes"
-        },
-        {
-          "type": "Identifier",
-          "name": "output_rows"
-        },
-        {
-          "type": "Identifier",
-          "name": "output_bytes"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "processors_profile_log",
-                "database": "system"
-              }
-            }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
-            "type": "Identifier",
-            "name": "query_id"
-          },
-          {
-            "type": "Identifier",
-            "name": "query_id_"
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "name"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "alias": "elapsed",
+            "name": "multiIf",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "name"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "ExpressionTransform"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "if",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "greaterOrEquals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "elapsed_us"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 900000
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "elapsed_us"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "name"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "SourceFromSingleChunk"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "if",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "greaterOrEquals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "output_wait_elapsed_us"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 900000
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "output_wait_elapsed_us"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "if",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "greaterOrEquals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "input_wait_elapsed_us"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Float64",
+                        "value": 1000000
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "input_wait_elapsed_us"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "input_rows"
+          },
+          {
+            "type": "Identifier",
+            "name": "input_bytes"
+          },
+          {
+            "type": "Identifier",
+            "name": "output_rows"
+          },
+          {
+            "type": "Identifier",
+            "name": "output_bytes"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "processors_profile_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "query_id"
+            },
+            {
+              "type": "Identifier",
+              "name": "query_id_"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,28 +1,31 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "a"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "DROP_INDEX",
-      "if_exists": true,
-      "index": {
-        "type": "Identifier",
-        "name": "some_index"
-      }
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "a"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_COLUMN",
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "y"
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_INDEX",
+        "if_exists": true,
+        "index": {
+          "type": "Identifier",
+          "name": "some_index"
+        }
       },
-      "remove_property": "MATERIALIZED"
-    }
-  ]
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "y"
+        },
+        "remove_property": "MATERIALIZED"
+      }
+    ]
+  }
 }

@@ -1,25 +1,28 @@
 {
-  "type": "CreateIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_index"
-  },
-  "index_name": {
-    "type": "Identifier",
-    "name": "i_b"
-  },
-  "index_declaration": {
-    "type": "Index",
-    "name": "i_b",
-    "expression": {
+  "version": 1,
+  "ast": {
+    "type": "CreateIndexQuery",
+    "table": {
       "type": "Identifier",
-      "name": "b"
+      "name": "t_index"
     },
-    "index_type": {
-      "type": "Function",
-      "name": "bloom_filter",
-      "arguments": []
+    "index_name": {
+      "type": "Identifier",
+      "name": "i_b"
     },
-    "granularity": 2
+    "index_declaration": {
+      "type": "Index",
+      "name": "i_b",
+      "expression": {
+        "type": "Identifier",
+        "name": "b"
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "bloom_filter",
+        "arguments": []
+      },
+      "granularity": 2
+    }
   }
 }

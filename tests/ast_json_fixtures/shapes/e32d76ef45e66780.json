@@ -1,5 +1,8 @@
 {
-  "type": "ShowTables",
-  "like": "%",
-  "not_like": true
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "like": "%",
+    "not_like": true
+  }
 }

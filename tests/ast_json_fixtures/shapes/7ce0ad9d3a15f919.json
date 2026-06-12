@@ -1,10 +1,13 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "t0",
-      "to_table": "t1",
-      "if_exists": true
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "t0",
+        "to_table": "t1",
+        "if_exists": true
+      }
+    ]
+  }
 }

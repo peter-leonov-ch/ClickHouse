@@ -1,126 +1,129 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "Function",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "t1.x",
-                          "name_parts": ["t1", "x"]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "t2.number",
-                          "name_parts": ["t2", "number"]
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "t1"
-                              }
-                            }
-                          },
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_join": {
-                              "type": "TableJoin",
-                              "kind": "CROSS"
-                            },
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "table_function": {
-                                "type": "Function",
-                                "alias": "t2",
-                                "name": "numbers_mt",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 10000000
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "where": {
-                        "type": "Function",
-                        "name": "lessOrEquals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "number"
-                          },
-                          {
-                            "type": "Identifier",
-                            "name": "x"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "x"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "t1.x",
+                            "name_parts": ["t1", "x"]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "t2.number",
+                            "name_parts": ["t2", "number"]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "t1"
+                                }
+                              }
+                            },
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_join": {
+                                "type": "TableJoin",
+                                "kind": "CROSS"
+                              },
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "alias": "t2",
+                                  "name": "numbers_mt",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "10000000"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "where": {
+                          "type": "Function",
+                          "name": "lessOrEquals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "number"
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "x"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

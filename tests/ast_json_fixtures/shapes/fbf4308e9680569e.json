@@ -1,61 +1,64 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "toTypeName",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "level"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "errors_local"
+                },
+                "final": true
+              }
+            }
+          ]
+        },
+        "prewhere": {
           "type": "Function",
-          "name": "toTypeName",
+          "name": "isNotNull",
           "arguments": [
             {
               "type": "Identifier",
               "name": "level"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "errors_local"
-              },
-              "final": true
+        },
+        "where": {
+          "type": "Function",
+          "name": "isNotNull",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "level"
             }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "isNotNull",
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "level"
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "isNotNull",
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "level"
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

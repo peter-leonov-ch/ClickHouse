@@ -1,8 +1,11 @@
 {
-  "type": "CreateUserQuery",
-  "children": [
-    {
-      "type": "AuthenticationData"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "CreateUserQuery",
+    "children": [
+      {
+        "type": "AuthenticationData"
+      }
+    ]
+  }
 }

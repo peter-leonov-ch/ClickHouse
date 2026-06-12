@@ -1,154 +1,157 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "c",
-          "name": "toDayOfWeek",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ShipmentDate"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_data"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "isNotNull",
-            "is_operator": true,
+            "alias": "c",
+            "name": "toDayOfWeek",
             "arguments": [
               {
                 "type": "Identifier",
-                "name": "c"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "like",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "lowerUTF8",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "formatDateTime",
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "plus",
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toDate",
-                            "arguments": [
-                              {
-                                "type": "Literal",
-                                "value_type": "String",
-                                "value": "2024-01-01"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "toIntervalDay",
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "minus",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "toInt32",
-                                    "arguments": [
-                                      {
-                                        "type": "Identifier",
-                                        "name": "c"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 1
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "%W"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "%m%"
+                "name": "ShipmentDate"
               }
             ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "c"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_data"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "c"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "lowerUTF8",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "formatDateTime",
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "plus",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toDate",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "String",
+                                  "value": "2024-01-01"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "toIntervalDay",
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "minus",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "toInt32",
+                                      "arguments": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "c"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "%W"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "%m%"
+                }
+              ]
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "c"
-          },
-          "direction": "ASC"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "c"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "offset": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "62"
         }
-      ],
-      "limit_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 62
       }
-    }
-  ]
+    ]
+  }
 }

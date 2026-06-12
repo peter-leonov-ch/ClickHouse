@@ -1,70 +1,73 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "arr"
-        },
-        {
-          "type": "Literal",
-          "alias": "other",
-          "value_type": "Array",
-          "value": "[1, 2]"
-        },
-        {
-          "type": "Function",
-          "name": "round",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayJaccardIndex",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "arr"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "other"
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "array_jaccard_index"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "arr"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Literal",
+            "alias": "other",
+            "value_type": "Array",
+            "value": "[1, 2]"
+          },
+          {
+            "type": "Function",
+            "name": "round",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayJaccardIndex",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "arr"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "other"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "array_jaccard_index"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "arr"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

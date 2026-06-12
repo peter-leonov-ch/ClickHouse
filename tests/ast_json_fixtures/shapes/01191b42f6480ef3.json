@@ -1,8 +1,11 @@
 {
-  "type": "TruncateQuery",
-  "kind": "TRUNCATE",
-  "database": {
-    "type": "Identifier",
-    "name": "test_truncate_database"
+  "version": 1,
+  "ast": {
+    "type": "TruncateQuery",
+    "kind": "TRUNCATE",
+    "database": {
+      "type": "Identifier",
+      "name": "test_truncate_database"
+    }
   }
 }

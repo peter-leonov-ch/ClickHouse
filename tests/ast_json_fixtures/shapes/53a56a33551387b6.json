@@ -1,103 +1,106 @@
 {
-  "type": "DescribeQuery",
-  "table_expression": {
-    "type": "TableExpression",
-    "table_function": {
-      "type": "Function",
-      "name": "format",
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "untuple",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toIntervalQuarter",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "isNotNull",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "assumeNotNull",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 8
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "modulo",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "isNullable",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 7
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 4
-                },
-                {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "hola"
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 4
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "JSONEachRow"
-        }
-      ]
-    },
-    "final": true
+  "version": 1,
+  "ast": {
+    "type": "DescribeQuery",
+    "table_expression": {
+      "type": "TableExpression",
+      "table_function": {
+        "type": "Function",
+        "name": "format",
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "untuple",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toIntervalQuarter",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "isNotNull",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "assumeNotNull",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "8"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "modulo",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "isNullable",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "7"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "4"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "hola"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "4"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "JSONEachRow"
+          }
+        ]
+      },
+      "final": true
+    }
   }
 }

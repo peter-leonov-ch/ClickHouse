@@ -1,21 +1,24 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "source"
-  },
-  "cluster": "test_shard_localhost",
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_SETTING",
-      "settings_changes": {
-        "type": "Set",
-        "changes": {
-          "ttl_only_drop_parts": 1
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "source"
+    },
+    "cluster": "test_shard_localhost",
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_SETTING",
+        "settings_changes": {
+          "type": "Settings",
+          "changes": {
+            "ttl_only_drop_parts": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

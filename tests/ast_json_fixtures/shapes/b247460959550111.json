@@ -1,11 +1,14 @@
 {
-  "type": "CreateFunctionQuery",
-  "function_name": {
-    "type": "Identifier",
-    "name": "foo"
-  },
-  "function_core": {
-    "type": "Identifier",
-    "name": "x"
+  "version": 1,
+  "ast": {
+    "type": "CreateFunctionQuery",
+    "function_name": {
+      "type": "Identifier",
+      "name": "foo"
+    },
+    "function_core": {
+      "type": "Identifier",
+      "name": "x"
+    }
   }
 }

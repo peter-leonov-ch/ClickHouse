@@ -1,41 +1,44 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "Function",
-            "name": "toDateTime64",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "Float64",
-                "value": 123.345
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 3
-              }
-            ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "ABCD"
+            "type": "Asterisk"
           }
-        ]
+        ],
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toDateTime64",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "Float64",
+                  "value": 123.345
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "ABCD"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

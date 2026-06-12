@@ -1,73 +1,76 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "f2"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "merge",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "currentDatabase",
-                    "arguments": []
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "^abc$"
-                  }
-                ]
+            "type": "Identifier",
+            "name": "f2"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "merge",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "^abc$"
+                    }
+                  ]
+                }
               }
             }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "f1"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "a"
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "_table"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "abc"
-          }
-        ]
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "f1"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "a"
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "_table"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "abc"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,3 +1,6 @@
 {
-  "type": "SetRoleQuery"
+  "version": 1,
+  "ast": {
+    "type": "SetRoleQuery"
+  }
 }

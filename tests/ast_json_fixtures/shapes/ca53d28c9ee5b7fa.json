@@ -1,25 +1,28 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "if_not_exists": true,
-  "is_ordinary_view": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tview_basic"
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "if_not_exists": true,
+    "is_ordinary_view": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tview_basic"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

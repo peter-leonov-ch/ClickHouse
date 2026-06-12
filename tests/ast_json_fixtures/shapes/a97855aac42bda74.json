@@ -1,34 +1,37 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN",
-  "query": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "distinct": true,
-        "select": [
-          {
-            "type": "Identifier",
-            "name": "z"
-          }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "distinct": true,
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "tab"
+              "type": "Identifier",
+              "name": "z"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "tab"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

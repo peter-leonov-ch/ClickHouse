@@ -1,8 +1,11 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "final": true
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "final": true
+  }
 }

@@ -1,11 +1,14 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "table": {
-    "type": "Identifier",
-    "name": "test_repl"
-  },
-  "cluster": "test_shard_localhost",
-  "if_exists": true,
-  "sync": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "test_repl"
+    },
+    "cluster": "test_shard_localhost",
+    "if_exists": true,
+    "sync": true
+  }
 }

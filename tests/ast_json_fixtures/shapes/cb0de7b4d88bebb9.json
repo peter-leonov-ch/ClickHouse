@@ -1,52 +1,55 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "id",
-        "data_type": {
-          "type": "DataType",
-          "name": "UUID"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "d",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
+      "type": "Identifier",
+      "name": "t"
     },
-    "partition_by": {
-      "type": "Function",
-      "name": "toDate",
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "d"
+          "type": "ColumnDeclaration",
+          "name": "id",
+          "data_type": {
+            "type": "DataType",
+            "name": "UUID"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "d",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
+          }
         }
       ]
     },
-    "order_by": {
-      "type": "Identifier",
-      "name": "id"
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "toDate",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "d"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "id"
+      }
     }
   }
 }

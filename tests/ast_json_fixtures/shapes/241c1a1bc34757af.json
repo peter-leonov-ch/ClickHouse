@@ -1,9 +1,12 @@
 {
-  "type": "AttachQuery",
-  "attach": true,
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "tmp"
+  "version": 1,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "tmp"
+    }
   }
 }

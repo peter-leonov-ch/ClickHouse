@@ -1,143 +1,146 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "t2",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Literal",
-                      "alias": "s",
-                      "value_type": "String",
-                      "value": "x"
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "table_function": {
-                            "type": "Function",
-                            "name": "numbers_mt",
-                            "arguments": [
-                              {
-                                "type": "Literal",
-                                "value_type": "Float64",
-                                "value": 10000
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "t1.s",
-          "name_parts": ["t1", "s"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "t1",
-                "name": "t"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
+            "type": "WithElement",
+            "name": "t2",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
                   {
-                    "type": "Function",
-                    "name": "substr",
-                    "arguments": [
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "alias": "s",
+                        "value_type": "String",
+                        "value": "x"
+                      },
                       {
                         "type": "Identifier",
-                        "name": "t1.s",
-                        "name_parts": ["t1", "s"]
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
+                        "name": "number"
                       }
-                    ]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t2.s",
-                    "name_parts": ["t2", "s"]
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers_mt",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Float64",
+                                  "value": 10000
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
                   }
                 ]
               }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t2"
-              }
             }
           }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "Float64",
-        "value": 100000
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 32,
-          "max_memory_usage": "2Gi",
-          "join_algorithm": "parallel_hash",
-          "min_joined_block_size_bytes": "1Mi"
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "t1.s",
+            "name_parts": ["t1", "s"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t1",
+                  "name": "t"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "substr",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t1.s",
+                          "name_parts": ["t1", "s"]
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t2.s",
+                      "name_parts": ["t2", "s"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t2"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": 100000
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "32",
+            "max_memory_usage": "2Gi",
+            "join_algorithm": "parallel_hash",
+            "min_joined_block_size_bytes": "1Mi"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

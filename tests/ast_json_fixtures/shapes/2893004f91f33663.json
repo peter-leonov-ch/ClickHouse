@@ -1,40 +1,191 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "l_orderkey"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "l_orderkey"
+          },
+          {
+            "type": "Function",
+            "alias": "revenue",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "l_extendedprice"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "minus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "l_discount"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "o_orderdate"
+          },
+          {
+            "type": "Identifier",
+            "name": "o_shippriority"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "customer"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "COMMA"
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "orders"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "COMMA"
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "lineitem"
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "alias": "revenue",
-          "name": "sum",
+          "name": "and",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Function",
-              "name": "multiply",
+              "name": "equals",
               "is_operator": true,
               "arguments": [
                 {
                   "type": "Identifier",
-                  "name": "l_extendedprice"
+                  "name": "c_mktsegment"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "BUILDING"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "c_custkey"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "o_custkey"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "l_orderkey"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "o_orderkey"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "o_orderdate"
                 },
                 {
                   "type": "Function",
-                  "name": "minus",
-                  "is_operator": true,
+                  "name": "toDate",
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    },
+                      "value_type": "String",
+                      "value": "1995-03-15"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "l_shipdate"
+                },
+                {
+                  "type": "Function",
+                  "name": "toDate",
+                  "arguments": [
                     {
-                      "type": "Identifier",
-                      "name": "l_discount"
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "1995-03-15"
                     }
                   ]
                 }
@@ -42,192 +193,44 @@
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "o_orderdate"
-        },
-        {
-          "type": "Identifier",
-          "name": "o_shippriority"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "customer"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "COMMA"
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "orders"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "COMMA"
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "lineitem"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "c_mktsegment"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "BUILDING"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "c_custkey"
-              },
-              {
-                "type": "Identifier",
-                "name": "o_custkey"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "l_orderkey"
-              },
-              {
-                "type": "Identifier",
-                "name": "o_orderkey"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "o_orderdate"
-              },
-              {
-                "type": "Function",
-                "name": "toDate",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "1995-03-15"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "greater",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "l_shipdate"
-              },
-              {
-                "type": "Function",
-                "name": "toDate",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "1995-03-15"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "l_orderkey"
-        },
-        {
-          "type": "Identifier",
-          "name": "o_orderdate"
-        },
-        {
-          "type": "Identifier",
-          "name": "o_shippriority"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
-            "name": "revenue"
+            "name": "l_orderkey"
           },
-          "direction": "DESC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "o_orderdate"
           },
-          "direction": "ASC"
+          {
+            "type": "Identifier",
+            "name": "o_shippriority"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "revenue"
+            },
+            "direction": "DESC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "o_orderdate"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

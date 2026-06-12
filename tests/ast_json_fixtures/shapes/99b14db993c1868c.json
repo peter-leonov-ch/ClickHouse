@@ -1,93 +1,96 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "d"
-        },
-        {
-          "type": "Identifier",
-          "name": "c"
-        },
-        {
-          "type": "Function",
-          "alias": "c8",
-          "name": "row_number",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [],
-          "window_definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
-              {
-                "type": "Identifier",
-                "name": "d"
-              }
-            ],
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "c"
-                },
-                "direction": "ASC"
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
-              }
-            }
-          }
-        ]
-      },
-      "qualify": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "c8"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "d"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "max_threads": 2,
-          "enable_analyzer": 1
+          {
+            "type": "Identifier",
+            "name": "c"
+          },
+          {
+            "type": "Function",
+            "alias": "c8",
+            "name": "row_number",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [],
+            "window_definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                }
+              ],
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "c"
+                  },
+                  "direction": "ASC"
+                }
+              ]
+            }
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
+              }
+            }
+          ]
+        },
+        "qualify": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "c8"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "2",
+            "enable_analyzer": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

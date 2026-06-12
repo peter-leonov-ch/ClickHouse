@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "exchange": true,
-  "dictionary": true,
-  "elements": [
-    {
-      "from_table": "test_dict",
-      "to_table": "test_dict_2"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "exchange": true,
+    "dictionary": true,
+    "elements": [
+      {
+        "from_table": "test_dict",
+        "to_table": "test_dict_2"
+      }
+    ]
+  }
 }

@@ -1,33 +1,36 @@
 {
-  "type": "UpdateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_lwu_defaults"
-  },
-  "assignments": [
-    {
-      "type": "Assignment",
-      "column": "z",
-      "expression": {
-        "type": "Identifier",
-        "name": "y"
+  "version": 1,
+  "ast": {
+    "type": "UpdateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwu_defaults"
+    },
+    "assignments": [
+      {
+        "type": "Assignment",
+        "column": "z",
+        "expression": {
+          "type": "Identifier",
+          "name": "y"
+        }
       }
+    ],
+    "predicate": {
+      "type": "Function",
+      "name": "greater",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      ]
     }
-  ],
-  "predicate": {
-    "type": "Function",
-    "name": "greater",
-    "is_operator": true,
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "x"
-      },
-      {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      }
-    ]
   }
 }

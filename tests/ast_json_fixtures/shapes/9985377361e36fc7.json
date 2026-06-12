@@ -1,68 +1,71 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "sipHash64Keyed",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "CAST",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "2"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "UInt64"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "toUInt64",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 4
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "toUInt64",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "sipHash64Keyed",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "CAST",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "2"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "UInt64"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toUInt64",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "4"
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "toUInt64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

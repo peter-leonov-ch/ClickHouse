@@ -1,12 +1,15 @@
 {
-  "type": "SYSTEM",
-  "system_type": "START MOVES",
-  "database": {
-    "type": "Identifier",
-    "name": "sqllt"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "table"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "START MOVES",
+    "database": {
+      "type": "Identifier",
+      "name": "sqllt"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "table"
+    }
   }
 }

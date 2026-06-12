@@ -1,43 +1,46 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "i",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "partition_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "i"
+      "name": "t"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "i",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        }
+      ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity": 1
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Identifier",
+        "name": "i"
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "1"
+        }
       }
     }
   }

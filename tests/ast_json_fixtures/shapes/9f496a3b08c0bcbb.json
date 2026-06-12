@@ -1,4 +1,7 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN CURRENT TRANSACTION"
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN CURRENT TRANSACTION"
+  }
 }

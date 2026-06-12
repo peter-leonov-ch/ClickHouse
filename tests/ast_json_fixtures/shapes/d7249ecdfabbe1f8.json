@@ -1,99 +1,107 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "k"
-        },
-        {
-          "type": "Function",
-          "alias": "ratio",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "k"
+          },
+          {
+            "type": "Function",
+            "alias": "ratio",
+            "name": "divide",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "in"
+              },
+              {
+                "type": "Identifier",
+                "name": "out"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "count_rows_w",
+            "name": "count",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ],
+            "window_name": "w"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "in"
-            },
-            {
-              "type": "Identifier",
-              "name": "out"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "error_win_func"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "Function",
-          "alias": "count_rows_w",
-          "name": "count",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Asterisk"
-            }
-          ],
-          "window_name": "w"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "window": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "error_win_func"
+            "type": "WindowListElement",
+            "name": "w",
+            "definition": {
+              "type": "WindowDefinition",
+              "frame_type": "ROWS",
+              "frame_begin": {
+                "type": "Current",
+                "preceding": true
+              },
+              "frame_end": {
+                "type": "Offset",
+                "offset": {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3"
+                }
               }
             }
           }
-        ]
-      },
-      "window": [
-        {
-          "type": "WindowListElement",
-          "name": "w",
-          "definition": {
-            "type": "WindowDefinition",
-            "frame_type": "ROWS",
-            "frame_begin_type": "Current",
-            "frame_begin_preceding": true,
-            "frame_end_type": "Offset",
-            "frame_end_offset": {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
             },
-            "frame_end_preceding": false
+            "direction": "ASC"
           }
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
+        ],
+        "limit_by": {
+          "length": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
           },
-          "direction": "ASC"
+          "by": [
+            {
+              "type": "Identifier",
+              "name": "k"
+            }
+          ]
         }
-      ],
-      "limit_by_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_by": [
-        {
-          "type": "Identifier",
-          "name": "k"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

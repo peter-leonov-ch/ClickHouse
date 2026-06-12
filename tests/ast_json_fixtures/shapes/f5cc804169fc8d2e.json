@@ -1,78 +1,81 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "k",
-          "name": "TraficSourceID"
-        },
-        {
-          "type": "Function",
-          "alias": "c",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "hits",
-                "database": "test"
+            "type": "Identifier",
+            "alias": "k",
+            "name": "TraficSourceID"
+          },
+          {
+            "type": "Function",
+            "alias": "c",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits",
+                  "database": "test"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "CounterID"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1704509"
+            }
+          ]
+        },
+        "group_by": [
           {
-            "type": "Identifier",
-            "name": "CounterID"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1704509
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "k"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "k"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "totals_mode": "after_having_auto",
-          "max_rows_to_group_by": 100000,
-          "group_by_overflow_mode": "any"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "totals_mode": "after_having_auto",
+            "max_rows_to_group_by": "100000",
+            "group_by_overflow_mode": "any"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

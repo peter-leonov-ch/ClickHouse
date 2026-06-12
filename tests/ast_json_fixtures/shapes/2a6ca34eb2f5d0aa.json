@@ -1,38 +1,41 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t5"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "n",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int8"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "EmbeddedRocksDB",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "primary_key": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "n"
+      "name": "t5"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int8"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "EmbeddedRocksDB",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "n"
+      }
+    },
+    "comment": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "this is a EmbeddedRocksDB table"
     }
-  },
-  "comment": {
-    "type": "Literal",
-    "value_type": "String",
-    "value": "this is a EmbeddedRocksDB table"
   }
 }

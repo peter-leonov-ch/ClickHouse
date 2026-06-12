@@ -1,105 +1,108 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "uid"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "uid"
+          },
+          {
+            "type": "Identifier",
+            "name": "date"
+          },
+          {
+            "type": "Function",
+            "alias": "res",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toDate",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "date"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "toDate",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2021-03-24"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "table_3"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "date"
-        },
-        {
+        "where": {
           "type": "Function",
-          "alias": "res",
           "name": "equals",
           "is_operator": true,
           "arguments": [
             {
-              "type": "Function",
-              "name": "toDate",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "date"
-                }
-              ]
+              "type": "Identifier",
+              "name": "res"
             },
             {
-              "type": "Function",
-              "name": "toDate",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2021-03-24"
-                }
-              ]
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "table_3"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "res"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "uid"
-          },
-          "direction": "ASC"
         },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "date"
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "uid"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_parallel_replicas": 1,
-          "max_parallel_replicas": 3,
-          "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
-          "parallel_replicas_local_plan": 1
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "date"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_parallel_replicas": "1",
+            "max_parallel_replicas": "3",
+            "cluster_for_parallel_replicas": "test_cluster_one_shard_three_replicas_localhost",
+            "parallel_replicas_local_plan": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

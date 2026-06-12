@@ -1,24 +1,27 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t1_local"
-  },
-  "cluster": "test_shard_localhost",
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MOVE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "partition2"
-        }
-      },
-      "to_table": "t2_local"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t1_local"
+    },
+    "cluster": "test_shard_localhost",
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MOVE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "partition2"
+          }
+        },
+        "to_table": "t2_local"
+      }
+    ]
+  }
 }

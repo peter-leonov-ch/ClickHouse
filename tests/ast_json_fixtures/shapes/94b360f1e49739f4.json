@@ -1,21 +1,24 @@
 {
-  "type": "OptimizeQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "full_duplicates"
-  },
-  "deduplicate": true,
-  "deduplicate_by_columns": {
-    "type": "ExpressionList",
-    "children": [
-      {
-        "type": "Identifier",
-        "name": "sk"
-      },
-      {
-        "type": "Identifier",
-        "name": "val"
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "full_duplicates"
+    },
+    "deduplicate": true,
+    "deduplicate_by_columns": {
+      "type": "ExpressionList",
+      "children": [
+        {
+          "type": "Identifier",
+          "name": "sk"
+        },
+        {
+          "type": "Identifier",
+          "name": "val"
+        }
+      ]
+    }
   }
 }

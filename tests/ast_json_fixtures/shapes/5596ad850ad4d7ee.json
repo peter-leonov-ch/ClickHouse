@@ -1,38 +1,41 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "val",
-          "name": "toLowCardinality",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "a"
-            }
-          ]
-        }
-      ],
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "val"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "val",
+            "name": "toLowCardinality",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "a"
+              }
+            ]
+          }
+        ],
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "val"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "val"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

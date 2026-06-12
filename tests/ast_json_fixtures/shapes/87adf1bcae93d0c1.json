@@ -1,389 +1,392 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "byte",
-          "name": "arrayJoin",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "byte",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayMap",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "reinterpretAsUInt8",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "substring",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "randomString",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "range",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "randomString",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": "1048577"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "Null",
+                                        "value": null
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "arrayJoin",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "arrayMap",
+                                        "arguments": [
+                                          {
+                                            "type": "Function",
+                                            "name": "lambda",
+                                            "is_operator": true,
+                                            "is_lambda_function": true,
+                                            "kind": "LAMBDA_FUNCTION",
+                                            "arguments": [
+                                              {
+                                                "type": "Function",
+                                                "name": "tuple",
+                                                "is_operator": true,
+                                                "arguments": [
+                                                  {
+                                                    "type": "Identifier",
+                                                    "name": "x"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Function",
+                                                "name": "reinterpretAsUInt8",
+                                                "arguments": [
+                                                  {
+                                                    "type": "Function",
+                                                    "name": "substring",
+                                                    "arguments": [
+                                                      {
+                                                        "type": "Function",
+                                                        "name": "randomString",
+                                                        "arguments": [
+                                                          {
+                                                            "type": "Function",
+                                                            "name": "range",
+                                                            "arguments": [
+                                                              {
+                                                                "type": "Literal",
+                                                                "value_type": "Null",
+                                                                "value": null
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Literal",
+                                                            "value_type": "UInt64",
+                                                            "value": "65537"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Literal",
+                                                        "value_type": "UInt64",
+                                                        "value": "255"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Function",
+                                            "name": "range",
+                                            "arguments": [
+                                              {
+                                                "type": "Literal",
+                                                "value_type": "UInt64",
+                                                "value": "1"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Function",
+                                    "name": "substring",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "randomString",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "Null",
+                                            "value": null
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Function",
+                                        "name": "plus",
+                                        "is_operator": true,
+                                        "arguments": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "x"
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": "7"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "257"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1025"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "range",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "7"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Function",
-              "name": "arrayMap",
-              "arguments": [
-                {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
                   "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "reinterpretAsUInt8",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "substring",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "randomString",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "range",
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "randomString",
-                                      "arguments": [
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "UInt64",
-                                          "value": 1048577
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "Null",
-                                      "value": null
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Function",
-                                  "name": "arrayJoin",
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "arrayMap",
-                                      "arguments": [
-                                        {
-                                          "type": "Function",
-                                          "name": "lambda",
-                                          "is_operator": true,
-                                          "is_lambda_function": true,
-                                          "kind": "LAMBDA_FUNCTION",
-                                          "arguments": [
-                                            {
-                                              "type": "Function",
-                                              "name": "tuple",
-                                              "is_operator": true,
-                                              "arguments": [
-                                                {
-                                                  "type": "Identifier",
-                                                  "name": "x"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Function",
-                                              "name": "reinterpretAsUInt8",
-                                              "arguments": [
-                                                {
-                                                  "type": "Function",
-                                                  "name": "substring",
-                                                  "arguments": [
-                                                    {
-                                                      "type": "Function",
-                                                      "name": "randomString",
-                                                      "arguments": [
-                                                        {
-                                                          "type": "Function",
-                                                          "name": "range",
-                                                          "arguments": [
-                                                            {
-                                                              "type": "Literal",
-                                                              "value_type": "Null",
-                                                              "value": null
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "Literal",
-                                                          "value_type": "UInt64",
-                                                          "value": 65537
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "Literal",
-                                                      "value_type": "UInt64",
-                                                      "value": 255
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Function",
-                                          "name": "range",
-                                          "arguments": [
-                                            {
-                                              "type": "Literal",
-                                              "value_type": "UInt64",
-                                              "value": 1
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Function",
-                                  "name": "substring",
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "randomString",
-                                      "arguments": [
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "Null",
-                                          "value": null
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Function",
-                                      "name": "plus",
-                                      "is_operator": true,
-                                      "arguments": [
-                                        {
-                                          "type": "Identifier",
-                                          "name": "x"
-                                        },
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "UInt64",
-                                          "value": 7
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "String",
-                                  "value": "257"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1025
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "range",
+                  "name": "numbers",
                   "arguments": [
                     {
                       "type": "Literal",
                       "value_type": "UInt64",
-                      "value": 7
+                      "value": "10"
                     }
                   ]
                 }
-              ]
+              }
             }
           ]
         },
-        {
-          "type": "Function",
-          "alias": "c",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "name": "arrayMap",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "reinterpretAsUInt8",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "substring",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "randomString",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "randomString",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "range",
+                                    "arguments": [
+                                      {
+                                        "type": "Function",
+                                        "name": "randomString",
+                                        "arguments": [
+                                          {
+                                            "type": "Literal",
+                                            "value_type": "UInt64",
+                                            "value": "255"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "Null",
+                                        "value": null
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "Null",
+                                "value": null
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "Null",
+                            "value": null
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "range",
                 "arguments": [
                   {
                     "type": "Literal",
                     "value_type": "UInt64",
-                    "value": 10
+                    "value": "3"
                   }
                 ]
               }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "arrayMap",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "lambda",
-              "is_operator": true,
-              "is_lambda_function": true,
-              "kind": "LAMBDA_FUNCTION",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "reinterpretAsUInt8",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "substring",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "randomString",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "randomString",
-                              "arguments": [
-                                {
-                                  "type": "Function",
-                                  "name": "range",
-                                  "arguments": [
-                                    {
-                                      "type": "Function",
-                                      "name": "randomString",
-                                      "arguments": [
-                                        {
-                                          "type": "Literal",
-                                          "value_type": "UInt64",
-                                          "value": 255
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Literal",
-                                      "value_type": "Null",
-                                      "value": null
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "Null",
-                              "value": null
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "Null",
-                          "value": null
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "range",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 3
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "randomString",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "range",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "randomString",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1048577
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "Null",
-                  "value": null
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "byte"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "randomString",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "range",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "randomString",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1048577"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              }
+            ]
+          },
+          {
             "type": "Identifier",
             "name": "byte"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "byte"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

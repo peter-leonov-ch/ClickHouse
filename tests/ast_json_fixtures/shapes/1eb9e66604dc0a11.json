@@ -1,107 +1,110 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "loanx_id"
-        },
-        {
-          "type": "Identifier",
-          "name": "rating_sp"
-        },
-        {
-          "type": "Identifier",
-          "name": "cdu_date"
-        },
-        {
-          "type": "Function",
-          "alias": "row_number",
-          "name": "row_number",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [],
-          "window_definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "loanx_id"
+          },
+          {
+            "type": "Identifier",
+            "name": "rating_sp"
+          },
+          {
+            "type": "Identifier",
+            "name": "cdu_date"
+          },
+          {
+            "type": "Function",
+            "alias": "row_number",
+            "name": "row_number",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [],
+            "window_definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
+                  "type": "Identifier",
+                  "name": "cdu_date"
+                }
+              ]
+            }
+          },
+          {
+            "type": "Function",
+            "alias": "last_cdu_date",
+            "name": "last_value",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
               {
                 "type": "Identifier",
                 "name": "cdu_date"
               }
-            ]
-          }
-        },
-        {
-          "type": "Function",
-          "alias": "last_cdu_date",
-          "name": "last_value",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "cdu_date"
-            }
-          ],
-          "window_definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
-              {
-                "type": "Identifier",
-                "name": "loanx_id"
-              }
             ],
-            "order_by": [
-              {
-                "type": "OrderByElement",
-                "expression": {
+            "window_definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
                   "type": "Identifier",
-                  "name": "cdu_date"
-                },
-                "direction": "ASC"
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "atable"
-              }
+                  "name": "loanx_id"
+                }
+              ],
+              "order_by": [
+                {
+                  "type": "OrderByElement",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "cdu_date"
+                  },
+                  "direction": "ASC"
+                }
+              ]
             }
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "cdu_date"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "atable"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Identifier",
-          "name": "loanx_id"
-        },
-        {
-          "type": "Identifier",
-          "name": "rating_sp"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "query_plan_remove_redundant_distinct": 1
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "cdu_date"
+          },
+          {
+            "type": "Identifier",
+            "name": "loanx_id"
+          },
+          {
+            "type": "Identifier",
+            "name": "rating_sp"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "query_plan_remove_redundant_distinct": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

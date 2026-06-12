@@ -1,118 +1,121 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "ignore",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "alias": "x",
-                          "name": "number"
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+            "type": "Function",
+            "name": "ignore",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "numbers",
-                                "database": "system"
+                            "type": "Identifier",
+                            "alias": "x",
+                            "name": "number"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "numbers",
+                                  "database": "system"
+                                }
                               }
                             }
-                          }
-                        ]
-                      },
-                      "limit_length": {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1000
-                      }
-                    },
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "alias": "x",
-                          "name": "number"
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1000"
                         }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
+                      },
+                      {
+                        "type": "SelectQuery",
+                        "select": [
                           {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "database_and_table_name": {
-                                "type": "TableIdentifier",
-                                "name": "numbers",
-                                "database": "system"
+                            "type": "Identifier",
+                            "alias": "x",
+                            "name": "number"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "numbers",
+                                  "database": "system"
+                                }
                               }
                             }
-                          }
-                        ]
-                      },
-                      "limit_length": {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1000
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1000"
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "x"
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "x"
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
       }
-    }
-  ]
+    ]
+  }
 }

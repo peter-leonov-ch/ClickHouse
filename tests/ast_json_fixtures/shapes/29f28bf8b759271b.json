@@ -1,13 +1,67 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "n",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "modulo",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "10"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "source",
+            "value_type": "String",
+            "value": "original"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "alias": "n",
-          "name": "toFloat32",
+          "name": "equals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Function",
@@ -21,90 +75,39 @@
                 {
                   "type": "Literal",
                   "value_type": "UInt64",
-                  "value": 10
+                  "value": "3"
                 }
               ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
             }
           ]
         },
-        {
-          "type": "Literal",
-          "alias": "source",
-          "value_type": "String",
-          "value": "original"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
-              }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "n"
+            },
+            "direction": "ASC",
+            "with_fill": true,
+            "fill_step": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
             }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "modulo",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "number"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 3
-              }
-            ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "n"
-          },
-          "direction": "ASC",
-          "with_fill": true,
-          "fill_step": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "2"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 2
       }
-    }
-  ]
+    ]
+  }
 }

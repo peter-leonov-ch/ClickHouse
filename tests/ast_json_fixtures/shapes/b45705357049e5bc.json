@@ -1,45 +1,48 @@
 {
-  "type": "UpdateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_lwu_defaults"
-  },
-  "assignments": [
-    {
-      "type": "Assignment",
-      "column": "y",
-      "expression": {
-        "type": "Function",
-        "name": "plus",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "y"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 10000
-          }
-        ]
+  "version": 1,
+  "ast": {
+    "type": "UpdateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwu_defaults"
+    },
+    "assignments": [
+      {
+        "type": "Assignment",
+        "column": "y",
+        "expression": {
+          "type": "Function",
+          "name": "plus",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "y"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "10000"
+            }
+          ]
+        }
       }
+    ],
+    "predicate": {
+      "type": "Function",
+      "name": "greater",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      ]
     }
-  ],
-  "predicate": {
-    "type": "Function",
-    "name": "greater",
-    "is_operator": true,
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "x"
-      },
-      {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      }
-    ]
   }
 }

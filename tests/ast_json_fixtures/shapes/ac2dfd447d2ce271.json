@@ -1,26 +1,29 @@
 {
-  "type": "BackupQuery",
-  "children": [
-    {
-      "type": "Function",
-      "name": "Disk",
-      "kind": "BACKUP_NAME",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "backups"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "03760_backup_tar_archive.tar"
-        }
-      ]
-    },
-    {
-      "type": "Identifier",
-      "name": "Null"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "BackupQuery",
+    "children": [
+      {
+        "type": "Function",
+        "name": "Disk",
+        "kind": "BACKUP_NAME",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "backups"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "03760_backup_tar_archive.tar"
+          }
+        ]
+      },
+      {
+        "type": "Identifier",
+        "name": "Null"
+      }
+    ]
+  }
 }

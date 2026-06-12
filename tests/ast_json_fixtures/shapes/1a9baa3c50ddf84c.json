@@ -1,17 +1,20 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tmp_mv3"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Memory",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    }
-  },
-  "as_table": "tmp_mv"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tmp_mv3"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    },
+    "as_table": "tmp_mv"
+  }
 }

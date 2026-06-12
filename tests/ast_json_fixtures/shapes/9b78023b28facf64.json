@@ -1,60 +1,63 @@
 {
-  "type": "CreateQuery",
-  "is_dictionary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_dict"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "y",
-      "data_type": {
-        "type": "DataType",
-        "name": "String"
-      }
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_dictionary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test_dict"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "value",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      },
-      "default_value": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 0
-      }
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "primary_key": [
+    "dictionary_attributes": [
       {
-        "type": "Identifier",
-        "name": "y"
+        "type": "DictionaryAttributeDeclaration",
+        "name": "y",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        "default_value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
       }
     ],
-    "source": {
-      "type": "FunctionWithKeyValueArguments",
-      "name": "clickhouse",
-      "elements": [
+    "dictionary": {
+      "type": "Dictionary",
+      "primary_key": [
         {
-          "type": "pair",
-          "key": "table",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "test_table"
-          }
+          "type": "Identifier",
+          "name": "y"
         }
-      ]
-    },
-    "layout": {
-      "type": "DictionaryLayout",
-      "layout_type": "direct",
-      "parameters": []
+      ],
+      "source": {
+        "type": "FunctionWithKeyValueArguments",
+        "name": "clickhouse",
+        "elements": [
+          {
+            "type": "pair",
+            "key": "table",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "test_table"
+            }
+          }
+        ]
+      },
+      "layout": {
+        "type": "DictionaryLayout",
+        "layout_type": "direct",
+        "parameters": []
+      }
     }
   }
 }

@@ -1,278 +1,281 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test1__fuzz_37"
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test1__fuzz_37"
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "dictHas",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "dictHas",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "String",
+                                "value": ""
+                              },
+                              {
+                                "type": "Function",
+                                "name": "materialize",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Null",
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "materialize",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "Null",
+                                "value": null
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "KeyKey"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "dictHas",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "test_dictionary"
+              },
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "Ke\u0000"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "dictHas",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "Ke\u0000Ke\u0000Ke\u0000Ke\u0000Ke\u0000Ke\u0000\u0000\u0000\u0000Ke\u0000"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "materialize",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Null",
+                            "value": null
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "test_dicti\u0000nary"
+          },
+          {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": ""
+                  },
+                  {
+                    "type": "Function",
+                    "name": "materialize",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "dictHas",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "dictHas",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "materialize",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "Null",
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "KeyKeyKeyKeyKeyKeyKeyKey"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "materialize",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
+              }
+            ]
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "dictHas",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "dictHas",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "Null",
-                      "value": null
-                    },
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "tuple",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Literal",
-                              "value_type": "String",
-                              "value": ""
-                            },
-                            {
-                              "type": "Function",
-                              "name": "materialize",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "Null",
-                                  "value": null
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "materialize",
-                          "arguments": [
-                            {
-                              "type": "Literal",
-                              "value_type": "Null",
-                              "value": null
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "KeyKey"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "dictHas",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "test_dictionary"
-            },
-            {
-              "type": "Function",
-              "name": "tuple",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "Ke\u0000"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "dictHas",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "Null",
-                  "value": null
-                },
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "Ke\u0000Ke\u0000Ke\u0000Ke\u0000Ke\u0000Ke\u0000\u0000\u0000\u0000Ke\u0000"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "materialize",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Null",
-                          "value": null
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "test_dicti\u0000nary"
-        },
-        {
-          "type": "Function",
-          "name": "tuple",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "tuple",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": ""
-                },
-                {
-                  "type": "Function",
-                  "name": "materialize",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "Null",
-                      "value": null
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "dictHas",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "Null",
-                  "value": null
-                },
-                {
-                  "type": "Function",
-                  "name": "tuple",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "dictHas",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "Null",
-                          "value": null
-                        },
-                        {
-                          "type": "Function",
-                          "name": "tuple",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "materialize",
-                              "arguments": [
-                                {
-                                  "type": "Literal",
-                                  "value_type": "Null",
-                                  "value": null
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "KeyKeyKeyKeyKeyKeyKeyKey"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "materialize",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "Null",
-                  "value": null
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

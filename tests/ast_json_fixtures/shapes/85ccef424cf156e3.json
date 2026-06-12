@@ -1,55 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Subquery",
-          "alias": "a1",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Subquery",
+            "alias": "a1",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Function",
+            "name": "not",
+            "is_operator": true,
+            "arguments": [
               {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
+                "type": "Subquery",
+                "alias": "a1",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           }
-        },
-        {
-          "type": "Function",
-          "name": "not",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Subquery",
-              "alias": "a1",
-              "query": {
-                "type": "SelectWithUnionQuery",
-                "selects": [
-                  {
-                    "type": "SelectQuery",
-                    "select": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

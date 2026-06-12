@@ -1,9 +1,12 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "view_table_00942",
-      "to_table": "new_view_table_00942"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "view_table_00942",
+        "to_table": "new_view_table_00942"
+      }
+    ]
+  }
 }

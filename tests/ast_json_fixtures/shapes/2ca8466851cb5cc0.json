@@ -1,45 +1,117 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "_part_offset"
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "isNullable",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toUInt128",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "6"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_simple_projection"
+                }
+              }
+            }
+          ]
         },
-        {
+        "prewhere": {
           "type": "Function",
           "name": "equals",
           "is_operator": true,
           "arguments": [
-            {
-              "type": "Identifier",
-              "name": "_part_offset"
-            },
             {
               "type": "Function",
               "name": "equals",
               "is_operator": true,
               "arguments": [
                 {
-                  "type": "Function",
-                  "name": "isNullable",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "101"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "user_id"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "ignore",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "255"
                 },
                 {
                   "type": "Function",
-                  "name": "toUInt128",
+                  "name": "isZeroOrNull",
                   "arguments": [
                     {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 6
+                      "type": "Function",
+                      "name": "assumeNotNull",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "0"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -47,115 +119,46 @@
             }
           ]
         },
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_simple_projection"
-              }
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "106"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "user_id"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "region"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "us_west"
+                }
+              ]
             }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 101
-              },
-              {
-                "type": "Identifier",
-                "name": "user_id"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "ignore",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 255
-              },
-              {
-                "type": "Function",
-                "name": "isZeroOrNull",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "assumeNotNull",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 0
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 106
-              },
-              {
-                "type": "Identifier",
-                "name": "user_id"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "region"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "us_west"
-              }
-            ]
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,4 +1,7 @@
 {
-  "type": "ShowTables",
-  "databases": true
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "databases": true
+  }
 }

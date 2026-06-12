@@ -1,13 +1,63 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "subquery",
-          "subquery": {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "subquery",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "sum",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "10"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
             "type": "Subquery",
             "query": {
               "type": "SelectWithUnionQuery",
@@ -16,33 +66,19 @@
                   "type": "SelectQuery",
                   "select": [
                     {
-                      "type": "Function",
-                      "name": "sum",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "number"
-                        }
-                      ]
+                      "type": "Asterisk"
                     }
                   ],
-                  "tables": {
+                  "from": {
                     "type": "TablesInSelectQuery",
                     "children": [
                       {
                         "type": "TablesInSelectQueryElement",
                         "table_expression": {
                           "type": "TableExpression",
-                          "table_function": {
-                            "type": "Function",
-                            "name": "numbers",
-                            "arguments": [
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 10
-                              }
-                            ]
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "subquery"
                           }
                         }
                       }
@@ -52,41 +88,8 @@
               ]
             }
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Subquery",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Asterisk"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "subquery"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

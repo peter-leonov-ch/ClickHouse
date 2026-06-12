@@ -1,104 +1,107 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_rollup": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arraySplit",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toUInt8",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "number"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "array",
-                  "is_operator": true,
-                  "arguments": []
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_rollup": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
+            "type": "Function",
+            "name": "count",
+            "arguments": [
+              {
                 "type": "Function",
-                "name": "numbers",
+                "name": "arraySplit",
                 "arguments": [
                   {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toUInt8",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "array",
+                    "is_operator": true,
+                    "arguments": []
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "number"
-        },
-        {
-          "type": "Function",
-          "name": "array",
-          "is_operator": true,
-          "arguments": [
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "number"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
             }
           ]
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "group_by_use_nulls": 1
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          },
+          {
+            "type": "Function",
+            "name": "array",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

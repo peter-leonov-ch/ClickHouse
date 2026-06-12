@@ -1,57 +1,60 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "key",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "value",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
     },
-    "partition_by": {
-      "type": "Function",
-      "name": "modulo",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "key"
+          "type": "ColumnDeclaration",
+          "name": "key",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
         },
         {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 2
+          "type": "ColumnDeclaration",
+          "name": "value",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
         }
       ]
     },
-    "primary_key": {
-      "type": "Identifier",
-      "name": "key"
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "modulo",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          }
+        ]
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "key"
+      }
     }
   }
 }

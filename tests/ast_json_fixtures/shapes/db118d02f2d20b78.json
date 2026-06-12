@@ -1,96 +1,99 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "a",
-          "name": "toStartOfHour",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ts"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "alias": "v",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "value"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "agg"
+            "type": "Function",
+            "alias": "a",
+            "name": "toStartOfHour",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
               }
-            }
+            ]
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
-            "type": "Identifier",
-            "name": "ts"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "2021-12-06 22:00:00"
+            "type": "Function",
+            "alias": "v",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "value"
+              }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Function",
-          "name": "toStartOfHour",
-          "arguments": [
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "ts"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "agg"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "v"
+        "where": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "ts"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2021-12-06 22:00:00"
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Function",
+            "name": "toStartOfHour",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
+              }
+            ]
           },
-          "direction": "ASC"
+          {
+            "type": "Identifier",
+            "name": "a"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "v"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "5"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 5
       }
-    }
-  ]
+    ]
+  }
 }

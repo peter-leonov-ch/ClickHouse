@@ -1,116 +1,119 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Function",
-                          "alias": "shard_num",
-                          "name": "any",
-                          "arguments": [
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Function",
+                            "alias": "shard_num",
+                            "name": "any",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "_shard_num"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "count",
+                            "arguments": []
+                          },
+                          {
+                            "type": "Function",
+                            "name": "uniq",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "dummy"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
                             {
-                              "type": "Identifier",
-                              "name": "_shard_num"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "count",
-                          "arguments": []
-                        },
-                        {
-                          "type": "Function",
-                          "name": "uniq",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "dummy"
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "remote",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "127.0.0.{2,3}"
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "system.one",
+                                      "name_parts": ["system", "one"]
+                                    }
+                                  ]
+                                }
+                              }
                             }
                           ]
                         }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "table_function": {
-                                "type": "Function",
-                                "name": "remote",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "127.0.0.{2,3}"
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "system.one",
-                                    "name_parts": ["system", "one"]
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "shard_num"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "shard_num"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "limit_offset": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "distributed_group_by_no_merge": 2
+        ],
+        "offset": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_group_by_no_merge": "2"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

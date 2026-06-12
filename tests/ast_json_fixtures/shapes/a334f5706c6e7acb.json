@@ -1,8 +1,11 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "ips_v6"
-  },
-  "format": "TSV"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "ips_v6"
+    },
+    "format": "TSV"
+  }
 }

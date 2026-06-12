@@ -1,22 +1,25 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "a",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "a",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          }
+        ]
+      }
+    ]
+  }
 }

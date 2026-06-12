@@ -1,95 +1,98 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "hostName",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "hostname"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "query_thread_log",
-                "database": "system"
+            "type": "Function",
+            "name": "hostName",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "hostname"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_thread_log",
+                  "database": "system"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "like",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "query"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": "select '02095_system_logs_hostname%"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "current_database"
-              },
-              {
-                "type": "Function",
-                "name": "currentDatabase",
-                "arguments": []
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "greaterOrEquals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "event_date"
-              },
-              {
-                "type": "Function",
-                "name": "yesterday",
-                "arguments": []
-              }
-            ]
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "query"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "select '02095_system_logs_hostname%"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "current_database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "event_date"
+                },
+                {
+                  "type": "Function",
+                  "name": "yesterday",
+                  "arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

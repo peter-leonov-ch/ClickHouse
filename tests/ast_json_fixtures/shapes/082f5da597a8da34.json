@@ -1,39 +1,42 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "data",
-          "value_type": "String",
-          "value": "{\"1\":{\"key\":\"value\"}}"
-        },
-        {
-          "type": "Function",
-          "alias": "parsed_json",
-          "name": "JSONExtract",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "data"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Tuple(\"1\" Tuple(key String))"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "ssid",
-          "name": "parsed_json"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "data",
+            "value_type": "String",
+            "value": "{\"1\":{\"key\":\"value\"}}"
+          },
+          {
+            "type": "Function",
+            "alias": "parsed_json",
+            "name": "JSONExtract",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "data"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple(\"1\" Tuple(key String))"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "ssid",
+            "name": "parsed_json"
+          }
+        ]
+      }
+    ]
+  }
 }

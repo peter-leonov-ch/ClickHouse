@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "REFRESH VIEW",
-  "table": {
-    "type": "Identifier",
-    "name": "03789_rmv_mv"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "REFRESH VIEW",
+    "table": {
+      "type": "Identifier",
+      "name": "03789_rmv_mv"
+    }
   }
 }

@@ -1,56 +1,57 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "x1"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "i",
-        "data_type": {
-          "type": "DataType",
-          "name": "Nullable",
-          "arguments": [
-            {
-              "type": "DataType",
-              "name": "int"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "primary_key": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "i"
+      "name": "x1"
     },
-    "order_by": {
-      "type": "StorageOrderByElement",
-      "direction": "DESC",
-      "children": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "i"
+          "type": "ColumnDeclaration",
+          "name": "i",
+          "data_type": {
+            "type": "DataType",
+            "name": "Nullable",
+            "arguments": [
+              {
+                "type": "DataType",
+                "name": "int"
+              }
+            ]
+          }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "allow_nullable_key": 1,
-        "index_granularity": 2,
-        "allow_experimental_reverse_key": 1
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "i"
+      },
+      "order_by": {
+        "type": "StorageOrderByElement",
+        "expression": {
+          "type": "Identifier",
+          "name": "i"
+        },
+        "direction": "DESC"
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "allow_nullable_key": "1",
+          "index_granularity": "2",
+          "allow_experimental_reverse_key": "1"
+        }
       }
     }
   }

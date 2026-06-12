@@ -1,46 +1,49 @@
 {
-  "type": "AttachQuery",
-  "attach": true,
-  "table": {
-    "type": "Identifier",
-    "name": "x"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "key",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "ReplicatedMergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "table": {
+      "type": "Identifier",
+      "name": "x"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "\/tables\/{database}\/{uuid}"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "r1"
+          "type": "ColumnDeclaration",
+          "name": "key",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int"
+          }
         }
       ]
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplicatedMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "\/tables\/{database}\/{uuid}"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "r1"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
     }
   }
 }

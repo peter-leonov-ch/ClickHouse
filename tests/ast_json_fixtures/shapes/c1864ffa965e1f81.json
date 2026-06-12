@@ -1,106 +1,109 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 256
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 256
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 65536
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 65536
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 4294967296
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 4294967296
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "Float64",
-          "value": 0.5
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 0.5
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "value_type": "Float64",
-          "value": 1e-10
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Float64",
-              "value": 1e-10
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "256"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "256"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "65536"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "65536"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "4294967296"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "4294967296"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Float64",
+            "value": 0.5
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.5
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Float64",
+            "value": 1e-10
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 1e-10
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

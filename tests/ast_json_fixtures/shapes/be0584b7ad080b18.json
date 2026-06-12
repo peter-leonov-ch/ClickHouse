@@ -1,257 +1,260 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "divide",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "column_1"
-            },
-            {
-              "type": "Identifier",
-              "name": "column_2"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "id"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "alias": "T2",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Function",
-                          "alias": "column_1",
-                          "name": "max",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "column_1"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "column_2",
-                          "name": "max",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "column_2"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Identifier",
-                          "name": "id"
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "subquery": {
-                                "type": "Subquery",
-                                "alias": "T1",
-                                "query": {
-                                  "type": "SelectWithUnionQuery",
-                                  "selects": [
-                                    {
-                                      "type": "SelectQuery",
-                                      "select": [
-                                        {
-                                          "type": "Function",
-                                          "alias": "column_1",
-                                          "name": "max",
-                                          "arguments": [
-                                            {
-                                              "type": "Identifier",
-                                              "name": "column_1"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Literal",
-                                          "alias": "column_2",
-                                          "value_type": "Null",
-                                          "value": null
-                                        },
-                                        {
-                                          "type": "Identifier",
-                                          "name": "id"
-                                        }
-                                      ],
-                                      "tables": {
-                                        "type": "TablesInSelectQuery",
-                                        "children": [
-                                          {
-                                            "type": "TablesInSelectQueryElement",
-                                            "table_expression": {
-                                              "type": "TableExpression",
-                                              "database_and_table_name": {
-                                                "type": "TableIdentifier",
-                                                "name": "clickhouse_alias_issue_1"
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      },
-                                      "group_by": [
-                                        {
-                                          "type": "Identifier",
-                                          "name": "id"
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "SelectQuery",
-                                      "select": [
-                                        {
-                                          "type": "Literal",
-                                          "alias": "column_1",
-                                          "value_type": "Null",
-                                          "value": null
-                                        },
-                                        {
-                                          "type": "Function",
-                                          "alias": "column_2",
-                                          "name": "max",
-                                          "arguments": [
-                                            {
-                                              "type": "Identifier",
-                                              "name": "column_2"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Identifier",
-                                          "name": "id"
-                                        }
-                                      ],
-                                      "tables": {
-                                        "type": "TablesInSelectQuery",
-                                        "children": [
-                                          {
-                                            "type": "TablesInSelectQueryElement",
-                                            "table_expression": {
-                                              "type": "TableExpression",
-                                              "database_and_table_name": {
-                                                "type": "TableIdentifier",
-                                                "name": "clickhouse_alias_issue_2"
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      },
-                                      "group_by": [
-                                        {
-                                          "type": "Identifier",
-                                          "name": "id"
-                                        }
-                                      ],
-                                      "settings": {
-                                        "type": "Set",
-                                        "changes": {
-                                          "prefer_column_name_to_alias": 1
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "group_by": [
-                        {
-                          "type": "Identifier",
-                          "name": "id"
-                        }
-                      ],
-                      "order_by": [
-                        {
-                          "type": "OrderByElement",
-                          "expression": {
-                            "type": "Identifier",
-                            "name": "id"
-                          },
-                          "direction": "DESC"
-                        }
-                      ],
-                      "settings": {
-                        "type": "Set",
-                        "changes": {
-                          "prefer_column_name_to_alias": 1
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "isNotNull",
+            "name": "divide",
             "is_operator": true,
             "arguments": [
               {
                 "type": "Identifier",
                 "name": "column_1"
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "isNotNull",
-            "is_operator": true,
-            "arguments": [
+              },
               {
                 "type": "Identifier",
                 "name": "column_2"
               }
             ]
+          },
+          {
+            "type": "Identifier",
+            "name": "id"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "prefer_column_name_to_alias": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "T2",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Function",
+                            "alias": "column_1",
+                            "name": "max",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "column_1"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "column_2",
+                            "name": "max",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "column_2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "id"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "subquery": {
+                                  "type": "Subquery",
+                                  "alias": "T1",
+                                  "query": {
+                                    "type": "SelectWithUnionQuery",
+                                    "selects": [
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
+                                          {
+                                            "type": "Function",
+                                            "alias": "column_1",
+                                            "name": "max",
+                                            "arguments": [
+                                              {
+                                                "type": "Identifier",
+                                                "name": "column_1"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Literal",
+                                            "alias": "column_2",
+                                            "value_type": "Null",
+                                            "value": null
+                                          },
+                                          {
+                                            "type": "Identifier",
+                                            "name": "id"
+                                          }
+                                        ],
+                                        "from": {
+                                          "type": "TablesInSelectQuery",
+                                          "children": [
+                                            {
+                                              "type": "TablesInSelectQueryElement",
+                                              "table_expression": {
+                                                "type": "TableExpression",
+                                                "database_and_table_name": {
+                                                  "type": "TableIdentifier",
+                                                  "name": "clickhouse_alias_issue_1"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "group_by": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "id"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "SelectQuery",
+                                        "select": [
+                                          {
+                                            "type": "Literal",
+                                            "alias": "column_1",
+                                            "value_type": "Null",
+                                            "value": null
+                                          },
+                                          {
+                                            "type": "Function",
+                                            "alias": "column_2",
+                                            "name": "max",
+                                            "arguments": [
+                                              {
+                                                "type": "Identifier",
+                                                "name": "column_2"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Identifier",
+                                            "name": "id"
+                                          }
+                                        ],
+                                        "from": {
+                                          "type": "TablesInSelectQuery",
+                                          "children": [
+                                            {
+                                              "type": "TablesInSelectQueryElement",
+                                              "table_expression": {
+                                                "type": "TableExpression",
+                                                "database_and_table_name": {
+                                                  "type": "TableIdentifier",
+                                                  "name": "clickhouse_alias_issue_2"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "group_by": [
+                                          {
+                                            "type": "Identifier",
+                                            "name": "id"
+                                          }
+                                        ],
+                                        "settings": {
+                                          "type": "Settings",
+                                          "changes": {
+                                            "prefer_column_name_to_alias": "1"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "group_by": [
+                          {
+                            "type": "Identifier",
+                            "name": "id"
+                          }
+                        ],
+                        "order_by": [
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "id"
+                            },
+                            "direction": "DESC"
+                          }
+                        ],
+                        "settings": {
+                          "type": "Settings",
+                          "changes": {
+                            "prefer_column_name_to_alias": "1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "column_1"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "column_2"
+                }
+              ]
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "prefer_column_name_to_alias": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

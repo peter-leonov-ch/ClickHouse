@@ -1,66 +1,35 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "reference_vec",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Array",
-              "value": "[0., 2.]"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Array(Float64)"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "id"
-        },
-        {
-          "type": "Function",
-          "name": "L2Distance",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "vec"
-            },
-            {
-              "type": "Identifier",
-              "name": "reference_vec"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tab_f32"
+            "type": "Function",
+            "alias": "reference_vec",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "[0., 2.]"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Array(Float64)"
               }
-            }
+            ]
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
             "type": "Function",
             "name": "L2Distance",
             "arguments": [
@@ -73,15 +42,49 @@
                 "name": "reference_vec"
               }
             ]
-          },
-          "direction": "ASC"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab_f32"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "L2Distance",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "vec"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "reference_vec"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "4"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 4
       }
-    }
-  ]
+    ]
+  }
 }

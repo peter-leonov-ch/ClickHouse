@@ -1,50 +1,53 @@
 {
-  "type": "DeleteQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "predicate": {
-    "type": "Function",
-    "name": "in",
-    "is_operator": true,
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "x"
-      },
-      {
-        "type": "Subquery",
-        "query": {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "select": [
-                {
-                  "type": "Identifier",
-                  "name": "y"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
+  "version": 1,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "predicate": {
+      "type": "Function",
+      "name": "in",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Subquery",
+          "query": {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "select": [
                   {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "t"
+                    "type": "Identifier",
+                    "name": "y"
+                  }
+                ],
+                "from": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "t"
+                        }
                       }
                     }
-                  }
-                ]
+                  ]
+                }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

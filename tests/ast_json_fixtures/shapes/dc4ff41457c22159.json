@@ -1,434 +1,437 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "cityHash64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "and",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "3"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "y"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "44"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toLowCardinality",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toNullable",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUInt256",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toUInt128",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toLowCardinality",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUInt128",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "cityHash64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toUInt128",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toLowCardinality",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Function",
+                "name": "toLowCardinality",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "toLowCardinality",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "pk_block_union"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
           "type": "Function",
-          "name": "cityHash64",
+          "name": "and",
+          "is_operator": true,
           "arguments": [
             {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
               "type": "Function",
-              "name": "and",
+              "name": "equals",
               "is_operator": true,
               "arguments": [
                 {
-                  "type": "Function",
-                  "name": "equals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "x"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 3
-                    }
-                  ]
+                  "type": "Identifier",
+                  "name": "x"
                 },
                 {
-                  "type": "Function",
-                  "name": "equals",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "y"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 44
-                    }
-                  ]
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3"
                 }
               ]
             },
             {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
               "type": "Function",
-              "name": "toLowCardinality",
+              "name": "equals",
+              "is_operator": true,
               "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "y"
+                },
                 {
                   "type": "Literal",
                   "value_type": "UInt64",
-                  "value": 1
+                  "value": "44"
                 }
               ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toNullable",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toUInt256",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toUInt128",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toLowCardinality",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toUInt128",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
             }
           ]
         },
-        {
-          "type": "Function",
-          "name": "cityHash64",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toUInt128",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toLowCardinality",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Function",
-              "name": "toLowCardinality",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "toLowCardinality",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        "order_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "pk_block_union"
-              }
-            }
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "DESC"
           }
         ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 3
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "y"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 44
-              }
-            ]
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "DESC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

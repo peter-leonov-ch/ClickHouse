@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "rmt"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "REPLACE_PARTITION",
-      "partition": {
-        "type": "Partition_ID",
-        "id": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "0"
-        }
-      },
-      "from_table": "rmt2"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "rmt"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "REPLACE_PARTITION",
+        "partition": {
+          "type": "Partition_ID",
+          "id": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "0"
+          }
+        },
+        "from_table": "rmt2"
+      }
+    ]
+  }
 }

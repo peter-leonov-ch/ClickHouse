@@ -1,76 +1,79 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "x",
-          "name": "and",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "less",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "d"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2018-01-01"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "less",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "d"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "2018-01-02"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
+            "type": "Function",
+            "alias": "x",
+            "name": "and",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "less",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "d"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2018-01-01"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "less",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "d"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2018-01-02"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Identifier",
-        "name": "x"
+          ]
+        },
+        "where": {
+          "type": "Identifier",
+          "name": "x"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

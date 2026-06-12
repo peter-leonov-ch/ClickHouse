@@ -1,143 +1,146 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "value1"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "date_t__fuzz_45"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "toStartOfSecond",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "date1"
-                  }
-                ]
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 199203
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 199300
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "lessOrEquals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 199203
-              },
-              {
-                "type": "Function",
-                "name": "toStartOfSecond",
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "date1"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "less",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              },
-              {
-                "type": "Function",
-                "name": "toLowCardinality",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 199300
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "qualify": {
-        "type": "Function",
-        "name": "isNull",
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Identifier",
-            "name": "id"
+            "name": "value1"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "date_t__fuzz_45"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "toStartOfSecond",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "date1"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "199203"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "199300"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "lessOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "199203"
+                },
+                {
+                  "type": "Function",
+                  "name": "toStartOfSecond",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "date1"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                },
+                {
+                  "type": "Function",
+                  "name": "toLowCardinality",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "199300"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "qualify": {
+          "type": "Function",
+          "name": "isNull",
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

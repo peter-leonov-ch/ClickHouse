@@ -1,145 +1,148 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "arr",
-          "name": "splitByChar",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0"
-            },
-            {
-              "type": "Function",
-              "name": "toString",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "intHash64",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "number"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "lim",
-          "value_type": "UInt64",
-          "value": 3
-        },
-        {
-          "type": "Function",
-          "alias": "sorted",
-          "name": "arrayResize",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayPartialSort",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "lim"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "arr"
-                }
-              ]
-            },
-            {
-              "type": "Identifier",
-              "name": "lim"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "sorted_nums",
-          "name": "arrayResize",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayPartialSort",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "lambda",
-                  "is_operator": true,
-                  "is_lambda_function": true,
-                  "kind": "LAMBDA_FUNCTION",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "tuple",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toUInt64OrZero",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "x"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Identifier",
-                  "name": "lim"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "arr"
-                }
-              ]
-            },
-            {
-              "type": "Identifier",
-              "name": "lim"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "numbers",
-                "database": "system"
+            "type": "Function",
+            "alias": "arr",
+            "name": "splitByChar",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "type": "Function",
+                "name": "toString",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "intHash64",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "lim",
+            "value_type": "UInt64",
+            "value": "3"
+          },
+          {
+            "type": "Function",
+            "alias": "sorted",
+            "name": "arrayResize",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayPartialSort",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "lim"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "arr"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "lim"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "sorted_nums",
+            "name": "arrayResize",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayPartialSort",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toUInt64OrZero",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "lim"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "arr"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "lim"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
               }
             }
-          }
-        ]
-      },
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

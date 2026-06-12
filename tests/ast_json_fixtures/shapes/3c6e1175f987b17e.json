@@ -1,9 +1,12 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "eligible_test",
-      "to_table": "eligible_test2"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "eligible_test",
+        "to_table": "eligible_test2"
+      }
+    ]
+  }
 }

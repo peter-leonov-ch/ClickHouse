@@ -1,25 +1,28 @@
 {
-  "type": "CreateIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_index"
-  },
-  "index_name": {
-    "type": "Identifier",
-    "name": "i_a"
-  },
-  "index_declaration": {
-    "type": "Index",
-    "name": "i_a",
-    "expression": {
+  "version": 1,
+  "ast": {
+    "type": "CreateIndexQuery",
+    "table": {
       "type": "Identifier",
-      "name": "a"
+      "name": "t_index"
     },
-    "index_type": {
-      "type": "Function",
-      "name": "minmax",
-      "arguments": []
+    "index_name": {
+      "type": "Identifier",
+      "name": "i_a"
     },
-    "granularity": 4
+    "index_declaration": {
+      "type": "Index",
+      "name": "i_a",
+      "expression": {
+        "type": "Identifier",
+        "name": "a"
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "minmax",
+        "arguments": []
+      },
+      "granularity": 4
+    }
   }
 }

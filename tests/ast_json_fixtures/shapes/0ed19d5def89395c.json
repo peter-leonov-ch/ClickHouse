@@ -1,12 +1,15 @@
 {
-  "type": "Rename",
-  "dictionary": true,
-  "elements": [
-    {
-      "from_database": "test_01191",
-      "from_table": "dict1",
-      "to_database": "test_01191",
-      "to_table": "dict2"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "dictionary": true,
+    "elements": [
+      {
+        "from_database": "test_01191",
+        "from_table": "dict1",
+        "to_database": "test_01191",
+        "to_table": "dict2"
+      }
+    ]
+  }
 }

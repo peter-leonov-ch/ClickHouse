@@ -1,9 +1,12 @@
 {
-  "type": "ShowGrantsQuery",
-  "children": [
-    {
-      "type": "Identifier",
-      "name": "Null"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "ShowGrantsQuery",
+    "children": [
+      {
+        "type": "Identifier",
+        "name": "Null"
+      }
+    ]
+  }
 }

@@ -1,20 +1,23 @@
 {
-  "type": "CreateIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_index_3146"
-  },
-  "index_name": {
-    "type": "Identifier",
-    "name": "i5"
-  },
-  "index_declaration": {
-    "type": "Index",
-    "name": "i5",
-    "expression": {
+  "version": 1,
+  "ast": {
+    "type": "CreateIndexQuery",
+    "table": {
       "type": "Identifier",
-      "name": "a"
+      "name": "t_index_3146"
     },
-    "granularity": 1
+    "index_name": {
+      "type": "Identifier",
+      "name": "i5"
+    },
+    "index_declaration": {
+      "type": "Index",
+      "name": "i5",
+      "expression": {
+        "type": "Identifier",
+        "name": "a"
+      },
+      "granularity": 1
+    }
   }
 }

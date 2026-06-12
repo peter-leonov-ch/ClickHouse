@@ -1,40 +1,43 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "lc_00906"
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "lc_00906"
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "b"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

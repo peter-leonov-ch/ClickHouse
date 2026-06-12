@@ -1,19 +1,22 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_SAMPLE_BY",
-      "sample_by": {
-        "type": "Function",
-        "name": "tuple",
-        "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_SAMPLE_BY",
+        "sample_by": {
+          "type": "Function",
+          "name": "tuple",
+          "arguments": []
+        }
       }
-    }
-  ]
+    ]
+  }
 }

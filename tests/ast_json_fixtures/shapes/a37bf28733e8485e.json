@@ -1,459 +1,462 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "start_ts",
-          "name": "toDateTime64",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "2024-12-12 12:00:10"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "alias": "end_ts",
-          "name": "toDateTime64",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "2024-12-12 12:01:00"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        },
-        {
-          "type": "Literal",
-          "alias": "step_sec",
-          "value_type": "UInt64",
-          "value": 10
-        },
-        {
-          "type": "Literal",
-          "alias": "window_sec",
-          "value_type": "UInt64",
-          "value": 50
-        },
-        {
-          "type": "Function",
-          "alias": "grid",
-          "name": "range",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "toUnixTimestamp",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "start_ts"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "plus",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "toUnixTimestamp",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "end_ts"
-                    }
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "type": "Identifier",
-              "name": "step_sec"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "metric_id"
-        },
-        {
-          "type": "Function",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayZip",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "grid"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "irate_values"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "idelta_values"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "rate_values"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "delta_values"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Identifier",
-                          "name": "metric_id"
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "irate_values",
-                          "name": "timeSeriesInstantRateToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Identifier",
-                              "name": "start_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "end_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "step_sec"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "window_sec"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "idelta_values",
-                          "name": "timeSeriesInstantDeltaToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Identifier",
-                              "name": "start_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "end_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "step_sec"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "window_sec"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "rate_values",
-                          "name": "timeSeriesRateToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Identifier",
-                              "name": "start_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "end_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "step_sec"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "window_sec"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "alias": "delta_values",
-                          "name": "timeSeriesDeltaToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "samples"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Identifier",
-                              "name": "start_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "end_ts"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "step_sec"
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "window_sec"
-                            }
-                          ]
-                        }
-                      ],
-                      "tables": {
-                        "type": "TablesInSelectQuery",
-                        "children": [
-                          {
-                            "type": "TablesInSelectQueryElement",
-                            "table_expression": {
-                              "type": "TableExpression",
-                              "table_function": {
-                                "type": "Function",
-                                "name": "clusterAllReplicas",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "String",
-                                    "value": "test_shard_localhost"
-                                  },
-                                  {
-                                    "type": "Function",
-                                    "name": "currentDatabase",
-                                    "arguments": []
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "name": "t_resampled_timeseries_64"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "group_by": [
-                        {
-                          "type": "Identifier",
-                          "name": "metric_id"
-                        }
-                      ]
-                    }
-                  ]
-                }
+            "type": "Function",
+            "alias": "start_ts",
+            "name": "toDateTime64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2024-12-12 12:00:10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
               }
-            }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "end_ts",
+            "name": "toDateTime64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2024-12-12 12:01:00"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "step_sec",
+            "value_type": "UInt64",
+            "value": "10"
+          },
+          {
+            "type": "Literal",
+            "alias": "window_sec",
+            "value_type": "UInt64",
+            "value": "50"
+          },
+          {
+            "type": "Function",
+            "alias": "grid",
+            "name": "range",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toUnixTimestamp",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "start_ts"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUnixTimestamp",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "end_ts"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "step_sec"
+              }
+            ]
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "select": [
+          {
             "type": "Identifier",
             "name": "metric_id"
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_parallel_replicas": 1,
-          "max_parallel_replicas": 3,
-          "parallel_replicas_for_non_replicated_merge_tree": 1,
-          "enable_analyzer": 1
+          {
+            "type": "Function",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayZip",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "grid"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "irate_values"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "idelta_values"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "rate_values"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "delta_values"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "metric_id"
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "irate_values",
+                            "name": "timeSeriesInstantRateToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Identifier",
+                                "name": "start_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "end_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "step_sec"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "window_sec"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "idelta_values",
+                            "name": "timeSeriesInstantDeltaToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Identifier",
+                                "name": "start_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "end_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "step_sec"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "window_sec"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "rate_values",
+                            "name": "timeSeriesRateToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Identifier",
+                                "name": "start_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "end_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "step_sec"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "window_sec"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "delta_values",
+                            "name": "timeSeriesDeltaToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "samples"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Identifier",
+                                "name": "start_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "end_ts"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "step_sec"
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "window_sec"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "clusterAllReplicas",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "test_shard_localhost"
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "currentDatabase",
+                                      "arguments": []
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "t_resampled_timeseries_64"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "group_by": [
+                          {
+                            "type": "Identifier",
+                            "name": "metric_id"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "metric_id"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_parallel_replicas": "1",
+            "max_parallel_replicas": "3",
+            "parallel_replicas_for_non_replicated_merge_tree": "1",
+            "enable_analyzer": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

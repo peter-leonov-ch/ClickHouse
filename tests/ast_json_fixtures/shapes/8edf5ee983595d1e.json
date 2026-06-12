@@ -1,104 +1,107 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "key"
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Asterisk"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "str1"
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "str1"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "str2"
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "str2"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "fstr1"
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "fstr1"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "fstr2"
-        },
-        {
-          "type": "Function",
-          "name": "byteSize",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "fstr2"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_byte_size_string"
-              }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "key"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "str1"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "str1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "str2"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "str2"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "fstr1"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "fstr1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "fstr2"
+          },
+          {
+            "type": "Function",
+            "name": "byteSize",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "fstr2"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_byte_size_string"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "key"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

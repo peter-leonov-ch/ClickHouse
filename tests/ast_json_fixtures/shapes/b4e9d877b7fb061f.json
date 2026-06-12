@@ -1,53 +1,56 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "IPv6NumToString",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "IPv6NumToString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ip"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "cidr"
+          },
+          {
+            "type": "Function",
+            "name": "IPv6CIDRToRange",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ip"
+              },
+              {
+                "type": "Identifier",
+                "name": "cidr"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "ip"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "cidr"
-        },
-        {
-          "type": "Function",
-          "name": "IPv6CIDRToRange",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ip"
-            },
-            {
-              "type": "Identifier",
-              "name": "cidr"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "ipv6_range"
+                }
+              }
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "ipv6_range"
-              }
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

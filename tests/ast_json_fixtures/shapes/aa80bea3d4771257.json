@@ -1,16 +1,19 @@
 {
-  "type": "CreateQuery",
-  "database": {
-    "type": "Identifier",
-    "name": "01913_db"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Atomic",
-      "kind": "DATABASE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "01913_db"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Atomic",
+        "kind": "DATABASE_ENGINE",
+        "arguments": []
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "START MERGES",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "START MERGES",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    }
   }
 }

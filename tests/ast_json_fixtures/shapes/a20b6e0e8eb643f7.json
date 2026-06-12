@@ -1,32 +1,35 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "url",
-    "arguments": [
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "http:\/\/127.0.0.1\/foo.tsv"
-      },
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "TabSeparated"
-      },
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "key Int"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "url",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "http:\/\/127.0.0.1\/foo.tsv"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "TabSeparated"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "key Int"
+        }
+      ]
+    },
+    "format": "Values",
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "http_max_tries": "1",
+        "materialized_views_ignore_errors": "1"
       }
-    ]
-  },
-  "format": "Values",
-  "settings": {
-    "type": "Set",
-    "changes": {
-      "http_max_tries": 1,
-      "materialized_views_ignore_errors": 1
     }
   }
 }

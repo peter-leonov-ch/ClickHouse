@@ -1,92 +1,95 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "dynamicType",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "d"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "d"
-        },
-        {
-          "type": "Identifier",
-          "name": "d.Nested(x UInt32, y Dynamic).x",
-          "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "x"]
-        },
-        {
-          "type": "Identifier",
-          "name": "d.Nested(x UInt32, y Dynamic).y",
-          "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y"]
-        },
-        {
-          "type": "Function",
-          "name": "dynamicType",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayElement",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "d.Nested(x UInt32, y Dynamic).y",
-                  "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y"]
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "d.Nested(x UInt32, y Dynamic).y.String",
-          "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y", "String"]
-        },
-        {
-          "type": "Identifier",
-          "name": "d.Nested(x UInt32, y Dynamic).y.Tuple(Int64, Array(String))",
-          "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y", "Tuple(Int64, Array(String))"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
+            "type": "Function",
+            "name": "dynamicType",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
               }
-            }
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+            ]
+          },
+          {
             "type": "Identifier",
             "name": "d"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Identifier",
+            "name": "d.Nested(x UInt32, y Dynamic).x",
+            "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "x"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Nested(x UInt32, y Dynamic).y",
+            "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y"]
+          },
+          {
+            "type": "Function",
+            "name": "dynamicType",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "d.Nested(x UInt32, y Dynamic).y",
+                    "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y"]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Nested(x UInt32, y Dynamic).y.String",
+            "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y", "String"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Nested(x UInt32, y Dynamic).y.Tuple(Int64, Array(String))",
+            "name_parts": ["d", "Nested(x UInt32, y Dynamic)", "y", "Tuple(Int64, Array(String))"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

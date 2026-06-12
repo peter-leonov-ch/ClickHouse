@@ -1,10 +1,13 @@
 {
-  "type": "DetachQuery",
-  "kind": "DETACH",
-  "table": {
-    "type": "Identifier",
-    "name": "test_repl"
-  },
-  "cluster": "test_shard_localhost",
-  "sync": true
+  "version": 1,
+  "ast": {
+    "type": "DetachQuery",
+    "kind": "DETACH",
+    "table": {
+      "type": "Identifier",
+      "name": "test_repl"
+    },
+    "cluster": "test_shard_localhost",
+    "sync": true
+  }
 }

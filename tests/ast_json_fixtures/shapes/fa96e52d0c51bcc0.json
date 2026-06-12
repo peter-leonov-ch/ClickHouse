@@ -1,3 +1,6 @@
 {
-  "type": "CreateNamedCollectionQuery"
+  "version": 1,
+  "ast": {
+    "type": "CreateNamedCollectionQuery"
+  }
 }

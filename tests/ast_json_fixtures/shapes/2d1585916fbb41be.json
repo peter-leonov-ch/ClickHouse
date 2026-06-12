@@ -1,3 +1,6 @@
 {
-  "type": "CreateQuotaQuery"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuotaQuery"
+  }
 }

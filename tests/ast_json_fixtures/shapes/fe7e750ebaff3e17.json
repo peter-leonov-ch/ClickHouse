@@ -1,19 +1,22 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "null",
-    "arguments": [
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "x String"
-      }
-    ]
-  },
-  "infile": {
-    "type": "Literal",
-    "value_type": "String",
-    "value": "\/dev\/null"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "null",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "x String"
+        }
+      ]
+    },
+    "infile": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "\/dev\/null"
+    }
   }
 }

@@ -1,59 +1,62 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t0"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "c0",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int64"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "c0",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int64"
+          }
         }
-      }
-    ],
-    "indices": [
-      {
-        "type": "Index",
-        "name": "i1",
-        "expression": {
-          "type": "Identifier",
-          "name": "c0"
-        },
-        "index_type": {
-          "type": "Function",
-          "name": "set",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 0
-            }
-          ]
-        },
-        "granularity": 1
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "SummingMergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+      ],
+      "indices": [
+        {
+          "type": "Index",
+          "name": "i1",
+          "expression": {
+            "type": "Identifier",
+            "name": "c0"
+          },
+          "index_type": {
+            "type": "Function",
+            "name": "set",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          },
+          "granularity": 1
+        }
+      ]
     },
-    "partition_by": {
-      "type": "Identifier",
-      "name": "c0"
-    },
-    "order_by": {
-      "type": "Identifier",
-      "name": "c0"
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "SummingMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Identifier",
+        "name": "c0"
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "c0"
+      }
     }
   }
 }

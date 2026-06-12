@@ -1,18 +1,21 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "bool_test"
-  },
-  "columns": [
-    {
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
       "type": "Identifier",
-      "name": "value"
+      "name": "bool_test"
     },
-    {
-      "type": "Identifier",
-      "name": "f"
-    }
-  ],
-  "format": "CSV"
+    "columns": [
+      {
+        "type": "Identifier",
+        "name": "value"
+      },
+      {
+        "type": "Identifier",
+        "name": "f"
+      }
+    ],
+    "format": "CSV"
+  }
 }

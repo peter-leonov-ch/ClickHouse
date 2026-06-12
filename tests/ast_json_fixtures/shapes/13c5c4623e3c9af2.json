@@ -1,3 +1,6 @@
 {
-  "type": "DropResourceQuery"
+  "version": 1,
+  "ast": {
+    "type": "DropResourceQuery"
+  }
 }

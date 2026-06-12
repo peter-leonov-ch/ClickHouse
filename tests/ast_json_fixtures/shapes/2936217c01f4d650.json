@@ -1,64 +1,67 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "T1"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "A",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "B",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "table": {
       "type": "Identifier",
-      "name": "A"
-    }
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "alias": "A",
-            "value_type": "UInt64",
-            "value": 1
-          },
-          {
-            "type": "Literal",
-            "alias": "B",
-            "value_type": "UInt64",
-            "value": 2
+      "name": "T1"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "A",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
           }
-        ]
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "B",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int32"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "A"
       }
-    ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "A",
+              "value_type": "UInt64",
+              "value": "1"
+            },
+            {
+              "type": "Literal",
+              "alias": "B",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

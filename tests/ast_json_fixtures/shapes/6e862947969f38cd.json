@@ -1,1060 +1,1063 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "top_repos",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "union_mode": "UNION_DISTINCT",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "event_type"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "WatchEvent"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toDate",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "today",
-                                "arguments": []
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 1
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Function",
-                        "name": "count",
-                        "arguments": []
-                      },
-                      "direction": "DESC"
-                    }
-                  ],
-                  "limit_length": {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 100
-                  }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "event_type"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "WatchEvent"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toMonday",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "toMonday",
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "minus",
-                                "is_operator": true,
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "today",
-                                    "arguments": []
-                                  },
-                                  {
-                                    "type": "Function",
-                                    "name": "toIntervalWeek",
-                                    "arguments": [
-                                      {
-                                        "type": "Literal",
-                                        "value_type": "UInt64",
-                                        "value": 1
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Function",
-                        "name": "count",
-                        "arguments": []
-                      },
-                      "direction": "DESC"
-                    }
-                  ],
-                  "limit_length": {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 100
-                  }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "event_type"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "WatchEvent"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toStartOfMonth",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "toStartOfMonth",
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "today",
-                                    "arguments": []
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "toIntervalMonth",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 1
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Function",
-                        "name": "count",
-                        "arguments": []
-                      },
-                      "direction": "DESC"
-                    }
-                  ],
-                  "limit_length": {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 100
-                  }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "event_type"
-                          },
-                          {
-                            "type": "Literal",
-                            "value_type": "String",
-                            "value": "WatchEvent"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toYear",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "toYear",
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "today",
-                                    "arguments": []
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 1
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Function",
-                        "name": "count",
-                        "arguments": []
-                      },
-                      "direction": "DESC"
-                    }
-                  ],
-                  "limit_length": {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 100
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "type": "WithElement",
-          "name": "last_day",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "count_last_day",
-                      "name": "count",
-                      "arguments": []
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "position_last_day",
-                      "name": "plus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "rowNumberInAllBlocks",
-                          "arguments": []
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "in",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "repo_name"
-                          },
-                          {
-                            "type": "Subquery",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Identifier",
-                                      "name": "repo_name"
-                                    }
-                                  ],
-                                  "tables": {
-                                    "type": "TablesInSelectQuery",
-                                    "children": [
-                                      {
-                                        "type": "TablesInSelectQueryElement",
-                                        "table_expression": {
-                                          "type": "TableExpression",
-                                          "database_and_table_name": {
-                                            "type": "TableIdentifier",
-                                            "name": "top_repos"
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toDate",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "today",
-                                "arguments": []
-                              },
-                              {
-                                "type": "Literal",
-                                "value_type": "UInt64",
-                                "value": 1
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "count_last_day"
-                      },
-                      "direction": "DESC"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "type": "WithElement",
-          "name": "last_week",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "count_last_week",
-                      "name": "count",
-                      "arguments": []
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "position_last_week",
-                      "name": "plus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "rowNumberInAllBlocks",
-                          "arguments": []
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "in",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "repo_name"
-                          },
-                          {
-                            "type": "Subquery",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Identifier",
-                                      "name": "repo_name"
-                                    }
-                                  ],
-                                  "tables": {
-                                    "type": "TablesInSelectQuery",
-                                    "children": [
-                                      {
-                                        "type": "TablesInSelectQueryElement",
-                                        "table_expression": {
-                                          "type": "TableExpression",
-                                          "database_and_table_name": {
-                                            "type": "TableIdentifier",
-                                            "name": "top_repos"
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toMonday",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "toMonday",
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "today",
-                                    "arguments": []
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "toIntervalWeek",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 1
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "count_last_week"
-                      },
-                      "direction": "DESC"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "type": "WithElement",
-          "name": "last_month",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "count_last_month",
-                      "name": "count",
-                      "arguments": []
-                    },
-                    {
-                      "type": "Function",
-                      "alias": "position_last_month",
-                      "name": "plus",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "rowNumberInAllBlocks",
-                          "arguments": []
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
-                        }
-                      ]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "github_events"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "in",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "repo_name"
-                          },
-                          {
-                            "type": "Subquery",
-                            "query": {
-                              "type": "SelectWithUnionQuery",
-                              "selects": [
-                                {
-                                  "type": "SelectQuery",
-                                  "select": [
-                                    {
-                                      "type": "Identifier",
-                                      "name": "repo_name"
-                                    }
-                                  ],
-                                  "tables": {
-                                    "type": "TablesInSelectQuery",
-                                    "children": [
-                                      {
-                                        "type": "TablesInSelectQueryElement",
-                                        "table_expression": {
-                                          "type": "TableExpression",
-                                          "database_and_table_name": {
-                                            "type": "TableIdentifier",
-                                            "name": "top_repos"
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Function",
-                            "name": "toStartOfMonth",
-                            "arguments": [
-                              {
-                                "type": "Identifier",
-                                "name": "created_at"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Function",
-                            "name": "minus",
-                            "is_operator": true,
-                            "arguments": [
-                              {
-                                "type": "Function",
-                                "name": "toStartOfMonth",
-                                "arguments": [
-                                  {
-                                    "type": "Function",
-                                    "name": "today",
-                                    "arguments": []
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Function",
-                                "name": "toIntervalMonth",
-                                "arguments": [
-                                  {
-                                    "type": "Literal",
-                                    "value_type": "UInt64",
-                                    "value": 1
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "group_by": [
-                    {
-                      "type": "Identifier",
-                      "name": "repo_name"
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "type": "OrderByElement",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "count_last_month"
-                      },
-                      "direction": "DESC"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "d.repo_name",
-          "name_parts": ["d", "repo_name"]
-        },
-        {
-          "type": "ColumnsRegexpMatcher",
-          "pattern": "count"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "d",
-                "name": "last_day"
+            "type": "WithElement",
+            "name": "top_repos",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "union_mode": "UNION_DISTINCT",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "event_type"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "WatchEvent"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toDate",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "today",
+                                  "arguments": []
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Function",
+                          "name": "count",
+                          "arguments": []
+                        },
+                        "direction": "DESC"
+                      }
+                    ],
+                    "limit": {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "event_type"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "WatchEvent"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toMonday",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "toMonday",
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "minus",
+                                  "is_operator": true,
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "today",
+                                      "arguments": []
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "toIntervalWeek",
+                                      "arguments": [
+                                        {
+                                          "type": "Literal",
+                                          "value_type": "UInt64",
+                                          "value": "1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Function",
+                          "name": "count",
+                          "arguments": []
+                        },
+                        "direction": "DESC"
+                      }
+                    ],
+                    "limit": {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "event_type"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "WatchEvent"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toStartOfMonth",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "toStartOfMonth",
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "today",
+                                      "arguments": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "toIntervalMonth",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Function",
+                          "name": "count",
+                          "arguments": []
+                        },
+                        "direction": "DESC"
+                      }
+                    ],
+                    "limit": {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "event_type"
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "String",
+                              "value": "WatchEvent"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toYear",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "toYear",
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "today",
+                                      "arguments": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Function",
+                          "name": "count",
+                          "arguments": []
+                        },
+                        "direction": "DESC"
+                      }
+                    ],
+                    "limit": {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "100"
+                    }
+                  }
+                ]
               }
             }
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
+            "type": "WithElement",
+            "name": "last_day",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
                   {
-                    "type": "Identifier",
-                    "name": "d.repo_name",
-                    "name_parts": ["d", "repo_name"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "w.repo_name",
-                    "name_parts": ["w", "repo_name"]
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "count_last_day",
+                        "name": "count",
+                        "arguments": []
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "position_last_day",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "rowNumberInAllBlocks",
+                            "arguments": []
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "in",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "repo_name"
+                            },
+                            {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Identifier",
+                                        "name": "repo_name"
+                                      }
+                                    ],
+                                    "from": {
+                                      "type": "TablesInSelectQuery",
+                                      "children": [
+                                        {
+                                          "type": "TablesInSelectQueryElement",
+                                          "table_expression": {
+                                            "type": "TableExpression",
+                                            "database_and_table_name": {
+                                              "type": "TableIdentifier",
+                                              "name": "top_repos"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toDate",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "today",
+                                  "arguments": []
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "count_last_day"
+                        },
+                        "direction": "DESC"
+                      }
+                    ]
                   }
                 ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "w",
-                "name": "last_week"
               }
             }
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
+            "type": "WithElement",
+            "name": "last_week",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
                   {
-                    "type": "Identifier",
-                    "name": "d.repo_name",
-                    "name_parts": ["d", "repo_name"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "m.repo_name",
-                    "name_parts": ["m", "repo_name"]
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "count_last_week",
+                        "name": "count",
+                        "arguments": []
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "position_last_week",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "rowNumberInAllBlocks",
+                            "arguments": []
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "in",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "repo_name"
+                            },
+                            {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Identifier",
+                                        "name": "repo_name"
+                                      }
+                                    ],
+                                    "from": {
+                                      "type": "TablesInSelectQuery",
+                                      "children": [
+                                        {
+                                          "type": "TablesInSelectQueryElement",
+                                          "table_expression": {
+                                            "type": "TableExpression",
+                                            "database_and_table_name": {
+                                              "type": "TableIdentifier",
+                                              "name": "top_repos"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toMonday",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "toMonday",
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "today",
+                                      "arguments": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "toIntervalWeek",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "count_last_week"
+                        },
+                        "direction": "DESC"
+                      }
+                    ]
                   }
                 ]
               }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "m",
-                "name": "last_month"
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "last_month",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "count_last_month",
+                        "name": "count",
+                        "arguments": []
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "position_last_month",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "rowNumberInAllBlocks",
+                            "arguments": []
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "github_events"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
+                      "type": "Function",
+                      "name": "and",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "in",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "repo_name"
+                            },
+                            {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Identifier",
+                                        "name": "repo_name"
+                                      }
+                                    ],
+                                    "from": {
+                                      "type": "TablesInSelectQuery",
+                                      "children": [
+                                        {
+                                          "type": "TablesInSelectQueryElement",
+                                          "table_expression": {
+                                            "type": "TableExpression",
+                                            "database_and_table_name": {
+                                              "type": "TableIdentifier",
+                                              "name": "top_repos"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "toStartOfMonth",
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "created_at"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "minus",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Function",
+                                  "name": "toStartOfMonth",
+                                  "arguments": [
+                                    {
+                                      "type": "Function",
+                                      "name": "today",
+                                      "arguments": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Function",
+                                  "name": "toIntervalMonth",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "repo_name"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "count_last_month"
+                        },
+                        "direction": "DESC"
+                      }
+                    ]
+                  }
+                ]
               }
             }
           }
-        ]
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "d.repo_name",
+            "name_parts": ["d", "repo_name"]
+          },
+          {
+            "type": "ColumnsRegexpMatcher",
+            "pattern": "count"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "d",
+                  "name": "last_day"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "d.repo_name",
+                      "name_parts": ["d", "repo_name"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "w.repo_name",
+                      "name_parts": ["w", "repo_name"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "w",
+                  "name": "last_week"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "d.repo_name",
+                      "name_parts": ["d", "repo_name"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "m.repo_name",
+                      "name_parts": ["m", "repo_name"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "m",
+                  "name": "last_month"
+                }
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

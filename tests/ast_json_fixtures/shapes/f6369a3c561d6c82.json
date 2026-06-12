@@ -1,311 +1,314 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "id_and_start_tuple",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "id_and_start_tuple",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "tuple",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "query_id"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "query_start_time"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "query_start_time_microseconds"
+                        }
+                      ]
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "query_log",
+                            "database": "system"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
                     "type": "Function",
-                    "name": "tuple",
+                    "name": "and",
                     "is_operator": true,
                     "arguments": [
                       {
-                        "type": "Identifier",
-                        "name": "query_id"
+                        "type": "Function",
+                        "name": "greaterOrEquals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "event_date"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "yesterday",
+                            "arguments": []
+                          }
+                        ]
                       },
                       {
-                        "type": "Identifier",
-                        "name": "query_start_time"
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "current_database"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "currentDatabase",
+                            "arguments": []
+                          }
+                        ]
                       },
                       {
-                        "type": "Identifier",
-                        "name": "query_start_time_microseconds"
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "log_comment"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "02985_shard_query_start_time_query_1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "type"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "QueryFinish"
+                          }
+                        ]
                       }
                     ]
                   }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "query_log",
-                          "database": "system"
-                        }
-                      }
-                    }
-                  ]
-                },
-                "where": {
-                  "type": "Function",
-                  "name": "and",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "greaterOrEquals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "event_date"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "yesterday",
-                          "arguments": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "current_database"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "currentDatabase",
-                          "arguments": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "log_comment"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "02985_shard_query_start_time_query_1"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "equals",
-                      "is_operator": true,
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "type"
-                        },
-                        {
-                          "type": "Literal",
-                          "value_type": "String",
-                          "value": "QueryFinish"
-                        }
-                      ]
-                    }
-                  ]
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "type"
-        },
-        {
-          "type": "Function",
-          "name": "countIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "greaterOrEquals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "query_start_time"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "initial_query_start_time"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "countIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "greater",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "query_start_time_microseconds"
-                },
-                {
-                  "type": "Identifier",
-                  "name": "initial_query_start_time_microseconds"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "countIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "initial_query_start_time"
-                },
-                {
-                  "type": "Function",
-                  "name": "tupleElement",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "id_and_start_tuple"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "countIf",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "initial_query_start_time_microseconds"
-                },
-                {
-                  "type": "Function",
-                  "name": "tupleElement",
-                  "is_operator": true,
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "id_and_start_tuple"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 3
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        ],
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "query_log",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "and",
-        "is_operator": true,
-        "arguments": [
+            "type": "Identifier",
+            "name": "type"
+          },
           {
             "type": "Function",
-            "name": "not",
-            "is_operator": true,
+            "name": "countIf",
             "arguments": [
               {
-                "type": "Identifier",
-                "name": "is_initial_query"
+                "type": "Function",
+                "name": "greaterOrEquals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "query_start_time"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "initial_query_start_time"
+                  }
+                ]
               }
             ]
           },
           {
             "type": "Function",
-            "name": "equals",
-            "is_operator": true,
+            "name": "countIf",
             "arguments": [
               {
-                "type": "Identifier",
-                "name": "initial_query_id"
-              },
-              {
                 "type": "Function",
-                "name": "tupleElement",
+                "name": "greater",
                 "is_operator": true,
                 "arguments": [
                   {
                     "type": "Identifier",
-                    "name": "id_and_start_tuple"
+                    "name": "query_start_time_microseconds"
                   },
                   {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
+                    "type": "Identifier",
+                    "name": "initial_query_start_time_microseconds"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "countIf",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "initial_query_start_time"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "tupleElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "id_and_start_tuple"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "countIf",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "initial_query_start_time_microseconds"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "tupleElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "id_and_start_tuple"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "3"
+                      }
+                    ]
                   }
                 ]
               }
             ]
           }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "not",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "is_initial_query"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "initial_query_id"
+                },
+                {
+                  "type": "Function",
+                  "name": "tupleElement",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "id_and_start_tuple"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "type"
+          }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "type"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

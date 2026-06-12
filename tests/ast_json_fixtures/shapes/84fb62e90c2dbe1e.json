@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "test_move_partition_throttling"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MOVE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Function",
-          "name": "tuple",
-          "arguments": []
-        }
-      },
-      "move_destination_name": "remote"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test_move_partition_throttling"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MOVE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": []
+          }
+        },
+        "move_destination_name": "remote"
+      }
+    ]
+  }
 }

@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_database": "test_1603_rename_bug_ordinary",
-      "from_table": "bar",
-      "to_database": "test_1603_rename_bug_ordinary",
-      "to_table": "foo"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_database": "test_1603_rename_bug_ordinary",
+        "from_table": "bar",
+        "to_database": "test_1603_rename_bug_ordinary",
+        "to_table": "foo"
+      }
+    ]
+  }
 }

@@ -1,99 +1,102 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "name",
-          "name": "b.name",
-          "name_parts": ["b", "name"]
-        },
-        {
-          "type": "Identifier",
-          "alias": "a_col",
-          "name": "a.a_col",
-          "name_parts": ["a", "a_col"]
-        },
-        {
-          "type": "Identifier",
-          "alias": "b_col",
-          "name": "b.b_col",
-          "name_parts": ["b", "b_col"]
-        },
-        {
-          "type": "Literal",
-          "alias": "some_val",
-          "value_type": "String",
-          "value": "N"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "a",
-                "name": "test_a_table"
-              }
-            }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "a.name",
-                    "name_parts": ["a", "name"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "b.name",
-                    "name_parts": ["b", "name"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "b",
-                "name": "test_b_table"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Identifier",
-            "name": "b.some_val",
-            "name_parts": ["b", "some_val"]
+            "alias": "name",
+            "name": "b.name",
+            "name_parts": ["b", "name"]
+          },
+          {
+            "type": "Identifier",
+            "alias": "a_col",
+            "name": "a.a_col",
+            "name_parts": ["a", "a_col"]
+          },
+          {
+            "type": "Identifier",
+            "alias": "b_col",
+            "name": "b.b_col",
+            "name_parts": ["b", "b_col"]
           },
           {
             "type": "Literal",
+            "alias": "some_val",
             "value_type": "String",
-            "value": "Y"
+            "value": "N"
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "a",
+                  "name": "test_a_table"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "a.name",
+                      "name_parts": ["a", "name"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "b.name",
+                      "name_parts": ["b", "name"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "b",
+                  "name": "test_b_table"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "b.some_val",
+              "name_parts": ["b", "some_val"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "Y"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

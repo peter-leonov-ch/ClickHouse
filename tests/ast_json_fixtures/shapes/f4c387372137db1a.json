@@ -1,89 +1,92 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "d",
-          "name": "date"
-        },
-        {
-          "type": "Function",
-          "alias": "f",
-          "name": "toNullable",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "f"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "02861_interpolate"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Identifier",
-            "name": "id"
+            "alias": "d",
+            "name": "date"
           },
           {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "1"
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "d"
-          },
-          "direction": "ASC",
-          "with_fill": true,
-          "fill_step": {
             "type": "Function",
-            "name": "toIntervalDay",
+            "alias": "f",
+            "name": "toNullable",
             "arguments": [
               {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
+                "type": "Identifier",
+                "name": "f"
               }
             ]
           }
-        }
-      ],
-      "interpolate": [
-        {
-          "type": "InterpolateElement",
-          "column": "f",
-          "expr": {
-            "type": "Identifier",
-            "name": "f"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "02861_interpolate"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "1"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC",
+            "with_fill": true,
+            "fill_step": {
+              "type": "Function",
+              "name": "toIntervalDay",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            }
           }
-        }
-      ]
-    }
-  ]
+        ],
+        "interpolate": [
+          {
+            "type": "InterpolateElement",
+            "column": "f",
+            "expr": {
+              "type": "Identifier",
+              "name": "f"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

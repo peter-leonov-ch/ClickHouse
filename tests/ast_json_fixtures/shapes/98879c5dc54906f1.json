@@ -1,20 +1,23 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "log_for_alter"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "MODIFY_SETTING",
-      "settings_changes": {
-        "type": "Set",
-        "changes": {
-          "aaa": 123
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "log_for_alter"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_SETTING",
+        "settings_changes": {
+          "type": "Settings",
+          "changes": {
+            "aaa": "123"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,82 +1,85 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "column_swap_test_test"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "i",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int64"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "a",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "b",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt64"
-        }
-      }
-    ],
-    "constraints": [
-      {
-        "type": "Constraint",
-        "name": "c1",
-        "constraint_type": "ASSUME",
-        "expression": {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "b"
-            },
-            {
-              "type": "Function",
-              "name": "cityHash64",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "a"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "i"
+      "name": "column_swap_test_test"
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "min_bytes_for_wide_part": 0
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "i",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "a",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "b",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Constraint",
+          "name": "c1",
+          "constraint_type": "ASSUME",
+          "expression": {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Function",
+                "name": "cityHash64",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "a"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "i"
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "min_bytes_for_wide_part": "0"
+        }
       }
     }
   }

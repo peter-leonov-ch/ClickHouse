@@ -1,7 +1,10 @@
 {
-  "type": "ShowCreateDatabaseQuery",
-  "database": {
-    "type": "Identifier",
-    "name": "t_2710_db"
+  "version": 1,
+  "ast": {
+    "type": "ShowCreateDatabaseQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "t_2710_db"
+    }
   }
 }

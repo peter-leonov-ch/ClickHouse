@@ -1,48 +1,14 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Asterisk"
-        },
-        {
-          "type": "Function",
-          "name": "plus",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "_part_offset"
-            },
-            {
-              "type": "Identifier",
-              "name": "_part_starting_offset"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+            "type": "Asterisk"
+          },
           {
             "type": "Function",
             "name": "plus",
@@ -57,21 +23,58 @@
                 "name": "_part_starting_offset"
               }
             ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 8
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "parallel_replicas_local_plan": 0,
-          "max_rows_to_read": 1
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "_part_offset"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "_part_starting_offset"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "8"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "parallel_replicas_local_plan": "0",
+            "max_rows_to_read": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

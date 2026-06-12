@@ -1,63 +1,66 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_move_partition_src"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "pk",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt8"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "val",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "partition_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "table": {
       "type": "Identifier",
-      "name": "pk"
+      "name": "test_move_partition_src"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "pk"
+          "type": "ColumnDeclaration",
+          "name": "pk",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt8"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "val"
+          "type": "ColumnDeclaration",
+          "name": "val",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity": 8192,
-        "index_granularity_bytes": "10Mi"
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Identifier",
+        "name": "pk"
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "pk"
+          },
+          {
+            "type": "Identifier",
+            "name": "val"
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "8192",
+          "index_granularity_bytes": "10Mi"
+        }
       }
     }
   }

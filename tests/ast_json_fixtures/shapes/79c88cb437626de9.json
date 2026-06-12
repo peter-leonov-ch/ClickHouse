@@ -1,113 +1,116 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "alias": "test2",
-                "name": "test2"
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "test2",
+                  "name": "test2"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "array_join": {
+                "type": "ArrayJoin",
+                "kind": "INNER",
+                "expressions": [
+                  {
+                    "type": "Function",
+                    "alias": "test2_b",
+                    "name": "arrayFilter",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "lambda",
+                        "is_operator": true,
+                        "is_lambda_function": true,
+                        "kind": "LAMBDA_FUNCTION",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "t"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "globalIn",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "t"
+                              },
+                              {
+                                "type": "Subquery",
+                                "query": {
+                                  "type": "SelectWithUnionQuery",
+                                  "selects": [
+                                    {
+                                      "type": "SelectQuery",
+                                      "distinct": true,
+                                      "select": [
+                                        {
+                                          "type": "Function",
+                                          "alias": "ym:a",
+                                          "name": "now",
+                                          "arguments": []
+                                        }
+                                      ],
+                                      "where": {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": "1"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "test2.b",
+                        "name_parts": ["test2", "b"]
+                      }
+                    ]
+                  }
+                ]
               }
             }
-          },
-          {
-            "type": "TablesInSelectQueryElement",
-            "array_join": {
-              "type": "ArrayJoin",
-              "kind": "INNER",
-              "expressions": [
-                {
-                  "type": "Function",
-                  "alias": "test2_b",
-                  "name": "arrayFilter",
-                  "arguments": [
-                    {
-                      "type": "Function",
-                      "name": "lambda",
-                      "is_operator": true,
-                      "is_lambda_function": true,
-                      "kind": "LAMBDA_FUNCTION",
-                      "arguments": [
-                        {
-                          "type": "Function",
-                          "name": "tuple",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "t"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "globalIn",
-                          "is_operator": true,
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "t"
-                            },
-                            {
-                              "type": "Subquery",
-                              "query": {
-                                "type": "SelectWithUnionQuery",
-                                "selects": [
-                                  {
-                                    "type": "SelectQuery",
-                                    "distinct": true,
-                                    "select": [
-                                      {
-                                        "type": "Function",
-                                        "alias": "ym:a",
-                                        "name": "now",
-                                        "arguments": []
-                                      }
-                                    ],
-                                    "where": {
-                                      "type": "Literal",
-                                      "value_type": "UInt64",
-                                      "value": 1
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "test2.b",
-                      "name_parts": ["test2", "b"]
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
+          ]
+        },
+        "where": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

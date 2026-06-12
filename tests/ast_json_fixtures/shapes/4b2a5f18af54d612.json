@@ -1,17 +1,20 @@
 {
-  "type": "CreateFunctionQuery",
-  "function_name": {
-    "type": "Identifier",
-    "name": "02181_invalid_lambda"
-  },
-  "function_core": {
-    "type": "Function",
-    "name": "lambda",
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "x"
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "CreateFunctionQuery",
+    "function_name": {
+      "type": "Identifier",
+      "name": "02181_invalid_lambda"
+    },
+    "function_core": {
+      "type": "Function",
+      "name": "lambda",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ]
+    }
   }
 }

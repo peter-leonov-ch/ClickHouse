@@ -1,22 +1,25 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "part_info"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "FREEZE_PARTITION",
-      "partition": {
-        "type": "Partition",
-        "value": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "1970-10-02"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "part_info"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "FREEZE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "1970-10-02"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

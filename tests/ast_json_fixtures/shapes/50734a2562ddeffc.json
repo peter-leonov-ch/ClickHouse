@@ -1,110 +1,113 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "x"
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "x"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "or",
-        "is_operator": true,
-        "arguments": [
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "or",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "D"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "5"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "C"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "E"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "C"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
           {
-            "type": "Function",
-            "name": "and",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "D"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 5
-              }
-            ]
-          },
-          {
-            "type": "Function",
-            "name": "and",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Function",
-                "name": "and",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "C"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "E"
-                  }
-                ]
-              },
-              {
-                "type": "Function",
-                "name": "and",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "C"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "E"
-                  }
-                ]
-              }
-            ]
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
-          },
-          "direction": "ASC"
-        }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 3
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "optimize_extract_common_expressions": 0
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "3"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_extract_common_expressions": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,35 +1,38 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "dist_01293"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Distributed",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "test_cluster_two_shards"
-        },
-        {
-          "type": "Function",
-          "name": "currentDatabase",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "null_01293"
-        },
-        {
-          "type": "Identifier",
-          "name": "key"
-        }
-      ]
-    }
-  },
-  "as_table": "null_01293"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "dist_01293"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Distributed",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "test_cluster_two_shards"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "null_01293"
+          },
+          {
+            "type": "Identifier",
+            "name": "key"
+          }
+        ]
+      }
+    },
+    "as_table": "null_01293"
+  }
 }

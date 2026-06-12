@@ -1,94 +1,97 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "y",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Identifier",
-                    "alias": "x",
-                    "name": "dummy"
-                  }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "y",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
                     {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "one",
-                          "database": "system"
+                      "type": "Identifier",
+                      "alias": "x",
+                      "name": "dummy"
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "one",
+                            "database": "system"
+                          }
                         }
                       }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "y"
+          },
+          {
+            "type": "Function",
+            "name": "min",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dummy"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{1,2}"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "system.one",
+                      "name_parts": ["system", "one"]
                     }
                   ]
                 }
               }
-            ]
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "y"
-        },
-        {
-          "type": "Function",
-          "name": "min",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "dummy"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+        },
+        "group_by": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{1,2}"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "system.one",
-                    "name_parts": ["system", "one"]
-                  }
-                ]
-              }
-            }
+            "type": "Identifier",
+            "name": "y"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "y"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

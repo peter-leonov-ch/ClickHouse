@@ -1,43 +1,43 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "value",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Tuple",
-              "value": "(1, 'Value')"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Tuple (id UInt64, value String)"
-            }
-          ]
-        },
-        {
-          "type": "QualifiedAsterisk",
-          "qualifier": {
-            "type": "Identifier",
-            "name": "value"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "value",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Tuple",
+                "value": "(1, 'Value')"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple (id UInt64, value String)"
+              }
+            ]
           },
-          "transformers": {
-            "type": "ColumnsTransformerList",
-            "children": [
+          {
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "value"
+            },
+            "transformers": [
               {
                 "type": "ColumnsApplyTransformer",
                 "func_name": "toString"
               }
             ]
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

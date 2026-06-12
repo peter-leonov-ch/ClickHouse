@@ -1,8 +1,11 @@
 {
-  "type": "ShowTables",
-  "dictionaries": true,
-  "from": {
-    "type": "Identifier",
-    "name": "db_01018"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "dictionaries": true,
+    "from": {
+      "type": "Identifier",
+      "name": "db_01018"
+    }
   }
 }

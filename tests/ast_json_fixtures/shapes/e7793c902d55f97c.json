@@ -1,3 +1,6 @@
 {
-  "type": "ShowGrantsQuery"
+  "version": 1,
+  "ast": {
+    "type": "ShowGrantsQuery"
+  }
 }

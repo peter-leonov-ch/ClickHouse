@@ -1,74 +1,77 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "date_trunc",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "date_trunc",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "month"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "SUM",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "month"
-            },
-            {
-              "type": "Identifier",
-              "name": "d"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                },
+                "final": true
+              }
             }
           ]
         },
-        {
+        "where": {
           "type": "Function",
-          "name": "SUM",
+          "name": "equals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
-              "name": "c"
+              "name": "f2"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "x"
             }
           ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t"
-              },
-              "final": true
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "f2"
-          },
+        },
+        "group_by": [
           {
             "type": "Literal",
-            "value_type": "String",
-            "value": "x"
+            "value_type": "UInt64",
+            "value": "1"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

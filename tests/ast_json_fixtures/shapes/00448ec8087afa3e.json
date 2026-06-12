@@ -1,68 +1,71 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "nameGroup6",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "val"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1_00729"
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Function",
-        "name": "notEmpty",
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "toString",
+            "alias": "nameGroup6",
+            "name": "arrayJoin",
             "arguments": [
               {
                 "type": "Identifier",
-                "name": "nameGroup6"
+                "name": "val"
               }
             ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "nameGroup6"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1_00729"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "notEmpty",
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toString",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "nameGroup6"
+                }
+              ]
+            }
+          ]
+        },
+        "group_by": [
+          {
             "type": "Identifier",
             "name": "nameGroup6"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "nameGroup6"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

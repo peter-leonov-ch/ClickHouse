@@ -1,37 +1,40 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "tab"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "ADD_STATISTICS",
-      "if_not_exists": true,
-      "statistics_declaration": {
-        "type": "Stat",
-        "columns": {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "f64_tdigest"
-            }
-          ]
-        },
-        "types": {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Function",
-              "name": "tdigest",
-              "arguments": []
-            }
-          ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_STATISTICS",
+        "if_not_exists": true,
+        "statistics_declaration": {
+          "type": "Stat",
+          "columns": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "f64_tdigest"
+              }
+            ]
+          },
+          "types": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Function",
+                "name": "tdigest",
+                "arguments": []
+              }
+            ]
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

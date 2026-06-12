@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "alter_01355"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "ADD_COLUMN",
-      "first": true,
-      "column_declaration": {
-        "type": "ColumnDeclaration",
-        "name": "Added1",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "alter_01355"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_COLUMN",
+        "first": true,
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "Added1",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

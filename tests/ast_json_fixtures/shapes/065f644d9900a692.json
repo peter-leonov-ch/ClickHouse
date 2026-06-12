@@ -1,9 +1,12 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "database": {
-    "type": "Identifier",
-    "name": "db_01530_atomic"
-  },
-  "sync": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "database": {
+      "type": "Identifier",
+      "name": "db_01530_atomic"
+    },
+    "sync": true
+  }
 }

@@ -1,109 +1,112 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "a_id",
-          "name": "A.id",
-          "name_parts": ["A", "id"]
-        },
-        {
-          "type": "Subquery",
-          "alias": "b_ids_containing_a_id",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
-              {
-                "type": "SelectQuery",
-                "select": [
-                  {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "a_id",
+            "name": "A.id",
+            "name_parts": ["A", "id"]
+          },
+          {
+            "type": "Subquery",
+            "alias": "b_ids_containing_a_id",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "groupArraySorted",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "B.id",
+                          "name_parts": ["B", "id"]
+                        }
+                      ],
+                      "parameters": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "5"
+                        }
+                      ]
+                    }
+                  ],
+                  "from": {
+                    "type": "TablesInSelectQuery",
+                    "children": [
+                      {
+                        "type": "TablesInSelectQueryElement",
+                        "table_expression": {
+                          "type": "TableExpression",
+                          "database_and_table_name": {
+                            "type": "TableIdentifier",
+                            "name": "B"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "where": {
                     "type": "Function",
-                    "name": "groupArraySorted",
+                    "name": "has",
                     "arguments": [
                       {
                         "type": "Identifier",
-                        "name": "B.id",
-                        "name_parts": ["B", "id"]
-                      }
-                    ],
-                    "parameters": [
+                        "name": "B.A_ids",
+                        "name_parts": ["B", "A_ids"]
+                      },
                       {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 5
+                        "type": "Identifier",
+                        "name": "A.id",
+                        "name_parts": ["A", "id"]
                       }
                     ]
                   }
-                ],
-                "tables": {
-                  "type": "TablesInSelectQuery",
-                  "children": [
-                    {
-                      "type": "TablesInSelectQueryElement",
-                      "table_expression": {
-                        "type": "TableExpression",
-                        "database_and_table_name": {
-                          "type": "TableIdentifier",
-                          "name": "B"
-                        }
-                      }
-                    }
-                  ]
-                },
-                "where": {
-                  "type": "Function",
-                  "name": "has",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "B.A_ids",
-                      "name_parts": ["B", "A_ids"]
-                    },
-                    {
-                      "type": "Identifier",
-                      "name": "A.id",
-                      "name_parts": ["A", "id"]
-                    }
-                  ]
                 }
-              }
-            ]
-          }
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "A"
-              }
+              ]
             }
           }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "a_id"
-          },
-          "direction": "ASC"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "A"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "a_id"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "20"
         }
-      ],
-      "limit_length": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 20
       }
-    }
-  ]
+    ]
+  }
 }

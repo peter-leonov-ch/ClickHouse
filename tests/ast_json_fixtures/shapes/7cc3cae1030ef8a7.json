@@ -1,36 +1,39 @@
 {
-  "type": "CreateQuery",
-  "is_dictionary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "d0"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "c1",
-      "data_type": {
-        "type": "DataType",
-        "name": "Nested",
-        "arguments": [
-          {
-            "type": "NameTypePair",
-            "name": "c2",
-            "data_type": {
-              "type": "DataType",
-              "name": "Int"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_dictionary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "d0"
+    },
+    "dictionary_attributes": [
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "c1",
+        "data_type": {
+          "type": "DataType",
+          "name": "Nested",
+          "arguments": [
+            {
+              "type": "NameTypePair",
+              "name": "c2",
+              "data_type": {
+                "type": "DataType",
+                "name": "Int"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "range": {
-      "type": "DictionaryRange",
-      "min_attr_name": "c1",
-      "max_attr_name": "c1.c2"
+    ],
+    "dictionary": {
+      "type": "Dictionary",
+      "range": {
+        "type": "DictionaryRange",
+        "min_attr_name": "c1",
+        "max_attr_name": "c1.c2"
+      }
     }
   }
 }

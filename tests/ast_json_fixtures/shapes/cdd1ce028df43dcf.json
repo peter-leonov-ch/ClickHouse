@@ -1,46 +1,49 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "a1"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "i",
-        "data_type": {
-          "type": "DataType",
-          "name": "int"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "hash_key",
-        "data_type": {
-          "type": "DataType",
-          "name": "int"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "partition_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "a1"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "i"
+          "type": "ColumnDeclaration",
+          "name": "i",
+          "data_type": {
+            "type": "DataType",
+            "name": "int"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "hash_key"
+          "type": "ColumnDeclaration",
+          "name": "hash_key",
+          "data_type": {
+            "type": "DataType",
+            "name": "int"
+          }
         }
       ]
+    },
+    "storage": {
+      "type": "Storage",
+      "partition_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "i"
+          },
+          {
+            "type": "Identifier",
+            "name": "hash_key"
+          }
+        ]
+      }
     }
   }
 }

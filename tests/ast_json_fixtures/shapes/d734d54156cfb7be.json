@@ -1,103 +1,106 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "users"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "uid",
-        "data_type": {
-          "type": "DataType",
-          "name": "Int16"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "d",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UTC"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "uid"
+      "name": "users"
     },
-    "ttl_table": {
-      "type": "ExpressionList",
-      "children": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "TTLElement",
-          "mode": "DELETE",
-          "ttl": {
-            "type": "Function",
-            "name": "plus",
-            "is_operator": true,
+          "type": "ColumnDeclaration",
+          "name": "uid",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int16"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "d",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime",
             "arguments": [
-              {
-                "type": "Identifier",
-                "name": "d"
-              },
-              {
-                "type": "Function",
-                "name": "toIntervalMonth",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
-              }
-            ]
-          },
-          "where": {
-            "type": "Function",
-            "name": "equals",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "uid"
-              },
               {
                 "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
+                "value_type": "String",
+                "value": "UTC"
               }
             ]
           }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "merge_with_ttl_timeout": 0,
-        "min_bytes_for_wide_part": 0,
-        "vertical_merge_algorithm_min_rows_to_activate": 0,
-        "vertical_merge_algorithm_min_columns_to_activate": 0
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "uid"
+      },
+      "ttl_table": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "TTLElement",
+            "mode": "DELETE",
+            "ttl": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                },
+                {
+                  "type": "Function",
+                  "name": "toIntervalMonth",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "where": {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "uid"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "merge_with_ttl_timeout": "0",
+          "min_bytes_for_wide_part": "0",
+          "vertical_merge_algorithm_min_rows_to_activate": "0",
+          "vertical_merge_algorithm_min_columns_to_activate": "0"
+        }
       }
     }
   }

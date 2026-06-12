@@ -1,73 +1,76 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t_proj2"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "a",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "b",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      }
-    ],
-    "projections": [
-      {
-        "type": "Projection",
-        "name": "p",
-        "query": {
-          "type": "ProjectionSelectQuery",
-          "select": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ],
-          "order_by": [
-            {
-              "type": "ExpressionList",
-              "children": [
-                {
-                  "type": "Identifier",
-                  "name": "b"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "UInt64",
-                  "value": 2
-                }
-              ]
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "table": {
       "type": "Identifier",
-      "name": "a"
+      "name": "t_proj2"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "a",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "b",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        }
+      ],
+      "projections": [
+        {
+          "type": "Projection",
+          "name": "p",
+          "query": {
+            "type": "ProjectionSelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ],
+            "order_by": [
+              {
+                "type": "ExpressionList",
+                "children": [
+                  {
+                    "type": "Identifier",
+                    "name": "b"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "a"
+      }
     }
   }
 }

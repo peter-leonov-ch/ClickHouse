@@ -1,97 +1,100 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "QualifiedAsterisk",
-          "qualifier": {
-            "type": "Identifier",
-            "name": "t1"
-          }
-        },
-        {
-          "type": "Identifier",
-          "name": "t1.dt",
-          "name_parts": ["t1", "dt"]
-        },
-        {
-          "type": "QualifiedAsterisk",
-          "qualifier": {
-            "type": "Identifier",
-            "name": "t2"
-          }
-        },
-        {
-          "type": "Identifier",
-          "name": "t2.dt",
-          "name_parts": ["t2", "dt"]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
-              }
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "t1"
             }
           },
           {
-            "type": "TablesInSelectQueryElement",
-            "table_join": {
-              "type": "TableJoin",
-              "kind": "INNER",
-              "on": {
-                "type": "Function",
-                "name": "equals",
-                "is_operator": true,
-                "arguments": [
-                  {
-                    "type": "Identifier",
-                    "name": "t1.foo",
-                    "name_parts": ["t1", "foo"]
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t2.bar",
-                    "name_parts": ["t2", "bar"]
-                  }
-                ]
-              }
-            },
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t2"
-              }
+            "type": "Identifier",
+            "name": "t1.dt",
+            "name_parts": ["t1", "dt"]
+          },
+          {
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "t2"
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greaterOrEquals",
-        "is_operator": true,
-        "arguments": [
+          },
           {
             "type": "Identifier",
             "name": "t2.dt",
             "name_parts": ["t2", "dt"]
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "2020-02-01"
           }
-        ]
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.foo",
+                      "name_parts": ["t1", "foo"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t2.bar",
+                      "name_parts": ["t2", "bar"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t2"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t2.dt",
+              "name_parts": ["t2", "dt"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "2020-02-01"
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

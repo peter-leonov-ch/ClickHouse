@@ -1,107 +1,110 @@
 {
-  "type": "CreateQuery",
-  "if_not_exists": true,
-  "is_dictionary": true,
-  "database": {
-    "type": "Identifier",
-    "name": "dictdb_01376"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "dict_exists"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "key_column",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      }
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "if_not_exists": true,
+    "is_dictionary": true,
+    "database": {
+      "type": "Identifier",
+      "name": "dictdb_01376"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "value",
-      "data_type": {
-        "type": "DataType",
-        "name": "Float64"
-      },
-      "default_value": {
-        "type": "Literal",
-        "value_type": "Float64",
-        "value": 77.77
-      },
-      "injective": true
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "primary_key": [
+    "table": {
+      "type": "Identifier",
+      "name": "dict_exists"
+    },
+    "dictionary_attributes": [
       {
-        "type": "Identifier",
-        "name": "key_column"
+        "type": "DictionaryAttributeDeclaration",
+        "name": "key_column",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "Float64"
+        },
+        "default_value": {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": 77.77
+        },
+        "injective": true
       }
     ],
-    "source": {
-      "type": "FunctionWithKeyValueArguments",
-      "name": "clickhouse",
-      "elements": [
+    "dictionary": {
+      "type": "Dictionary",
+      "primary_key": [
         {
-          "type": "pair",
-          "key": "host",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "localhost"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "port",
-          "value": {
-            "type": "Function",
-            "name": "tcpPort",
-            "arguments": []
-          }
-        },
-        {
-          "type": "pair",
-          "key": "user",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "default"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "table",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "table_for_dict"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "db",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "dictdb_01376"
-          }
+          "type": "Identifier",
+          "name": "key_column"
         }
-      ]
-    },
-    "lifetime": {
-      "type": "DictionaryLifetime",
-      "min_sec": 0,
-      "max_sec": 1
-    },
-    "layout": {
-      "type": "DictionaryLayout",
-      "layout_type": "flat",
-      "parameters": []
+      ],
+      "source": {
+        "type": "FunctionWithKeyValueArguments",
+        "name": "clickhouse",
+        "elements": [
+          {
+            "type": "pair",
+            "key": "host",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "localhost"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "port",
+            "value": {
+              "type": "Function",
+              "name": "tcpPort",
+              "arguments": []
+            }
+          },
+          {
+            "type": "pair",
+            "key": "user",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "default"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "table",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "table_for_dict"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "db",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "dictdb_01376"
+            }
+          }
+        ]
+      },
+      "lifetime": {
+        "type": "DictionaryLifetime",
+        "min_sec": 0,
+        "max_sec": 1
+      },
+      "layout": {
+        "type": "DictionaryLayout",
+        "layout_type": "flat",
+        "parameters": []
+      }
     }
   }
 }

@@ -1,57 +1,60 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "t_shared"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "APPLY_PATCHES"
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t_shared"
     },
-    {
-      "type": "AlterCommand",
-      "command_type": "UPDATE",
-      "predicate": {
-        "type": "Function",
-        "name": "equals",
-        "is_operator": true,
-        "arguments": [
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "APPLY_PATCHES"
+      },
+      {
+        "type": "AlterCommand",
+        "command_type": "UPDATE",
+        "predicate": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "modulo",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        },
+        "assignments": [
           {
-            "type": "Function",
-            "name": "modulo",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "id"
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 10
-              }
-            ]
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
+            "type": "Assignment",
+            "column": "c1",
+            "expression": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2000"
+            }
           }
         ]
-      },
-      "assignments": [
-        {
-          "type": "Assignment",
-          "column": "c1",
-          "expression": {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2000
-          }
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "type": "UseQuery",
-  "database": {
-    "type": "Identifier",
-    "name": "db1"
+  "version": 1,
+  "ast": {
+    "type": "UseQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "db1"
+    }
   }
 }

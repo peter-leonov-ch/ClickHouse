@@ -1,62 +1,65 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "hits_buffer"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Buffer",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Function",
-          "name": "current_database",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "hits_dst"
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 8
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 600
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 600
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1000000
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1000000
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 100000000
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 1000000000
-        }
-      ]
-    }
-  },
-  "as_table": "hits_dst"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "hits_buffer"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Buffer",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Function",
+            "name": "current_database",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "hits_dst"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "8"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "600"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "600"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1000000"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1000000"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "100000000"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1000000000"
+          }
+        ]
+      }
+    },
+    "as_table": "hits_dst"
+  }
 }

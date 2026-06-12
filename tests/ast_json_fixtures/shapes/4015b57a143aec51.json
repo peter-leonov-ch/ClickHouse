@@ -1,3 +1,6 @@
 {
-  "type": "ASTTransactionControl"
+  "version": 1,
+  "ast": {
+    "type": "ASTTransactionControl"
+  }
 }

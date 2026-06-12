@@ -1,4 +1,7 @@
 {
-  "type": "ShowTables",
-  "like": "%CONNECT_timeout%"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "like": "%CONNECT_timeout%"
+  }
 }

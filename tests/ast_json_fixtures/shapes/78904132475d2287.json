@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_database": "test",
-      "from_table": "hits10",
-      "to_database": "test",
-      "to_table": "hits"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_database": "test",
+        "from_table": "hits10",
+        "to_database": "test",
+        "to_table": "hits"
+      }
+    ]
+  }
 }

@@ -1,40 +1,43 @@
 {
-  "type": "CreateQuery",
-  "replace_table": true,
-  "create_or_replace": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "x",
-        "data_type": {
-          "type": "DataType",
-          "name": "INT"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "order_by": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "replace_table": true,
+    "create_or_replace": true,
+    "table": {
       "type": "Identifier",
-      "name": "x"
+      "name": "t"
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "disk": "s3_disk"
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "x",
+          "data_type": {
+            "type": "DataType",
+            "name": "INT"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "x"
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "disk": "s3_disk"
+        }
       }
     }
   }

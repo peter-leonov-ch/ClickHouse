@@ -1,55 +1,58 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        },
-        {
-          "type": "Literal",
-          "alias": "z",
-          "value_type": "UInt64",
-          "value": 42
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{2,3}"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "system.one",
-                    "name_parts": ["system", "one"]
-                  }
-                ]
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Literal",
+            "alias": "z",
+            "value_type": "UInt64",
+            "value": "42"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "system.one",
+                      "name_parts": ["system", "one"]
+                    }
+                  ]
+                }
               }
             }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "z"
           }
         ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "z"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

@@ -1,44 +1,45 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "f1"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "c0",
-        "data_type": {
-          "type": "DataType",
-          "name": "Float64"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "f1"
     },
-    "order_by": {
-      "type": "StorageOrderByElement",
-      "direction": "DESC",
-      "children": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "c0"
+          "type": "ColumnDeclaration",
+          "name": "c0",
+          "data_type": {
+            "type": "DataType",
+            "name": "Float64"
+          }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "allow_experimental_reverse_key": 1
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "StorageOrderByElement",
+        "expression": {
+          "type": "Identifier",
+          "name": "c0"
+        },
+        "direction": "DESC"
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "allow_experimental_reverse_key": "1"
+        }
       }
     }
   }

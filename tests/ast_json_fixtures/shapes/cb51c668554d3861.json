@@ -1,15 +1,18 @@
 {
-  "type": "CreateUserQuery",
-  "children": [
-    {
-      "type": "AuthenticationData",
-      "children": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "123qwe"
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "CreateUserQuery",
+    "children": [
+      {
+        "type": "AuthenticationData",
+        "children": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "123qwe"
+          }
+        ]
+      }
+    ]
+  }
 }

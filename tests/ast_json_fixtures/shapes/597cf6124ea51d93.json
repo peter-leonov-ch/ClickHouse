@@ -1,7 +1,10 @@
 {
-  "type": "CheckQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "tab"
+  "version": 1,
+  "ast": {
+    "type": "CheckQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tab"
+    }
   }
 }

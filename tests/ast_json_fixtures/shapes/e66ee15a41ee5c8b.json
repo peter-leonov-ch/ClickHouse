@@ -1,4 +1,7 @@
 {
-  "type": "ShowTables",
-  "like": "send_timeout"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "like": "send_timeout"
+  }
 }

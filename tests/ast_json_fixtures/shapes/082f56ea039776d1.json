@@ -1,31 +1,34 @@
 {
-  "type": "CreateFunctionQuery",
-  "function_name": {
-    "type": "Identifier",
-    "name": "02126_function"
-  },
-  "function_core": {
-    "type": "Function",
-    "name": "lambda",
-    "is_operator": true,
-    "is_lambda_function": true,
-    "kind": "LAMBDA_FUNCTION",
-    "arguments": [
-      {
-        "type": "Function",
-        "name": "tuple",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          }
-        ]
-      },
-      {
-        "type": "Identifier",
-        "name": "x"
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "CreateFunctionQuery",
+    "function_name": {
+      "type": "Identifier",
+      "name": "02126_function"
+    },
+    "function_core": {
+      "type": "Function",
+      "name": "lambda",
+      "is_operator": true,
+      "is_lambda_function": true,
+      "kind": "LAMBDA_FUNCTION",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "tuple",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        },
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ]
+    }
   }
 }

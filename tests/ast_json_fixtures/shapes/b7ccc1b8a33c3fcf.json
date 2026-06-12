@@ -1,23 +1,26 @@
 {
-  "type": "AlterQuery",
-  "alter_object": "TABLE",
-  "table": {
-    "type": "Identifier",
-    "name": "visits_order_dst"
-  },
-  "commands": [
-    {
-      "type": "AlterCommand",
-      "command_type": "REPLACE_PARTITION",
-      "partition": {
-        "type": "Partition_ID",
-        "id": {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "2"
-        }
-      },
-      "from_table": "visits_order"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "visits_order_dst"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "REPLACE_PARTITION",
+        "partition": {
+          "type": "Partition_ID",
+          "id": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "2"
+          }
+        },
+        "from_table": "visits_order"
+      }
+    ]
+  }
 }

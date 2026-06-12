@@ -1,103 +1,106 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "x",
-          "name": "sum",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "w"
-        },
-        {
-          "type": "Function",
-          "alias": "y",
-          "name": "max",
-          "is_window_function": true,
-          "kind": "WINDOW_FUNCTION",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "number"
-            }
-          ],
-          "window_name": "w"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "remote",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": "127.0.0.{1,2}"
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "String",
-                    "value": ""
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "t_01568"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "window": [
-        {
-          "type": "WindowListElement",
-          "name": "w",
-          "definition": {
-            "type": "WindowDefinition",
-            "partition_by": [
+            "type": "Function",
+            "alias": "x",
+            "name": "sum",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
               {
                 "type": "Identifier",
-                "name": "p"
+                "name": "number"
               }
-            ]
+            ],
+            "window_name": "w"
+          },
+          {
+            "type": "Function",
+            "alias": "y",
+            "name": "max",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ],
+            "window_name": "w"
           }
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "x"
-          },
-          "direction": "ASC"
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{1,2}"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": ""
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t_01568"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "y"
+        "window": [
+          {
+            "type": "WindowListElement",
+            "name": "w",
+            "definition": {
+              "type": "WindowDefinition",
+              "partition_by": [
+                {
+                  "type": "Identifier",
+                  "name": "p"
+                }
+              ]
+            }
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "y"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

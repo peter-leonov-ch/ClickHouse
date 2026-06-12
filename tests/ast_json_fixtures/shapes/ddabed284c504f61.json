@@ -1,9 +1,12 @@
 {
-  "type": "CreateQuery",
-  "temporary": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test3"
-  },
-  "as_table": "test"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test3"
+    },
+    "as_table": "test"
+  }
 }

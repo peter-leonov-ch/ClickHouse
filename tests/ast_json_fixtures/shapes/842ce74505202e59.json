@@ -1,9 +1,12 @@
 {
-  "type": "CreateQuery",
-  "is_clone_as": true,
-  "table": {
-    "type": "Identifier",
-    "name": "clone_as_foo_file"
-  },
-  "as_table": "foo_file"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_clone_as": true,
+    "table": {
+      "type": "Identifier",
+      "name": "clone_as_foo_file"
+    },
+    "as_table": "foo_file"
+  }
 }

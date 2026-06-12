@@ -1,36 +1,39 @@
 {
-  "type": "CreateIndexQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_index_3146"
-  },
-  "index_name": {
-    "type": "Identifier",
-    "name": "i2"
-  },
-  "index_declaration": {
-    "type": "Index",
-    "name": "i2",
-    "expression": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        }
-      ]
+  "version": 1,
+  "ast": {
+    "type": "CreateIndexQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_index_3146"
     },
-    "index_type": {
-      "type": "Function",
-      "name": "minmax",
-      "arguments": []
+    "index_name": {
+      "type": "Identifier",
+      "name": "i2"
     },
-    "granularity": 1
+    "index_declaration": {
+      "type": "Index",
+      "name": "i2",
+      "expression": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          }
+        ]
+      },
+      "index_type": {
+        "type": "Function",
+        "name": "minmax",
+        "arguments": []
+      },
+      "granularity": 1
+    }
   }
 }

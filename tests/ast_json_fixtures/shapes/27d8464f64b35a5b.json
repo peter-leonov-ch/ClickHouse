@@ -1,8 +1,11 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "mt2"
-  },
-  "as_table": "mt"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "mt2"
+    },
+    "as_table": "mt"
+  }
 }

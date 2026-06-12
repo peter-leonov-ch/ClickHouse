@@ -1,52 +1,55 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "addr",
-          "value_type": "String",
-          "value": "192.168.100.1"
-        },
-        {
-          "type": "Function",
-          "alias": "prefix",
-          "name": "arrayJoin",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "Array",
-              "value": "['192.168.100.0\/22', '192.168.100.0\/24', '192.168.100.0\/32']"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "addr"
-        },
-        {
-          "type": "Identifier",
-          "name": "prefix"
-        },
-        {
-          "type": "Function",
-          "name": "isIPAddressInRange",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "addr"
-            },
-            {
-              "type": "Identifier",
-              "name": "prefix"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "addr",
+            "value_type": "String",
+            "value": "192.168.100.1"
+          },
+          {
+            "type": "Function",
+            "alias": "prefix",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": "['192.168.100.0\/22', '192.168.100.0\/24', '192.168.100.0\/32']"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "addr"
+          },
+          {
+            "type": "Identifier",
+            "name": "prefix"
+          },
+          {
+            "type": "Function",
+            "name": "isIPAddressInRange",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "addr"
+              },
+              {
+                "type": "Identifier",
+                "name": "prefix"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

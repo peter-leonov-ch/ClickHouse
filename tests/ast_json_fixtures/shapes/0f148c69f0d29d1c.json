@@ -1,203 +1,206 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "data",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "[\n(1600000000, 10),\n(1600000010, 20),\n(1600000020, 30),\n(1600000030, 40),\n(1600000040, 10),\n(1600000050, 70),\n(1600000060, 90),\n(1600000270, 20),\n(1600000330, 10)\n]"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Array(Tuple(UInt32, Float64))"
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "subquery": {
-                "type": "Subquery",
-                "query": {
-                  "type": "SelectWithUnionQuery",
-                  "selects": [
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "name",
-                          "value_type": "String",
-                          "value": "delta"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "timeSeriesDeltaToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "data"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "data"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1600000010
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1600000320
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 10
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 300
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SelectQuery",
-                      "select": [
-                        {
-                          "type": "Literal",
-                          "alias": "name",
-                          "value_type": "String",
-                          "value": "idelta"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "timeSeriesInstantDeltaToGrid",
-                          "arguments": [
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "data"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 1
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Function",
-                              "name": "tupleElement",
-                              "is_operator": true,
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "data"
-                                },
-                                {
-                                  "type": "Literal",
-                                  "value_type": "UInt64",
-                                  "value": 2
-                                }
-                              ]
-                            }
-                          ],
-                          "parameters": [
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1600000010
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 1600000320
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 10
-                            },
-                            {
-                              "type": "Literal",
-                              "value_type": "UInt64",
-                              "value": 300
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+            "type": "Function",
+            "alias": "data",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "[\n(1600000000, 10),\n(1600000010, 20),\n(1600000020, 30),\n(1600000030, 40),\n(1600000040, 10),\n(1600000050, 70),\n(1600000060, 90),\n(1600000270, 20),\n(1600000330, 10)\n]"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Array(Tuple(UInt32, Float64))"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "name",
+                            "value_type": "String",
+                            "value": "delta"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "timeSeriesDeltaToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "data"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "data"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1600000010"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1600000320"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "10"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "300"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "name",
+                            "value_type": "String",
+                            "value": "idelta"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "timeSeriesInstantDeltaToGrid",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "data"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Function",
+                                "name": "tupleElement",
+                                "is_operator": true,
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "data"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1600000010"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "1600000320"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "10"
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "300"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "name"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

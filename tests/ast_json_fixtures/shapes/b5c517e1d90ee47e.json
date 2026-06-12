@@ -1,14 +1,17 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns": [
-    {
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
       "type": "Identifier",
-      "name": "c1"
-    }
-  ],
-  "format": "Values"
+      "name": "t"
+    },
+    "columns": [
+      {
+        "type": "Identifier",
+        "name": "c1"
+      }
+    ],
+    "format": "Values"
+  }
 }

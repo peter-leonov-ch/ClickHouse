@@ -1,203 +1,26 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_totals": true,
-      "group_by_with_cube": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "multiIf",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            },
-            {
-              "type": "Literal",
-              "value_type": "Null",
-              "value": null
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 3
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 4
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "greatest",
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "multiIf",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "Null",
-                      "value": null
-                    },
-                    {
-                      "type": "Function",
-                      "name": "toUInt256",
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 3
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 4
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "multiIf",
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 1
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 2
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "Null",
-                      "value": null
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 3
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "UInt64",
-                      "value": 4
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "group_by_with_cube": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test1_00395"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "col1"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Function",
             "name": "multiIf",
             "arguments": [
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 27
+                "value": "1"
               },
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 1
-              },
-              {
-                "type": "Function",
-                "name": "multiIf",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "materialize",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 1
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Function",
-                    "name": "toLowCardinality",
-                    "arguments": [
-                      {
-                        "type": "Literal",
-                        "value_type": "UInt64",
-                        "value": 2
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 3
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  },
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 4
-                  }
-                ]
+                "value": "2"
               },
               {
                 "type": "Literal",
@@ -207,14 +30,194 @@
               {
                 "type": "Literal",
                 "value_type": "UInt64",
-                "value": 4
+                "value": "3"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "4"
               }
             ]
           },
-          "direction": "ASC",
-          "nulls_first": false
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "greatest",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "multiIf",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toUInt256",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "4"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "multiIf",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "3"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "4"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test1_00395"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "col1"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "multiIf",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "27"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                },
+                {
+                  "type": "Function",
+                  "name": "multiIf",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "materialize",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toLowCardinality",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "2"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "3"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "4"
+                    }
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "Null",
+                  "value": null
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "4"
+                }
+              ]
+            },
+            "direction": "ASC",
+            "nulls_first": false
+          }
+        ]
+      }
+    ]
+  }
 }

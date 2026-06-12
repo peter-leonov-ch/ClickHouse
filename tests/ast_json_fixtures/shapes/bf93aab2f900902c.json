@@ -1,57 +1,60 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "arr1"
-        },
-        {
-          "type": "Literal",
-          "value_type": "UInt64",
-          "value": 2
-        },
-        {
-          "type": "Identifier",
-          "name": "l"
-        },
-        {
-          "type": "Function",
-          "name": "arraySlice",
-          "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "arr1"
+          },
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "2"
+          },
+          {
+            "type": "Identifier",
+            "name": "l"
+          },
+          {
+            "type": "Function",
+            "name": "arraySlice",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "arr1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "type": "Identifier",
+                "name": "l"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
             {
-              "type": "Identifier",
-              "name": "arr1"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            },
-            {
-              "type": "Identifier",
-              "name": "l"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "array_functions"
+                }
+              }
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "array_functions"
-              }
-            }
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

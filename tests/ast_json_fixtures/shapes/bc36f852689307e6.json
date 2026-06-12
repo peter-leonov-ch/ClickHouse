@@ -1,24 +1,27 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "remote",
-    "arguments": [
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "127.0.0.2"
-      },
-      {
-        "type": "Function",
-        "name": "currentDatabase",
-        "arguments": []
-      },
-      {
-        "type": "Identifier",
-        "name": "t4"
-      }
-    ]
-  },
-  "format": "Values"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "remote",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "127.0.0.2"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "t4"
+        }
+      ]
+    },
+    "format": "Values"
+  }
 }

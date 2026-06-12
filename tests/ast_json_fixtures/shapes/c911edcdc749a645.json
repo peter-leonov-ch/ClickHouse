@@ -1,28 +1,31 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "clusterAllReplicas",
-    "arguments": [
-      {
-        "type": "Identifier",
-        "name": "test_cluster_two_shards"
-      },
-      {
-        "type": "Function",
-        "name": "currentDatabase",
-        "arguments": []
-      },
-      {
-        "type": "Identifier",
-        "name": "data"
-      },
-      {
-        "type": "Function",
-        "name": "rand",
-        "arguments": []
-      }
-    ]
-  },
-  "format": "Values"
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "clusterAllReplicas",
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "test_cluster_two_shards"
+        },
+        {
+          "type": "Function",
+          "name": "currentDatabase",
+          "arguments": []
+        },
+        {
+          "type": "Identifier",
+          "name": "data"
+        },
+        {
+          "type": "Function",
+          "name": "rand",
+          "arguments": []
+        }
+      ]
+    },
+    "format": "Values"
+  }
 }

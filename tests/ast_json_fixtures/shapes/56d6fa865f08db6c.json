@@ -1,20 +1,23 @@
 {
-  "type": "InsertQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "dist_tbl"
-  },
-  "columns": [
-    {
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
       "type": "Identifier",
-      "name": "key"
-    }
-  ],
-  "format": "Values",
-  "settings": {
-    "type": "Set",
-    "changes": {
-      "distributed_foreground_insert": 1
+      "name": "dist_tbl"
+    },
+    "columns": [
+      {
+        "type": "Identifier",
+        "name": "key"
+      }
+    ],
+    "format": "Values",
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "distributed_foreground_insert": "1"
+      }
     }
   }
 }

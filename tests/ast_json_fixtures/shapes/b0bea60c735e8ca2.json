@@ -1,45 +1,48 @@
 {
-  "type": "CreateQuery",
-  "is_materialized_view": true,
-  "table": {
-    "type": "Identifier",
-    "name": "v"
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Asterisk"
-          }
-        ],
-        "tables": {
-          "type": "TablesInSelectQuery",
-          "children": [
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "table": {
+      "type": "Identifier",
+      "name": "v"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
             {
-              "type": "TablesInSelectQueryElement",
-              "table_expression": {
-                "type": "TableExpression",
-                "database_and_table_name": {
-                  "type": "TableIdentifier",
-                  "name": "v"
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "v"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    ]
-  },
-  "targets": {
-    "type": "ViewTargets",
-    "targets": [
-      {
-        "kind": "to",
-        "table": "t"
-      }
-    ]
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "table": "t"
+        }
+      ]
+    }
   }
 }

@@ -1,85 +1,88 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Literal",
-          "alias": "name",
-          "value_type": "String",
-          "value": "John"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "name",
+            "value_type": "String",
+            "value": "John"
+          },
+          {
+            "type": "Function",
+            "alias": "birthdate",
+            "name": "toDate",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "1990-01-01"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         },
-        {
+        "where": {
           "type": "Function",
-          "alias": "birthdate",
-          "name": "toDate",
+          "name": "in",
+          "is_operator": true,
           "arguments": [
             {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "1990-01-01"
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "name"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "birthdate"
+                }
+              ]
+            },
+            {
+              "type": "Identifier",
+              "name": "userid_set2"
             }
           ]
         }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "numbers",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "in",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "number"
-              },
-              {
-                "type": "Identifier",
-                "name": "name"
-              },
-              {
-                "type": "Identifier",
-                "name": "birthdate"
-              }
-            ]
-          },
-          {
-            "type": "Identifier",
-            "name": "userid_set2"
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

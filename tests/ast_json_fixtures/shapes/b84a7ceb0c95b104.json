@@ -1,25 +1,28 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN PIPELINE",
-  "query": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Function",
-            "name": "sleep",
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 1
-              }
-            ]
-          }
-        ]
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN PIPELINE",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "name": "sleep",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }

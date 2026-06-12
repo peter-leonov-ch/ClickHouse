@@ -1,63 +1,66 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "url_na_log"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "SiteId",
-        "data_type": {
-          "type": "DataType",
-          "name": "UInt32"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "DateVisit",
-        "data_type": {
-          "type": "DataType",
-          "name": "Date"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
-    },
-    "primary_key": {
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
       "type": "Identifier",
-      "name": "SiteId"
+      "name": "url_na_log"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "SiteId"
+          "type": "ColumnDeclaration",
+          "name": "SiteId",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
         },
         {
-          "type": "Identifier",
-          "name": "DateVisit"
+          "type": "ColumnDeclaration",
+          "name": "DateVisit",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
+          }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "index_granularity_bytes": 1000000,
-        "index_granularity": 1000,
-        "min_bytes_for_wide_part": 0
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "SiteId"
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "SiteId"
+          },
+          {
+            "type": "Identifier",
+            "name": "DateVisit"
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity_bytes": "1000000",
+          "index_granularity": "1000",
+          "min_bytes_for_wide_part": "0"
+        }
       }
     }
   }

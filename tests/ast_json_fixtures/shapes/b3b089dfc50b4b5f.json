@@ -1,70 +1,73 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "ttl"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "d",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "ttl"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "arguments": []
-    },
-    "ttl_table": {
-      "type": "ExpressionList",
-      "children": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "TTLElement",
-          "mode": "DELETE",
-          "ttl": {
-            "type": "Function",
-            "name": "plus",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Identifier",
-                "name": "d"
-              },
-              {
-                "type": "Function",
-                "name": "toIntervalDay",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 10
-                  }
-                ]
-              }
-            ]
+          "type": "ColumnDeclaration",
+          "name": "d",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
           }
         }
       ]
     },
-    "settings": {
-      "type": "Set",
-      "changes": {
-        "remove_empty_parts": 0
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      },
+      "ttl_table": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "TTLElement",
+            "mode": "DELETE",
+            "ttl": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "d"
+                },
+                {
+                  "type": "Function",
+                  "name": "toIntervalDay",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "10"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "remove_empty_parts": "0"
+        }
       }
     }
   }

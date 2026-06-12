@@ -1,241 +1,244 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "recursive_with": true,
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "search_graph",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Asterisk"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "recursive_with": true,
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "search_graph",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Asterisk"
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "is_cycle",
+                        "value_type": "Bool",
+                        "value": false
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "path",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "g.f",
+                                "name_parts": ["g", "f"]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "g.t",
+                                "name_parts": ["g", "t"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "g",
+                              "name": "graph"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "QualifiedAsterisk",
+                        "qualifier": {
+                          "type": "Identifier",
+                          "name": "g"
+                        }
+                      },
+                      {
+                        "type": "Function",
+                        "name": "has",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "path"
+                          },
+                          {
+                            "type": "Function",
+                            "name": "tuple",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "g.f",
+                                "name_parts": ["g", "f"]
+                              },
+                              {
+                                "type": "Identifier",
+                                "name": "g.t",
+                                "name_parts": ["g", "t"]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "arrayConcat",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "sg.path",
+                            "name_parts": ["sg", "path"]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "array",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "tuple",
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "g.f",
+                                    "name_parts": ["g", "f"]
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "g.t",
+                                    "name_parts": ["g", "t"]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "g",
+                              "name": "graph"
+                            }
+                          }
+                        },
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_join": {
+                            "type": "TableJoin",
+                            "kind": "COMMA"
+                          },
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "sg",
+                              "name": "search_graph"
+                            }
+                          }
+                        }
+                      ]
                     },
-                    {
-                      "type": "Literal",
-                      "alias": "is_cycle",
-                      "value_type": "Bool",
-                      "value": false
-                    },
-                    {
+                    "where": {
                       "type": "Function",
-                      "alias": "path",
-                      "name": "array",
+                      "name": "and",
                       "is_operator": true,
                       "arguments": [
                         {
                           "type": "Function",
-                          "name": "tuple",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "g.f",
-                              "name_parts": ["g", "f"]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "g.t",
-                              "name_parts": ["g", "t"]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "g",
-                            "name": "graph"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "QualifiedAsterisk",
-                      "qualifier": {
-                        "type": "Identifier",
-                        "name": "g"
-                      }
-                    },
-                    {
-                      "type": "Function",
-                      "name": "has",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "path"
-                        },
-                        {
-                          "type": "Function",
-                          "name": "tuple",
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "name": "g.f",
-                              "name_parts": ["g", "f"]
-                            },
-                            {
-                              "type": "Identifier",
-                              "name": "g.t",
-                              "name_parts": ["g", "t"]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Function",
-                      "name": "arrayConcat",
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "name": "sg.path",
-                          "name_parts": ["sg", "path"]
-                        },
-                        {
-                          "type": "Function",
-                          "name": "array",
+                          "name": "equals",
                           "is_operator": true,
                           "arguments": [
                             {
-                              "type": "Function",
-                              "name": "tuple",
-                              "arguments": [
-                                {
-                                  "type": "Identifier",
-                                  "name": "g.f",
-                                  "name_parts": ["g", "f"]
-                                },
-                                {
-                                  "type": "Identifier",
-                                  "name": "g.t",
-                                  "name_parts": ["g", "t"]
-                                }
-                              ]
+                              "type": "Identifier",
+                              "name": "g.f",
+                              "name_parts": ["g", "f"]
+                            },
+                            {
+                              "type": "Identifier",
+                              "name": "sg.t",
+                              "name_parts": ["sg", "t"]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "not",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "is_cycle"
                             }
                           ]
                         }
                       ]
                     }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "g",
-                            "name": "graph"
-                          }
-                        }
-                      },
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_join": {
-                          "type": "TableJoin",
-                          "kind": "COMMA"
-                        },
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "sg",
-                            "name": "search_graph"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "and",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "equals",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "g.f",
-                            "name_parts": ["g", "f"]
-                          },
-                          {
-                            "type": "Identifier",
-                            "name": "sg.t",
-                            "name_parts": ["sg", "t"]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Function",
-                        "name": "not",
-                        "is_operator": true,
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "is_cycle"
-                          }
-                        ]
-                      }
-                    ]
                   }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "search_graph"
+                ]
               }
             }
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "query_plan_join_swap_table": "false"
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "search_graph"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "query_plan_join_swap_table": "false"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

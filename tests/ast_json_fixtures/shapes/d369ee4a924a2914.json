@@ -1,46 +1,49 @@
 {
-  "type": "InsertQuery",
-  "table_function": {
-    "type": "Function",
-    "name": "file",
-    "arguments": [
-      {
-        "type": "Function",
-        "name": "concat",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Function",
-            "name": "currentDatabase",
-            "arguments": []
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "_02268_data.jsonl"
-          }
-        ]
-      },
-      {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "TSV"
-      }
-    ]
-  },
-  "select": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 1
-          }
-        ]
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "InsertQuery",
+    "table_function": {
+      "type": "Function",
+      "name": "file",
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "concat",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "_02268_data.jsonl"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "TSV"
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

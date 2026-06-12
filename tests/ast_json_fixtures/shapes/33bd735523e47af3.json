@@ -1,191 +1,194 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "recursive_with": true,
-      "with": [
-        {
-          "type": "WithElement",
-          "name": "subdepartment",
-          "subquery": {
-            "type": "Subquery",
-            "query": {
-              "type": "SelectWithUnionQuery",
-              "selects": [
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
-                      "type": "Literal",
-                      "alias": "level",
-                      "value_type": "UInt64",
-                      "value": 1
-                    },
-                    {
-                      "type": "Asterisk"
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "name": "department"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "name"
-                      },
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "recursive_with": true,
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "subdepartment",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
                       {
                         "type": "Literal",
-                        "value_type": "String",
-                        "value": "A"
+                        "alias": "level",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "type": "Asterisk"
                       }
-                    ]
-                  }
-                },
-                {
-                  "type": "SelectQuery",
-                  "select": [
-                    {
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "department"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "where": {
                       "type": "Function",
-                      "name": "plus",
+                      "name": "equals",
                       "is_operator": true,
                       "arguments": [
                         {
                           "type": "Identifier",
-                          "name": "sd.level",
-                          "name_parts": ["sd", "level"]
+                          "name": "name"
                         },
                         {
                           "type": "Literal",
-                          "value_type": "UInt64",
-                          "value": 1
+                          "value_type": "String",
+                          "value": "A"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "plus",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "sd.level",
+                            "name_parts": ["sd", "level"]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "QualifiedAsterisk",
+                        "qualifier": {
+                          "type": "Identifier",
+                          "name": "d"
+                        }
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "d",
+                              "name": "department"
+                            }
+                          }
+                        },
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_join": {
+                            "type": "TableJoin",
+                            "kind": "COMMA"
+                          },
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "sd",
+                              "name": "subdepartment"
+                            }
+                          }
                         }
                       ]
                     },
-                    {
-                      "type": "QualifiedAsterisk",
-                      "qualifier": {
-                        "type": "Identifier",
-                        "name": "d"
-                      }
-                    }
-                  ],
-                  "tables": {
-                    "type": "TablesInSelectQuery",
-                    "children": [
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "d",
-                            "name": "department"
-                          }
-                        }
-                      },
-                      {
-                        "type": "TablesInSelectQueryElement",
-                        "table_join": {
-                          "type": "TableJoin",
-                          "kind": "COMMA"
+                    "where": {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "d.parent_department",
+                          "name_parts": ["d", "parent_department"]
                         },
-                        "table_expression": {
-                          "type": "TableExpression",
-                          "database_and_table_name": {
-                            "type": "TableIdentifier",
-                            "alias": "sd",
-                            "name": "subdepartment"
-                          }
+                        {
+                          "type": "Identifier",
+                          "name": "sd.id",
+                          "name_parts": ["sd", "id"]
                         }
-                      }
-                    ]
-                  },
-                  "where": {
-                    "type": "Function",
-                    "name": "equals",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Identifier",
-                        "name": "d.parent_department",
-                        "name_parts": ["d", "parent_department"]
-                      },
-                      {
-                        "type": "Identifier",
-                        "name": "sd.id",
-                        "name_parts": ["sd", "id"]
-                      }
-                    ]
+                      ]
+                    }
                   }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "select": [
-        {
-          "type": "Asterisk"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "subdepartment"
+                ]
               }
             }
           }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "greaterOrEquals",
-        "is_operator": true,
-        "arguments": [
+        ],
+        "select": [
           {
-            "type": "Identifier",
-            "name": "level"
-          },
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "subdepartment"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "level"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        },
+        "order_by": [
           {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 2
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "name"
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

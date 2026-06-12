@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "RESTORE REPLICA",
-  "table": {
-    "type": "Identifier",
-    "name": "hourly_data"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "RESTORE REPLICA",
+    "table": {
+      "type": "Identifier",
+      "name": "hourly_data"
+    }
   }
 }

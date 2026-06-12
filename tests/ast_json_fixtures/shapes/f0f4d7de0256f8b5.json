@@ -1,232 +1,235 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "Identifier",
-          "name": "y"
-        },
-        {
-          "type": "Function",
-          "name": "transform",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            },
-            {
-              "type": "Subquery",
-              "query": {
-                "type": "SelectWithUnionQuery",
-                "selects": [
-                  {
-                    "type": "SelectQuery",
-                    "select": [
-                      {
-                        "type": "Function",
-                        "name": "groupArray",
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "x"
-                          }
-                        ]
-                      }
-                    ],
-                    "tables": {
-                      "type": "TablesInSelectQuery",
-                      "children": [
-                        {
-                          "type": "TablesInSelectQueryElement",
-                          "table_expression": {
-                            "type": "TableExpression",
-                            "subquery": {
-                              "type": "Subquery",
-                              "alias": "t1",
-                              "query": {
-                                "type": "SelectWithUnionQuery",
-                                "selects": [
-                                  {
-                                    "type": "SelectQuery",
-                                    "select": [
-                                      {
-                                        "type": "Identifier",
-                                        "name": "x"
-                                      },
-                                      {
-                                        "type": "Identifier",
-                                        "name": "y"
-                                      }
-                                    ],
-                                    "tables": {
-                                      "type": "TablesInSelectQuery",
-                                      "children": [
-                                        {
-                                          "type": "TablesInSelectQueryElement",
-                                          "table_expression": {
-                                            "type": "TableExpression",
-                                            "database_and_table_name": {
-                                              "type": "TableIdentifier",
-                                              "name": "updates"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "order_by": [
-                                      {
-                                        "type": "OrderByElement",
-                                        "expression": {
-                                          "type": "Identifier",
-                                          "name": "x"
-                                        },
-                                        "direction": "ASC"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "type": "Subquery",
-              "query": {
-                "type": "SelectWithUnionQuery",
-                "selects": [
-                  {
-                    "type": "SelectQuery",
-                    "select": [
-                      {
-                        "type": "Function",
-                        "name": "groupArray",
-                        "arguments": [
-                          {
-                            "type": "Identifier",
-                            "name": "y"
-                          }
-                        ]
-                      }
-                    ],
-                    "tables": {
-                      "type": "TablesInSelectQuery",
-                      "children": [
-                        {
-                          "type": "TablesInSelectQueryElement",
-                          "table_expression": {
-                            "type": "TableExpression",
-                            "subquery": {
-                              "type": "Subquery",
-                              "alias": "t2",
-                              "query": {
-                                "type": "SelectWithUnionQuery",
-                                "selects": [
-                                  {
-                                    "type": "SelectQuery",
-                                    "select": [
-                                      {
-                                        "type": "Identifier",
-                                        "name": "x"
-                                      },
-                                      {
-                                        "type": "Identifier",
-                                        "name": "y"
-                                      }
-                                    ],
-                                    "tables": {
-                                      "type": "TablesInSelectQuery",
-                                      "children": [
-                                        {
-                                          "type": "TablesInSelectQueryElement",
-                                          "table_expression": {
-                                            "type": "TableExpression",
-                                            "database_and_table_name": {
-                                              "type": "TableIdentifier",
-                                              "name": "updates"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "order_by": [
-                                      {
-                                        "type": "OrderByElement",
-                                        "expression": {
-                                          "type": "Identifier",
-                                          "name": "x"
-                                        },
-                                        "direction": "ASC"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "type": "Identifier",
-              "name": "y"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_xy"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 1
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "x"
           },
-          "direction": "ASC"
-        },
-        {
-          "type": "OrderByElement",
-          "expression": {
+          {
             "type": "Identifier",
             "name": "y"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Function",
+            "name": "transform",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              },
+              {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "groupArray",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "x"
+                            }
+                          ]
+                        }
+                      ],
+                      "from": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "subquery": {
+                                "type": "Subquery",
+                                "alias": "t1",
+                                "query": {
+                                  "type": "SelectWithUnionQuery",
+                                  "selects": [
+                                    {
+                                      "type": "SelectQuery",
+                                      "select": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "x"
+                                        },
+                                        {
+                                          "type": "Identifier",
+                                          "name": "y"
+                                        }
+                                      ],
+                                      "from": {
+                                        "type": "TablesInSelectQuery",
+                                        "children": [
+                                          {
+                                            "type": "TablesInSelectQueryElement",
+                                            "table_expression": {
+                                              "type": "TableExpression",
+                                              "database_and_table_name": {
+                                                "type": "TableIdentifier",
+                                                "name": "updates"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "order_by": [
+                                        {
+                                          "type": "OrderByElement",
+                                          "expression": {
+                                            "type": "Identifier",
+                                            "name": "x"
+                                          },
+                                          "direction": "ASC"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Subquery",
+                "query": {
+                  "type": "SelectWithUnionQuery",
+                  "selects": [
+                    {
+                      "type": "SelectQuery",
+                      "select": [
+                        {
+                          "type": "Function",
+                          "name": "groupArray",
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "y"
+                            }
+                          ]
+                        }
+                      ],
+                      "from": {
+                        "type": "TablesInSelectQuery",
+                        "children": [
+                          {
+                            "type": "TablesInSelectQueryElement",
+                            "table_expression": {
+                              "type": "TableExpression",
+                              "subquery": {
+                                "type": "Subquery",
+                                "alias": "t2",
+                                "query": {
+                                  "type": "SelectWithUnionQuery",
+                                  "selects": [
+                                    {
+                                      "type": "SelectQuery",
+                                      "select": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "x"
+                                        },
+                                        {
+                                          "type": "Identifier",
+                                          "name": "y"
+                                        }
+                                      ],
+                                      "from": {
+                                        "type": "TablesInSelectQuery",
+                                        "children": [
+                                          {
+                                            "type": "TablesInSelectQueryElement",
+                                            "table_expression": {
+                                              "type": "TableExpression",
+                                              "database_and_table_name": {
+                                                "type": "TableIdentifier",
+                                                "name": "updates"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "order_by": [
+                                        {
+                                          "type": "OrderByElement",
+                                          "expression": {
+                                            "type": "Identifier",
+                                            "name": "x"
+                                          },
+                                          "direction": "ASC"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Identifier",
+                "name": "y"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_xy"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "y"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

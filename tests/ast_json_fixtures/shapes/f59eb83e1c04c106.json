@@ -1,171 +1,174 @@
 {
-  "type": "CreateQuery",
-  "is_dictionary": true,
-  "database": {
-    "type": "Identifier",
-    "name": "01760_db"
-  },
-  "table": {
-    "type": "Identifier",
-    "name": "dict_array"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "key",
-      "data_type": {
-        "type": "DataType",
-        "name": "Array",
-        "arguments": [
-          {
-            "type": "DataType",
-            "name": "Array",
-            "arguments": [
-              {
-                "type": "DataType",
-                "name": "Array",
-                "arguments": [
-                  {
-                    "type": "TupleDataType",
-                    "name": "Tuple",
-                    "arguments": [
-                      {
-                        "type": "DataType",
-                        "name": "Float64"
-                      },
-                      {
-                        "type": "DataType",
-                        "name": "Float64"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_dictionary": true,
+    "database": {
+      "type": "Identifier",
+      "name": "01760_db"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "name",
-      "data_type": {
-        "type": "DataType",
-        "name": "String"
-      },
-      "default_value": {
-        "type": "Literal",
-        "value_type": "String",
-        "value": "qqq"
-      }
+    "table": {
+      "type": "Identifier",
+      "name": "dict_array"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "value",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      },
-      "default_value": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 10
-      }
-    },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "value_nullable",
-      "data_type": {
-        "type": "DataType",
-        "name": "Nullable",
-        "arguments": [
-          {
-            "type": "DataType",
-            "name": "UInt64"
-          }
-        ]
-      },
-      "default_value": {
-        "type": "Literal",
-        "value_type": "UInt64",
-        "value": 20
-      }
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "primary_key": [
+    "dictionary_attributes": [
       {
-        "type": "Identifier",
-        "name": "key"
+        "type": "DictionaryAttributeDeclaration",
+        "name": "key",
+        "data_type": {
+          "type": "DataType",
+          "name": "Array",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "Array",
+              "arguments": [
+                {
+                  "type": "DataType",
+                  "name": "Array",
+                  "arguments": [
+                    {
+                      "type": "TupleDataType",
+                      "name": "Tuple",
+                      "arguments": [
+                        {
+                          "type": "DataType",
+                          "name": "Float64"
+                        },
+                        {
+                          "type": "DataType",
+                          "name": "Float64"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "name",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        },
+        "default_value": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "qqq"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        },
+        "default_value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "value_nullable",
+        "data_type": {
+          "type": "DataType",
+          "name": "Nullable",
+          "arguments": [
+            {
+              "type": "DataType",
+              "name": "UInt64"
+            }
+          ]
+        },
+        "default_value": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "20"
+        }
       }
     ],
-    "source": {
-      "type": "FunctionWithKeyValueArguments",
-      "name": "clickhouse",
-      "elements": [
+    "dictionary": {
+      "type": "Dictionary",
+      "primary_key": [
         {
-          "type": "pair",
-          "key": "host",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "localhost"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "port",
-          "value": {
-            "type": "Function",
-            "name": "tcpPort",
-            "arguments": []
-          }
-        },
-        {
-          "type": "pair",
-          "key": "user",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "default"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "table",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "polygons"
-          }
-        },
-        {
-          "type": "pair",
-          "key": "db",
-          "value": {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "01760_db"
-          }
+          "type": "Identifier",
+          "name": "key"
         }
-      ]
-    },
-    "lifetime": {
-      "type": "DictionaryLifetime",
-      "min_sec": 0,
-      "max_sec": 0
-    },
-    "layout": {
-      "type": "DictionaryLayout",
-      "layout_type": "polygon",
-      "parameters": []
-    },
-    "settings": {
-      "type": "DictionarySettings",
-      "changes": {
-        "dictionary_use_async_executor": 1,
-        "max_threads": 8
+      ],
+      "source": {
+        "type": "FunctionWithKeyValueArguments",
+        "name": "clickhouse",
+        "elements": [
+          {
+            "type": "pair",
+            "key": "host",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "localhost"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "port",
+            "value": {
+              "type": "Function",
+              "name": "tcpPort",
+              "arguments": []
+            }
+          },
+          {
+            "type": "pair",
+            "key": "user",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "default"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "table",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "polygons"
+            }
+          },
+          {
+            "type": "pair",
+            "key": "db",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "01760_db"
+            }
+          }
+        ]
+      },
+      "lifetime": {
+        "type": "DictionaryLifetime",
+        "min_sec": 0,
+        "max_sec": 0
+      },
+      "layout": {
+        "type": "DictionaryLayout",
+        "layout_type": "polygon",
+        "parameters": []
+      },
+      "settings": {
+        "type": "DictionarySettings",
+        "changes": {
+          "dictionary_use_async_executor": "1",
+          "max_threads": "8"
+        }
       }
     }
   }

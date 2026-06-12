@@ -1,98 +1,101 @@
 {
-  "type": "CreateQuery",
-  "replace_table": true,
-  "table": {
-    "type": "Identifier",
-    "name": "t"
-  },
-  "columns_list": {
-    "type": "Columns",
-    "columns": [
-      {
-        "type": "ColumnDeclaration",
-        "name": "timestamp",
-        "data_type": {
-          "type": "DataType",
-          "name": "DateTime"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "id",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
-        }
-      },
-      {
-        "type": "ColumnDeclaration",
-        "name": "value",
-        "data_type": {
-          "type": "DataType",
-          "name": "String"
-        }
-      }
-    ]
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "MergeTree",
-      "kind": "TABLE_ENGINE",
-      "arguments": []
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "replace_table": true,
+    "table": {
+      "type": "Identifier",
+      "name": "t"
     },
-    "order_by": {
-      "type": "Function",
-      "name": "tuple",
-      "is_operator": true,
-      "arguments": [
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
         {
-          "type": "Identifier",
-          "name": "id"
+          "type": "ColumnDeclaration",
+          "name": "timestamp",
+          "data_type": {
+            "type": "DataType",
+            "name": "DateTime"
+          }
         },
         {
-          "type": "Function",
-          "name": "toStartOfDay",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "timestamp"
-            }
-          ]
+          "type": "ColumnDeclaration",
+          "name": "id",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "value",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
         }
       ]
     },
-    "ttl_table": {
-      "type": "ExpressionList",
-      "children": [
-        {
-          "type": "TTLElement",
-          "mode": "GROUP_BY",
-          "ttl": {
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "is_operator": true,
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
             "type": "Function",
-            "name": "plus",
-            "is_operator": true,
+            "name": "toStartOfDay",
             "arguments": [
               {
                 "type": "Identifier",
                 "name": "timestamp"
-              },
-              {
-                "type": "Function",
-                "name": "toIntervalDay",
-                "arguments": [
-                  {
-                    "type": "Literal",
-                    "value_type": "UInt64",
-                    "value": 1
-                  }
-                ]
               }
             ]
           }
-        }
-      ]
+        ]
+      },
+      "ttl_table": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "TTLElement",
+            "mode": "GROUP_BY",
+            "ttl": {
+              "type": "Function",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "timestamp"
+                },
+                {
+                  "type": "Function",
+                  "name": "toIntervalDay",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }

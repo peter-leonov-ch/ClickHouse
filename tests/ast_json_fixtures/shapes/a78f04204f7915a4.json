@@ -1,31 +1,34 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "03400_dist_users"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Distributed",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Identifier",
-          "name": "test_cluster_two_shards"
-        },
-        {
-          "type": "Function",
-          "name": "currentDatabase",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "03400_users"
-        }
-      ]
-    }
-  },
-  "as_table": "03400_users"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "03400_dist_users"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Distributed",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "test_cluster_two_shards"
+          },
+          {
+            "type": "Function",
+            "name": "currentDatabase",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "03400_users"
+          }
+        ]
+      }
+    },
+    "as_table": "03400_users"
+  }
 }

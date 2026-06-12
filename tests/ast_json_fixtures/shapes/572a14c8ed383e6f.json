@@ -1,13 +1,16 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "t1tmp",
-      "to_table": "t2"
-    },
-    {
-      "from_table": "t2tmp",
-      "to_table": "t1"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "t1tmp",
+        "to_table": "t2"
+      },
+      {
+        "from_table": "t2tmp",
+        "to_table": "t1"
+      }
+    ]
+  }
 }

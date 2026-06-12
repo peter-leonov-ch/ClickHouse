@@ -1,82 +1,85 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "length",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "name"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "name"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "."
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "users",
-                "database": "system"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "notEquals",
-        "is_operator": true,
-        "arguments": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
             "type": "Function",
-            "name": "position",
+            "name": "length",
             "arguments": [
               {
                 "type": "Identifier",
                 "name": "name"
-              },
-              {
-                "type": "Literal",
-                "value_type": "String",
-                "value": " "
               }
             ]
           },
           {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
-          }
-        ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Identifier",
             "name": "name"
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "."
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "users",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "notEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "position",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "name"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": " "
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

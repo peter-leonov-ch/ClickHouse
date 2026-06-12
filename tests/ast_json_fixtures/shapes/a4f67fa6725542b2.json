@@ -1,3 +1,6 @@
 {
-  "type": "CreateUserQuery"
+  "version": 1,
+  "ast": {
+    "type": "CreateUserQuery"
+  }
 }

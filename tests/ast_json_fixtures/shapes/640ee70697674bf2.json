@@ -1,8 +1,11 @@
 {
-  "type": "SYSTEM",
-  "system_type": "PREWARM MARK CACHE",
-  "table": {
-    "type": "Identifier",
-    "name": "t_prewarm_cache"
+  "version": 1,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "PREWARM MARK CACHE",
+    "table": {
+      "type": "Identifier",
+      "name": "t_prewarm_cache"
+    }
   }
 }

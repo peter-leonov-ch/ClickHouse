@@ -1,28 +1,31 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "distinct": true,
-      "select": [
-        {
-          "type": "Function",
-          "name": "toFloat64",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "arrayJoin",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value_type": "Array",
-                  "value": "['inf', 'Inf', 'INF', 'infinity', 'Infinity']"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayJoin",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "Array",
+                    "value": "['inf', 'Inf', 'INF', 'infinity', 'Infinity']"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

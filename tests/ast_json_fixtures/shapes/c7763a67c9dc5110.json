@@ -1,74 +1,77 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "y"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "file",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "concat",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "currentDatabase",
+                          "arguments": []
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "_03914.parquet"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "where": {
           "type": "Function",
-          "name": "sum",
+          "name": "greaterOrEquals",
+          "is_operator": true,
           "arguments": [
             {
               "type": "Identifier",
               "name": "y"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "50"
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "table_function": {
-                "type": "Function",
-                "name": "file",
-                "arguments": [
-                  {
-                    "type": "Function",
-                    "name": "concat",
-                    "is_operator": true,
-                    "arguments": [
-                      {
-                        "type": "Function",
-                        "name": "currentDatabase",
-                        "arguments": []
-                      },
-                      {
-                        "type": "Literal",
-                        "value_type": "String",
-                        "value": "_03914.parquet"
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "prewhere": {
-        "type": "Identifier",
-        "name": "x"
-      },
-      "where": {
-        "type": "Function",
-        "name": "greaterOrEquals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "y"
-          },
-          {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 50
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

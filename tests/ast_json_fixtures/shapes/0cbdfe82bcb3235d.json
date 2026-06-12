@@ -1,46 +1,49 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Subquery",
-          "alias": "a",
-          "query": {
-            "type": "SelectWithUnionQuery",
-            "selects": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Subquery",
+            "alias": "a",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Function",
+                      "name": "randConstant",
+                      "arguments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
               {
-                "type": "SelectQuery",
-                "select": [
-                  {
-                    "type": "Function",
-                    "name": "randConstant",
-                    "arguments": []
-                  }
-                ]
+                "type": "Identifier",
+                "name": "a"
+              },
+              {
+                "type": "Identifier",
+                "name": "a"
               }
             ]
           }
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "equals",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

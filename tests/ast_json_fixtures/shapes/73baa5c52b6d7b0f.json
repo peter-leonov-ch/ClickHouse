@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "exchange": true,
-  "elements": [
-    {
-      "from_table": "t1",
-      "to_database": "test_01109_other_atomic",
-      "to_table": "t3"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "exchange": true,
+    "elements": [
+      {
+        "from_table": "t1",
+        "to_database": "test_01109_other_atomic",
+        "to_table": "t3"
+      }
+    ]
+  }
 }

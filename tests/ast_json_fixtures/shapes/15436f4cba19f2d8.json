@@ -1,38 +1,41 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "alias": "x",
-          "name": "JSONExtract",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "{\"a\":1, \"b\":\"test\"}"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "Tuple(a UInt8, b String)"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "x.a",
-          "name_parts": ["x", "a"]
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "enable_analyzer": 1
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "x",
+            "name": "JSONExtract",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "{\"a\":1, \"b\":\"test\"}"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple(a UInt8, b String)"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "x.a",
+            "name_parts": ["x", "a"]
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "enable_analyzer": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,109 +1,112 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "order_by_all": true,
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "uid"
-        },
-        {
-          "type": "Identifier",
-          "name": "name"
-        },
-        {
-          "type": "Function",
-          "name": "sum",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "age"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": []
-        },
-        {
-          "type": "Function",
-          "name": "arrayUniq",
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "groupArray",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "ts"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "age"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "max",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "ts"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "order_by_all": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "users"
+            "type": "Identifier",
+            "name": "uid"
+          },
+          {
+            "type": "Identifier",
+            "name": "name"
+          },
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "age"
               }
-            }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Function",
+            "name": "arrayUniq",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "groupArray",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ts"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "age"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ts"
+              }
+            ]
           }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
           "children": [
             {
-              "type": "Asterisk"
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "users"
+                }
+              }
             }
           ]
         },
-        {
-          "type": "ExpressionList"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "ALL"
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Asterisk"
+              }
+            ]
           },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+          {
+            "type": "ExpressionList"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
 }

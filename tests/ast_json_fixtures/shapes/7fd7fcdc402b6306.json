@@ -1,9 +1,12 @@
 {
-  "type": "CreateQuery",
-  "is_create_empty": true,
-  "table": {
-    "type": "Identifier",
-    "name": "b"
-  },
-  "as_table": "a"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_create_empty": true,
+    "table": {
+      "type": "Identifier",
+      "name": "b"
+    },
+    "as_table": "a"
+  }
 }

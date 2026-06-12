@@ -1,4 +1,7 @@
 {
-  "type": "ShowTables",
-  "like": "%MEMORY%"
+  "version": 1,
+  "ast": {
+    "type": "ShowTables",
+    "like": "%MEMORY%"
+  }
 }

@@ -1,165 +1,168 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "with": [
-        {
-          "type": "Function",
-          "alias": "alias_in_error",
-          "name": "or",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "path"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "test1"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "match",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "path"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "test2"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "and",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Function",
-                  "name": "match",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "path"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "test3"
-                    }
-                  ]
-                },
-                {
-                  "type": "Function",
-                  "name": "match",
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "path"
-                    },
-                    {
-                      "type": "Literal",
-                      "value_type": "String",
-                      "value": "test2"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "match",
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "path"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "test4"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "path"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "test5"
-                }
-              ]
-            },
-            {
-              "type": "Function",
-              "name": "equals",
-              "is_operator": true,
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "path"
-                },
-                {
-                  "type": "Literal",
-                  "value_type": "String",
-                  "value": "test6"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "select": [
-        {
-          "type": "Function",
-          "name": "count",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 1
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_bug_optimization"
+            "type": "Function",
+            "alias": "alias_in_error",
+            "name": "or",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "path"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "match",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "path"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test2"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "and",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "match",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "path"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "test3"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "match",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "path"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "test2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "match",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "path"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test4"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "path"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test5"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "path"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "test6"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_bug_optimization"
+                }
               }
             }
-          }
-        ]
-      },
-      "where": {
-        "type": "Identifier",
-        "name": "alias_in_error"
+          ]
+        },
+        "where": {
+          "type": "Identifier",
+          "name": "alias_in_error"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

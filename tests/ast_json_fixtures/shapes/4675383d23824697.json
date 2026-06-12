@@ -1,50 +1,53 @@
 {
-  "type": "CreateQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "demo_loan_01568_dist"
-  },
-  "storage": {
-    "type": "Storage",
-    "engine": {
-      "type": "Function",
-      "name": "Distributed",
-      "kind": "TABLE_ENGINE",
-      "arguments": [
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "test_cluster_two_shards_different_databases"
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": ""
-        },
-        {
-          "type": "Literal",
-          "value_type": "String",
-          "value": "demo_loan_01568"
-        },
-        {
-          "type": "Function",
-          "name": "modulo",
-          "is_operator": true,
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "id"
-            },
-            {
-              "type": "Literal",
-              "value_type": "UInt64",
-              "value": 2
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "as_database": "shard_0",
-  "as_table": "demo_loan_01568"
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "demo_loan_01568_dist"
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Distributed",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "test_cluster_two_shards_different_databases"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": ""
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "demo_loan_01568"
+          },
+          {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "id"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "as_database": "shard_0",
+    "as_table": "demo_loan_01568"
+  }
 }

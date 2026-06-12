@@ -1,71 +1,74 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "tup.u",
-          "name_parts": ["tup", "u"]
-        },
-        {
-          "type": "Function",
-          "alias": "cnt",
-          "name": "count",
-          "arguments": []
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "tuple_test"
+            "type": "Identifier",
+            "name": "tup.u",
+            "name_parts": ["tup", "u"]
+          },
+          {
+            "type": "Function",
+            "alias": "cnt",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tuple_test"
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "tup.u",
-          "name_parts": ["tup", "u"]
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "greater",
-        "is_operator": true,
-        "arguments": [
+          ]
+        },
+        "group_by": [
           {
             "type": "Identifier",
             "name": "tup.u",
             "name_parts": ["tup", "u"]
-          },
+          }
+        ],
+        "having": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "tup.u",
+              "name_parts": ["tup", "u"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "10"
+            }
+          ]
+        },
+        "order_by": [
           {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 10
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "tup.u",
+              "name_parts": ["tup", "u"]
+            },
+            "direction": "ASC"
           }
         ]
-      },
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
-            "type": "Identifier",
-            "name": "tup.u",
-            "name_parts": ["tup", "u"]
-          },
-          "direction": "ASC"
-        }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

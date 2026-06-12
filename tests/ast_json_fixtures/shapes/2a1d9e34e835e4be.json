@@ -1,11 +1,14 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_database": "db_hang",
-      "from_table": "test",
-      "to_database": "db_hang_temp",
-      "to_table": "test"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_database": "db_hang",
+        "from_table": "test",
+        "to_database": "db_hang_temp",
+        "to_table": "test"
+      }
+    ]
+  }
 }

@@ -1,135 +1,138 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectIntersectExceptQuery",
-      "operator": "EXCEPT ALL",
-      "children": [
-        {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "order_by_all": true,
-              "select": [
-                {
-                  "type": "Asterisk"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectIntersectExceptQuery",
+        "operator": "EXCEPT ALL",
+        "selects": [
+          {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "order_by_all": true,
+                "select": [
                   {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "v"
-                      }
-                    }
-                  },
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_join": {
-                      "type": "TableJoin",
-                      "kind": "INNER",
-                      "using": [
-                        {
-                          "type": "Identifier",
-                          "name": "k"
+                    "type": "Asterisk"
+                  }
+                ],
+                "from": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "v"
                         }
-                      ]
+                      }
                     },
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "t1"
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_join": {
+                        "type": "TableJoin",
+                        "kind": "INNER",
+                        "using": [
+                          {
+                            "type": "Identifier",
+                            "name": "k"
+                          }
+                        ]
+                      },
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "t1"
+                        }
                       }
                     }
+                  ]
+                },
+                "order_by": [
+                  {
+                    "type": "OrderByElement",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "all"
+                    },
+                    "direction": "ASC"
                   }
                 ]
-              },
-              "order_by": [
-                {
-                  "type": "OrderByElement",
-                  "expression": {
-                    "type": "Identifier",
-                    "name": "all"
-                  },
-                  "direction": "ASC"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "SelectWithUnionQuery",
-          "selects": [
-            {
-              "type": "SelectQuery",
-              "order_by_all": true,
-              "select": [
-                {
-                  "type": "Asterisk"
-                }
-              ],
-              "tables": {
-                "type": "TablesInSelectQuery",
-                "children": [
+              }
+            ]
+          },
+          {
+            "type": "SelectWithUnionQuery",
+            "selects": [
+              {
+                "type": "SelectQuery",
+                "order_by_all": true,
+                "select": [
                   {
-                    "type": "TablesInSelectQueryElement",
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "v"
-                      }
-                    }
-                  },
-                  {
-                    "type": "TablesInSelectQueryElement",
-                    "table_join": {
-                      "type": "TableJoin",
-                      "kind": "INNER",
-                      "using": [
-                        {
-                          "type": "Identifier",
-                          "name": "k"
-                        }
-                      ]
-                    },
-                    "table_expression": {
-                      "type": "TableExpression",
-                      "database_and_table_name": {
-                        "type": "TableIdentifier",
-                        "name": "t1"
-                      }
-                    }
+                    "type": "Asterisk"
                   }
-                ]
-              },
-              "order_by": [
-                {
-                  "type": "OrderByElement",
-                  "expression": {
-                    "type": "Identifier",
-                    "name": "all"
-                  },
-                  "direction": "ASC"
-                }
-              ],
-              "settings": {
-                "type": "Set",
-                "changes": {
-                  "enable_parallel_replicas": 0
+                ],
+                "from": {
+                  "type": "TablesInSelectQuery",
+                  "children": [
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "v"
+                        }
+                      }
+                    },
+                    {
+                      "type": "TablesInSelectQueryElement",
+                      "table_join": {
+                        "type": "TableJoin",
+                        "kind": "INNER",
+                        "using": [
+                          {
+                            "type": "Identifier",
+                            "name": "k"
+                          }
+                        ]
+                      },
+                      "table_expression": {
+                        "type": "TableExpression",
+                        "database_and_table_name": {
+                          "type": "TableIdentifier",
+                          "name": "t1"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "order_by": [
+                  {
+                    "type": "OrderByElement",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "all"
+                    },
+                    "direction": "ASC"
+                  }
+                ],
+                "settings": {
+                  "type": "Settings",
+                  "changes": {
+                    "enable_parallel_replicas": "0"
+                  }
                 }
               }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

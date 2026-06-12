@@ -1,93 +1,60 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "group_by_with_grouping_sets": true,
-      "select": [
-        {
-          "type": "Function",
-          "alias": "amount",
-          "name": "count",
-          "arguments": []
-        },
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "Identifier",
-          "name": "b"
-        },
-        {
-          "type": "Function",
-          "name": "grouping",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "Identifier",
-              "name": "b"
-            }
-          ]
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_grouping_sets": true,
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test02315"
-              }
-            }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "Identifier",
-              "name": "b"
-            }
-          ]
-        },
-        {
-          "type": "ExpressionList",
-          "children": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ]
-        },
-        {
-          "type": "ExpressionList"
-        }
-      ],
-      "order_by": [
-        {
-          "type": "OrderByElement",
-          "expression": {
             "type": "Function",
-            "name": "tuple",
-            "is_operator": true,
+            "alias": "amount",
+            "name": "count",
+            "arguments": []
+          },
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          },
+          {
+            "type": "Function",
+            "name": "grouping",
             "arguments": [
               {
                 "type": "Identifier",
-                "name": "amount"
+                "name": "a"
               },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test02315"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "ExpressionList",
+            "children": [
               {
                 "type": "Identifier",
                 "name": "a"
@@ -98,15 +65,51 @@
               }
             ]
           },
-          "direction": "ASC"
-        }
-      ],
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "force_grouping_standard_compatibility": 0
+          {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ]
+          },
+          {
+            "type": "ExpressionList"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "tuple",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "amount"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "a"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "b"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "force_grouping_standard_compatibility": "0"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,19 +1,22 @@
 {
-  "type": "Explain",
-  "kind": "EXPLAIN SYNTAX",
-  "query": {
-    "type": "SelectWithUnionQuery",
-    "selects": [
-      {
-        "type": "SelectQuery",
-        "select": [
-          {
-            "type": "Literal",
-            "value_type": "Int64",
-            "value": -1
-          }
-        ]
-      }
-    ]
+  "version": 1,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN SYNTAX",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "Int64",
+              "value": "-1"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

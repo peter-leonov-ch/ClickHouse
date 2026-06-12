@@ -1,10 +1,13 @@
 {
-  "type": "DropQuery",
-  "kind": "DROP",
-  "database": {
-    "type": "Identifier",
-    "name": "02028_db"
-  },
-  "cluster": "test_shard_localhost",
-  "if_exists": true
+  "version": 1,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "database": {
+      "type": "Identifier",
+      "name": "02028_db"
+    },
+    "cluster": "test_shard_localhost",
+    "if_exists": true
+  }
 }

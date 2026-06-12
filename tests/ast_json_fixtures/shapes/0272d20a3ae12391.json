@@ -1,16 +1,19 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "where": {
           "type": "Asterisk"
         }
-      ],
-      "where": {
-        "type": "Asterisk"
       }
-    }
-  ]
+    ]
+  }
 }

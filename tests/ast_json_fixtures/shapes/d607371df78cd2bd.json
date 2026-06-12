@@ -1,63 +1,66 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Function",
-          "name": "toYear",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col_date"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "col_date32"
-        },
-        {
-          "type": "Function",
-          "name": "toYear",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col_datetime"
-            }
-          ]
-        },
-        {
-          "type": "Function",
-          "name": "toYear",
-          "arguments": [
-            {
-              "type": "Identifier",
-              "name": "col_datetime32"
-            }
-          ]
-        },
-        {
-          "type": "Identifier",
-          "name": "col_datetime64"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "my_table"
+            "type": "Function",
+            "name": "toYear",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col_date"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "col_date32"
+          },
+          {
+            "type": "Function",
+            "name": "toYear",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col_datetime"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toYear",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "col_datetime32"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "col_datetime64"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "my_table"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }

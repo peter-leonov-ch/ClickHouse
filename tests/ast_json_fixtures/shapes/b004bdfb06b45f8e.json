@@ -1,60 +1,63 @@
 {
-  "type": "CreateQuery",
-  "is_dictionary": true,
-  "replace_table": true,
-  "table": {
-    "type": "Identifier",
-    "name": "test_dict"
-  },
-  "dictionary_attributes": [
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "id",
-      "data_type": {
-        "type": "DataType",
-        "name": "UInt64"
-      }
+  "version": 1,
+  "ast": {
+    "type": "CreateQuery",
+    "is_dictionary": true,
+    "replace_table": true,
+    "table": {
+      "type": "Identifier",
+      "name": "test_dict"
     },
-    {
-      "type": "DictionaryAttributeDeclaration",
-      "name": "value",
-      "data_type": {
-        "type": "DataType",
-        "name": "String"
-      }
-    }
-  ],
-  "dictionary": {
-    "type": "Dictionary",
-    "primary_key": [
+    "dictionary_attributes": [
       {
-        "type": "Identifier",
-        "name": "id"
+        "type": "DictionaryAttributeDeclaration",
+        "name": "id",
+        "data_type": {
+          "type": "DataType",
+          "name": "UInt64"
+        }
+      },
+      {
+        "type": "DictionaryAttributeDeclaration",
+        "name": "value",
+        "data_type": {
+          "type": "DataType",
+          "name": "String"
+        }
       }
     ],
-    "source": {
-      "type": "FunctionWithKeyValueArguments",
-      "name": "clickhouse",
-      "elements": [
+    "dictionary": {
+      "type": "Dictionary",
+      "primary_key": [
         {
-          "type": "pair",
-          "key": "table",
-          "value": {
-            "type": "Identifier",
-            "name": "view"
-          }
+          "type": "Identifier",
+          "name": "id"
         }
-      ]
-    },
-    "lifetime": {
-      "type": "DictionaryLifetime",
-      "min_sec": 0,
-      "max_sec": 1000
-    },
-    "layout": {
-      "type": "DictionaryLayout",
-      "layout_type": "flat",
-      "parameters": []
+      ],
+      "source": {
+        "type": "FunctionWithKeyValueArguments",
+        "name": "clickhouse",
+        "elements": [
+          {
+            "type": "pair",
+            "key": "table",
+            "value": {
+              "type": "Identifier",
+              "name": "view"
+            }
+          }
+        ]
+      },
+      "lifetime": {
+        "type": "DictionaryLifetime",
+        "min_sec": 0,
+        "max_sec": 1000
+      },
+      "layout": {
+        "type": "DictionaryLayout",
+        "layout_type": "flat",
+        "parameters": []
+      }
     }
   }
 }

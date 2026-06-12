@@ -1,9 +1,12 @@
 {
-  "type": "Rename",
-  "elements": [
-    {
-      "from_table": "rmt",
-      "to_table": "rmt1"
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "Rename",
+    "elements": [
+      {
+        "from_table": "rmt",
+        "to_table": "rmt1"
+      }
+    ]
+  }
 }

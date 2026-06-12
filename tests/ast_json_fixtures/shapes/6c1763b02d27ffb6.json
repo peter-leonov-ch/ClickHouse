@@ -1,7 +1,10 @@
 {
-  "type": "ExistsDictionaryQuery",
-  "table": {
-    "type": "Identifier",
-    "name": "t_01048"
+  "version": 1,
+  "ast": {
+    "type": "ExistsDictionaryQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_01048"
+    }
   }
 }

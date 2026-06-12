@@ -1,31 +1,34 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Literal",
-          "value_type": "Array",
-          "value": "[1]"
-        },
-        {
-          "type": "Function",
-          "name": "CAST",
-          "arguments": [
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "0"
-            },
-            {
-              "type": "Literal",
-              "value_type": "String",
-              "value": "UInt16"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "Array",
+            "value": "[1]"
+          },
+          {
+            "type": "Function",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UInt16"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

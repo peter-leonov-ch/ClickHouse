@@ -1,3 +1,6 @@
 {
-  "type": "CREATE"
+  "version": 1,
+  "ast": {
+    "type": "CREATE"
+  }
 }

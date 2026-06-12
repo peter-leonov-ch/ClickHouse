@@ -1,86 +1,89 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "alias": "shift_right_bit",
-          "name": "id"
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "shift_right_bit",
+            "name": "id"
+          },
+          {
+            "type": "Literal",
+            "alias": "arg",
+            "value_type": "String",
+            "value": "Hel"
+          },
+          {
+            "type": "Function",
+            "alias": "string_res",
+            "name": "bin",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "bitShiftLeft",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Hel"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "id"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_bit_shift_left_string_integer"
+                }
+              }
+            }
+          ]
         },
-        {
-          "type": "Literal",
-          "alias": "arg",
-          "value_type": "String",
-          "value": "Hel"
-        },
-        {
+        "where": {
           "type": "Function",
-          "alias": "string_res",
-          "name": "bin",
+          "name": "lessOrEquals",
+          "is_operator": true,
           "arguments": [
             {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
               "type": "Function",
-              "name": "bitShiftLeft",
+              "name": "multiply",
+              "is_operator": true,
               "arguments": [
                 {
                   "type": "Literal",
-                  "value_type": "String",
-                  "value": "Hel"
+                  "value_type": "UInt64",
+                  "value": "8"
                 },
                 {
-                  "type": "Identifier",
-                  "name": "id"
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3"
                 }
               ]
             }
           ]
         }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
-          {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "test_bit_shift_left_string_integer"
-              }
-            }
-          }
-        ]
-      },
-      "where": {
-        "type": "Function",
-        "name": "lessOrEquals",
-        "is_operator": true,
-        "arguments": [
-          {
-            "type": "Identifier",
-            "name": "id"
-          },
-          {
-            "type": "Function",
-            "name": "multiply",
-            "is_operator": true,
-            "arguments": [
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 8
-              },
-              {
-                "type": "Literal",
-                "value_type": "UInt64",
-                "value": 3
-              }
-            ]
-          }
-        ]
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,52 +1,55 @@
 {
-  "type": "SelectWithUnionQuery",
-  "selects": [
-    {
-      "type": "SelectQuery",
-      "select": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ],
-      "tables": {
-        "type": "TablesInSelectQuery",
-        "children": [
+  "version": 1,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
           {
-            "type": "TablesInSelectQueryElement",
-            "table_expression": {
-              "type": "TableExpression",
-              "database_and_table_name": {
-                "type": "TableIdentifier",
-                "name": "t1"
+            "type": "Identifier",
+            "name": "a"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
               }
             }
-          }
-        ]
-      },
-      "group_by": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        }
-      ],
-      "having": {
-        "type": "Function",
-        "name": "materialize",
-        "arguments": [
+          ]
+        },
+        "group_by": [
           {
-            "type": "Literal",
-            "value_type": "UInt64",
-            "value": 0
+            "type": "Identifier",
+            "name": "a"
           }
-        ]
-      },
-      "settings": {
-        "type": "Set",
-        "changes": {
-          "parallel_replicas_local_plan": 1
+        ],
+        "having": {
+          "type": "Function",
+          "name": "materialize",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "parallel_replicas_local_plan": "1"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }
