@@ -42,6 +42,35 @@ The top-level value is a versioned document, not the root node directly:
 backwards-incompatible change to the JSON shape, so external consumers that
 pin reference fixtures can detect breaks. The AST itself is under `ast`.
 
+## Downstream consumer — clickhouse-js-parser
+
+This format is consumed by the TypeScript parser at
+<https://github.com/ClickHouse/clickhouse-js-parser>, which pins the
+fixtures in `tests/ast_json_fixtures` as a reference suite (vendored
+alongside its existing `clickhouse-reference-{ast,format,explain,round-trip}`
+suites). Several format decisions exist specifically to line up with it, and
+should not be "simplified" away without coordinating there:
+
+- **Versioned document.** The js parser pins fixtures, so any break must be
+  detectable — hence `{ version, ast }` and the `AST_JSON_FORMAT_VERSION`
+  bump-on-break rule above.
+- **64-bit integers as strings.** Its AST stores `Literal.value` as `string`
+  because JS `JSON.parse` corrupts integers above 2^53; see the contract
+  below.
+- **Named slots mirror its AST types.** The slot names and shapes track the
+  node types in the parser's `src/ast.ts` — e.g. `QueryParameter` nodes
+  (including in identifier/table position, `Identifier = string | QueryParam`),
+  `LimitByClause { count, by, offset }` ↔ our `limit_by { length, offset?,
+  by }`, the `WindowFrameBound` discriminated union ↔ our `frame_begin` /
+  `frame_end` `{ type, offset?, preceding? }`, and the except/replace/apply
+  `ColumnTransformer` types ↔ our inlined `transformers` array.
+- **Operator-name normalization** matches its text-explain serializer's
+  operator map (`src/explain.ts`); see "Known divergences" below.
+
+When changing the format: bump `AST_JSON_FORMAT_VERSION`, update the `039*`
+stateless tests and regenerate `tests/ast_json_fixtures`, and flag the change
+so the js parser can re-vendor and pin the new version.
+
 ## Output contract
 
 Every node is a JSON object with:
