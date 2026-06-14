@@ -2,7 +2,8 @@
 
 `EXPLAIN AST json = 1 <query>` serializes the parsed (not analyzed) AST of
 a query to JSON. It is implemented by `formatASTAsJSON` in
-`src/Parsers/DumpASTNode.cpp` and wired into `InterpreterExplainQuery`.
+`src/Parsers/DumpASTNode.cpp`; `InterpreterExplainQuery` calls
+`formatASTAsJSONDocument`, which wraps the result in the versioned document.
 
 This document is the contributor reference: how to run it, the output
 contract, the per-class schema, and how to extend it to new AST nodes. It
