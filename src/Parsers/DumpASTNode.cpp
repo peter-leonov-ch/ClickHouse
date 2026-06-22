@@ -23,6 +23,8 @@
 #include <Parsers/ASTCreateFunctionQuery.h>
 #include <Parsers/ASTCreateQuery.h>
 #include <Parsers/ASTDataType.h>
+#include <Parsers/ASTEnumDataType.h>
+#include <Parsers/ASTTupleDataType.h>
 #include <Parsers/ASTDeleteQuery.h>
 #include <Parsers/ASTDictionary.h>
 #include <Parsers/ASTDictionaryAttributeDeclaration.h>
@@ -750,6 +752,43 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         node.add("name", replacement->name);
         if (!replacement->children.empty())
             node.add("expression", formatASTAsJSON(*replacement->children.front()));
+
+        return true;
+    }
+    else if (const auto * enum_type = dynamic_cast<const ASTEnumDataType *>(&ast))
+    {
+        /// Must precede the ASTDataType branch: ASTEnumDataType derives from it,
+        /// but its values live in a dedicated vector rather than in `getArguments`.
+        node.add("name", enum_type->name);
+
+        auto values = std::make_unique<JSONBuilder::JSONArray>();
+        for (const auto & [enum_name, enum_value] : enum_type->values)
+        {
+            auto value_node = std::make_unique<JSONBuilder::JSONMap>();
+            value_node->add("name", enum_name);
+            value_node->add("value", enum_value);
+            values->add(std::move(value_node));
+        }
+        node.add("values", std::move(values));
+
+        return true;
+    }
+    else if (const auto * tuple_type = dynamic_cast<const ASTTupleDataType *>(&ast))
+    {
+        /// Must precede the ASTDataType branch (derived class). The element types
+        /// are in `getArguments`; the names of a named tuple are stored separately
+        /// in `element_names` (empty for an unnamed tuple).
+        node.add("name", tuple_type->name);
+        if (auto arguments = tuple_type->getArguments())
+            node.add("arguments", inlineExpressionList(arguments));
+
+        if (!tuple_type->element_names.empty())
+        {
+            auto names = std::make_unique<JSONBuilder::JSONArray>();
+            for (const auto & elem_name : tuple_type->element_names)
+                names->add(elem_name);
+            node.add("element_names", std::move(names));
+        }
 
         return true;
     }

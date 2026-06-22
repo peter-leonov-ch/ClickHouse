@@ -35,7 +35,7 @@ exist. `json` is mutually exclusive with the `graph` option of
 The top-level value is a versioned document, not the root node directly:
 
 ```json
-{ "version": 1, "ast": { "type": "SelectWithUnionQuery", ... } }
+{ "version": 2, "ast": { "type": "SelectWithUnionQuery", ... } }
 ```
 
 `version` (`AST_JSON_FORMAT_VERSION` in `DumpASTNode.h`) is bumped on any
@@ -239,6 +239,13 @@ Scalar flags below are emitted only when set/non-default unless noted.
   `primary_key_specifier`, `comment`, `codec`, `statistics`, `ttl`,
   `collation`, `settings`.
 - **DataType**: `name`, `arguments` (inlined, e.g. `Decimal(10, 2)`).
+- **EnumDataType** (`Enum` / `Enum8` / `Enum16` with fully explicit values):
+  `name`, `values` (array of `{ name, value }`; `value` is a JSON number — enum
+  values fit in `Int16`). Auto-assigned enums (`Enum8('a', 'b')`) instead parse
+  to a generic `DataType` carrying the elements in `arguments`.
+- **TupleDataType** (`Tuple`): `name`, `arguments` (the element types, inlined),
+  and `element_names` (array of strings) for a *named* tuple. Unnamed tuples omit
+  `element_names`.
 - **Storage**: `engine`, `partition_by`, `primary_key`, `order_by`,
   `sample_by`, `ttl_table`, `settings`.
 - **InsertQuery**: `database`, `table`, `table_function`, `columns`,
@@ -475,6 +482,10 @@ distinction between an empty list and an absent clause.
   and query parameters (via a parameterized view).
 - `03930_explain_ast_json_type_ids` — snapshot of every emitted node `type`
   id (collision guard).
+- `03931_explain_ast_json_datatype_elements` — the data-type element slots:
+  `EnumDataType.values`, `TupleDataType.element_names` (named / unnamed /
+  mixed), the `Nested` `NameTypePair` elements, the auto-enum fallback, and the
+  `Dynamic(max_types = N)` argument.
 
 The tests pipe through `jq` (`--format TSVRaw`) to keep references readable
 and focused.

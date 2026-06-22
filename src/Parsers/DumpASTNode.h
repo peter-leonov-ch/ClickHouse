@@ -182,6 +182,7 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///     ASTSampleRatio (`numerator` / `denominator`), ASTAsterisk /
 ///     ASTQualifiedAsterisk and the COLUMNS matchers / transformers.
 ///   - DDL/DML: ASTCreateQuery, ASTColumns, ASTColumnDeclaration, ASTDataType,
+///     ASTEnumDataType (`values`), ASTTupleDataType (`element_names`),
 ///     ASTStorage, ASTInsertQuery, ASTIndexDeclaration, ASTConstraintDeclaration,
 ///     ASTProjectionDeclaration, ASTProjectionSelectQuery, ASTTTLElement,
 ///     ASTPartition, ASTAssignment, ASTDeleteQuery, ASTUpdateQuery,
@@ -201,7 +202,7 @@ JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);
 
 /// Bump on any backwards-incompatible change to the JSON shape. External
 /// consumers (e.g. clickhouse-js-parser) pin reference fixtures on it.
-constexpr int AST_JSON_FORMAT_VERSION = 1;
+constexpr int AST_JSON_FORMAT_VERSION = 2;
 
 /// `formatASTAsJSON` wrapped in a versioned document: `{ "version": N, "ast": {...} }`.
 /// This is what `EXPLAIN AST json = 1` emits at top level.
