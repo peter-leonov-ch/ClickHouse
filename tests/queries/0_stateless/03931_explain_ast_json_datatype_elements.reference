@@ -1,0 +1,15 @@
+-- explicit Enum8 / Enum16 carry values
+{"type":"EnumDataType","name":"Enum8","values":[{"name":"a","value":1},{"name":"b","value":2}]}
+{"type":"EnumDataType","name":"Enum16","values":[{"name":"x","value":-1},{"name":"y","value":100}]}
+-- auto-assigned enum falls back to a generic DataType with literal args
+{"type":"DataType","name":"Enum8","arguments":[{"type":"Literal","value_type":"String","value":"a"},{"type":"Literal","value_type":"String","value":"b"}]}
+-- named tuple carries element_names
+{"type":"TupleDataType","name":"Tuple","arguments":[{"type":"DataType","name":"UInt8"},{"type":"DataType","name":"String"}],"element_names":["a","b"]}
+-- unnamed tuple omits element_names
+{"type":"TupleDataType","name":"Tuple","arguments":[{"type":"DataType","name":"UInt8"},{"type":"DataType","name":"String"}]}
+-- mixed tuple keeps a placeholder for the unnamed element
+["a",""]
+-- Nested elements are NameTypePair nodes
+[{"type":"NameTypePair","name":"k","data_type":"UInt8"},{"type":"NameTypePair","name":"v","data_type":"String"}]
+-- Dynamic(max_types = N) argument
+{"type":"Function","name":"equals","is_operator":true,"arguments":[{"type":"Identifier","name":"max_types"},{"type":"Literal","value_type":"UInt64","value":"5"}]}
