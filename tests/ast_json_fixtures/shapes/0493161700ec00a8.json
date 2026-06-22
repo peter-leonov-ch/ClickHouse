@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "ast": {
     "type": "SYSTEM",
     "system_type": "CLEAR TEXT INDEX POSTINGS CACHE"

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "ast": {
     "type": "AttachQuery",
     "attach": true,
@@ -67,7 +67,21 @@
           "name": "e",
           "data_type": {
             "type": "EnumDataType",
-            "name": "Enum8"
+            "name": "Enum8",
+            "values": [
+              {
+                "name": "a",
+                "value": 1
+              },
+              {
+                "name": "b",
+                "value": 2
+              },
+              {
+                "name": "c",
+                "value": 3
+              }
+            ]
           }
         },
         {

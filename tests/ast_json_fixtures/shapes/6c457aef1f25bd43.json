@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "ast": {
     "type": "CreateQuery",
     "table": {
@@ -28,7 +28,8 @@
                     "type": "DataType",
                     "name": "UInt64"
                   }
-                ]
+                ],
+                "element_names": ["x", "y"]
               }
             ]
           }
