@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["s3_01294"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "value": "5000000",
+          "min_value": "4000000",
+          "max_value": "6000000",
+          "writability": "CONST"
+        }
+      ]
+    },
+    "to_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1_01294"]
+    }
+  }
+}

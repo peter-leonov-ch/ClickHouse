@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "01231_log_queries_min_type\/EXCEPTION_WHILE_PROCESSING"
+          },
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "Float64",
+          "value": 1000000
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+CREATE WORKLOAD IF NOT EXISTS production IN all

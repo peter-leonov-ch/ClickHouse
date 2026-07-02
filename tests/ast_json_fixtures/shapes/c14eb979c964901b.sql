@@ -1,0 +1,1 @@
+DROP QUOTA IF EXISTS q2_01297_renamed

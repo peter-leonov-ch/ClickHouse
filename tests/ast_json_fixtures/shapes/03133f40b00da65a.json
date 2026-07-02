@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowTables",
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": true
+      }
+    }
+  }
+}

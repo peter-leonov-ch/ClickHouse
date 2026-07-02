@@ -1,0 +1,99 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "round",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "primary_key_bytes_in_memory"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-7"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "round",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "primary_key_bytes_in_memory_allocated"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-7"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "parts",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "table"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "test"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Vertical"
+  }
+}

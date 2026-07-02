@@ -1,0 +1,1 @@
+CHECK TABLE mt_table PARTITION 201902 SETTINGS max_threads = 1

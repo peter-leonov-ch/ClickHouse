@@ -46,7 +46,16 @@
                       {
                         "type": "Literal",
                         "value_type": "Tuple",
-                        "value": "(2, 3)"
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "2"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "3"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -108,7 +117,16 @@
                     {
                       "type": "Literal",
                       "value_type": "Tuple",
-                      "value": "(2, 3)"
+                      "value": [
+                        {
+                          "value_type": "UInt64",
+                          "value": "2"
+                        },
+                        {
+                          "value_type": "UInt64",
+                          "value": "3"
+                        }
+                      ]
                     }
                   ]
                 }

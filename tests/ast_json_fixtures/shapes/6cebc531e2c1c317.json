@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "d",
+            "name": "if",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "alias": "a",
+                "value_type": "UInt64",
+                "value": "0"
+              },
+              {
+                "type": "Literal",
+                "alias": "b",
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "type": "Literal",
+                "alias": "c",
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "Identifier",
+            "name": "b"
+          },
+          {
+            "type": "Identifier",
+            "name": "c"
+          },
+          {
+            "type": "Identifier",
+            "name": "d"
+          }
+        ]
+      }
+    ],
+    "format": "TSKV"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "replaceAll",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "query"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\n"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\\n"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "lower",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "type"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "String"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "errorCodeToName",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "exception_code"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "current_database"
+            },
+            {
+              "type": "Function",
+              "name": "currentDatabase",
+              "arguments": []
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "event_time_microseconds"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "CSV"
+  }
+}

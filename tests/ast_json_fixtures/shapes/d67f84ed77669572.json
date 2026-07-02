@@ -19,6 +19,7 @@
             "value": "ClickHouse"
           }
         },
+        "move_destination_type": "TABLE",
         "to_table": "main_table_01818"
       }
     ]

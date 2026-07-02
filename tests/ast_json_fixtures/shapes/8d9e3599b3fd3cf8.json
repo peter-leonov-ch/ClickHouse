@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "left_joined_view"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t1_a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2000"
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "log_comment": "left_join_view"
+          }
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

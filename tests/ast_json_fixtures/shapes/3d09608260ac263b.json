@@ -93,6 +93,13 @@
           ]
         }
       }
-    ]
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "exact_rows_before_limit": "1"
+      }
+    },
+    "format": "JsonCompact"
   }
 }

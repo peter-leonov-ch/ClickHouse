@@ -1,0 +1,1 @@
+SYSTEM DISABLE FAILPOINT slowdown_parallel_replicas_local_plan_read

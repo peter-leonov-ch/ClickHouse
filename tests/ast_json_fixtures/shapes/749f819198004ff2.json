@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u7_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "auth_type": "DOUBLE_SHA1_PASSWORD",
+        "contains_hash": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "8DCDD69CE7D121DE8013062AEAEB2A148910D50E"
+          }
+        ]
+      }
+    ],
+    "replace_authentication_methods": true
+  }
+}

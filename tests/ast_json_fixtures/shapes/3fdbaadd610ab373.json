@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "m02006"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "d"
+            },
+            {
+              "type": "Literal",
+              "alias": "i",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "t02006"
+                  }
+                }
+              }
+            ]
+          },
+          "group_by": [
+            {
+              "type": "Identifier",
+              "name": "d"
+            },
+            {
+              "type": "Identifier",
+              "name": "i"
+            }
+          ]
+        }
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "inner_engine": {
+            "type": "Storage",
+            "engine": {
+              "type": "Function",
+              "name": "MergeTree",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            },
+            "order_by": {
+              "type": "Function",
+              "name": "tuple",
+              "arguments": []
+            }
+          }
+        }
+      ]
+    },
+    "format": "Null"
+  }
+}

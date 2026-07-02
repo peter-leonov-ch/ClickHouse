@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    },
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "readonly",
+          "value": "1"
+        }
+      ]
+    }
+  }
+}

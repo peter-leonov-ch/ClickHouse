@@ -2,6 +2,7 @@
   "version": 2,
   "ast": {
     "type": "ShowTables",
-    "like": "tES%"
+    "like": "tES%",
+    "case_insensitive_like": true
   }
 }

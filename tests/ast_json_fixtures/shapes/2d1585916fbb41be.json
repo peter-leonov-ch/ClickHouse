@@ -1,6 +1,7 @@
 {
   "version": 2,
   "ast": {
-    "type": "CreateQuotaQuery"
+    "type": "CreateQuotaQuery",
+    "names": ["q1_01297"]
   }
 }

@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "t02006"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "d",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "d"
+      }
+    },
+    "format": "Null"
+  }
+}

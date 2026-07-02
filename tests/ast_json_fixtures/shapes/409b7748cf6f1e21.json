@@ -22,7 +22,24 @@
                   {
                     "type": "Literal",
                     "value_type": "Array",
-                    "value": "[NULL, 257, 65536, NULL]"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "257"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "65536"
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
                   }
                 ]
               }
@@ -84,7 +101,12 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[-9223372036854775808]"
+                "value": [
+                  {
+                    "value_type": "Int64",
+                    "value": "-9223372036854775808"
+                  }
+                ]
               }
             ]
           }

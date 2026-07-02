@@ -1,0 +1,1 @@
+DROP USER IF EXISTS sqllt_user

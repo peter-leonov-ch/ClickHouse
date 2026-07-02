@@ -1,0 +1,1 @@
+ALTER ROLE r2_01293 RENAME TO 'r2_01293_renamed'

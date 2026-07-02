@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "tab",
+    "like": "%INT%",
+    "not_like": true,
+    "case_insensitive_like": true
+  }
+}

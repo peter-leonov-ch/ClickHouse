@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "b",
+    "database": "a",
+    "like": "a' or 1=1;--"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "auth_type": "NO_PASSWORD",
+        "arguments": []
+      }
+    ],
+    "replace_authentication_methods": true
+  }
+}

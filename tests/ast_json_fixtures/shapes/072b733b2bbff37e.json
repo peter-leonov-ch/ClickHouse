@@ -1,0 +1,564 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "inf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-inf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "INF"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-INF"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Infinity"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-Infinity"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "nan"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-nan"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NAN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NAN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NaN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NaN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "in"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-in"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "INFi"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-INFi"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Infinit"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-Infinit"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "na"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-na"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NANo"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NANo"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NaN+"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NaNa"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat64OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "+Na"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "inf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-inf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "INF"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-INF"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Infinity"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-Infinity"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "nan"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-nan"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NAN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NAN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NaN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NaN"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "in"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-in"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "INFi"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-INFi"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Infinit"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-Infinit"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "na"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-na"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NANo"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NANo"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "NaN+"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-NaNa"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toFloat32OrZero",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "+Na"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "TabSeparated"
+  }
+}

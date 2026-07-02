@@ -1,0 +1,1 @@
+GRANT INSERT ON foo* TO user_03141

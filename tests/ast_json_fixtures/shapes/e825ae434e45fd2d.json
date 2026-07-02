@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "if_exists": true,
+    "cluster": "test_shard_localhost",
+    "names": ["02911_user"]
+  }
+}

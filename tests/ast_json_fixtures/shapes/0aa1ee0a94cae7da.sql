@@ -1,0 +1,1 @@
+GRANT NONE, test_role_01999_1 TO test_user_01999 WITH REPLACE OPTION

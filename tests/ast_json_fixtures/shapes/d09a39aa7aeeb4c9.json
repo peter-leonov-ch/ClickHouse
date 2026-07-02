@@ -6,6 +6,7 @@
       {
         "type": "SelectQuery",
         "distinct": true,
+        "limit_with_ties": true,
         "select": [
           {
             "type": "Asterisk"

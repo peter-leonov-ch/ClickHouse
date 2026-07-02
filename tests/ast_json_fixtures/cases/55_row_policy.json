@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p",
+          "database": "db",
+          "table": "t"
+        }
+      ]
+    },
+    "is_restrictive": true,
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "0"
+            }
+          ]
+        }
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1"]
+    }
+  }
+}

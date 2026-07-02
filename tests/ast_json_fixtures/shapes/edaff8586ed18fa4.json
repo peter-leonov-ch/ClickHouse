@@ -1,0 +1,458 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "host_id"
+          },
+          {
+            "type": "Identifier",
+            "name": "path_id"
+          },
+          {
+            "type": "Function",
+            "alias": "rank",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "rank"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "t",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "with": [
+                          {
+                            "type": "WithElement",
+                            "name": "as_of_posts",
+                            "subquery": {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Asterisk"
+                                      },
+                                      {
+                                        "type": "Function",
+                                        "alias": "row_num",
+                                        "name": "row_number",
+                                        "is_window_function": true,
+                                        "kind": "WINDOW_FUNCTION",
+                                        "arguments": [],
+                                        "window_definition": {
+                                          "type": "WindowDefinition",
+                                          "partition_by": [
+                                            {
+                                              "type": "Function",
+                                              "name": "tuple",
+                                              "is_operator": true,
+                                              "arguments": [
+                                                {
+                                                  "type": "Identifier",
+                                                  "name": "page_id"
+                                                },
+                                                {
+                                                  "type": "Identifier",
+                                                  "name": "post_id"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "order_by": [
+                                            {
+                                              "type": "OrderByElement",
+                                              "expression": {
+                                                "type": "Identifier",
+                                                "name": "as_of"
+                                              },
+                                              "direction": "DESC"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "from": {
+                                      "type": "TablesInSelectQuery",
+                                      "children": [
+                                        {
+                                          "type": "TablesInSelectQueryElement",
+                                          "table_expression": {
+                                            "type": "TableExpression",
+                                            "database_and_table_name": {
+                                              "type": "TableIdentifier",
+                                              "name": "posts"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "where": {
+                                      "type": "Function",
+                                      "name": "and",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Function",
+                                          "name": "greaterOrEquals",
+                                          "is_operator": true,
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "name": "created"
+                                            },
+                                            {
+                                              "type": "Function",
+                                              "name": "subtractHours",
+                                              "arguments": [
+                                                {
+                                                  "type": "Function",
+                                                  "name": "now",
+                                                  "arguments": []
+                                                },
+                                                {
+                                                  "type": "Literal",
+                                                  "value_type": "UInt64",
+                                                  "value": "24"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Function",
+                                          "name": "greater",
+                                          "is_operator": true,
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "name": "host_id"
+                                            },
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "UInt64",
+                                              "value": "0"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "type": "WithElement",
+                            "name": "as_of_post_metrics",
+                            "subquery": {
+                              "type": "Subquery",
+                              "query": {
+                                "type": "SelectWithUnionQuery",
+                                "selects": [
+                                  {
+                                    "type": "SelectQuery",
+                                    "select": [
+                                      {
+                                        "type": "Asterisk"
+                                      },
+                                      {
+                                        "type": "Function",
+                                        "alias": "row_num",
+                                        "name": "row_number",
+                                        "is_window_function": true,
+                                        "kind": "WINDOW_FUNCTION",
+                                        "arguments": [],
+                                        "window_definition": {
+                                          "type": "WindowDefinition",
+                                          "partition_by": [
+                                            {
+                                              "type": "Function",
+                                              "name": "tuple",
+                                              "is_operator": true,
+                                              "arguments": [
+                                                {
+                                                  "type": "Identifier",
+                                                  "name": "page_id"
+                                                },
+                                                {
+                                                  "type": "Identifier",
+                                                  "name": "post_id"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "order_by": [
+                                            {
+                                              "type": "OrderByElement",
+                                              "expression": {
+                                                "type": "Identifier",
+                                                "name": "as_of"
+                                              },
+                                              "direction": "DESC"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "from": {
+                                      "type": "TablesInSelectQuery",
+                                      "children": [
+                                        {
+                                          "type": "TablesInSelectQueryElement",
+                                          "table_expression": {
+                                            "type": "TableExpression",
+                                            "database_and_table_name": {
+                                              "type": "TableIdentifier",
+                                              "name": "post_metrics"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "where": {
+                                      "type": "Function",
+                                      "name": "greaterOrEquals",
+                                      "is_operator": true,
+                                      "arguments": [
+                                        {
+                                          "type": "Identifier",
+                                          "name": "created"
+                                        },
+                                        {
+                                          "type": "Function",
+                                          "name": "subtractHours",
+                                          "arguments": [
+                                            {
+                                              "type": "Function",
+                                              "name": "now",
+                                              "arguments": []
+                                            },
+                                            {
+                                              "type": "Literal",
+                                              "value_type": "UInt64",
+                                              "value": "24"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ],
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "page_id"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "post_id"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "host_id"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "path_id"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "impressions"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "clicks"
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "rank",
+                            "name": "ntile",
+                            "is_window_function": true,
+                            "kind": "WINDOW_FUNCTION",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "20"
+                              }
+                            ],
+                            "window_definition": {
+                              "type": "WindowDefinition",
+                              "partition_by": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "page_id"
+                                }
+                              ],
+                              "order_by": [
+                                {
+                                  "type": "OrderByElement",
+                                  "expression": {
+                                    "type": "Identifier",
+                                    "name": "clicks"
+                                  },
+                                  "direction": "ASC"
+                                }
+                              ],
+                              "frame_type": "ROWS",
+                              "frame_begin": {
+                                "type": "Unbounded",
+                                "preceding": true
+                              },
+                              "frame_end": {
+                                "type": "Unbounded"
+                              }
+                            }
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "as_of_posts"
+                                }
+                              }
+                            },
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_join": {
+                                "type": "TableJoin",
+                                "kind": "LEFT",
+                                "locality": "GLOBAL",
+                                "using": [
+                                  {
+                                    "type": "Identifier",
+                                    "name": "page_id"
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "post_id"
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "name": "row_num"
+                                  }
+                                ]
+                              },
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "as_of_post_metrics"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "where": {
+                          "type": "Function",
+                          "name": "and",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "row_num"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "greater",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "impressions"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "0"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "t.rank",
+              "name_parts": ["t", "rank"]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "18"
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "host_id"
+          },
+          {
+            "type": "Identifier",
+            "name": "path_id"
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

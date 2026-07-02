@@ -1,0 +1,90 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN QUERY TREE",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "group_by_with_cube": true,
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Identifier",
+              "name": "b"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "group_by": [
+            {
+              "type": "Identifier",
+              "alias": "a",
+              "name": "number"
+            },
+            {
+              "type": "Function",
+              "alias": "b",
+              "name": "plus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "number"
+                }
+              ]
+            }
+          ],
+          "order_by": [
+            {
+              "type": "OrderByElement",
+              "expression": {
+                "type": "Identifier",
+                "name": "a"
+              },
+              "direction": "ASC"
+            },
+            {
+              "type": "OrderByElement",
+              "expression": {
+                "type": "Identifier",
+                "name": "b"
+              },
+              "direction": "ASC"
+            }
+          ]
+        }
+      ]
+    },
+    "format": "Null"
+  }
+}

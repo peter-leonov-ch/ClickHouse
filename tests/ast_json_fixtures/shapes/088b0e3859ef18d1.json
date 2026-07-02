@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropFunctionQuery",
+    "function_name": "constF64",
+    "if_exists": true
+  }
+}

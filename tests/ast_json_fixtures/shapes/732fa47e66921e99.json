@@ -19,6 +19,7 @@
             "value": "0"
           }
         },
+        "replace": true,
         "from_table": "mt"
       }
     ]

@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "repeat",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "-"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "80"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "JSONEachRow"
+  }
+}

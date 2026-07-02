@@ -1,0 +1,121 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "QualifiedAsterisk",
+            "qualifier": {
+              "type": "Identifier",
+              "name": "t1"
+            }
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "FULL",
+                "on": {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t1.key",
+                          "name_parts": ["t1", "key"]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "t2.key",
+                          "name_parts": ["t2", "key"]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "or",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "equals",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "name": "t1.a",
+                              "name_parts": ["t1", "a"]
+                            },
+                            {
+                              "type": "Literal",
+                              "value_type": "UInt64",
+                              "value": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Function",
+                          "name": "indexHint",
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t2.a",
+                                  "name_parts": ["t2", "a"]
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t2"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

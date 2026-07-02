@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_PROJECTION",
+        "projection_declaration": {
+          "type": "Projection",
+          "name": "p",
+          "query": {
+            "type": "ProjectionSelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ],
+            "order_by": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

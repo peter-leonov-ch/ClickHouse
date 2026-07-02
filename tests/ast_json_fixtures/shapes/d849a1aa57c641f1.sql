@@ -1,0 +1,1 @@
+SHOW CREATE QUOTA sqllt_quota FORMAT Null

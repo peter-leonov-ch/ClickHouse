@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "ROLE",
+    "names": ["r1_01295"]
+  }
+}

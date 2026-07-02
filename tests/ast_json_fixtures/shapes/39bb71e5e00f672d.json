@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u5_01292"
+        }
+      ]
+    },
+    "default_roles": {
+      "type": "RolesOrUsersSet",
+      "all": true,
+      "except_names": ["r2_01292"]
+    }
+  }
+}

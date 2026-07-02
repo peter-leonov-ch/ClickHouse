@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "auth_type": "PLAINTEXT_PASSWORD",
+        "contains_password": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "qwe123"
+          }
+        ]
+      }
+    ],
+    "replace_authentication_methods": true,
+    "hosts": {
+      "local_host": true
+    },
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "readonly",
+          "value": "1"
+        }
+      ]
+    }
+  }
+}

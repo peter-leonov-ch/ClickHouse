@@ -1,0 +1,1 @@
+drop table test_join settings ignore_drop_queries_probability=1

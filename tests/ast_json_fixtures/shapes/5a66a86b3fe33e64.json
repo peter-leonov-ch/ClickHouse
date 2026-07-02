@@ -7,6 +7,12 @@
       "type": "Identifier",
       "name": "test_materialize"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
     "commands": [
       {
         "type": "AlterCommand",

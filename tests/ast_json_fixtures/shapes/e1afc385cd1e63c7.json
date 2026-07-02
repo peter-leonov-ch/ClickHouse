@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["READ"],
+        "parameter": "REMOTE"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_03727"]
+    }
+  }
+}

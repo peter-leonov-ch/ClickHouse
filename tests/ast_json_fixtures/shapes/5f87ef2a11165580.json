@@ -14,7 +14,16 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(255, 1048575)"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "255"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "1048575"
+                  }
+                ]
               }
             ]
           },
@@ -64,17 +73,44 @@
                       {
                         "type": "Literal",
                         "value_type": "Tuple",
-                        "value": "(NULL, 100)"
+                        "value": [
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "100"
+                          }
+                        ]
                       },
                       {
                         "type": "Literal",
                         "value_type": "Tuple",
-                        "value": "(NULL, NULL)"
+                        "value": [
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          }
+                        ]
                       },
                       {
                         "type": "Literal",
                         "value_type": "Tuple",
-                        "value": "(1024, 10)"
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "1024"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "10"
+                          }
+                        ]
                       }
                     ]
                   },
@@ -120,7 +156,16 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(-9223372036854775807, 1.)"
+                    "value": [
+                      {
+                        "value_type": "Int64",
+                        "value": "-9223372036854775807"
+                      },
+                      {
+                        "value_type": "Float64",
+                        "value": 1
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
@@ -165,7 +210,16 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(9223372036854775807, 9223372036854775806)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "9223372036854775807"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "9223372036854775806"
+                      }
+                    ]
                   }
                 ]
               },
@@ -189,7 +243,20 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(NULL, 65537, 255)"
+                "value": [
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "65537"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "255"
+                  }
+                ]
               },
               {
                 "type": "Function",
@@ -199,7 +266,16 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(NULL, NULL)"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
                   }
                 ]
               }
@@ -219,7 +295,24 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(NULL, NULL, NULL, -1)"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Int64",
+                        "value": "-1"
+                      }
+                    ]
                   },
                   {
                     "type": "Function",

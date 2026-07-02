@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "ENABLE FAILPOINT",
+    "fail_point_name": "parallel_replicas_reading_response_timeout"
+  }
+}

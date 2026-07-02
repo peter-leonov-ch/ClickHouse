@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["02294_profile1"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "timeout_before_checking_execution_speed",
+          "value": "3"
+        }
+      ]
+    },
+    "to_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["default"]
+    }
+  }
+}

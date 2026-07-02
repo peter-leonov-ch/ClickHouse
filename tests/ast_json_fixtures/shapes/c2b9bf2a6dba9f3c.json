@@ -75,7 +75,16 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "(3, 4)"
+              "value": [
+                {
+                  "value_type": "UInt64",
+                  "value": "3"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "4"
+                }
+              ]
             },
             {
               "type": "Subquery",

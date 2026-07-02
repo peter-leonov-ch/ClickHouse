@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropWorkloadQuery",
+    "workload_name": "admin",
+    "if_exists": true
+  }
+}

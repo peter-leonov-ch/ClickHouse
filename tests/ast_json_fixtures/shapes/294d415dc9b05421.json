@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateDictionaryQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "uk_mortgage_rates_dict"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "show_create_query_identifier_quoting_rule": "always",
+        "show_create_query_identifier_quoting_style": "Backticks"
+      }
+    }
+  }
+}

@@ -10,7 +10,16 @@
             "type": "Literal",
             "alias": "reference_vec",
             "value_type": "Array",
-            "value": "[0., 2.]"
+            "value": [
+              {
+                "value_type": "Float64",
+                "value": 0
+              },
+              {
+                "value_type": "Float64",
+                "value": 2
+              }
+            ]
           }
         ],
         "select": [

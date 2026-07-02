@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SetRoleQuery",
+    "kind": "SET_ROLE",
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1", "r2"]
+    }
+  }
+}

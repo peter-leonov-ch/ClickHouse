@@ -1,0 +1,1 @@
+SHOW TABLES FROM db WHERE name != 'x' LIMIT 5

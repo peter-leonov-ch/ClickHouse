@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "a"
+          },
+          {
+            "type": "Literal",
+            "value_type": "Array",
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Tuple",
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "String",
+                "value": "a"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Literal",
+            "value_type": "Float64",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "format": "JSONStrings"
+  }
+}

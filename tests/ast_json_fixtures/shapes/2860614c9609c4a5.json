@@ -2588,7 +2588,24 @@
                                                                   {
                                                                     "type": "Literal",
                                                                     "value_type": "Array",
-                                                                    "value": "[50, 100, 200, 400]"
+                                                                    "value": [
+                                                                      {
+                                                                        "value_type": "UInt64",
+                                                                        "value": "50"
+                                                                      },
+                                                                      {
+                                                                        "value_type": "UInt64",
+                                                                        "value": "100"
+                                                                      },
+                                                                      {
+                                                                        "value_type": "UInt64",
+                                                                        "value": "200"
+                                                                      },
+                                                                      {
+                                                                        "value_type": "UInt64",
+                                                                        "value": "400"
+                                                                      }
+                                                                    ]
                                                                   },
                                                                   {
                                                                     "type": "Function",
@@ -2645,7 +2662,20 @@
                                                                               {
                                                                                 "type": "Literal",
                                                                                 "value_type": "Array",
-                                                                                "value": "[50, 100, 200]"
+                                                                                "value": [
+                                                                                  {
+                                                                                    "value_type": "UInt64",
+                                                                                    "value": "50"
+                                                                                  },
+                                                                                  {
+                                                                                    "value_type": "UInt64",
+                                                                                    "value": "100"
+                                                                                  },
+                                                                                  {
+                                                                                    "value_type": "UInt64",
+                                                                                    "value": "200"
+                                                                                  }
+                                                                                ]
                                                                               },
                                                                               {
                                                                                 "type": "Function",
@@ -3500,7 +3530,24 @@
                                                               {
                                                                 "type": "Literal",
                                                                 "value_type": "Array",
-                                                                "value": "[50, 100, 200, 400]"
+                                                                "value": [
+                                                                  {
+                                                                    "value_type": "UInt64",
+                                                                    "value": "50"
+                                                                  },
+                                                                  {
+                                                                    "value_type": "UInt64",
+                                                                    "value": "100"
+                                                                  },
+                                                                  {
+                                                                    "value_type": "UInt64",
+                                                                    "value": "200"
+                                                                  },
+                                                                  {
+                                                                    "value_type": "UInt64",
+                                                                    "value": "400"
+                                                                  }
+                                                                ]
                                                               },
                                                               {
                                                                 "type": "Function",
@@ -3557,7 +3604,20 @@
                                                                           {
                                                                             "type": "Literal",
                                                                             "value_type": "Array",
-                                                                            "value": "[50, 100, 200]"
+                                                                            "value": [
+                                                                              {
+                                                                                "value_type": "UInt64",
+                                                                                "value": "50"
+                                                                              },
+                                                                              {
+                                                                                "value_type": "UInt64",
+                                                                                "value": "100"
+                                                                              },
+                                                                              {
+                                                                                "value_type": "UInt64",
+                                                                                "value": "200"
+                                                                              }
+                                                                            ]
                                                                           },
                                                                           {
                                                                             "type": "Function",

@@ -20,6 +20,10 @@ echo "-- 64-bit integers are emitted as strings (JS-safe; would lose precision a
 ast "SELECT 18446744073709551615, -9223372036854775808" \
     | jq -c '[.. | objects | select(.type == "Literal") | {value_type, value}]'
 
+echo "-- nested containers recurse, preserving each element's type"
+ast "SELECT [[1, 2], [3]]" \
+    | jq -c '[.. | objects | select(.type == "Literal") | {value_type, value}]'
+
 echo "-- lambda function: parameter tuple + body via arguments"
 ast "SELECT arrayMap(x -> x + 1, arr)" \
     | jq -c '.. | objects | select(.name == "lambda")'

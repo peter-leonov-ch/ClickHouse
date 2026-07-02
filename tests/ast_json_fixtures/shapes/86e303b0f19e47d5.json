@@ -15,7 +15,37 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(2147483648, (-0., 1.1754943508222875e-38, 2147483646, '-9223372036854775808', NULL))"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "2147483648"
+                  },
+                  {
+                    "value_type": "Tuple",
+                    "value": [
+                      {
+                        "value_type": "Float64",
+                        "value": -0
+                      },
+                      {
+                        "value_type": "Float64",
+                        "value": 1.1754943508222875e-38
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "2147483646"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "-9223372036854775808"
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -78,7 +108,25 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "((65535, '-92233720368547758.07'), 0.9999)"
+                "value": [
+                  {
+                    "value_type": "Tuple",
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "65535"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "-92233720368547758.07"
+                      }
+                    ]
+                  },
+                  {
+                    "value_type": "Float64",
+                    "value": 0.9999
+                  }
+                ]
               },
               {
                 "type": "Function",
@@ -92,7 +140,24 @@
                       {
                         "type": "Literal",
                         "value_type": "Tuple",
-                        "value": "(1., 3.4028234663852886e38, '1', 0.5)"
+                        "value": [
+                          {
+                            "value_type": "Float64",
+                            "value": 1
+                          },
+                          {
+                            "value_type": "Float64",
+                            "value": 3.4028234663852886e38
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "1"
+                          },
+                          {
+                            "value_type": "Float64",
+                            "value": 0.5
+                          }
+                        ]
                       },
                       {
                         "type": "Literal",

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "SETTINGS PROFILE",
+    "if_exists": true,
+    "names": ["02294_profile1", "02294_profile2"]
+  }
+}

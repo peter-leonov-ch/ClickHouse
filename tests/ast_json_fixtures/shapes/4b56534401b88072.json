@@ -1,0 +1,288 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "site",
+            "name": "s.site",
+            "name_parts": ["s", "site"]
+          },
+          {
+            "type": "Function",
+            "alias": "page_level",
+            "name": "if",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "or",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "isNull",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "a.order",
+                        "name_parts": ["a", "order"]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "lessOrEquals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "a.order",
+                        "name_parts": ["a", "order"]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "0"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "greater",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "a.order",
+                        "name_parts": ["a", "order"]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "30"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "type": "Function",
+                "name": "accurateCastOrNull",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "a.order",
+                    "name_parts": ["a", "order"]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "Int32"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "count",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "a",
+                  "name": "AddedToCart"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "LEFT",
+                "strictness": "ANY",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "a.sessionId",
+                      "name_parts": ["a", "sessionId"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "s.id",
+                      "name_parts": ["s", "id"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "s",
+                  "name": "Session"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "a.top",
+                  "name_parts": ["a", "top"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "a.screenHeight",
+                  "name_parts": ["a", "screenHeight"]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "a.screenHeight",
+                  "name_parts": ["a", "screenHeight"]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "a.isPromotion",
+                  "name_parts": ["a", "isPromotion"]
+                },
+                {
+                  "type": "Function",
+                  "name": "_CAST",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "UInt8"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s.device",
+                  "name_parts": ["s", "device"]
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "DESKTOP"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "isNotNull",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "s.site",
+                  "name_parts": ["s", "site"]
+                }
+              ]
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "site"
+          },
+          {
+            "type": "Identifier",
+            "name": "page_level"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "site"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "page_level"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "JSONEachRow"
+  }
+}

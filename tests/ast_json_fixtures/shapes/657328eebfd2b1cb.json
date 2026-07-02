@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u3_01292"
+        }
+      ]
+    },
+    "add_hosts": {
+      "names": ["myhost.com"]
+    }
+  }
+}

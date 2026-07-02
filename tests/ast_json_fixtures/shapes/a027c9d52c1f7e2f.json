@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "lo.c4",
+            "name_parts": ["lo", "c4"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "l",
+                  "name": "t1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toInt64OrNull",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "l.c3",
+                          "name_parts": ["l", "c3"]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "lo.c4",
+                      "name_parts": ["lo", "c4"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "lo",
+                  "name": "t2"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "NULL"
+  }
+}

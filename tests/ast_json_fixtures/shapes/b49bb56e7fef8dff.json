@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "extended": true,
+    "table": "tab"
+  }
+}

@@ -1,0 +1,1 @@
+DROP USER IF EXISTS 03172_user_invalid_bcrypt_hash

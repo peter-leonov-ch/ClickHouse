@@ -39,3 +39,43 @@ ast "INSERT INTO t (a, b) SELECT 1, 2" \
 echo "-- INSERT ... VALUES"
 ast "INSERT INTO db.t VALUES (1, 2)" \
     | jq -c '.. | objects | select(.type == "InsertQuery") | {database: .database.name, table: .table.name}'
+
+echo "-- ATTACH: if_not_exists, uuid, cluster"
+ast "ATTACH TABLE IF NOT EXISTS db.t UUID '00000000-0000-0000-0000-000000000abc' ON CLUSTER 'c'" \
+    | jq -c '.. | objects | select(.type == "AttachQuery") | {attach, if_not_exists, uuid, cluster, table: .table.name}'
+
+echo "-- ATTACH ... FROM path"
+ast "ATTACH TABLE db.t FROM '/var/lib/p'" \
+    | jq -c '.. | objects | select(.type == "AttachQuery") | {attach, attach_from_path, table: .table.name}'
+
+echo "-- ATTACH ... AS NOT REPLICATED conversion marker"
+ast "ATTACH TABLE db.t AS NOT REPLICATED" \
+    | jq -c '.. | objects | select(.type == "AttachQuery") | {attach, attach_as_replicated, table: .table.name}'
+
+echo "-- Enum data type: explicit value pairs"
+ast "CREATE TABLE t (e Enum8('a' = 1, 'b' = 2)) ENGINE = Memory" \
+    | jq -c '.. | objects | select(.type == "EnumDataType")'
+
+echo "-- Tuple data type: named element names"
+ast "CREATE TABLE t (x Tuple(a UInt8, b String)) ENGINE = Memory" \
+    | jq -c '.. | objects | select(.type == "TupleDataType")'
+
+echo "-- Tuple data type: unnamed (no element_names)"
+ast "CREATE TABLE t (x Tuple(UInt8, String)) ENGINE = Memory" \
+    | jq -c '.. | objects | select(.type == "TupleDataType")'
+
+echo "-- column COLLATE"
+ast "CREATE TABLE t (s String COLLATE binary) ENGINE = Memory" \
+    | jq -c '.. | objects | select(.type == "Collation")'
+
+echo "-- JSON typed path / skip / parameter arguments"
+ast "CREATE TABLE t (j JSON(a.b UInt32, SKIP x, SKIP REGEXP 'y.*', max_dynamic_paths = 8)) ENGINE = Memory" \
+    | jq -c '.. | objects | select(.type == "ObjectTypeArgument" or .type == "ObjectTypedPath")'
+
+echo "-- refreshable materialized view"
+ast "CREATE MATERIALIZED VIEW mv REFRESH EVERY 1 DAY OFFSET 1 HOUR APPEND (a UInt64) ENGINE = Memory AS SELECT 1 AS a" \
+    | jq -c '.. | objects | select(.type == "RefreshStrategy" or .type == "TimeInterval")'
+
+echo "-- INSERT FROM INFILE ... COMPRESSION"
+ast "INSERT INTO t FROM INFILE 'data.csv' COMPRESSION 'gzip' FORMAT CSV" \
+    | jq -c '.. | objects | select(.type == "InsertQuery") | {table: .table.name, infile: .infile.value, compression: .compression.value, format}'

@@ -1,0 +1,227 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "query"
+          },
+          {
+            "type": "Identifier",
+            "name": "query_kind"
+          },
+          {
+            "type": "Identifier",
+            "name": "exception_code"
+          },
+          {
+            "type": "Identifier",
+            "name": "read_rows"
+          },
+          {
+            "type": "Identifier",
+            "name": "written_rows"
+          },
+          {
+            "type": "Function",
+            "alias": "QueriesWithSubqueries",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ProfileEvents"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "QueriesWithSubqueries"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "SelectQueriesWithSubqueries",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ProfileEvents"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "SelectQueriesWithSubqueries"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "AsyncInsertRows",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ProfileEvents"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "AsyncInsertRows"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "SelfDuplicatedAsyncInserts",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ProfileEvents"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "SelfDuplicatedAsyncInserts"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "DuplicatedAsyncInserts",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ProfileEvents"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "DuplicatedAsyncInserts"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "has",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "databases"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "has",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "tables"
+                },
+                {
+                  "type": "Function",
+                  "name": "concat",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": ".src_table"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "notEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "type"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "QueryStart"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "query_kind"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "AsyncInsertFlush"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "all"
+            },
+            "direction": "DESC"
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

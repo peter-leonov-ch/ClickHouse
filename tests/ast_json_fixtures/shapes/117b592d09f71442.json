@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "names": ["r9_01293"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "parent_profile": "default"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "value": "5000000",
+          "writability": "WRITABLE"
+        }
+      ]
+    }
+  }
+}

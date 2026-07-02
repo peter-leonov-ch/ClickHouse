@@ -1,0 +1,1 @@
+SHOW GRANTS FOR sqllt_user FORMAT Null

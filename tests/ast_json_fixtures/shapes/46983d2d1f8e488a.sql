@@ -1,0 +1,1 @@
+SYSTEM DISABLE FAILPOINT mt_select_parts_to_mutate_no_free_threads

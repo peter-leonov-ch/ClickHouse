@@ -325,13 +325,47 @@
             "type": "Literal",
             "alias": "mag",
             "value_type": "Array",
-            "value": "[1, 2, 3, 4]"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "4"
+              }
+            ]
           },
           {
             "type": "Literal",
             "alias": "magerr",
             "value_type": "Array",
-            "value": "[0.1, 0.2, 0.1, 0.2]"
+            "value": [
+              {
+                "value_type": "Float64",
+                "value": 0.1
+              },
+              {
+                "value_type": "Float64",
+                "value": 0.2
+              },
+              {
+                "value_type": "Float64",
+                "value": 0.1
+              },
+              {
+                "value_type": "Float64",
+                "value": 0.2
+              }
+            ]
           }
         ],
         "where": {

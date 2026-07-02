@@ -1,0 +1,1 @@
+DROP ROLE IF EXISTS test_role_01999

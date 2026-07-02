@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateMaskingPolicyQuery",
+    "name": "mp",
+    "database": "db",
+    "table": "t",
+    "update_assignments": [
+      {
+        "type": "Assignment",
+        "column": "x",
+        "expression": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "masked"
+        }
+      }
+    ],
+    "where_condition": {
+      "type": "Function",
+      "name": "notEquals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": ""
+        }
+      ]
+    },
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1"]
+    },
+    "priority": "2"
+  }
+}

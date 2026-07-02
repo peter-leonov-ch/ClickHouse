@@ -1,0 +1,1 @@
+CREATE USER u8_01292 IDENTIFIED WITH bcrypt_password BY 'qwe123'

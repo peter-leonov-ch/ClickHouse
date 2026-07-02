@@ -3,6 +3,7 @@
   "ast": {
     "type": "ShowTables",
     "like": "TeS%",
-    "not_like": true
+    "not_like": true,
+    "case_insensitive_like": true
   }
 }

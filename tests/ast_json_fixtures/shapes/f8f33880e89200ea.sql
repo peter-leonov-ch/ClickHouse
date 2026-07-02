@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS 02148_test_function_nested

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropNamedCollectionQuery",
+    "collection_name": "nc",
+    "if_exists": true,
+    "cluster": "c"
+  }
+}

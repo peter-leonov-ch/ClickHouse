@@ -1,0 +1,1 @@
+SHOW CREATE QUOTA q2_01297_renamed

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "tab",
+    "where": {
+      "type": "Function",
+      "name": "like",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "field"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "%int%"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "InsertQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "format": "CSV",
+    "infile": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "data.csv"
+    },
+    "compression": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "gzip"
+    }
+  }
+}

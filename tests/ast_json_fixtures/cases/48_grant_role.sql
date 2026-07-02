@@ -1,0 +1,1 @@
+GRANT role1 TO user1 WITH ADMIN OPTION

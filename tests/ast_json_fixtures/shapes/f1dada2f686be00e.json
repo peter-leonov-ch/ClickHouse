@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "alter": true,
+    "names": ["r3_01293"],
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "drop_all_settings": true,
+      "drop_all_profiles": true
+    }
+  }
+}

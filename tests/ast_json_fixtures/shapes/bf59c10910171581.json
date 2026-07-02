@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "ROW POLICY",
+    "short_name": "sqllt_row_policy",
+    "format": "Null"
+  }
+}

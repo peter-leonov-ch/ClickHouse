@@ -20,7 +20,20 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "['192.168.100.0\/22', '192.168.100.0\/24', '192.168.100.0\/32']"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "192.168.100.0\/22"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "192.168.100.0\/24"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "192.168.100.0\/32"
+                  }
+                ]
               }
             ]
           }

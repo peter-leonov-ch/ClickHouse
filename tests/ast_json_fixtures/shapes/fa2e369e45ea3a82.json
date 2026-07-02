@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "alter": true,
+    "names": ["r2_01293"],
+    "new_name": "r2_01293_renamed"
+  }
+}

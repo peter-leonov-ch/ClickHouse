@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "names": ["r5_01293"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "max_value": "5000000"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "if_exists": true,
+    "names": ["u1_01292", "u2_01292", "u3_01292", "u4_01292", "u5_01292", "u6_01292", "u7_01292", "u8_01292", "u9_01292"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateWorkloadQuery",
+    "workload_name": {
+      "type": "Identifier",
+      "name": "production"
+    },
+    "workload_parent": {
+      "type": "Identifier",
+      "name": "all"
+    },
+    "changes": [
+      {
+        "name": "max_requests",
+        "value": "100"
+      },
+      {
+        "name": "weight",
+        "value": "5",
+        "resource": "cpu"
+      }
+    ]
+  }
+}

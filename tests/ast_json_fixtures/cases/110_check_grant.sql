@@ -1,0 +1,1 @@
+CHECK GRANT SELECT(x) ON db.t

@@ -1,0 +1,1 @@
+CREATE QUOTA q8_01297 KEYED BY 'user name'

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SetRoleQuery",
+    "kind": "SET_DEFAULT_ROLE",
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_role"]
+    },
+    "to_users": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_user"]
+    }
+  }
+}

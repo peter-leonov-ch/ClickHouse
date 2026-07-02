@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "DISABLE FAILPOINT",
+    "fail_point_name": "slowdown_parallel_replicas_local_plan_read"
+  }
+}

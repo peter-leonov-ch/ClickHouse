@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropFunctionQuery",
+    "function_name": "test_func_1",
+    "if_exists": true
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q9_01297"],
+    "key_type": "IP_ADDRESS"
+  }
+}

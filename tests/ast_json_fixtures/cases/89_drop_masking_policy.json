@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "MASKING POLICY",
+    "if_exists": true,
+    "masking_policy_name": {
+      "short_name": "mp",
+      "database": "db",
+      "table": "tbl"
+    }
+  }
+}

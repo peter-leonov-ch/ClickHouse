@@ -1,0 +1,105 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "concat",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "current_database",
+                "arguments": []
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": ""
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "name": "id"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "remote",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "String",
+                                      "value": "127.0.0.1,127.0.0.2"
+                                    },
+                                    {
+                                      "type": "Function",
+                                      "name": "currentDatabase",
+                                      "arguments": []
+                                    },
+                                    {
+                                      "type": "Identifier",
+                                      "name": "test"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "Float64",
+                          "value": 0.2
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

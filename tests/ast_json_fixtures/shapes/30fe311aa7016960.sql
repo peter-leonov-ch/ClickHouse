@@ -1,0 +1,1 @@
+CREATE SETTINGS PROFILE 02294_profile2 SETTINGS max_execution_time = 0.5 TO default

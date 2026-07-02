@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u"
+        }
+      ]
+    },
+    "new_name": "u2",
+    "add_hosts": {
+      "subnets": ["10.0.0.0\/8"]
+    },
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "drop_settings": {
+        "type": "SettingsProfileElements",
+        "elements": [
+          {
+            "type": "SettingsProfileElement",
+            "setting_name": "max_threads"
+          }
+        ]
+      }
+    }
+  }
+}

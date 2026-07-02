@@ -1,0 +1,1 @@
+CREATE TEMPORARY VIEW tview_cluster ON CLUSTER 'test' AS SELECT 1

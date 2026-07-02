@@ -1,0 +1,1 @@
+CREATE PROFILE s6_01294 SETTINGS max_memory_usage CONST

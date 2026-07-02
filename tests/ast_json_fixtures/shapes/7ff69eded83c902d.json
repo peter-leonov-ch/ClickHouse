@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateWorkloadQuery",
+    "if_not_exists": true,
+    "workload_name": {
+      "type": "Identifier",
+      "name": "production"
+    },
+    "workload_parent": {
+      "type": "Identifier",
+      "name": "all"
+    }
+  }
+}

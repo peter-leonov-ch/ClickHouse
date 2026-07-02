@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN SYNTAX",
+    "query": {
+      "type": "SYSTEM",
+      "system_type": "CLEAR FORMAT SCHEMA CACHE",
+      "schema_cache_format": "Protobuf"
+    }
+  }
+}

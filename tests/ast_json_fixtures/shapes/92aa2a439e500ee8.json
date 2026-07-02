@@ -10,7 +10,24 @@
             "type": "Literal",
             "alias": "known_tables",
             "value_type": "Array",
-            "value": "['asynchronous_metric_log', 'asynchronous_insert_log', 'opentelemetry_span_log', 'coverage_log']"
+            "value": [
+              {
+                "value_type": "String",
+                "value": "asynchronous_metric_log"
+              },
+              {
+                "value_type": "String",
+                "value": "asynchronous_insert_log"
+              },
+              {
+                "value_type": "String",
+                "value": "opentelemetry_span_log"
+              },
+              {
+                "value_type": "String",
+                "value": "coverage_log"
+              }
+            ]
           },
           {
             "type": "Literal",

@@ -14,7 +14,16 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "['aaa', 'bbb']"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "aaa"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "bbb"
+                  }
+                ]
               }
             ]
           },

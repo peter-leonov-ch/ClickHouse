@@ -1,0 +1,1 @@
+DESCRIBE test_table FORMAT TSV

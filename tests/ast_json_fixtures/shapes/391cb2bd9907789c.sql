@@ -1,0 +1,1 @@
+GRANT INSERT ON team*.* TO user_03141

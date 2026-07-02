@@ -1,0 +1,189 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "Carrier"
+          },
+          {
+            "type": "Function",
+            "alias": "C1",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFloat64",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "C3"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "C2",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFloat64",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "C1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "C3",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toFloat64",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "C2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "ITBL",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "alias": "Carrier",
+                            "value_type": "UInt64",
+                            "value": "1"
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "C1",
+                            "name": "count",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "CAST",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  },
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": "Nullable(Int32)"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "C2",
+                            "name": "max",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "C3",
+                            "name": "min",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "number"
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "numbers",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "10"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "group_by": [
+                          {
+                            "type": "Identifier",
+                            "name": "Carrier"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "Carrier"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1000001"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "prefer_column_name_to_alias": "1"
+          }
+        }
+      }
+    ]
+  }
+}

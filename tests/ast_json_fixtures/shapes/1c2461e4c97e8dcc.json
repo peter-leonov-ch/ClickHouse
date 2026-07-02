@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "table": {
+      "type": "Identifier",
+      "name": "03221_rmv"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "x",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "alias": "x",
+              "name": "number"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "table_function": {
+                    "type": "Function",
+                    "name": "numbers",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Function",
+              "alias": "x",
+              "name": "rand64",
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "inner_engine": {
+            "type": "Storage",
+            "engine": {
+              "type": "Function",
+              "name": "Memory",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            }
+          }
+        }
+      ]
+    },
+    "refresh": {
+      "type": "RefreshStrategy",
+      "schedule_kind": "AFTER",
+      "period": {
+        "type": "TimeInterval",
+        "interval": [
+          {
+            "kind": "Second",
+            "value": "10"
+          }
+        ]
+      }
+    }
+  }
+}

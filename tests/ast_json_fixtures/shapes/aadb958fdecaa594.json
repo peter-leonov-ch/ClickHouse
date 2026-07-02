@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowIndexes",
+    "extended": true,
+    "table": "tbl"
+  }
+}

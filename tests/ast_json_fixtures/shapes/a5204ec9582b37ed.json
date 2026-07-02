@@ -10,7 +10,16 @@
             "type": "Literal",
             "alias": "other",
             "value_type": "Array",
-            "value": "[1, 2]"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
           },
           {
             "type": "Identifier",

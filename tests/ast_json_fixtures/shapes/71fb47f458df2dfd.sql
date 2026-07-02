@@ -1,0 +1,1 @@
+CREATE QUOTA q3_01297 KEY BY ip_address

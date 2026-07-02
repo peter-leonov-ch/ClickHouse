@@ -1,0 +1,1 @@
+SYSTEM ENABLE FAILPOINT execute_query_calling_empty_set_result_func_on_exception

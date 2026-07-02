@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "or_replace": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    }
+  }
+}

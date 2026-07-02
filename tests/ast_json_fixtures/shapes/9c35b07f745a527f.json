@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateDictionaryQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "sqllt"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "dictionary"
+    },
+    "format": "Null"
+  }
+}

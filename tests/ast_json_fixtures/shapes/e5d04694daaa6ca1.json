@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN PIPELINE",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "data"
+                  },
+                  "final": true
+                }
+              }
+            ]
+          },
+          "where": {
+            "type": "Function",
+            "name": "greaterOrEquals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v1"
+              },
+              {
+                "type": "Function",
+                "name": "minus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "now",
+                    "arguments": []
+                  },
+                  {
+                    "type": "Function",
+                    "name": "toIntervalDay",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "180"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "settings": {
+            "type": "Settings",
+            "changes": {
+              "max_threads": "2",
+              "max_final_threads": "2",
+              "force_data_skipping_indices": "v1_index",
+              "use_skip_indexes_if_final": "0"
+            }
+          }
+        }
+      ]
+    },
+    "format": "LineAsString"
+  }
+}

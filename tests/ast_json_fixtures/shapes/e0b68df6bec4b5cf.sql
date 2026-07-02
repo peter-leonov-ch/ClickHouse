@@ -1,0 +1,1 @@
+DROP ROW POLICY rp ON t

@@ -27,7 +27,16 @@
                         "type": "Literal",
                         "alias": "exclude",
                         "value_type": "Array",
-                        "value": "['b', 'd']"
+                        "value": [
+                          {
+                            "value_type": "String",
+                            "value": "b"
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "d"
+                          }
+                        ]
                       }
                     ]
                   },
@@ -43,7 +52,16 @@
                       {
                         "type": "Literal",
                         "value_type": "Array",
-                        "value": "['a', 'c']"
+                        "value": [
+                          {
+                            "value_type": "String",
+                            "value": "a"
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "c"
+                          }
+                        ]
                       }
                     ]
                   },
@@ -59,7 +77,16 @@
                       {
                         "type": "Literal",
                         "value_type": "Array",
-                        "value": "['x', 'y']"
+                        "value": [
+                          {
+                            "value_type": "String",
+                            "value": "x"
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "y"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -81,7 +108,20 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "['a', 'b', 'c']"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "a"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "b"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "c"
+                  }
+                ]
               },
               {
                 "type": "Identifier",

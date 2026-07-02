@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "alter": true,
+    "names": ["s2_01294"],
+    "new_name": "s2_01294_renamed"
+  }
+}

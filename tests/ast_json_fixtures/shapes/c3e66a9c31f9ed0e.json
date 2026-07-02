@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["READ"],
+        "parameter": "S3"
+      },
+      {
+        "access_types": ["WRITE"],
+        "parameter": "S3"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_user_03593"]
+    }
+  }
+}

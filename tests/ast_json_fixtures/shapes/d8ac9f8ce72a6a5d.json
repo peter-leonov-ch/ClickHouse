@@ -2,6 +2,11 @@
   "version": 2,
   "ast": {
     "type": "SYSTEM",
-    "system_type": "FLUSH ASYNC INSERT QUEUE"
+    "system_type": "FLUSH ASYNC INSERT QUEUE",
+    "tables": [
+      {
+        "table": "test"
+      }
+    ]
   }
 }

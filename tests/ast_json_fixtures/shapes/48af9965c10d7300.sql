@@ -1,0 +1,1 @@
+SHOW CREATE USER u_03174_multiple_auth_show_create

@@ -2,6 +2,7 @@
   "version": 2,
   "ast": {
     "type": "SYSTEM",
-    "system_type": "DISABLE FAILPOINT"
+    "system_type": "DISABLE FAILPOINT",
+    "fail_point_name": "use_delayed_remote_source"
   }
 }

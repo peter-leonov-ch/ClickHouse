@@ -1,6 +1,7 @@
 {
   "version": 2,
   "ast": {
-    "type": "ShowFunctions"
+    "type": "ShowFunctions",
+    "like": "a' or 1=1;--"
   }
 }

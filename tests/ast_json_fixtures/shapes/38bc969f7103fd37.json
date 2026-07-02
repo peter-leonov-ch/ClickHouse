@@ -3,6 +3,7 @@
   "ast": {
     "type": "ShowTables",
     "databases": true,
-    "like": "sqllt"
+    "like": "sqllt",
+    "format": "Null"
   }
 }

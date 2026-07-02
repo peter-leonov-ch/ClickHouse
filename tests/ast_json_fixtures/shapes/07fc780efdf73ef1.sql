@@ -1,0 +1,1 @@
+ALTER TABLE tab MATERIALIZE INDEX idx_vec SETTINGS mutations_sync=2

@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropFunctionQuery",
+    "function_name": "udf_type_of_int"
+  }
+}

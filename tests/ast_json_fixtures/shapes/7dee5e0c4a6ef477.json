@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "or_replace": true,
+    "names": ["test_01605"]
+  }
+}

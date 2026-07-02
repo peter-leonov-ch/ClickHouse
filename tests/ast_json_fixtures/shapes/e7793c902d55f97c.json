@@ -1,6 +1,10 @@
 {
   "version": 2,
   "ast": {
-    "type": "ShowGrantsQuery"
+    "type": "ShowGrantsQuery",
+    "for_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["u1_01292"]
+    }
   }
 }

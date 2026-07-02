@@ -141,7 +141,34 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "((114, 115), (369, 7870))"
+              "value": [
+                {
+                  "value_type": "Tuple",
+                  "value": [
+                    {
+                      "value_type": "UInt64",
+                      "value": "114"
+                    },
+                    {
+                      "value_type": "UInt64",
+                      "value": "115"
+                    }
+                  ]
+                },
+                {
+                  "value_type": "Tuple",
+                  "value": [
+                    {
+                      "value_type": "UInt64",
+                      "value": "369"
+                    },
+                    {
+                      "value_type": "UInt64",
+                      "value": "7870"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },

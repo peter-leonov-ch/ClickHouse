@@ -1,0 +1,1 @@
+CREATE ROW POLICY p3_01296 ON table, table2 TO u1_01296

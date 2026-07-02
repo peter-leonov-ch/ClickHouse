@@ -1,0 +1,18 @@
+-- DROP USER
+{"type":"DropAccessEntityQuery","entity_type":"USER","if_exists":true,"names":["a","b"]}
+-- DROP ROW POLICY
+{"type":"DropAccessEntityQuery","entity_type":"ROW POLICY","row_policy_names":{"type":"RowPolicyNames","policies":[{"short_name":"p","database":"db","table":"t"}]}}
+-- MOVE USER TO storage
+{"type":"MoveAccessEntityQuery","entity_type":"USER","storage_name":"disk_storage","names":["u"]}
+-- SHOW GRANTS
+{"type":"ShowGrantsQuery","for_roles":{"type":"RolesOrUsersSet","names":["u"]},"with_implicit":true}
+-- SHOW CREATE USER
+{"type":"ShowCreateAccessEntityQuery","entity_type":"USER","names":["u"]}
+-- SHOW CREATE ROW POLICY
+{"type":"ShowCreateAccessEntityQuery","entity_type":"ROW POLICY","row_policy_names":{"type":"RowPolicyNames","policies":[{"short_name":"p","database":"db","table":"t"}]}}
+-- SHOW USERS
+{"type":"ShowAccessEntitiesQuery","entity_type":"USER","all":true}
+-- SHOW QUOTAS
+{"type":"ShowAccessEntitiesQuery","entity_type":"QUOTA"}
+-- EXECUTE AS
+{"type":"ExecuteAsQuery","target_user":{"type":"UserNameWithHost","name":"u"}}

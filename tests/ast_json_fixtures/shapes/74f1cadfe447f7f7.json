@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "sqllt_policy",
+          "database": "sqllt",
+          "table": "table"
+        },
+        {
+          "short_name": "sqllt_policy",
+          "database": "sqllt",
+          "table": "view"
+        },
+        {
+          "short_name": "sqllt_policy",
+          "database": "sqllt",
+          "table": "dictionary"
+        }
+      ]
+    },
+    "is_restrictive": false,
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    }
+  }
+}

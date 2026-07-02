@@ -1,0 +1,1 @@
+CREATE ROLE r5_01293 SETTINGS max_memory_usage MAX=5000000

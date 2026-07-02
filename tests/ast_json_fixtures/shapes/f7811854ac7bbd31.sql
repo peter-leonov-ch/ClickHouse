@@ -1,0 +1,1 @@
+CREATE QUOTA q2_01297 KEY BY user_name

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "test_join"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "ignore_drop_queries_probability": "1"
+      }
+    }
+  }
+}

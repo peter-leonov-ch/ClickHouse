@@ -1,12 +1,9 @@
 {
   "version": 2,
   "ast": {
-    "type": "SHOW",
-    "children": [
-      {
-        "type": "Identifier",
-        "name": "Null"
-      }
-    ]
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "ROLE",
+    "names": ["sqllt_role"],
+    "format": "Null"
   }
 }

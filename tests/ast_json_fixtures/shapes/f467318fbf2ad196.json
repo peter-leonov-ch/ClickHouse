@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test_max_size_drop"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_partition_size_to_drop": "1"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Function",
+            "name": "tuple",
+            "arguments": []
+          }
+        }
+      }
+    ]
+  }
+}

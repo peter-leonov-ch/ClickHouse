@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "SYNC REPLICA",
+    "table": {
+      "type": "Identifier",
+      "name": "mut"
+    },
+    "sync_replica_mode": "PULL"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowIndexes",
+    "extended": true,
+    "table": "t",
+    "database": "db",
+    "where": {
+      "type": "Function",
+      "name": "equals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      ]
+    }
+  }
+}

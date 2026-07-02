@@ -1,0 +1,82 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          },
+          {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "strictness": "ANY",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "number"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "alias277.number",
+                      "name_parts": ["alias277", "number"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "alias277",
+                  "name": "numbers",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "102400"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "join_algorithm": "parallel_hash"
+      }
+    },
+    "format": "Null"
+  }
+}

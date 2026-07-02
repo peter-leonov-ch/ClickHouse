@@ -1,0 +1,1 @@
+SHOW CREATE TEMPORARY test FORMAT LineAsString

@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_STATISTICS",
+        "clear_statistics": true,
+        "statistics_declaration": {
+          "type": "Stat",
+          "columns": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

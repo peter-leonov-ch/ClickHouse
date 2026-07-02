@@ -1,0 +1,129 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "database"
+          },
+          {
+            "type": "Identifier",
+            "name": "table"
+          },
+          {
+            "type": "Identifier",
+            "name": "name"
+          },
+          {
+            "type": "Identifier",
+            "name": "type"
+          },
+          {
+            "type": "Identifier",
+            "name": "type_full"
+          },
+          {
+            "type": "Identifier",
+            "name": "granularity"
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "data_compressed_bytes"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "100"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "data_uncompressed_bytes"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "75"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "marks_bytes"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "data_skipping_indices",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "type"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "text"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Vertical"
+  }
+}

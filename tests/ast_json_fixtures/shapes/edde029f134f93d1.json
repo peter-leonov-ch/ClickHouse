@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ExistsTableQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "eligible_test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": true
+      }
+    }
+  }
+}

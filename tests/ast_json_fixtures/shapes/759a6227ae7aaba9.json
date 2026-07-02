@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "BackupQuery",
+    "kind": "BACKUP",
+    "elements": [
+      {
+        "element_type": "TABLE",
+        "table": "03593_backup_with_broken_projection"
+      }
+    ],
+    "backup_name": {
+      "type": "Function",
+      "name": "Null",
+      "kind": "BACKUP_NAME",
+      "arguments": []
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "allow_backup_broken_projections": true,
+        "check_projection_parts": false
+      }
+    },
+    "format": "Null"
+  }
+}

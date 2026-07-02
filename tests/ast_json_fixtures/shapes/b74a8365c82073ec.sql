@@ -1,0 +1,1 @@
+system enable failpoint replicated_merge_tree_commit_zk_fail_after_op

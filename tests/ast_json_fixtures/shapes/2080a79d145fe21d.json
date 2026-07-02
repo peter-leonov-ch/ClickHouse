@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "SLEEP #1 TEST"
+          },
+          {
+            "type": "Function",
+            "name": "sleep",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.001
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

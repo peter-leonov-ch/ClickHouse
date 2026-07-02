@@ -75,7 +75,7 @@ into ClickHouse CI.
 
 ## Bulk corpus from the stateless tests
 
-The 41 curated cases above are hand-picked for readability. For a much
+The curated cases above are hand-picked for readability. For a much
 larger, real-world corpus you can reuse the existing stateless test suite:
 `tests/queries/0_stateless/*.sql` holds ~124k statements. `harvest_stateless.py`
 extracts them, runs each through `EXPLAIN AST json = 1`, and writes the

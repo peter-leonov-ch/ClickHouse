@@ -1,0 +1,1 @@
+OPTIMIZE TABLE tab FINAL SETTINGS mutations_sync = 2

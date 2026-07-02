@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u16_01292"
+        }
+      ]
+    },
+    "hosts": {
+      "local_host": true,
+      "subnets": ["65:ff0c::\/96"]
+    }
+  }
+}

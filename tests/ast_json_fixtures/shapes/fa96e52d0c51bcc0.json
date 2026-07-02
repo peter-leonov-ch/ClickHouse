@@ -1,6 +1,10 @@
 {
   "version": 2,
   "ast": {
-    "type": "CreateNamedCollectionQuery"
+    "type": "CreateNamedCollectionQuery",
+    "collection_name": "02918_json_fuzzer",
+    "changes": {
+      "json_str": "{}"
+    }
   }
 }

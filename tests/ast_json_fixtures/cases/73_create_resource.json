@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateResourceQuery",
+    "or_replace": true,
+    "resource_name": {
+      "type": "Identifier",
+      "name": "io"
+    },
+    "unit": "IOByte",
+    "operations": [
+      {
+        "mode": "READ",
+        "disk": "fast"
+      },
+      {
+        "mode": "WRITE"
+      }
+    ]
+  }
+}

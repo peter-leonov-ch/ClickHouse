@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowTables",
+    "show_settings": true,
+    "changed": true,
+    "like": "%mem%",
+    "case_insensitive_like": true
+  }
+}

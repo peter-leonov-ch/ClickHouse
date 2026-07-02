@@ -1,0 +1,1 @@
+CREATE ROLE r6_01293 SETTINGS max_memory_usage CONST

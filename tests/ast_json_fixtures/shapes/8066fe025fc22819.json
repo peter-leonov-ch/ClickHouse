@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "ENABLE FAILPOINT",
+    "fail_point_name": "replicated_merge_tree_commit_zk_fail_when_recovering_from_hw_fault"
+  }
+}

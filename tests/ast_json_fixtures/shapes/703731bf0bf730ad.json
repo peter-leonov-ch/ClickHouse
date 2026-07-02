@@ -1,0 +1,100 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "replaceRegexpOne",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "create_table_query"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "CREATE TABLE [^ ]*"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "CREATE TABLE x"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tables",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "table"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": ".inner%"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "LineAsString"
+  }
+}

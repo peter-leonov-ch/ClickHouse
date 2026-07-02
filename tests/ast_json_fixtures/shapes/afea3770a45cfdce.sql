@@ -1,0 +1,1 @@
+CREATE USER u2_01292 IDENTIFIED WITH plaintext_password BY 'qwe123'

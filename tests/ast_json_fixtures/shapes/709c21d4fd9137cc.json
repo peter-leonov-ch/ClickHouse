@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "FLUSH DISTRIBUTED",
+    "table": {
+      "type": "Identifier",
+      "name": "dist_in"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_memory_usage": "0"
+      }
+    }
+  }
+}

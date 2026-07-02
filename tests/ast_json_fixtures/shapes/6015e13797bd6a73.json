@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p2_01295",
+          "database": "db",
+          "table": "table"
+        }
+      ]
+    },
+    "is_restrictive": true,
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Function",
+              "name": "currentUser",
+              "arguments": []
+            }
+          ]
+        }
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["u1_01295"]
+    }
+  }
+}

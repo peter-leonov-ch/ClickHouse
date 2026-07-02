@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "admin_option": true,
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["role1"]
+    },
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["user1"]
+    }
+  }
+}

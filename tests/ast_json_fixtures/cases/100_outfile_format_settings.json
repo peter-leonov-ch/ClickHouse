@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_threads": "1"
+      }
+    },
+    "out_file": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "\/tmp\/f.tsv"
+    },
+    "outfile_truncate": true,
+    "outfile_with_stdout": true,
+    "format": "TSV"
+  }
+}

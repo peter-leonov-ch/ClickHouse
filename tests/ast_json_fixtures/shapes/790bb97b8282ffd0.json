@@ -2,17 +2,19 @@
   "version": 2,
   "ast": {
     "type": "BackupQuery",
-    "children": [
+    "kind": "BACKUP",
+    "elements": [
       {
-        "type": "Function",
-        "name": "Null",
-        "kind": "BACKUP_NAME",
-        "arguments": []
-      },
-      {
-        "type": "Identifier",
-        "name": "Null"
+        "element_type": "TABLE",
+        "table": "03760_backup_memory"
       }
-    ]
+    ],
+    "backup_name": {
+      "type": "Function",
+      "name": "Null",
+      "kind": "BACKUP_NAME",
+      "arguments": []
+    },
+    "format": "Null"
   }
 }

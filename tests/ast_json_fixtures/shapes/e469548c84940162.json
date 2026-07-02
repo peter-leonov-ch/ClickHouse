@@ -1,0 +1,208 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "query",
+            "name": "log_comment"
+          },
+          {
+            "type": "Function",
+            "alias": "stats_collected",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ProfileEvents"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "RuntimeDataflowStatisticsInputBytes"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "pr_used",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ProfileEvents"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "ParallelReplicasUsedCount"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "event_date"
+                },
+                {
+                  "type": "Function",
+                  "name": "yesterday",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "event_time"
+                },
+                {
+                  "type": "Function",
+                  "name": "minus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "NOW",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toIntervalMinute",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "15"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "current_database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "log_comment"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "03783_autopr_dataflow_cache_reuse_query_%"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "type"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "QueryFinish"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "log_comment"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "TSVWithNames"
+  }
+}

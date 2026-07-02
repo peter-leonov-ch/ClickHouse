@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "REPLACE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "p"
+          }
+        },
+        "replace": false,
+        "from_table": "src"
+      }
+    ]
+  }
+}

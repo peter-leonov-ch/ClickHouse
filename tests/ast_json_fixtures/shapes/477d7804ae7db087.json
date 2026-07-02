@@ -45,7 +45,12 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[0]"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "0"
+                  }
+                ]
               }
             ]
           }

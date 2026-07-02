@@ -11,6 +11,14 @@
       "type": "Identifier",
       "name": "from_0"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "distributed_ddl_output_mode": "never_throw",
+        "distributed_ddl_task_timeout": "1"
+      }
+    },
+    "format": "Null",
     "cluster": "test_cluster_two_shards_different_databases",
     "commands": [
       {
@@ -24,6 +32,7 @@
             "arguments": []
           }
         },
+        "move_destination_type": "TABLE",
         "to_database": "shard_0",
         "to_table": "to"
       }

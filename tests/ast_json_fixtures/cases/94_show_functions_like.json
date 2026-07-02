@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowFunctions",
+    "like": "a%",
+    "case_insensitive_like": true
+  }
+}

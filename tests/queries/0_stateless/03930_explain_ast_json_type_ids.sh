@@ -40,6 +40,26 @@ ast() {
     ast "CREATE INDEX i ON t (a) TYPE minmax GRANULARITY 1"
     ast "SELECT 1 SETTINGS max_threads = 1"
     ast "SELECT * FROM t SAMPLE 1/2"
-} | sort -u | grep -vxE 'Unbounded|Current|Offset'
+    ast "GRANT SELECT(x) ON db.t TO u WITH GRANT OPTION"
+    ast "REVOKE INSERT ON db.* FROM ALL EXCEPT u"
+    ast "CHECK GRANT SELECT ON db.t"
+    ast "CREATE USER u IDENTIFIED WITH ssh_key BY KEY 'AAAA' TYPE 'ssh-rsa' HOST IP '127.0.0.1' DEFAULT ROLE r SETTINGS max_threads = 1 DEFAULT DATABASE NONE GRANTEES ANY"
+    ast "ALTER USER u DROP SETTINGS max_threads"
+    ast "CREATE ROLE r SETTINGS PROFILE p"
+    ast "CREATE QUOTA q KEYED BY user_name FOR INTERVAL 1 HOUR MAX queries = 1 TO r"
+    ast "SET DEFAULT ROLE r TO u"
+    ast "CREATE ROW POLICY p ON db.t FOR SELECT USING x > 0 TO r"
+    ast "CREATE SETTINGS PROFILE sp SETTINGS max_threads = 1 TO ALL"
+    ast "CREATE MASKING POLICY m ON db.t UPDATE x = mask(x) TO r"
+    ast "DROP ROW POLICY p ON db.t"
+    ast "MOVE USER u TO storage"
+    ast "SHOW GRANTS FOR u"
+    ast "SHOW CREATE USER u"
+    ast "SHOW QUOTAS"
+    ast "EXECUTE AS u"
+    ast "CREATE TABLE en (e Enum8('a' = 1, 'b' = 2), tp Tuple(x UInt8, y String), s String COLLATE binary, j JSON(a.b UInt32, SKIP p)) ENGINE = Memory"
+    ast "CREATE MATERIALIZED VIEW mv REFRESH EVERY 1 DAY (a UInt64) ENGINE = Memory AS SELECT 1 AS a"
+    ast "COMMIT"
+} | LC_ALL=C sort -u | grep -vxE 'Unbounded|Current|Offset'
 # (Unbounded/Current/Offset are the frame_begin/frame_end `type` discriminator
 #  values, not node type ids — excluded so this snapshots only astTypeName output.)

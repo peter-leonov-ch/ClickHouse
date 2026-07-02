@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["sqllt_quota"],
+    "key_type": "USER_NAME",
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_role"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "DISABLE FAILPOINT",
+    "fail_point_name": "mt_select_parts_to_mutate_no_free_threads"
+  }
+}

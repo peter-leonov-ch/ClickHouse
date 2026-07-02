@@ -1,0 +1,1 @@
+SHOW CREATE USER u1_01292, u2_01292, u3_01292, u4_01292, u5_01292@'%.host.com', u6_01292@'%.host.com'

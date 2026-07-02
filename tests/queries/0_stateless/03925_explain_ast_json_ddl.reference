@@ -14,3 +14,29 @@
 {"table":"t","columns":["a","b"],"select":"SelectWithUnionQuery"}
 -- INSERT ... VALUES
 {"database":"db","table":"t"}
+-- ATTACH: if_not_exists, uuid, cluster
+{"attach":true,"if_not_exists":true,"uuid":"00000000-0000-0000-0000-000000000abc","cluster":"c","table":"t"}
+-- ATTACH ... FROM path
+{"attach":true,"attach_from_path":"/var/lib/p","table":"t"}
+-- ATTACH ... AS NOT REPLICATED conversion marker
+{"attach":true,"attach_as_replicated":false,"table":"t"}
+-- Enum data type: explicit value pairs
+{"type":"EnumDataType","name":"Enum8","values":[{"name":"a","value":1},{"name":"b","value":2}]}
+-- Tuple data type: named element names
+{"type":"TupleDataType","name":"Tuple","arguments":[{"type":"DataType","name":"UInt8"},{"type":"DataType","name":"String"}],"element_names":["a","b"]}
+-- Tuple data type: unnamed (no element_names)
+{"type":"TupleDataType","name":"Tuple","arguments":[{"type":"DataType","name":"UInt8"},{"type":"DataType","name":"String"}]}
+-- column COLLATE
+{"type":"Collation","name":"binary"}
+-- JSON typed path / skip / parameter arguments
+{"type":"ObjectTypeArgument","path_with_type":{"type":"ObjectTypedPath","name":"a.b","data_type":{"type":"DataType","name":"UInt32"}}}
+{"type":"ObjectTypedPath","name":"a.b","data_type":{"type":"DataType","name":"UInt32"}}
+{"type":"ObjectTypeArgument","skip_path":{"type":"Identifier","name":"x"}}
+{"type":"ObjectTypeArgument","skip_path_regexp":{"type":"Literal","value_type":"String","value":"y.*"}}
+{"type":"ObjectTypeArgument","parameter":{"type":"Function","name":"equals","is_operator":true,"arguments":[{"type":"Identifier","name":"max_dynamic_paths"},{"type":"Literal","value_type":"UInt64","value":"8"}]}}
+-- refreshable materialized view
+{"type":"RefreshStrategy","schedule_kind":"EVERY","append":true,"period":{"type":"TimeInterval","interval":[{"kind":"Day","value":"1"}]},"offset":{"type":"TimeInterval","interval":[{"kind":"Hour","value":"1"}]}}
+{"type":"TimeInterval","interval":[{"kind":"Day","value":"1"}]}
+{"type":"TimeInterval","interval":[{"kind":"Hour","value":"1"}]}
+-- INSERT FROM INFILE ... COMPRESSION
+{"table":"t","infile":"data.csv","compression":"gzip","format":"CSV"}

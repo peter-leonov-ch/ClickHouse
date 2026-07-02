@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropFunctionQuery",
+    "function_name": "02483_plusthree",
+    "if_exists": true
+  }
+}

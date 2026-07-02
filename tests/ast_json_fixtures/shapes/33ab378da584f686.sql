@@ -1,0 +1,1 @@
+DROP QUOTA q1_01297, q2_01297_renamed, q3_01297, q4_01297

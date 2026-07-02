@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "RestoreQuery",
+    "kind": "RESTORE",
+    "elements": [
+      {
+        "element_type": "DATABASE",
+        "database": "db",
+        "new_database": "db2",
+        "except_tables": [
+          {
+            "database": "db",
+            "table": "t1"
+          }
+        ]
+      }
+    ],
+    "backup_name": {
+      "type": "Function",
+      "name": "Disk",
+      "kind": "BACKUP_NAME",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "d"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "p"
+        }
+      ]
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "async": true
+      }
+    }
+  }
+}

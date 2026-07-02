@@ -1,0 +1,1 @@
+CREATE MASKING POLICY mp ON db.t UPDATE x = 'masked' WHERE x != '' TO r1 PRIORITY 2

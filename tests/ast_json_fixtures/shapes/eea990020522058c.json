@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "RevokeQuery",
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "sqllt",
+        "table": "table"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_user"]
+    }
+  }
+}

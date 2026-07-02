@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["CREATE TEMPORARY TABLE"]
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_03727"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "FLUSH LOGS",
+    "tables": [
+      {
+        "table": "trace_log"
+      }
+    ]
+  }
+}

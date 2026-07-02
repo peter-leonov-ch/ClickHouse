@@ -1,0 +1,1 @@
+system flush logs aggregated_zookeeper_log

@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "ORDERS_shard"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "O_ORDERKEY",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "O_ORDERPRIORITY",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt32"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "O_ORDERKEY"
+      }
+    }
+  }
+}

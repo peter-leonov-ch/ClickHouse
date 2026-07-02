@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "SETTINGS PROFILE",
+    "names": ["s2_01294"]
+  }
+}

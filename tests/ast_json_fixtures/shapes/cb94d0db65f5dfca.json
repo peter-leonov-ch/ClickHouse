@@ -15,6 +15,7 @@
           "type": "Partition_ID",
           "all": true
         },
+        "move_destination_type": "TABLE",
         "to_table": "partition_all2"
       }
     ]

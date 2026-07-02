@@ -1,0 +1,1 @@
+CREATE ROLE r9_01293 SETTINGS PROFILE 'default', max_memory_usage=5000000 WRITABLE

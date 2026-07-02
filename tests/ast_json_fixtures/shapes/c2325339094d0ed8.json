@@ -1,0 +1,293 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "t",
+            "name": "toDateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "1970-06-17 07:39:21"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Africa\/Monrovia"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "toUnixTimestamp",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "timeZoneOffset",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "formatDateTime",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "%F %T"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Africa\/Monrovia"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Africa\/Monrovia"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfMinute",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfFiveMinutes",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfFifteenMinutes",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfTenMinutes",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfHour",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfDay",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfWeek",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfInterval",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalSecond",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfInterval",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMinute",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfInterval",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMinute",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfInterval",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMinute",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "5"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "toStartOfInterval",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Function",
+                "name": "toIntervalMinute",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "60"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "addMinutes",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "addMinutes",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

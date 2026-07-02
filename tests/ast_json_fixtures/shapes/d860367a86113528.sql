@@ -1,0 +1,2 @@
+DESCRIBE TABLE t_desc_subcolumns FORMAT PrettyCompactNoEscapes
+SETTINGS describe_include_subcolumns = 1

@@ -1,6 +1,8 @@
 {
   "version": 2,
   "ast": {
-    "type": "DropNamedCollectionQuery"
+    "type": "DropNamedCollectionQuery",
+    "collection_name": "02918_json_fuzzer",
+    "if_exists": true
   }
 }

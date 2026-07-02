@@ -1,0 +1,177 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "t1.a",
+            "name_parts": ["t1", "a"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t2.a",
+            "name_parts": ["t2", "a"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t2.b",
+            "name_parts": ["t2", "b"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t3.b",
+            "name_parts": ["t3", "b"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t3.c",
+            "name_parts": ["t3", "c"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t5.a",
+            "name_parts": ["t5", "a"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t5.b",
+            "name_parts": ["t5", "b"]
+          },
+          {
+            "type": "Identifier",
+            "name": "t5.c",
+            "name_parts": ["t5", "c"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t1",
+                  "name": "table1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t1.a",
+                      "name_parts": ["t1", "a"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t2.a",
+                      "name_parts": ["t2", "a"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t2",
+                  "name": "table2"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t2.b",
+                      "name_parts": ["t2", "b"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t3.b",
+                      "name_parts": ["t3", "b"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t3",
+                  "name": "table3"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "t3.c",
+                      "name_parts": ["t3", "c"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t5.c",
+                      "name_parts": ["t5", "c"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t5",
+                  "name": "table5"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "t1.a",
+              "name_parts": ["t1", "a"]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "PrettyCompactNoEscapes"
+  }
+}

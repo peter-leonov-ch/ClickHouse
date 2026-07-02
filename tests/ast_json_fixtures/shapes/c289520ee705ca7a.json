@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["SET DEFINER"],
+        "parameter": "test_user_03593_1"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_user_03593"]
+    }
+  }
+}

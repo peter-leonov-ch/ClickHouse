@@ -1,0 +1,1 @@
+GRANT SELECT ON db1.tb1 TO test_user_01999

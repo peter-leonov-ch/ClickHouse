@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "--- CUBE ---"
+          }
+        ]
+      }
+    ],
+    "format": "TSVRaw"
+  }
+}

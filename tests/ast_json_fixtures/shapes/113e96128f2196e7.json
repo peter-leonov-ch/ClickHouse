@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateWorkloadQuery",
+    "or_replace": true,
+    "workload_name": {
+      "type": "Identifier",
+      "name": "all"
+    }
+  }
+}

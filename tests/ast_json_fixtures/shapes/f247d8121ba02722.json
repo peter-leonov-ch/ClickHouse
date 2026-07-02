@@ -1,0 +1,820 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "metric_id"
+          },
+          {
+            "type": "Function",
+            "alias": "c1",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c2",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(4, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c3",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(2, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c4",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10.123"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(4, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:01"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c5",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10.123456"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(4, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00.123"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c6",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10.12"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(1, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00.123"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c7",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10.123"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(0, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c8",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime('UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:00"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(3, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c9",
+            "name": "timeSeriesInstantRateToGrid",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "tupleElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "samples"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "2"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:00:10.123"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime64(2, 'UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "CAST",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2024-12-12 12:01:01"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "DateTime('UTC')"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "60"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "clusterAllReplicas",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "test_shard_localhost"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "t_resampled_timeseries_64"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "metric_id"
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

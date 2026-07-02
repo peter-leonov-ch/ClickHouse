@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CheckGrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "db",
+        "table": "t",
+        "columns": ["x"]
+      }
+    ]
+  }
+}

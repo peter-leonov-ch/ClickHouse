@@ -28,7 +28,8 @@
             },
             "null_modifier": false,
             "collation": {
-              "type": "Collation"
+              "type": "Collation",
+              "name": "binary"
             }
           }
         ]

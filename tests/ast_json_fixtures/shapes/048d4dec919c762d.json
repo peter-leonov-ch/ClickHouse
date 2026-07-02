@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "test_repl"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplicatedMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "\/clickhouse\/test_01181\/{database}\/test_repl"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "r1"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
+    }
+  }
+}

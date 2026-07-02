@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "alias": "k",
+            "name": "CounterID"
+          },
+          {
+            "type": "Function",
+            "name": "quantileBFloat16",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "ResolutionWidth"
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Literal",
+                "value_type": "Float64",
+                "value": 0.5
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits",
+                  "database": "test"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "k"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "count",
+              "arguments": []
+            },
+            "direction": "DESC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "CounterID"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "group_by_use_nulls": "1"
+          }
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

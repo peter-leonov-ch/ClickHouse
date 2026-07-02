@@ -7,6 +7,13 @@
       "type": "Identifier",
       "name": "a"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "alter_sync": "2",
+        "mutations_sync": "2"
+      }
+    },
     "commands": [
       {
         "type": "AlterCommand",

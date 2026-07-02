@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "table": {
+      "type": "Identifier",
+      "name": "mv"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "a",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "a",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "inner_engine": {
+            "type": "Storage",
+            "engine": {
+              "type": "Function",
+              "name": "Memory",
+              "kind": "TABLE_ENGINE",
+              "arguments": []
+            }
+          }
+        }
+      ]
+    },
+    "refresh": {
+      "type": "RefreshStrategy",
+      "schedule_kind": "EVERY",
+      "append": true,
+      "period": {
+        "type": "TimeInterval",
+        "interval": [
+          {
+            "kind": "Day",
+            "value": "1"
+          }
+        ]
+      },
+      "offset": {
+        "type": "TimeInterval",
+        "interval": [
+          {
+            "kind": "Hour",
+            "value": "1"
+          }
+        ]
+      },
+      "spread": {
+        "type": "TimeInterval",
+        "interval": [
+          {
+            "kind": "Minute",
+            "value": "5"
+          }
+        ]
+      },
+      "dependencies": {
+        "type": "ExpressionList",
+        "children": [
+          {
+            "type": "TableIdentifier",
+            "name": "a"
+          },
+          {
+            "type": "TableIdentifier",
+            "name": "b"
+          }
+        ]
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "x": "1"
+        }
+      }
+    }
+  }
+}

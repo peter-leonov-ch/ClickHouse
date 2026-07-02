@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "test_deletes"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "lightweight_deletes_sync": "1"
+      }
+    },
+    "predicate": {
+      "type": "Function",
+      "name": "and",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "100"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "200"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "names": ["sqllt_role"]
+  }
+}

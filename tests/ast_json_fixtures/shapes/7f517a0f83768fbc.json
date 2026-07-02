@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "k",
+            "name": "REGEXP_REPLACE",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "Referer"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "^https?:\/\/(?:www\\.)?([^\/]+)\/.*$"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\\1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "l",
+            "name": "AVG",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "length",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "Referer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "c",
+            "name": "COUNT",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "MIN",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "Referer"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits",
+                  "database": "test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "notEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "Referer"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": ""
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "k"
+          }
+        ],
+        "having": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "COUNT",
+              "arguments": [
+                {
+                  "type": "Asterisk"
+                }
+              ]
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "100000"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "l"
+            },
+            "direction": "DESC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "25"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "log_comment": "query_28"
+      }
+    },
+    "format": "Null"
+  }
+}

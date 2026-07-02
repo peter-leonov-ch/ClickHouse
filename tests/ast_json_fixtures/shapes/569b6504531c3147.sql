@@ -1,0 +1,1 @@
+REVOKE SELECT ON test.* FROM user_03141

@@ -62,7 +62,12 @@
                 "name": "c"
               }
             ],
-            "order_by": []
+            "order_by": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
           }
         },
         {
@@ -78,17 +83,12 @@
             ],
             "order_by": [
               {
-                "type": "ExpressionList",
-                "children": [
-                  {
-                    "type": "Identifier",
-                    "name": "e"
-                  },
-                  {
-                    "type": "Identifier",
-                    "name": "d"
-                  }
-                ]
+                "type": "Identifier",
+                "name": "e"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
               }
             ]
           }

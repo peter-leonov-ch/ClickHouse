@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "uuid": "00000000-0000-0000-0000-000000003541",
+    "table": {
+      "type": "Identifier",
+      "name": "no_insertable"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "a",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int"
+          },
+          "default_specifier": "MATERIALIZED",
+          "default_expression": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    }
+  }
+}

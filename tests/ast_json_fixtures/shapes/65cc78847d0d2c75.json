@@ -1,0 +1,475 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "data",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "alias": "row_num",
+                        "name": "number"
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "top_ints",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "1"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "2"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "top_nulls",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "Hello"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "top_strs",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "String",
+                            "value": "Row1"
+                          },
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "ids",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "7"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "names",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "String",
+                            "value": "ClickHouse"
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "Database"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "nesteds",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": [
+                              {
+                                "value_type": "UInt64",
+                                "value": "1"
+                              },
+                              {
+                                "value_type": "String",
+                                "value": "nested"
+                              },
+                              {
+                                "value_type": "Null",
+                                "value": null
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "Tuple",
+                            "value": [
+                              {
+                                "value_type": "UInt64",
+                                "value": "2"
+                              },
+                              {
+                                "value_type": "String",
+                                "value": "inner"
+                              },
+                              {
+                                "value_type": "UInt64",
+                                "value": "123"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "arrs",
+                        "name": "array",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "array",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "Tuple",
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "100"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "foo"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "Tuple",
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "200"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "bar"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "name": "array",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "Tuple",
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "300"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "baz"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "Tuple",
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "400"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "qux"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "optionals",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "value_type": "String",
+                            "value": "Some text"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "extra_ids",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "999"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "555"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "1"
+                                },
+                                {
+                                  "type": "Literal",
+                                  "value_type": "UInt64",
+                                  "value": "2"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "top_int",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "top_ints"
+              },
+              {
+                "type": "Identifier",
+                "name": "row_num"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "top_null",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "top_nulls"
+              },
+              {
+                "type": "Identifier",
+                "name": "row_num"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "top_str",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "top_strs"
+              },
+              {
+                "type": "Identifier",
+                "name": "row_num"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "my_named_tuple",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "ids"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "names"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "nesteds"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "arrs"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "optionals"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "arrayElement",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "extra_ids"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "row_num"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple(id UInt64, name String, nested Tuple(n_id UInt8, n_name String, n_null Nullable(Int32)), arr Array(Tuple(a UInt16, b String)), optional_field Nullable(String), extra_id UInt32)"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "data"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "top_int"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "PrettyMonoBlock"
+  }
+}

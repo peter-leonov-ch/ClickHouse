@@ -1,0 +1,1 @@
+system flush logs transactions_info_log

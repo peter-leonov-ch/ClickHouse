@@ -46,7 +46,16 @@
                 {
                   "type": "Literal",
                   "value_type": "Tuple",
-                  "value": "(12345, 67890)"
+                  "value": [
+                    {
+                      "value_type": "UInt64",
+                      "value": "12345"
+                    },
+                    {
+                      "value_type": "UInt64",
+                      "value": "67890"
+                    }
+                  ]
                 }
               ]
             },

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "SETTINGS PROFILE",
+    "names": ["sqllt_settings_profile"],
+    "format": "Null"
+  }
+}

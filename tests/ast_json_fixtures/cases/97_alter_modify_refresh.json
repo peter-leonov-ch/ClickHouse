@@ -1,0 +1,67 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "mv"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MODIFY_REFRESH",
+        "refresh": {
+          "type": "RefreshStrategy",
+          "schedule_kind": "EVERY",
+          "period": {
+            "type": "TimeInterval",
+            "interval": [
+              {
+                "kind": "Day",
+                "value": "1"
+              }
+            ]
+          },
+          "offset": {
+            "type": "TimeInterval",
+            "interval": [
+              {
+                "kind": "Hour",
+                "value": "2"
+              }
+            ]
+          },
+          "spread": {
+            "type": "TimeInterval",
+            "interval": [
+              {
+                "kind": "Minute",
+                "value": "10"
+              }
+            ]
+          },
+          "dependencies": {
+            "type": "ExpressionList",
+            "children": [
+              {
+                "type": "TableIdentifier",
+                "name": "t1"
+              },
+              {
+                "type": "TableIdentifier",
+                "name": "t2"
+              }
+            ]
+          },
+          "settings": {
+            "type": "Settings",
+            "changes": {
+              "y": "2"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

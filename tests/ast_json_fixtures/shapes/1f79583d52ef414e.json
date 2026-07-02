@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "database": {
+      "type": "Identifier",
+      "name": "sqllt"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "table"
+    },
+    "format": "Null"
+  }
+}

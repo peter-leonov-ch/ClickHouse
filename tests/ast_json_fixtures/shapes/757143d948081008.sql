@@ -1,0 +1,1 @@
+SHOW INDEX FROM `$4@^7`

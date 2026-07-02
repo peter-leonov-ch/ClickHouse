@@ -1,0 +1,1 @@
+SHOW CREATE DICTIONARY sqllt.dictionary FORMAT Null

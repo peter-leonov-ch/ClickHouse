@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "arr",
+            "name": "arrayJoin",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "2"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "3"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "s1",
+            "value_type": "String",
+            "value": "hello"
+          },
+          {
+            "type": "Literal",
+            "alias": "s2",
+            "value_type": "String",
+            "value": "world"
+          }
+        ]
+      }
+    ],
+    "format": "TSV"
+  }
+}

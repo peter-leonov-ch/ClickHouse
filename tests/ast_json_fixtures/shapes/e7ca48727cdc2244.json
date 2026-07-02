@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p1_01295",
+          "database": "db",
+          "table": "table"
+        }
+      ]
+    },
+    "roles": {
+      "type": "RolesOrUsersSet"
+    }
+  }
+}

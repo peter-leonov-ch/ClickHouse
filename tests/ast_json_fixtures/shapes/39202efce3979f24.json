@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "auth_type": "NO_PASSWORD",
+        "arguments": []
+      }
+    ],
+    "replace_authentication_methods": true,
+    "hosts": {
+      "like_patterns": ["%.%.myhost.com"]
+    },
+    "default_roles": {
+      "type": "RolesOrUsersSet"
+    },
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "add_settings": {
+        "type": "SettingsProfileElements",
+        "elements": [
+          {
+            "type": "SettingsProfileElement",
+            "parent_profile": "default"
+          }
+        ]
+      },
+      "drop_all_settings": true,
+      "drop_all_profiles": true
+    }
+  }
+}

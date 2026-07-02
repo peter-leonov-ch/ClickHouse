@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Subquery",
+            "alias": "x",
+            "query": {
+              "type": "SelectWithUnionQuery",
+              "selects": [
+                {
+                  "type": "SelectQuery",
+                  "select": [
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ],
+                  "where": {
+                    "type": "Literal",
+                    "value_type": "Null",
+                    "value": null
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

@@ -1,0 +1,1 @@
+select client_name from system.query_log where current_database = currentDatabase() and query like 'select 1%' format CSV

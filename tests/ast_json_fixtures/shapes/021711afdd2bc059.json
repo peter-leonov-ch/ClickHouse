@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u15_01292"
+        }
+      ]
+    },
+    "hosts": {
+      "addresses": ["2001:db8:11a3:9d7:1f34:8a2e:7a0:765d"]
+    }
+  }
+}

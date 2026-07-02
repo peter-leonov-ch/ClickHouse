@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "alter": true,
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p1_01295",
+          "database": "db",
+          "table": "table"
+        }
+      ]
+    },
+    "is_restrictive": true,
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      }
+    ]
+  }
+}

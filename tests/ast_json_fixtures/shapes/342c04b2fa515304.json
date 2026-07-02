@@ -46,12 +46,30 @@
                   {
                     "type": "Literal",
                     "value_type": "Array",
-                    "value": "[NULL, NULL]"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Array",
-                    "value": "[NULL, NULL]"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
                   }
                 ]
               },
@@ -99,7 +117,48 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[257, -9223372036854775807, 2, -2147483648, 2147483648, NULL, 65536, -2147483648, 2, 65535]"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "257"
+                  },
+                  {
+                    "value_type": "Int64",
+                    "value": "-9223372036854775807"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "2"
+                  },
+                  {
+                    "value_type": "Int64",
+                    "value": "-2147483648"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "2147483648"
+                  },
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "65536"
+                  },
+                  {
+                    "value_type": "Int64",
+                    "value": "-2147483648"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "2"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "65535"
+                  }
+                ]
               }
             ]
           },
@@ -178,7 +237,40 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[NULL, 1023, -2, NULL, 255, '0', NULL, 9223372036854775806]"
+            "value": [
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "UInt64",
+                "value": "1023"
+              },
+              {
+                "value_type": "Int64",
+                "value": "-2"
+              },
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "UInt64",
+                "value": "255"
+              },
+              {
+                "value_type": "String",
+                "value": "0"
+              },
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "UInt64",
+                "value": "9223372036854775806"
+              }
+            ]
           }
         ]
       }

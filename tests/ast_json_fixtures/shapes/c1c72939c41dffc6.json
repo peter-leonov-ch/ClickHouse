@@ -1,0 +1,141 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Function",
+            "alias": "aid",
+            "name": "max",
+            "is_window_function": true,
+            "kind": "WINDOW_FUNCTION",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "id"
+              }
+            ],
+            "window_definition": {
+              "type": "WindowDefinition",
+              "frame_type": "ROWS",
+              "frame_begin": {
+                "type": "Offset",
+                "offset": {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "10"
+                },
+                "preceding": true
+              },
+              "frame_end": {
+                "type": "Unbounded"
+              }
+            }
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "type": "Function",
+                            "name": "max",
+                            "is_window_function": true,
+                            "kind": "WINDOW_FUNCTION",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "id"
+                              }
+                            ],
+                            "window_definition": {
+                              "type": "WindowDefinition"
+                            }
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "id",
+                            "name": "materialize",
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "toLowCardinality",
+                                "arguments": [
+                                  {
+                                    "type": "Literal",
+                                    "value_type": "String",
+                                    "value": ""
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "numbers_mt",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

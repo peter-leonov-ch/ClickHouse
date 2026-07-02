@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "tbl"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "allow_suspicious_indices": "1"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_INDEX",
+        "index_declaration": {
+          "type": "Index",
+          "name": "idx",
+          "expression": {
+            "type": "Function",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "id"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "id"
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "id"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              }
+            ]
+          },
+          "index_type": {
+            "type": "Function",
+            "name": "minmax",
+            "arguments": []
+          },
+          "granularity": 1
+        }
+      }
+    ]
+  }
+}

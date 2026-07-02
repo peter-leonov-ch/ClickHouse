@@ -1,0 +1,1 @@
+CREATE ROLE r4_01293 SETTINGS max_memory_usage MIN=5000000

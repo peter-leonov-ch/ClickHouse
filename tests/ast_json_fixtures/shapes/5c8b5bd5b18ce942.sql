@@ -1,0 +1,1 @@
+SYSTEM ENABLE FAILPOINT prefetched_reader_pool_failpoint

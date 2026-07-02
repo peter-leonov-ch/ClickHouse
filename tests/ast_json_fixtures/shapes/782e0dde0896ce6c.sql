@@ -1,0 +1,1 @@
+select g, s from (select g, sum(number) as s from numbers(4) group by bitAnd(number, 1) as g with totals order by g) array join [1, 2] as a format Pretty

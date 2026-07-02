@@ -1,0 +1,12 @@
+-- CREATE QUOTA: key type, limits, roles
+{"type":"CreateQuotaQuery","names":["q"],"key_type":"USER_NAME","limits":[{"duration_sec":"3600","max":{"QUERIES":"100","RESULT_ROWS":"1000"}}],"roles":{"type":"RolesOrUsersSet","names":["r1"]}}
+-- ALTER QUOTA: rename, tracking-only interval
+{"type":"CreateQuotaQuery","alter":true,"new_name":"q2","limits":[{"duration_sec":"86400"}]}
+-- CREATE ROW POLICY: restrictive filter
+{"type":"CreateRowPolicyQuery","names":{"type":"RowPolicyNames","policies":[{"short_name":"p","database":"db","table":"t"}]},"is_restrictive":true,"filters":[{"filter_type":"SELECT_FILTER","condition":{"type":"Function","name":"greater","is_operator":true,"arguments":[{"type":"Identifier","name":"x"},{"type":"Literal","value_type":"UInt64","value":"0"}]}}],"roles":{"type":"RolesOrUsersSet","names":["r1"]}}
+-- ALTER ROW POLICY: filter set to NONE
+{"type":"CreateRowPolicyQuery","alter":true,"filters":[{"filter_type":"SELECT_FILTER"}]}
+-- CREATE SETTINGS PROFILE
+{"type":"CreateSettingsProfileQuery","names":["sp"],"settings":{"type":"SettingsProfileElements","elements":[{"type":"SettingsProfileElement","setting_name":"max_threads","value":"8","min_value":"1","max_value":"16"}]},"to_roles":{"type":"RolesOrUsersSet","all":true}}
+-- CREATE MASKING POLICY
+{"type":"CreateMaskingPolicyQuery","name":"m","database":"db","table":"t","update_assignments":[{"type":"Assignment","column":"x","expression":{"type":"Function","name":"mask","arguments":[{"type":"Identifier","name":"x"}]}}],"where_condition":{"type":"Function","name":"greater","is_operator":true,"arguments":[{"type":"Identifier","name":"y"},{"type":"Literal","value_type":"UInt64","value":"0"}]},"roles":{"type":"RolesOrUsersSet","names":["r1"]},"priority":"5"}

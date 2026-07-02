@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "t0",
+            "name": "tupleElement",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "t0"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_functions_to_subcolumns_alias"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "TSVWithNames"
+  }
+}

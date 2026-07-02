@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "u.uid",
+            "name_parts": ["u", "uid"]
+          },
+          {
+            "type": "Identifier",
+            "name": "u.name",
+            "name_parts": ["u", "name"]
+          },
+          {
+            "type": "Identifier",
+            "name": "u.gid",
+            "name_parts": ["u", "gid"]
+          },
+          {
+            "type": "Identifier",
+            "name": "u.gname",
+            "name_parts": ["u", "gname"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "u",
+                  "name": "users"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "LEFT",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "gid"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "gname"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "g",
+                  "name": "groups"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "PrettyCompactMonoBlock"
+  }
+}

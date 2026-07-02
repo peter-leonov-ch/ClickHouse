@@ -1,0 +1,157 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "query"
+          },
+          {
+            "type": "Function",
+            "alias": "async",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ProfileEvents"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "BackgroundLoadingMarksTasks"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "sync",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayElement",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ProfileEvents"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "MarksTasksFromCache"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "query_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "current_database"
+                },
+                {
+                  "type": "Function",
+                  "name": "currentDatabase",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "query_kind"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "Select"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "notEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "type"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "QueryStart"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "event_time_microseconds"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

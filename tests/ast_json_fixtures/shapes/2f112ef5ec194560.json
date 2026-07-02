@@ -3,6 +3,7 @@
   "ast": {
     "type": "AttachQuery",
     "attach": true,
+    "attach_from_path": "01188_attach\/file",
     "table": {
       "type": "Identifier",
       "name": "mt"

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "mut"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "alter_sync": "0"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "k"
+        }
+      }
+    ]
+  }
+}

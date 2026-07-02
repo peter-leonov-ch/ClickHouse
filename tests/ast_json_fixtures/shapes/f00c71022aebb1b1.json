@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_cluster_two_shards_different_databases",
+    "table": {
+      "type": "Identifier",
+      "name": "demo_loan_01568"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "id",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int64"
+          },
+          "comment": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "id"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "date_stat",
+          "data_type": {
+            "type": "DataType",
+            "name": "Date"
+          },
+          "comment": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "date of stat"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "customer_no",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          },
+          "comment": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "customer no"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "loan_principal",
+          "data_type": {
+            "type": "DataType",
+            "name": "Float64"
+          },
+          "comment": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "loan principal"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplacingMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Function",
+        "name": "toYYYYMM",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "date_stat"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "id"
+      }
+    }
+  }
+}

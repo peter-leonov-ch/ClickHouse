@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwu_merges"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "optimize_throw_if_noop": "1"
+      }
+    },
+    "partition": {
+      "type": "Partition",
+      "value": {
+        "type": "Literal",
+        "value_type": "UInt64",
+        "value": "0"
+      }
+    },
+    "final": true
+  }
+}

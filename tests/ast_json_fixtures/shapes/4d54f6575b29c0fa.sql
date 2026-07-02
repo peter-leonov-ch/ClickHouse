@@ -1,0 +1,1 @@
+ALTER QUOTA q1_01297 KEY BY user_name

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateNamedCollectionQuery",
+    "collection_name": "cache_collection_sql",
+    "if_not_exists": true,
+    "changes": {
+      "path": "collection_sql",
+      "max_size": "1Mi"
+    }
+  }
+}

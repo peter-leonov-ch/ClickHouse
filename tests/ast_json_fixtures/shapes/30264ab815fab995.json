@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u4_01292",
+          "host_pattern": "::1"
+        }
+      ]
+    },
+    "hosts": {
+      "local_host": true
+    }
+  }
+}

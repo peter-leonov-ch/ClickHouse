@@ -61,11 +61,21 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "(0, 2)"
+              "value": [
+                {
+                  "value_type": "UInt64",
+                  "value": "0"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "2"
+                }
+              ]
             }
           ]
         }
       }
-    ]
+    ],
+    "format": "Null"
   }
 }

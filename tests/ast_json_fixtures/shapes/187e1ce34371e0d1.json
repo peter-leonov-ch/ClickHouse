@@ -1,0 +1,107 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "s",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bytes"
+              }
+            ]
+          },
+          {
+            "type": "WithElement",
+            "name": "data",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "formatReadableSize",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "s"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "table"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "another_fake"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "table"
+                      }
+                    ],
+                    "order_by": [
+                      {
+                        "type": "OrderByElement",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "s"
+                        },
+                        "direction": "ASC"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "data"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

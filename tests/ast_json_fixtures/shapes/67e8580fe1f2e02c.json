@@ -2,6 +2,9 @@
   "version": 2,
   "ast": {
     "type": "ShowTables",
-    "like": "%MEMORY%"
+    "show_settings": true,
+    "changed": true,
+    "like": "%MEMORY%",
+    "case_insensitive_like": true
   }
 }

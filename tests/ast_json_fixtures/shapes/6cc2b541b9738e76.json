@@ -1,0 +1,104 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "k"
+          },
+          {
+            "type": "Function",
+            "name": "groupArrayMovingAvg",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "moving_sum_num"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "order_by": [
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "k"
+                            },
+                            "direction": "ASC"
+                          },
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "dt"
+                            },
+                            "direction": "ASC"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "k"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "TabSeparatedWithNamesAndTypes"
+  }
+}

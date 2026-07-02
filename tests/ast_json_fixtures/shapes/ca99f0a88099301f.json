@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "s",
+            "value_type": "String",
+            "value": "� �"
+          }
+        ]
+      }
+    ],
+    "format": "JSONCompactColumns"
+  }
+}

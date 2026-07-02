@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "uuid": "00000000-0000-0000-0000-000000001601",
+    "database": {
+      "type": "Identifier",
+      "name": "test1601_detach_permanently_atomic"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "test_name_reuse"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "number",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt64"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      },
+      "settings": {
+        "type": "Settings",
+        "changes": {
+          "index_granularity": "8192"
+        }
+      }
+    }
+  }
+}

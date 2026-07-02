@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["INSERT"],
+        "default_database": true,
+        "table": "foobar",
+        "wildcard": true,
+        "grant_option": true
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["user_03141"]
+    }
+  }
+}

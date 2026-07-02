@@ -1,0 +1,1 @@
+DESCRIBE TABLE t_desc_subcolumns FORMAT PrettyCompactNoEscapes

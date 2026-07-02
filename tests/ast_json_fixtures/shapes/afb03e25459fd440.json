@@ -1,0 +1,151 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_rollup": true,
+        "select": [
+          {
+            "type": "Function",
+            "alias": "d",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "grouping",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "key_a"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "grouping",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "key_b"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Function",
+                            "alias": "key_a",
+                            "name": "modulo",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "rand",
+                                "arguments": []
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "10"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Function",
+                            "alias": "key_b",
+                            "name": "modulo",
+                            "is_operator": true,
+                            "arguments": [
+                              {
+                                "type": "Function",
+                                "name": "rand",
+                                "arguments": [
+                                  {
+                                    "type": "Function",
+                                    "name": "toLowCardinality",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": "1"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Literal",
+                                "value_type": "UInt64",
+                                "value": "5"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "table_function": {
+                                  "type": "Function",
+                                  "name": "numbers",
+                                  "arguments": [
+                                    {
+                                      "type": "Literal",
+                                      "value_type": "UInt64",
+                                      "value": "100"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "key_a"
+          },
+          {
+            "type": "Identifier",
+            "name": "key_b"
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

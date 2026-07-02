@@ -148,7 +148,12 @@
                     {
                       "type": "Literal",
                       "value_type": "Array",
-                      "value": "[65537]"
+                      "value": [
+                        {
+                          "value_type": "UInt64",
+                          "value": "65537"
+                        }
+                      ]
                     }
                   ]
                 },

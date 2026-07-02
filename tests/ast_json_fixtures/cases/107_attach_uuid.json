@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "uuid": "123e4567-e89b-12d3-a456-426614174000",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "x",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt8"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    }
+  }
+}

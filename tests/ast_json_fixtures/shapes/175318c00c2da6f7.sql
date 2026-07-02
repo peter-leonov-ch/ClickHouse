@@ -1,0 +1,7 @@
+CREATE TABLE ORDERS_shard ON CLUSTER test_shard_localhost
+(
+    O_ORDERKEY UInt64,
+    O_ORDERPRIORITY UInt32
+)
+ENGINE = MergeTree()
+ORDER BY O_ORDERKEY

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "FLUSH LOGS",
+    "tables": [
+      {
+        "table": "metric_log"
+      },
+      {
+        "table": "trace_log"
+      },
+      {
+        "table": "query_log"
+      },
+      {
+        "table": "query_thread_log"
+      }
+    ]
+  }
+}

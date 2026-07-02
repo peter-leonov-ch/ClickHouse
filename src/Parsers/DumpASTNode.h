@@ -184,17 +184,36 @@ inline void dumpASTInDotFormat(const IAST & ast, WriteBuffer & ostr, bool root =
 ///   - DDL/DML: ASTCreateQuery, ASTColumns, ASTColumnDeclaration, ASTDataType,
 ///     ASTEnumDataType (`values`), ASTTupleDataType (`element_names`),
 ///     ASTStorage, ASTInsertQuery, ASTIndexDeclaration, ASTConstraintDeclaration,
-///     ASTProjectionDeclaration, ASTProjectionSelectQuery, ASTTTLElement,
-///     ASTPartition, ASTAssignment, ASTDeleteQuery, ASTUpdateQuery,
-///     ASTDropQuery, ASTOptimizeQuery, ASTAlterQuery, ASTAlterCommand,
-///     ASTCreateFunctionQuery, ASTDictionary (and its sub-elements),
+///     ASTProjectionDeclaration (incl. `index_type` / `settings`),
+///     ASTProjectionSelectQuery, ASTTTLElement (incl. GROUP BY
+///     `group_by_key` / `group_by_assignments`), ASTCollation,
+///     ASTObjectTypedPathArgument, ASTPartition, ASTAssignment, ASTDeleteQuery,
+///     ASTUpdateQuery, ASTDropQuery, ASTOptimizeQuery, ASTAlterQuery,
+///     ASTAlterCommand, ASTCreateFunctionQuery, ASTDropFunctionQuery,
+///     ASTCreateNamedCollectionQuery, ASTDropNamedCollectionQuery,
+///     ASTCreateWorkloadQuery, ASTDropWorkloadQuery, ASTCreateResourceQuery,
+///     ASTDropResourceQuery, ASTRefreshStrategy,
+///     ASTTimeInterval, ASTDictionary (and its sub-elements),
 ///     ASTDictionaryAttributeDeclaration, ASTFunctionWithKeyValueArguments,
 ///     ASTPair, ASTViewTargets, ASTExplainQuery, ASTDescribeQuery,
 ///     ASTShowTablesQuery, ASTCreateIndexQuery, ASTDropIndexQuery,
 ///     ASTCheckTableQuery, ASTUseQuery, ASTKillQueryQuery, ASTRenameQuery,
-///     ASTSystemQuery, ASTStatisticsDeclaration, ASTNameTypePair, the
-///     qualified COLUMNS matchers, and a generic ASTQueryWithTableAndOutput
-///     fallback (EXISTS / SHOW CREATE / ...).
+///     ASTTransactionControl, ASTSystemQuery, ASTStatisticsDeclaration,
+///     ASTNameTypePair, the qualified COLUMNS matchers, and a generic
+///     ASTQueryWithTableAndOutput fallback (EXISTS / SHOW CREATE / ...).
+///   - Access management: ASTGrantQuery (GrantQuery / RevokeQuery),
+///     ASTCheckGrantQuery, ASTCreateUserQuery, ASTCreateRoleQuery,
+///     ASTCreateQuotaQuery, ASTSetRoleQuery, ASTCreateRowPolicyQuery,
+///     ASTCreateSettingsProfileQuery, ASTCreateMaskingPolicyQuery,
+///     ASTDropAccessEntityQuery, ASTMoveAccessEntityQuery, ASTExecuteAsQuery,
+///     ASTShowGrantsQuery, ASTShowCreateAccessEntityQuery,
+///     ASTShowAccessEntitiesQuery, and the shared helpers ASTRolesOrUsersSet,
+///     ASTUserNamesWithHost / ASTUserNameWithHost, ASTAuthenticationData,
+///     ASTSettingsProfileElements / ASTSettingsProfileElement /
+///     ASTAlterSettingsProfileElements, ASTRowPolicyNames / ASTRowPolicyName,
+///     ASTDatabaseOrNone, ASTPublicSSHKey. The privilege lists
+///     (AccessRightsElements) and HOST clause (AllowedClientHosts) are plain
+///     value objects serialized inline.
 /// `children` survives only on homogeneous lists (ExpressionList,
 /// TablesInSelectQuery).
 JSONBuilder::ItemPtr formatASTAsJSON(const IAST & ast);

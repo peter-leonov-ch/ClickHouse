@@ -19,6 +19,7 @@
             "value": "1"
           }
         },
+        "replace": true,
         "from_table": "replace_partition_source"
       }
     ]

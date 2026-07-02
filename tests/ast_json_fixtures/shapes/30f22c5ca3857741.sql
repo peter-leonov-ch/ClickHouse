@@ -1,0 +1,1 @@
+SELECT * FROM ES LIMIT 1 format Null

@@ -65,7 +65,16 @@
                 {
                   "type": "Literal",
                   "value_type": "Tuple",
-                  "value": "('foo1', 'foo2')"
+                  "value": [
+                    {
+                      "value_type": "String",
+                      "value": "foo1"
+                    },
+                    {
+                      "value_type": "String",
+                      "value": "foo2"
+                    }
+                  ]
                 }
               ]
             }

@@ -1,0 +1,1 @@
+CREATE USER u3_01292, u4_01292 HOST LIKE '%.%.myhost.com'

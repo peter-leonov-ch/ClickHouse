@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "s"
+          },
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "parseDateTime64BestEffortUS",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "UTC"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Function",
+                            "alias": "s",
+                            "name": "arrayJoin",
+                            "arguments": [
+                              {
+                                "type": "Literal",
+                                "value_type": "Array",
+                                "value": [
+                                  {
+                                    "value_type": "String",
+                                    "value": "01-02-1930 12:00:00"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "12.02.1930 12:00:00"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "13\/02\/1930 12:00:00"
+                                  },
+                                  {
+                                    "value_type": "String",
+                                    "value": "02\/25\/1930 12:00:00"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "PrettySpaceNoEscapes"
+  }
+}

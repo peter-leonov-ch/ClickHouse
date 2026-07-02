@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "distinct": true,
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Identifier",
+            "name": "v"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t_sparse_distinct"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

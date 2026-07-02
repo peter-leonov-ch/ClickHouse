@@ -1,0 +1,1 @@
+DROP FUNCTION 02099_lambda_function

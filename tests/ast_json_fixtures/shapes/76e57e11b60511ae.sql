@@ -1,0 +1,1 @@
+GRANT WRITE ON ODBC TO test_user_03593

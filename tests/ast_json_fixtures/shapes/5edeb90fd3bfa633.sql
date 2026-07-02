@@ -1,0 +1,1 @@
+SELECT * FROM src_table ORDER BY time FORMAT JSONEachRow

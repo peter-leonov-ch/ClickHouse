@@ -1,0 +1,1 @@
+system disable failpoint replicated_commit_zk_fail_after_op

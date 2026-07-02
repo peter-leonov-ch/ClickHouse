@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "db",
+        "table": "t",
+        "columns": ["x", "y"],
+        "grant_option": true
+      },
+      {
+        "access_types": ["INSERT"],
+        "database": "db",
+        "table": "t",
+        "grant_option": true
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["user1"]
+    }
+  }
+}

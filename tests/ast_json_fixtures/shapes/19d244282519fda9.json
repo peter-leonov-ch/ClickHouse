@@ -5,6 +5,7 @@
     "selects": [
       {
         "type": "SelectQuery",
+        "limit_with_ties": true,
         "select": [
           {
             "type": "Function",

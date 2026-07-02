@@ -1,0 +1,1 @@
+drop user u_03254_alter_user

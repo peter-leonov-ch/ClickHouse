@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "FLUSH LOGS",
+    "tables": [
+      {
+        "table": "text_log"
+      },
+      {
+        "table": "query_log"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "SETTINGS PROFILE",
+    "names": ["s1_01294", "s2_01294_renamed", "s3_01294"]
+  }
+}

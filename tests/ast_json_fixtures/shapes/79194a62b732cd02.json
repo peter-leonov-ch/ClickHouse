@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_role"]
+    },
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_user"]
+    }
+  }
+}

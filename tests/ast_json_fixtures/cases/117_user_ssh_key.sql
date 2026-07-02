@@ -1,0 +1,1 @@
+CREATE USER u IDENTIFIED WITH ssh_key BY KEY 'AAAA' TYPE 'ssh-rsa'

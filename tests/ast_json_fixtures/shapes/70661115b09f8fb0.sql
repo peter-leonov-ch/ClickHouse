@@ -1,0 +1,1 @@
+CREATE ROW POLICY p1_01295 ON db.table USING a<b AND c>d

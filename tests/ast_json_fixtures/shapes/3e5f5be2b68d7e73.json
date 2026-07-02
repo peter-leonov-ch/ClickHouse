@@ -2,10 +2,15 @@
   "version": 2,
   "ast": {
     "type": "CreateResourceQuery",
-    "children": [
+    "resource_name": {
+      "type": "Identifier",
+      "name": "03232_read"
+    },
+    "unit": "IOByte",
+    "operations": [
       {
-        "type": "Identifier",
-        "name": "03232_read"
+        "mode": "READ",
+        "disk": "03232_fake_disk"
       }
     ]
   }

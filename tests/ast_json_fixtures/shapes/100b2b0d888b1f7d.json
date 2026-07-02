@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "USER",
+    "names": ["sqllt_user"],
+    "format": "Null"
+  }
+}

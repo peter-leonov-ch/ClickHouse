@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "03000_traverse_shadow_system_data_path_table"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "FREEZE_ALL",
+        "with_name": "03000_traverse_shadow_system_data_path_table_backup"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateResourceQuery",
+    "or_replace": true,
+    "resource_name": {
+      "type": "Identifier",
+      "name": "03232_read"
+    },
+    "unit": "IOByte",
+    "operations": [
+      {
+        "mode": "READ",
+        "disk": "03232_fake_disk_2"
+      }
+    ]
+  }
+}

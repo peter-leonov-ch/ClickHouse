@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "alter": true,
+    "names": ["s1_01294"],
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "add_settings": {
+        "type": "SettingsProfileElements",
+        "elements": [
+          {
+            "type": "SettingsProfileElement",
+            "parent_profile": "default"
+          }
+        ]
+      },
+      "drop_all_settings": true,
+      "drop_all_profiles": true
+    },
+    "to_roles": {
+      "type": "RolesOrUsersSet"
+    }
+  }
+}

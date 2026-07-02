@@ -1,0 +1,329 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "num",
+            "value_type": "UInt64",
+            "value": "42"
+          },
+          {
+            "type": "Literal",
+            "alias": "arr",
+            "value_type": "Array",
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "42"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "42"
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "nested_arr",
+            "value_type": "Array",
+            "value": [
+              {
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "Array",
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      }
+                    ]
+                  },
+                  {
+                    "value_type": "Array",
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "Array",
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "42"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "tuple",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "42"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "42"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple(a UInt32, b UInt32)"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "nested_tuple",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "tuple",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "42"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "42"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Tuple(a Tuple(b Tuple(c UInt32, d UInt32), e UInt32), f UInt32)"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "map",
+            "name": "map",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "42"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "42"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "24"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "24"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "nested_map",
+            "name": "map",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "42"
+              },
+              {
+                "type": "Function",
+                "name": "map",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "42"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "map",
+                    "arguments": [
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "42"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "42"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "nested_types",
+            "name": "CAST",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "array",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "map",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "42"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "map",
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "42"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "Array",
+                        "value": [
+                          {
+                            "value_type": "UInt64",
+                            "value": "42"
+                          },
+                          {
+                            "value_type": "UInt64",
+                            "value": "42"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Array(Tuple(Map(UInt32, UInt32), Array(UInt32)))"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "PrettyNDJSON"
+  }
+}

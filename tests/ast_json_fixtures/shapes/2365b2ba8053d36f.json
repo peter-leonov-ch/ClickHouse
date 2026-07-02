@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["ALTER UPDATE"],
+        "default_database": true,
+        "table": "normal"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_03727"]
+    }
+  }
+}

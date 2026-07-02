@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "database": {
+      "type": "Identifier",
+      "name": "02028_db"
+    }
+  }
+}

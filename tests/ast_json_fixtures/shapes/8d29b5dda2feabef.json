@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "uuid": "aaaaaaaa-1111-2222-3333-aaaaaaaaaaaa",
+    "table": {
+      "type": "Identifier",
+      "name": "x"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "key",
+          "data_type": {
+            "type": "DataType",
+            "name": "Int"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplicatedMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "\/tables\/{database}\/{uuid}"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "r1"
+          }
+        ]
+      },
+      "order_by": {
+        "type": "Function",
+        "name": "tuple",
+        "arguments": []
+      }
+    }
+  }
+}

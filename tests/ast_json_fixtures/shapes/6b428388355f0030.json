@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "replicated_constraints1"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "alter_sync": "2"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_CONSTRAINT",
+        "constraint_declaration": {
+          "type": "Constraint",
+          "name": "b_constraint",
+          "constraint_type": "CHECK",
+          "expression": {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+CREATE USER u@'%.example.com' IDENTIFIED BY 'p' VALID UNTIL '2030-01-01'

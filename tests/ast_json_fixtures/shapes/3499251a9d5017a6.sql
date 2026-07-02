@@ -1,0 +1,1 @@
+ALTER USER u1_01292 SETTINGS readonly=1

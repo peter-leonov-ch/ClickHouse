@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t_shared"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "APPLY_PATCHES"
+      }
+    ]
+  }
+}

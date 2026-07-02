@@ -1,0 +1,1 @@
+CREATE ROW POLICY 02131_filter_1 ON 02131_rptable USING x=1 AS permissive TO ALL

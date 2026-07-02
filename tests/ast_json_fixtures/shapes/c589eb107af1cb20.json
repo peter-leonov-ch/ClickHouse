@@ -1,0 +1,103 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          },
+          {
+            "type": "Function",
+            "name": "toString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "range",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toDate",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2000-01-01"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toDateTime",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2000-01-01 00:00:00"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "number"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
+      }
+    ],
+    "format": "CSV"
+  }
+}

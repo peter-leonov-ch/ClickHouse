@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateResourceQuery",
+    "resource_name": {
+      "type": "Identifier",
+      "name": "03232_write"
+    },
+    "unit": "IOByte",
+    "operations": [
+      {
+        "mode": "WRITE",
+        "disk": "03232_fake_disk"
+      }
+    ]
+  }
+}

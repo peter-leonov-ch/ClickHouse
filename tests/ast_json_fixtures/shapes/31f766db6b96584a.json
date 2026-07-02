@@ -77,7 +77,24 @@
                 {
                   "type": "Literal",
                   "value_type": "Array",
-                  "value": "['03711_join_with', '03711_table', '03711_mv_table_1', '03711_mv_table_2']"
+                  "value": [
+                    {
+                      "value_type": "String",
+                      "value": "03711_join_with"
+                    },
+                    {
+                      "value_type": "String",
+                      "value": "03711_table"
+                    },
+                    {
+                      "value_type": "String",
+                      "value": "03711_mv_table_1"
+                    },
+                    {
+                      "value_type": "String",
+                      "value": "03711_mv_table_2"
+                    }
+                  ]
                 }
               ]
             },
