@@ -5,7 +5,8 @@
     "kind": "EXPLAIN SYNTAX",
     "query": {
       "type": "SYSTEM",
-      "system_type": "CLEAR SCHEMA CACHE"
+      "system_type": "CLEAR SCHEMA CACHE",
+      "schema_cache_storage": "HDFS"
     }
   }
 }

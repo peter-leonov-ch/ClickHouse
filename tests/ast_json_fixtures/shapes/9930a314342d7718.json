@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "QUOTA",
+    "if_exists": true,
+    "names": ["q6_01297"]
+  }
+}

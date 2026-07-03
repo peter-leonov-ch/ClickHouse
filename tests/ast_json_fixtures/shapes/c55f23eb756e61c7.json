@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "tab"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
+    "final": true
+  }
+}

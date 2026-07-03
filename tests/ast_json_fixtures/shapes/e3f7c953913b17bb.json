@@ -1,0 +1,146 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "l_",
+            "name": "lowerUTF8",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "str"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "u_",
+            "name": "upperUTF8",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "str"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "h_",
+            "name": "concat",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "0x"
+              },
+              {
+                "type": "Function",
+                "name": "hex",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "str"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "length",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "str"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "if",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "l_"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "�"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "h_"
+              },
+              {
+                "type": "Identifier",
+                "name": "l_"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "if",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "u_"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "�"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "h_"
+              },
+              {
+                "type": "Identifier",
+                "name": "u_"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "utf8_overlap"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "CSV"
+  }
+}

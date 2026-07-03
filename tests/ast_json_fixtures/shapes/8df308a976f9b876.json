@@ -61,7 +61,12 @@
         "settings": {
           "type": "Settings",
           "changes": {
-            "additional_table_filters": "[('table_1', 'x != 2')]"
+            "additional_table_filters": {
+              "table_1": {
+                "value_type": "String",
+                "value": "x != 2"
+              }
+            }
           }
         }
       }

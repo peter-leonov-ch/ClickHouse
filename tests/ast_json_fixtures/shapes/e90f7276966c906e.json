@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "v00"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "k0"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "JSONEachRow"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q3_01297"],
+    "key_type": "CLIENT_KEY_OR_USER_NAME",
+    "limits": [
+      {
+        "duration_sec": "15778476",
+        "max": {
+          "QUERIES": "100",
+          "ERRORS": "11"
+        }
+      },
+      {
+        "duration_sec": "5259492",
+        "max": {
+          "RESULT_ROWS": "1002"
+        }
+      }
+    ]
+  }
+}

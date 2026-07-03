@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "02681_undrop_no_uuid_on_cluster"
+    },
+    "format": "Null",
+    "cluster": "test_shard_localhost",
+    "sync": true
+  }
+}

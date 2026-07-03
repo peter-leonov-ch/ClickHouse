@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u3_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "contains_password": true,
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "qwe123"
+          }
+        ]
+      }
+    ],
+    "replace_authentication_methods": true,
+    "hosts": {
+      "local_host": true,
+      "addresses": ["192.169.1.1"],
+      "subnets": ["192.168.0.0\/16"]
+    },
+    "default_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1_01292"]
+    }
+  }
+}

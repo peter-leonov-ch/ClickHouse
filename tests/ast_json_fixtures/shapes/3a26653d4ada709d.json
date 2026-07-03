@@ -19,7 +19,20 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(NULL, '11\\01111111\\011111', '1111')"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "11\u00001111111\u000011111"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "1111"
+                      }
+                    ]
                   }
                 ]
               }
@@ -106,7 +119,16 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(NULL, '1')"
+                    "value": [
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "1"
+                      }
+                    ]
                   }
                 ]
               }

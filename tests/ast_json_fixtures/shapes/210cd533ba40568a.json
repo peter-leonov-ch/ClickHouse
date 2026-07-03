@@ -19,6 +19,7 @@
             "value": "3"
           }
         },
+        "replace": true,
         "from_table": "t_detach_attach_patches"
       }
     ]

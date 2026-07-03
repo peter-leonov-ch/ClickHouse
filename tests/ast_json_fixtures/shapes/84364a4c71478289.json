@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "1"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MATERIALIZE_COLUMN",
+        "column": {
+          "type": "Identifier",
+          "name": "s1"
+        }
+      }
+    ]
+  }
+}

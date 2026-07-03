@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "DROP REPLICA",
+    "replica": "r",
+    "replica_zk_path": "\/clickhouse\/tables\/t"
+  }
+}

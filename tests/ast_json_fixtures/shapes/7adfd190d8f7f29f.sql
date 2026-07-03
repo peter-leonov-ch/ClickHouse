@@ -1,0 +1,1 @@
+GRANT TABLE ENGINE ON TinyLog TO test_user_03593

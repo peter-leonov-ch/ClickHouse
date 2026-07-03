@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "part_log_bytes_uncompressed"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DROP_PARTITION",
+        "part": true,
+        "partition": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "all_4_4_0"
+        }
+      }
+    ]
+  }
+}

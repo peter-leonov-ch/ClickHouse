@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "if_not_exists": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u_02001"
+        }
+      ]
+    },
+    "default_database": {
+      "type": "DatabaseOrNone",
+      "database": "system"
+    }
+  }
+}

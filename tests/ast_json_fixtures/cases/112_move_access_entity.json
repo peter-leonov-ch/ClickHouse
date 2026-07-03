@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "MoveAccessEntityQuery",
+    "entity_type": "ROLE",
+    "storage_name": "local_directory",
+    "names": ["r"]
+  }
+}

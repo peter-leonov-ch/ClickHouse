@@ -1,0 +1,168 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "name",
+            "name": "transform",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "name"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "Henry"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Cindy"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "Henry or Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Henry or Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave or Cindy"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave or Cindy"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "department"
+          },
+          {
+            "type": "Identifier",
+            "name": "salary"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "employees"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "order_by": [
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "id"
+                            },
+                            "direction": "ASC"
+                          },
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "name"
+                            },
+                            "direction": "ASC"
+                          },
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "department"
+                            },
+                            "direction": "ASC"
+                          },
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "salary"
+                            },
+                            "direction": "ASC"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "salary"
+            },
+            "direction": "DESC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "5"
+        }
+      }
+    ],
+    "format": "PrettyCompactNoEscapes"
+  }
+}

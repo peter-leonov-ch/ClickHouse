@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "age"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "users"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "age"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "20"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "output_format_write_statistics": "0"
+      }
+    },
+    "format": "JSON"
+  }
+}

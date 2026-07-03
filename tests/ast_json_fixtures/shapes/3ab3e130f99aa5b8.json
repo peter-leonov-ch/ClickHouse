@@ -1,0 +1,132 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "group_by_with_totals": true,
+        "select": [
+          {
+            "type": "Function",
+            "name": "ignore",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "alias": "x",
+                            "name": "number"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "numbers",
+                                  "database": "system"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1000"
+                        }
+                      },
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Identifier",
+                            "alias": "x",
+                            "name": "number"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "numbers",
+                                  "database": "system"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "limit": {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "1000"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
+      }
+    ],
+    "format": "JSONCompact"
+  }
+}

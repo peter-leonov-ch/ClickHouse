@@ -1,0 +1,1 @@
+DROP FUNCTION udf_type_of_int

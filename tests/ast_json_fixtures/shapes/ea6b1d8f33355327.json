@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "domainRFC",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "[]:80"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "CSV"
+  }
+}

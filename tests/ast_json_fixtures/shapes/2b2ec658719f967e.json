@@ -1,0 +1,99 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "v4test_array_joins"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "array_join": {
+                "type": "ArrayJoin",
+                "kind": "INNER",
+                "expressions": [
+                  {
+                    "type": "ColumnsRegexpMatcher",
+                    "pattern": "^arr"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "match",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "arr_4"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "a"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "id"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "100"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "id"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "optimize_read_in_order": "0"
+      }
+    },
+    "format": "Null"
+  }
+}

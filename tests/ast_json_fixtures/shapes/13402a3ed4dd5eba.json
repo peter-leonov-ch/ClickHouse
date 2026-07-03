@@ -30,6 +30,12 @@
         "table": {
           "type": "Identifier",
           "name": "t2"
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "max_threads": "10"
+          }
         }
       }
     ]

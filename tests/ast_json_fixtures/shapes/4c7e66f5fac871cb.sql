@@ -1,0 +1,1 @@
+ALTER TABLE t MODIFY COLUMN j Int64 SETTINGS mutations_sync = 2

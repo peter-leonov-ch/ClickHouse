@@ -1,0 +1,1 @@
+CREATE QUOTA q1_01297, q2_01297 FOR 1 day MAX errors=5

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "replace_granted_roles": true,
+    "roles": {
+      "type": "RolesOrUsersSet"
+    },
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_user_01999"]
+    }
+  }
+}

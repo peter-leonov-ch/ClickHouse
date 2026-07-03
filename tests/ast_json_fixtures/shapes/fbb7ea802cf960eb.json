@@ -1,0 +1,104 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "json.k1.:`Array(JSON)`",
+            "name_parts": ["json", "k1", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k1.:`Array(JSON)`.k1_1.:`Array(JSON)`",
+            "name_parts": ["json", "k1", ":`Array(JSON)`", "k1_1", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k1.:`Array(JSON)`.k1_1.:`Array(JSON)`.k1_1_1",
+            "name_parts": ["json", "k1", ":`Array(JSON)`", "k1_1", ":`Array(JSON)`", "k1_1_1"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k1.:`Array(JSON)`.k1_2.:`Array(JSON)`",
+            "name_parts": ["json", "k1", ":`Array(JSON)`", "k1_2", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k1.:`Array(JSON)`.k1_2.:`Array(JSON)`.k1_2_1",
+            "name_parts": ["json", "k1", ":`Array(JSON)`", "k1_2", ":`Array(JSON)`", "k1_2_1"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k2.:`Array(JSON)`",
+            "name_parts": ["json", "k2", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k2.:`Array(JSON)`.k2_1.:`Array(JSON)`",
+            "name_parts": ["json", "k2", ":`Array(JSON)`", "k2_1", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k2.:`Array(JSON)`.k2_1.:`Array(JSON)`.k2_1_1",
+            "name_parts": ["json", "k2", ":`Array(JSON)`", "k2_1", ":`Array(JSON)`", "k2_1_1"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k2.:`Array(JSON)`.k2_2.:`Array(JSON)`",
+            "name_parts": ["json", "k2", ":`Array(JSON)`", "k2_2", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k2.:`Array(JSON)`.k2_2.:`Array(JSON)`.k2_2_1",
+            "name_parts": ["json", "k2", ":`Array(JSON)`", "k2_2", ":`Array(JSON)`", "k2_2_1"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k9.:`Array(JSON)`",
+            "name_parts": ["json", "k9", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k9.:`Array(JSON)`.k9_1.:`Array(JSON)`",
+            "name_parts": ["json", "k9", ":`Array(JSON)`", "k9_1", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k9.:`Array(JSON)`.k9_1.:`Array(JSON)`.k9_1_1",
+            "name_parts": ["json", "k9", ":`Array(JSON)`", "k9_1", ":`Array(JSON)`", "k9_1_1"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k9.:`Array(JSON)`.k9_2.:`Array(JSON)`",
+            "name_parts": ["json", "k9", ":`Array(JSON)`", "k9_2", ":`Array(JSON)`"]
+          },
+          {
+            "type": "Identifier",
+            "name": "json.k9.:`Array(JSON)`.k9_2.:`Array(JSON)`.k9_2_1",
+            "name_parts": ["json", "k9", ":`Array(JSON)`", "k9_2", ":`Array(JSON)`", "k9_2_1"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "JSONColumns"
+  }
+}

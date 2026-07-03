@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          },
+          {
+            "type": "Function",
+            "alias": "issue",
+            "name": "throwIf",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "notEquals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "val"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "one"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "column_modify_test"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    ],
+    "format": "NULL"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "1"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_COLUMN",
+        "column_declaration": {
+          "type": "ColumnDeclaration",
+          "name": "d",
+          "data_type": {
+            "type": "DataType",
+            "name": "Dynamic"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -18,12 +18,46 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "['Henry', 'Irene', 'Dave', 'Cindy']"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "Henry"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Cindy"
+                  }
+                ]
               },
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "['Henry or Irene', 'Henry or Irene', 'Dave or Cindy', 'Dave or Cindy']"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "Henry or Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Henry or Irene"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave or Cindy"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Dave or Cindy"
+                  }
+                ]
               }
             ]
           },
@@ -133,6 +167,7 @@
           "value": "5"
         }
       }
-    ]
+    ],
+    "format": "PrettyCompactNoEscapes"
   }
 }

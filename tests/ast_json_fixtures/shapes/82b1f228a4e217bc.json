@@ -20,22 +20,58 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(2147483647, 0.)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "2147483647"
+                      },
+                      {
+                        "value_type": "Float64",
+                        "value": 0
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(10.0001, 65535)"
+                    "value": [
+                      {
+                        "value_type": "Float64",
+                        "value": 10.0001
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "65535"
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(1, 255)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "1"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "255"
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(1023, 2147483646)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "1023"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "2147483646"
+                      }
+                    ]
                   }
                 ]
               }
@@ -63,17 +99,44 @@
                           {
                             "type": "Literal",
                             "value_type": "Tuple",
-                            "value": "(2147483647, 0.)"
+                            "value": [
+                              {
+                                "value_type": "UInt64",
+                                "value": "2147483647"
+                              },
+                              {
+                                "value_type": "Float64",
+                                "value": 0
+                              }
+                            ]
                           },
                           {
                             "type": "Literal",
                             "value_type": "Tuple",
-                            "value": "(10.0001, 65535)"
+                            "value": [
+                              {
+                                "value_type": "Float64",
+                                "value": 10.0001
+                              },
+                              {
+                                "value_type": "UInt64",
+                                "value": "65535"
+                              }
+                            ]
                           },
                           {
                             "type": "Literal",
                             "value_type": "Tuple",
-                            "value": "(1023, 2147483646)"
+                            "value": [
+                              {
+                                "value_type": "UInt64",
+                                "value": "1023"
+                              },
+                              {
+                                "value_type": "UInt64",
+                                "value": "2147483646"
+                              }
+                            ]
                           }
                         ]
                       }
@@ -99,7 +162,16 @@
                           {
                             "type": "Literal",
                             "value_type": "Tuple",
-                            "value": "(1000.0001, 10.0001)"
+                            "value": [
+                              {
+                                "value_type": "Float64",
+                                "value": 1000.0001
+                              },
+                              {
+                                "value_type": "Float64",
+                                "value": 10.0001
+                              }
+                            ]
                           }
                         ]
                       }
@@ -124,17 +196,44 @@
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(2147483647, 0.)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "2147483647"
+                      },
+                      {
+                        "value_type": "Float64",
+                        "value": 0
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(10.0001, 65535)"
+                    "value": [
+                      {
+                        "value_type": "Float64",
+                        "value": 10.0001
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "65535"
+                      }
+                    ]
                   },
                   {
                     "type": "Literal",
                     "value_type": "Tuple",
-                    "value": "(1023, 2147483646)"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "1023"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "2147483646"
+                      }
+                    ]
                   }
                 ]
               }

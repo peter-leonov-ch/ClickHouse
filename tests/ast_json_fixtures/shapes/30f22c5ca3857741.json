@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "ES"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

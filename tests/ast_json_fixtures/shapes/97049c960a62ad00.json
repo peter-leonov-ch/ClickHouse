@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "attach_from_path": "..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "s",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "File",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "TSVRaw"
+          }
+        ]
+      }
+    }
+  }
+}

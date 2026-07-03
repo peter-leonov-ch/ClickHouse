@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "QUOTA",
+    "names": ["q14_01297"]
+  }
+}

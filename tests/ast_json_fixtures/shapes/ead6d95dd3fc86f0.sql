@@ -1,0 +1,1 @@
+CREATE USER u6_01292 IDENTIFIED WITH double_sha1_password BY 'qwe123'

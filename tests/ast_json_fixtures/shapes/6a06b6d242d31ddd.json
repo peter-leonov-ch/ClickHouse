@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "key"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "dist_idx_pk_size"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_index_analysis": "1"
+          }
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

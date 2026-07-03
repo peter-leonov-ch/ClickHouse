@@ -21,7 +21,25 @@ ast "ALTER TABLE t UPDATE a = 1 WHERE b = 2" \
 
 echo "-- ALTER MOVE PARTITION"
 ast "ALTER TABLE t MOVE PARTITION 1 TO DISK 'cold'" \
-    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, partition: .partition.type, move_destination_name}'
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, partition: .partition.type, move_destination_type, move_destination_name}'
+
+echo "-- ALTER CLEAR STATISTICS (clear_statistics distinguishes it from DROP STATISTICS)"
+ast "ALTER TABLE t CLEAR STATISTICS s" \
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, clear_statistics}'
+
+echo "-- ALTER FREEZE PARTITION WITH NAME"
+ast "ALTER TABLE t FREEZE PARTITION 1 WITH NAME 'backup1'" \
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, with_name}'
+
+echo "-- ALTER REPLACE vs ATTACH PARTITION FROM (same command_type, differ by replace)"
+ast "ALTER TABLE t REPLACE PARTITION 1 FROM src" \
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, replace, from_table}'
+ast "ALTER TABLE t ATTACH PARTITION 1 FROM src" \
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, replace, from_table}'
+
+echo "-- ALTER UNLOCK SNAPSHOT"
+ast "ALTER TABLE t UNLOCK SNAPSHOT 'snap'" \
+    | jq -c '.. | objects | select(.type == "AlterCommand") | {command_type, snapshot_name}'
 
 echo "-- AlterQuery wrapper"
 ast "ALTER TABLE t DROP COLUMN c" \
@@ -30,6 +48,14 @@ ast "ALTER TABLE t DROP COLUMN c" \
 echo "-- CREATE FUNCTION"
 ast "CREATE FUNCTION lin AS (x, k, b) -> k * x + b" \
     | jq -c '.. | objects | select(.type == "CreateFunctionQuery") | {name: .function_name.name, core: .function_core.name}'
+
+echo "-- CREATE FUNCTION ON CLUSTER"
+ast "CREATE FUNCTION IF NOT EXISTS lin ON CLUSTER 'c' AS (x) -> x" \
+    | jq -c '.. | objects | select(.type == "CreateFunctionQuery") | {if_not_exists, cluster, name: .function_name.name}'
+
+echo "-- DROP FUNCTION"
+ast "DROP FUNCTION IF EXISTS lin ON CLUSTER 'c'" \
+    | jq -c '.. | objects | select(.type == "DropFunctionQuery") | {function_name, if_exists, cluster}'
 
 echo "-- CREATE DICTIONARY: attributes"
 ast "CREATE DICTIONARY d (id UInt64, val String DEFAULT 'x' HIERARCHICAL) PRIMARY KEY id SOURCE(CLICKHOUSE(TABLE 't')) LAYOUT(HASHED()) LIFETIME(MIN 1 MAX 10)" \

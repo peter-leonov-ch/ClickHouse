@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q"],
+    "key_type": "USER_NAME",
+    "limits": [
+      {
+        "duration_sec": "3600",
+        "max": {
+          "QUERIES": "100",
+          "RESULT_ROWS": "1000"
+        }
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["r1"]
+    }
+  }
+}

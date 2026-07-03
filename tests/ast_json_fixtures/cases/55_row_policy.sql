@@ -1,0 +1,1 @@
+CREATE ROW POLICY p ON db.t AS restrictive FOR SELECT USING x > 0 TO r1

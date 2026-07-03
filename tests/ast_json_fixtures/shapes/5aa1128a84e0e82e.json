@@ -1,6 +1,15 @@
 {
   "version": 2,
   "ast": {
-    "type": "CREATE"
+    "type": "CreateRowPolicyQuery",
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p1_01296",
+          "table": "table"
+        }
+      ]
+    }
   }
 }

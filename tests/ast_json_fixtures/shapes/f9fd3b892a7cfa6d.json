@@ -1,6 +1,15 @@
 {
   "version": 2,
   "ast": {
-    "type": "SetRoleQuery"
+    "type": "SetRoleQuery",
+    "kind": "SET_DEFAULT_ROLE",
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    },
+    "to_users": {
+      "type": "RolesOrUsersSet",
+      "names": ["u4_01292"]
+    }
   }
 }

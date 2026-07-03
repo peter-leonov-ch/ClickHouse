@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DescribeQuery",
+    "table_expression": {
+      "type": "TableExpression",
+      "table_function": {
+        "type": "Function",
+        "name": "format",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "CSV"
+          },
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "1,2,3"
+          }
+        ]
+      }
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "column_names_for_schema_inference": "a, b, a"
+      }
+    }
+  }
+}

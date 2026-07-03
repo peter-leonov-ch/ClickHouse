@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropQuery",
+    "kind": "DROP",
+    "table": {
+      "type": "Identifier",
+      "name": "test_compact_map"
+    },
+    "format": "Null"
+  }
+}

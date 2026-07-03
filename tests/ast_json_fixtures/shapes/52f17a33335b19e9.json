@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "value"
+          },
+          {
+            "type": "Identifier",
+            "name": "f"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "bool_test"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "JSONEachRow"
+  }
+}

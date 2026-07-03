@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "map_formats"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "arrayElement",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "m"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "k1"
+                }
+              ]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "TSV"
+  }
+}

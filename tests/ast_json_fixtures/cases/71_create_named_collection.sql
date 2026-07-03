@@ -1,0 +1,1 @@
+CREATE NAMED COLLECTION IF NOT EXISTS nc AS host = 'localhost', port = 9000 OVERRIDABLE, password = 'secret' NOT OVERRIDABLE

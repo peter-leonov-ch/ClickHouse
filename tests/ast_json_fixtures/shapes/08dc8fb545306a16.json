@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "greater",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "u64_countmin"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3500"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "u64_countmin"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "3600"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_statistics_cache": "0",
+        "log_comment": "03904_empty"
+      }
+    },
+    "format": "NULL"
+  }
+}

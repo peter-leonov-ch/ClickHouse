@@ -10,7 +10,8 @@
     "commands": [
       {
         "type": "AlterCommand",
-        "command_type": "DROP_STATISTICS"
+        "command_type": "DROP_STATISTICS",
+        "clear_statistics": true
       }
     ]
   }

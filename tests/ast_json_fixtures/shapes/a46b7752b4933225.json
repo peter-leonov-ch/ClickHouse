@@ -48,7 +48,12 @@
                         {
                           "type": "Literal",
                           "value_type": "Array",
-                          "value": "['Alick']"
+                          "value": [
+                            {
+                              "value_type": "String",
+                              "value": "Alick"
+                            }
+                          ]
                         }
                       ]
                     }
@@ -109,7 +114,12 @@
                             {
                               "type": "Literal",
                               "value_type": "Array",
-                              "value": "['Alick']"
+                              "value": [
+                                {
+                                  "value_type": "String",
+                                  "value": "Alick"
+                                }
+                              ]
                             }
                           ]
                         }

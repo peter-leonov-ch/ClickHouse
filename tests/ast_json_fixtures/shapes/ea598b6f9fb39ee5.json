@@ -20,7 +20,20 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[1, 2, 3]"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "2"
+                  },
+                  {
+                    "value_type": "UInt64",
+                    "value": "3"
+                  }
+                ]
               }
             ]
           }
@@ -47,6 +60,7 @@
           "value": "1"
         }
       }
-    ]
+    ],
+    "format": "JSON"
   }
 }

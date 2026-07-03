@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "names": ["r1_01292", "r2_01292"]
+  }
+}

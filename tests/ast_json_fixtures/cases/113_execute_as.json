@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ExecuteAsQuery",
+    "target_user": {
+      "type": "UserNameWithHost",
+      "name": "u1"
+    },
+    "subquery": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

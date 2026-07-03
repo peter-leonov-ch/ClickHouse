@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "ROLE",
+    "names": ["r1_01293", "r2_01293"]
+  }
+}

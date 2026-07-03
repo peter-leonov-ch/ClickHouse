@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "n"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.{2,3}"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "data_00184"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "alias": "n",
+            "name": "number"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "n"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "distributed_group_by_no_merge": "2"
+          }
+        }
+      }
+    ]
+  }
+}

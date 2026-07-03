@@ -53,7 +53,16 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "('FilterTransformPassedRows', 'FilterTransformPassedBytes')"
+              "value": [
+                {
+                  "value_type": "String",
+                  "value": "FilterTransformPassedRows"
+                },
+                {
+                  "value_type": "String",
+                  "value": "FilterTransformPassedBytes"
+                }
+              ]
             }
           ]
         },

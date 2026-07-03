@@ -57,7 +57,16 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "('x', 'y')"
+              "value": [
+                {
+                  "value_type": "String",
+                  "value": "x"
+                },
+                {
+                  "value_type": "String",
+                  "value": "y"
+                }
+              ]
             }
           ]
         },

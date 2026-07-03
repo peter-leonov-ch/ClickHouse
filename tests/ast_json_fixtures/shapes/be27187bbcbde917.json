@@ -7,6 +7,12 @@
       "type": "Identifier",
       "name": "replicated_constraints1"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "alter_sync": "2"
+      }
+    },
     "commands": [
       {
         "type": "AlterCommand",

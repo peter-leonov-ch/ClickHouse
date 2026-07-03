@@ -1,0 +1,203 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "o_orderpriority"
+          },
+          {
+            "type": "Function",
+            "alias": "order_count",
+            "name": "count",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "orders"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "o_orderdate"
+                },
+                {
+                  "type": "Function",
+                  "name": "toDate",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "1993-07-01"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "less",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "o_orderdate"
+                },
+                {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "toDate",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "1993-07-01"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toIntervalMonth",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "exists",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "lineitem"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "where": {
+                          "type": "Function",
+                          "name": "and",
+                          "is_operator": true,
+                          "arguments": [
+                            {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "l_orderkey"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "o_orderkey"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Function",
+                              "name": "less",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "l_commitdate"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "l_receiptdate"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "o_orderpriority"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "o_orderpriority"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

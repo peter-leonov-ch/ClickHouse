@@ -1,0 +1,1 @@
+SELECT * FROM map_formats ORDER BY m['k1'] FORMAT TSKV

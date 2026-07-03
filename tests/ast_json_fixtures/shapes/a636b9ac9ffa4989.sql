@@ -1,0 +1,1 @@
+SYSTEM FLUSH LOGS metric_log

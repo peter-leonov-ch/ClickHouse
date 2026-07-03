@@ -7,6 +7,7 @@
       "type": "Identifier",
       "name": "m02006"
     },
+    "format": "Null",
     "cluster": "test_shard_localhost",
     "if_exists": true
   }

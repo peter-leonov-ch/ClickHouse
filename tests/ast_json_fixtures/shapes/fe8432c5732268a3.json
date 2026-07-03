@@ -3,6 +3,7 @@
   "ast": {
     "type": "AttachQuery",
     "attach": true,
+    "attach_from_path": "some\/path",
     "table": {
       "type": "Identifier",
       "name": "test"

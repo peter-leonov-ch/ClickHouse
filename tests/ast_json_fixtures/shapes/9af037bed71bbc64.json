@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "ROW POLICY",
+    "if_exists": true,
+    "cluster": "test_shard_localhost",
+    "row_policy_names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "02911_rowpolicy",
+          "database": "default"
+        }
+      ]
+    }
+  }
+}

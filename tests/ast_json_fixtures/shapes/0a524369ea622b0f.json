@@ -1,0 +1,109 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "dt_close"
+          },
+          {
+            "type": "Identifier",
+            "name": "close"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "fx_5m"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "symbol"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "EURUSD"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "greaterOrEquals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "dt_close"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "2022-12-11"
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "lessOrEquals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "dt_close"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "2022-12-13"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "dt_close"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

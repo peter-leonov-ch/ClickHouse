@@ -19,6 +19,7 @@
             "arguments": []
           }
         },
+        "replace": false,
         "from_table": "attach_partition_t3"
       }
     ]

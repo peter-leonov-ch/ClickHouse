@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowAccessEntitiesQuery",
+    "entity_type": "USER",
+    "all": true
+  }
+}

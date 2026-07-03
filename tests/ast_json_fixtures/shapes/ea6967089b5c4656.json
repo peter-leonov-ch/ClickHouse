@@ -3,6 +3,7 @@
   "ast": {
     "type": "AttachQuery",
     "attach": true,
+    "uuid": "aaaaaaaa-1111-2222-3333-aaaaaaaaaaaa",
     "table": {
       "type": "Identifier",
       "name": "x"

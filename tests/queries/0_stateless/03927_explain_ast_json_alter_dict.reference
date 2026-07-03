@@ -6,11 +6,24 @@
 -- ALTER UPDATE
 {"command_type":"UPDATE","assignments":["a"],"predicate":"equals"}
 -- ALTER MOVE PARTITION
-{"command_type":"MOVE_PARTITION","partition":"Partition","move_destination_name":"cold"}
+{"command_type":"MOVE_PARTITION","partition":"Partition","move_destination_type":"DISK","move_destination_name":"cold"}
+-- ALTER CLEAR STATISTICS (clear_statistics distinguishes it from DROP STATISTICS)
+{"command_type":"DROP_STATISTICS","clear_statistics":true}
+-- ALTER FREEZE PARTITION WITH NAME
+{"command_type":"FREEZE_PARTITION","with_name":"backup1"}
+-- ALTER REPLACE vs ATTACH PARTITION FROM (same command_type, differ by replace)
+{"command_type":"REPLACE_PARTITION","replace":true,"from_table":"src"}
+{"command_type":"REPLACE_PARTITION","replace":false,"from_table":"src"}
+-- ALTER UNLOCK SNAPSHOT
+{"command_type":"UNLOCK_SNAPSHOT","snapshot_name":"snap"}
 -- AlterQuery wrapper
 {"alter_object":"TABLE","table":"t","commands":["DROP_COLUMN"]}
 -- CREATE FUNCTION
 {"name":"lin","core":"lambda"}
+-- CREATE FUNCTION ON CLUSTER
+{"if_not_exists":true,"cluster":"c","name":"lin"}
+-- DROP FUNCTION
+{"function_name":"lin","if_exists":true,"cluster":"c"}
 -- CREATE DICTIONARY: attributes
 {"name":"id","data_type":"UInt64","hierarchical":null}
 {"name":"val","data_type":"String","hierarchical":true}

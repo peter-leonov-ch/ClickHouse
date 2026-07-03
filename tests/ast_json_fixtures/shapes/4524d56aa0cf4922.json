@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowSetting",
+    "setting_name": "output_format_pretty_color"
+  }
+}

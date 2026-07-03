@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "alter": true,
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p1_01296",
+          "table": "table"
+        }
+      ]
+    },
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateWorkloadQuery",
+    "workload_name": {
+      "type": "Identifier",
+      "name": "development"
+    },
+    "workload_parent": {
+      "type": "Identifier",
+      "name": "all"
+    }
+  }
+}

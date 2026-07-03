@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["s6_01294"],
+    "to_roles": {
+      "type": "RolesOrUsersSet",
+      "all": true,
+      "except_names": ["u1_01294", "r1_01294"]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "if_exists": true,
+    "names": ["u5_01292@%.host.com", "u6_01292@%.host.com", "u7_01292@%.host.com", "u8_01292@%.otherhost.com"]
+  }
+}

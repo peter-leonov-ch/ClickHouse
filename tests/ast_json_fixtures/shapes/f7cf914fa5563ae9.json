@@ -1,0 +1,1702 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "b",
+            "value_type": "String",
+            "value": "abb"
+          },
+          {
+            "type": "Literal",
+            "alias": "c",
+            "value_type": "String",
+            "value": "abc"
+          },
+          {
+            "type": "Literal",
+            "alias": "d",
+            "value_type": "String",
+            "value": "abd"
+          },
+          {
+            "type": "Function",
+            "alias": "bf",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "cf",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "df",
+            "name": "toFixedString",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "b"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "c"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "bf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "cf"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "b"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "c"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "bf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "cf"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "greater",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "less",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "df"
+              },
+              {
+                "type": "Identifier",
+                "name": "df"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

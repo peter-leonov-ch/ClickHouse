@@ -1,0 +1,1 @@
+DROP USER u1_01292, u2_01292_renamed, u3_01292

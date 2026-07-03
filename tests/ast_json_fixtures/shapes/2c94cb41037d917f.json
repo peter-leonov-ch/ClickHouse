@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "names": ["u1_01292", "u2_01292@%.myhost.com", "u3_01292@192.168.%.%", "u4_01292@::1", "u5_01292@65:ff0c::\/96"]
+  }
+}

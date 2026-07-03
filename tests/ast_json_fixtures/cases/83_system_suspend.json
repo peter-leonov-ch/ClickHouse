@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "SUSPEND",
+    "seconds": "5"
+  }
+}

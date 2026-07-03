@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          },
+          {
+            "type": "Identifier",
+            "name": "_file"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "s3",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "s3_conn"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "filename"
+                        },
+                        {
+                          "type": "Literal",
+                          "value_type": "String",
+                          "value": "test_02495_1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "format"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "Parquet"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "_file"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "test_02495_1"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

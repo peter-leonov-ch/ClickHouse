@@ -1,0 +1,74 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowTables",
+    "from": {
+      "type": "Identifier",
+      "name": "system"
+    },
+    "where": {
+      "type": "Function",
+      "name": "and",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "like",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "engine"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "%System%"
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "name"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": [
+                {
+                  "value_type": "String",
+                  "value": "numbers"
+                },
+                {
+                  "value_type": "String",
+                  "value": "one"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "database"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "system"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

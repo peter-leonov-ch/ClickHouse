@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowTables",
+    "dictionaries": true,
+    "from": {
+      "type": "Identifier",
+      "name": "sqllt"
+    },
+    "format": "Null"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t1__fuzz_17"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "c"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "a"
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t2__fuzz_0"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Identifier",
+          "name": "a"
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

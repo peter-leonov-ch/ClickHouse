@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DescribeQuery",
+    "table_expression": {
+      "type": "TableExpression",
+      "database_and_table_name": {
+        "type": "TableIdentifier",
+        "name": "table",
+        "database": "sqllt"
+      }
+    },
+    "format": "Null"
+  }
+}

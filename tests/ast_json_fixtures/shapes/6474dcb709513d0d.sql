@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS 03215_udf_with_union

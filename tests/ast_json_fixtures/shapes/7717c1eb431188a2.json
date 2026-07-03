@@ -116,6 +116,7 @@
           "value": "10"
         }
       }
-    ]
+    ],
+    "format": "JSONCompact"
   }
 }

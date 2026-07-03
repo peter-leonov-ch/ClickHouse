@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u3_01292"
+        }
+      ]
+    },
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "drop_all_settings": true,
+      "drop_all_profiles": true
+    }
+  }
+}

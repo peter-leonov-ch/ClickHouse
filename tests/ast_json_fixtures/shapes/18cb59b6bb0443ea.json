@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "data_r2"
+    },
+    "format": "LineAsString"
+  }
+}

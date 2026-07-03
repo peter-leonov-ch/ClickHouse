@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowIndexes",
+    "table": "tbl",
+    "where": {
+      "type": "Function",
+      "name": "like",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Identifier",
+          "name": "index_type"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "%minmax%"
+        }
+      ]
+    }
+  }
+}

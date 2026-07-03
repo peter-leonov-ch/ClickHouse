@@ -1,0 +1,1 @@
+EXPLAIN ESTIMATE SELECT count() FROM partition_by_ignore WHERE ts BETWEEN toDateTime('2022-08-07 00:00:00') AND toDateTime('2022-08-10 00:00:00') FORMAT CSV

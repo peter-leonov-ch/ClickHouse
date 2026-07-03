@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Function",
+            "name": "toTypeName",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "format",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "JSONEachRow"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "{\"x\" : 42}, {\"x\" : \"Hello\"}"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Pretty"
+  }
+}

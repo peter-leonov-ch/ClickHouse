@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "v"
+          },
+          {
+            "type": "Function",
+            "name": "variantElement",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "v"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Bool"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "format",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "CSV"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "v Variant(String, Bool)"
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "\\N\ntruee\ntrue"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "CSV"
+  }
+}

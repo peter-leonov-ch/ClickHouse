@@ -1,6 +1,7 @@
 {
   "version": 2,
   "ast": {
-    "type": "CreateRoleQuery"
+    "type": "CreateRoleQuery",
+    "names": ["r1_01293"]
   }
 }

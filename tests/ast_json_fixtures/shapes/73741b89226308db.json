@@ -92,7 +92,71 @@
                   ]
                 }
               ]
-            }
+            },
+            "group_by_key": [
+              {
+                "type": "Identifier",
+                "name": "id"
+              },
+              {
+                "type": "Function",
+                "name": "toStartOfDay",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "timestamp"
+                  }
+                ]
+              }
+            ],
+            "group_by_assignments": [
+              {
+                "type": "Assignment",
+                "column": "timestamp",
+                "expression": {
+                  "type": "Function",
+                  "name": "plus",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "max",
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "timestamp"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "toIntervalYear",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "UInt64",
+                          "value": "100"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Assignment",
+                "column": "id",
+                "expression": {
+                  "type": "Function",
+                  "name": "max",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "value"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }

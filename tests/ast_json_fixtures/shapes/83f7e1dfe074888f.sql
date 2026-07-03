@@ -1,0 +1,1 @@
+SELECT a FROM t ALL RIGHT JOIN tj USING (key1, key2) ORDER BY key1 FORMAT TSVWithNames

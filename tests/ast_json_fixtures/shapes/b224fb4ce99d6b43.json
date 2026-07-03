@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "if_exists": true,
+    "names": ["sqllt_user"]
+  }
+}

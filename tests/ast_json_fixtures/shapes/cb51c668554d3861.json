@@ -2,10 +2,21 @@
   "version": 2,
   "ast": {
     "type": "CreateUserQuery",
-    "children": [
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u1_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
       {
         "type": "AuthenticationData",
-        "children": [
+        "contains_password": true,
+        "arguments": [
           {
             "type": "Literal",
             "value_type": "String",
@@ -13,6 +24,7 @@
           }
         ]
       }
-    ]
+    ],
+    "replace_authentication_methods": true
   }
 }

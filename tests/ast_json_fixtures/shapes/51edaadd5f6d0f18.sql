@@ -1,0 +1,1 @@
+SHOW CREATE USER 'u5_01292@65:ff0c::/96'

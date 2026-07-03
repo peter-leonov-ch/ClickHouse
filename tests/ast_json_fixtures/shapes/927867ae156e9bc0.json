@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "Explain",
+    "kind": "EXPLAIN",
+    "query": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Asterisk"
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "t_03176"
+                  }
+                }
+              }
+            ]
+          },
+          "order_by": [
+            {
+              "type": "OrderByElement",
+              "expression": {
+                "type": "Identifier",
+                "name": "k"
+              },
+              "direction": "ASC"
+            }
+          ],
+          "limit": {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "5"
+          },
+          "settings": {
+            "type": "Settings",
+            "changes": {
+              "log_comment": "03176_q1"
+            }
+          }
+        }
+      ]
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "indexes": "1"
+      }
+    },
+    "format": "Null"
+  }
+}

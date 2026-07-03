@@ -78,6 +78,7 @@ public:
     }
     void transform(ASTs & nodes) const override;
     void setPattern(String pattern_);
+    const std::optional<String> & getPattern() const { return pattern; }
     std::shared_ptr<re2::RE2> getMatcher() const;
     void appendColumnName(WriteBuffer & ostr) const override;
     void updateTreeHashImpl(SipHash & hash_state, bool ignore_aliases) const override;

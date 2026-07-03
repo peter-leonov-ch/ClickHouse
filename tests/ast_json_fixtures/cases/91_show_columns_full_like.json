@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "extended": true,
+    "full": true,
+    "table": "t",
+    "database": "db",
+    "like": "a%"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "TruncateQuery",
+    "kind": "TRUNCATE",
+    "table": {
+      "type": "Identifier",
+      "name": "eligible_test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": true
+      }
+    }
+  }
+}

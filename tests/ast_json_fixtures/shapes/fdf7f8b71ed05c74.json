@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "tab",
+    "like": "%int%"
+  }
+}

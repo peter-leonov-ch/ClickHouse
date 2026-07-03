@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "test_foo"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "enforce_strict_identifier_format": true
+      }
+    }
+  }
+}

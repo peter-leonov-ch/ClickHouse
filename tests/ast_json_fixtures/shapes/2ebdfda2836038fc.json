@@ -195,6 +195,13 @@
           }
         ]
       }
-    ]
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "enable_analyzer": "1"
+      }
+    },
+    "format": "Null"
   }
 }

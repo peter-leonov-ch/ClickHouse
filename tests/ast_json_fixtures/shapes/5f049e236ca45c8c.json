@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["s10_01294"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "parent_profile": "s1_01294"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "parent_profile": "s3_01294"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "parent_profile": "default"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "readonly",
+          "value": "0"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "max_value": "6000000"
+        }
+      ]
+    }
+  }
+}

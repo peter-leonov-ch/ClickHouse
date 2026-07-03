@@ -1,0 +1,1 @@
+SELECT * FROM t WHERE id2 = 3 FORMAT Null

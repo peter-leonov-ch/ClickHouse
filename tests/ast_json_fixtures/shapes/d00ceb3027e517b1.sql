@@ -1,0 +1,1 @@
+SHOW GRANTS FOR test_user_01999

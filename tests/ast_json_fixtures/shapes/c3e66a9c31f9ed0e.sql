@@ -1,0 +1,1 @@
+GRANT READ,WRITE ON S3 TO test_user_03593

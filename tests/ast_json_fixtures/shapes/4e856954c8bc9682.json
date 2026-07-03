@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "alter": true,
+    "names": ["s2_01294"],
+    "to_roles": {
+      "type": "RolesOrUsersSet"
+    }
+  }
+}

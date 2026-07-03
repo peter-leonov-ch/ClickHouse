@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "SYNC REPLICA",
+    "table": {
+      "type": "Identifier",
+      "name": "rmt1"
+    },
+    "sync_replica_mode": "LIGHTWEIGHT"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "t1_local"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "partition_col_1",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "tc1",
+          "data_type": {
+            "type": "DataType",
+            "name": "int"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "tc2",
+          "data_type": {
+            "type": "DataType",
+            "name": "int"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "MergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "partition_by": {
+        "type": "Identifier",
+        "name": "partition_col_1"
+      },
+      "order_by": {
+        "type": "Identifier",
+        "name": "tc1"
+      }
+    }
+  }
+}

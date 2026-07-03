@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "WAIT FAILPOINT",
+    "fail_point_name": "fp",
+    "fail_point_action": "PAUSE"
+  }
+}

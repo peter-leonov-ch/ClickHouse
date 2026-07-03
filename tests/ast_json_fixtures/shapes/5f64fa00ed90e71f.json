@@ -43,7 +43,20 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "(10, 11, 12)"
+              "value": [
+                {
+                  "value_type": "UInt64",
+                  "value": "10"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "11"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "12"
+                }
+              ]
             }
           ]
         },
@@ -63,6 +76,7 @@
           "value": "1"
         }
       }
-    ]
+    ],
+    "format": "JSONCompact"
   }
 }

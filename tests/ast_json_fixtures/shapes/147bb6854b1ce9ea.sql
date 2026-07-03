@@ -1,0 +1,1 @@
+SYSTEM ENABLE FAILPOINT parallel_replicas_check_read_mode_always

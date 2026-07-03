@@ -2,6 +2,11 @@
   "version": 2,
   "ast": {
     "type": "ShowTables",
-    "databases": true
+    "databases": true,
+    "limit": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": "0"
+    }
   }
 }

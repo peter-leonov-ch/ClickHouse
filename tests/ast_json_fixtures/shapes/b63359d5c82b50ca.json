@@ -63,6 +63,20 @@
           "table": "tab"
         }
       ]
+    },
+    "refresh": {
+      "type": "RefreshStrategy",
+      "schedule_kind": "AFTER",
+      "append": true,
+      "period": {
+        "type": "TimeInterval",
+        "interval": [
+          {
+            "kind": "Second",
+            "value": "1"
+          }
+        ]
+      }
     }
   }
 }

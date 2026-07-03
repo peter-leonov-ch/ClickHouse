@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "FLUSH ASYNC INSERT QUEUE",
+    "tables": [
+      {
+        "table": "03732_table_join"
+      }
+    ]
+  }
+}

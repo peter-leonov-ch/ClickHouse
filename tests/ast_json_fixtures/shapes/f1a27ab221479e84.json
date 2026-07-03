@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "replace_access": true,
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "db5",
+        "table": "table",
+        "columns": ["cola"]
+      },
+      {
+        "access_types": ["INSERT"],
+        "database": "db6",
+        "table": "tb61",
+        "columns": ["colb"]
+      },
+      {
+        "access_types": ["SHOW"],
+        "database": "db7"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_user_01999"]
+    }
+  }
+}

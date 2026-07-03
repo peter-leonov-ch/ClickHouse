@@ -1,0 +1,1 @@
+ATTACH TABLE hourly_data AS REPLICATED

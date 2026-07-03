@@ -15,6 +15,7 @@
           "type": "Partition_ID",
           "all": true
         },
+        "replace": true,
         "from_table": "partition_all"
       }
     ]

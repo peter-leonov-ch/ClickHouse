@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "alter": true,
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": " spaces "
+        }
+      ]
+    },
+    "new_name": " INTERSERVER SECRET "
+  }
+}

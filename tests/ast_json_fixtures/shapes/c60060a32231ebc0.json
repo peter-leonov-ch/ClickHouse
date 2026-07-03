@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "cluster": "test_shard_localhost",
+    "table": {
+      "type": "Identifier",
+      "name": "test_repl"
+    }
+  }
+}

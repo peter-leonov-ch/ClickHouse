@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t0"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "ADD_PROJECTION",
+        "projection_declaration": {
+          "type": "Projection",
+          "name": "x",
+          "query": {
+            "type": "ProjectionSelectQuery",
+            "select": [
+              {
+                "type": "Identifier",
+                "name": "i"
+              }
+            ],
+            "order_by": [
+              {
+                "type": "Identifier",
+                "name": "i"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

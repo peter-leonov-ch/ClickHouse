@@ -1,7 +1,9 @@
 -- literal value types
-[{"value_type":"Array","value":"[1, 2, 3]"},{"value_type":"Tuple","value":"(1, 'a')"},{"value_type":"String","value":"k"},{"value_type":"UInt64","value":"1"},{"value_type":"Null","value":null},{"value_type":"Int64","value":"-5"},{"value_type":"Float64","value":1.5},{"value_type":"Bool","value":true},{"value_type":"String","value":"str"}]
+[{"value_type":"Array","value":[{"value_type":"UInt64","value":"1"},{"value_type":"UInt64","value":"2"},{"value_type":"UInt64","value":"3"}]},{"value_type":"Tuple","value":[{"value_type":"UInt64","value":"1"},{"value_type":"String","value":"a"}]},{"value_type":"String","value":"k"},{"value_type":"UInt64","value":"1"},{"value_type":"Null","value":null},{"value_type":"Int64","value":"-5"},{"value_type":"Float64","value":1.5},{"value_type":"Bool","value":true},{"value_type":"String","value":"str"}]
 -- 64-bit integers are emitted as strings (JS-safe; would lose precision as JSON numbers)
 [{"value_type":"UInt64","value":"18446744073709551615"},{"value_type":"Int64","value":"-9223372036854775808"}]
+-- nested containers recurse, preserving each element's type
+[{"value_type":"Array","value":[{"value_type":"Array","value":[{"value_type":"UInt64","value":"1"},{"value_type":"UInt64","value":"2"}]},{"value_type":"Array","value":[{"value_type":"UInt64","value":"3"}]}]}]
 -- lambda function: parameter tuple + body via arguments
 {"type":"Function","name":"lambda","is_operator":true,"is_lambda_function":true,"kind":"LAMBDA_FUNCTION","arguments":[{"type":"Function","name":"tuple","is_operator":true,"arguments":[{"type":"Identifier","name":"x"}]},{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"x"},{"type":"Literal","value_type":"UInt64","value":"1"}]}]}
 -- operators normalize to functions

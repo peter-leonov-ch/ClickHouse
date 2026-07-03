@@ -23,8 +23,8 @@ ast "SELECT 1 UNION DISTINCT SELECT 2" \
 
 echo "-- INTERSECT: operator plus both operand selects"
 ast "SELECT 1 INTERSECT SELECT 2" \
-    | jq -c '.. | objects | select(.type == "SelectIntersectExceptQuery") | {operator, operands: [.children[].type]}'
+    | jq -c '.. | objects | select(.type == "SelectIntersectExceptQuery") | {operator, operands: [.selects[].type]}'
 
 echo "-- EXCEPT: operator plus both operand selects"
 ast "SELECT 1 EXCEPT SELECT 2" \
-    | jq -c '.. | objects | select(.type == "SelectIntersectExceptQuery") | {operator, operands: [.children[].type]}'
+    | jq -c '.. | objects | select(.type == "SelectIntersectExceptQuery") | {operator, operands: [.selects[].type]}'

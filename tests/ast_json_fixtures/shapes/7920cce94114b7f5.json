@@ -99,7 +99,35 @@
                   ]
                 }
               ]
-            }
+            },
+            "group_by_key": [
+              {
+                "type": "Function",
+                "name": "toStartOfHour",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "timestamp"
+                  }
+                ]
+              }
+            ],
+            "group_by_assignments": [
+              {
+                "type": "Assignment",
+                "column": "bytes",
+                "expression": {
+                  "type": "Function",
+                  "name": "max",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "bytes"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }

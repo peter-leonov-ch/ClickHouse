@@ -20,6 +20,7 @@
             "value": "partition1"
           }
         },
+        "replace": true,
         "from_table": "t2_local"
       }
     ]

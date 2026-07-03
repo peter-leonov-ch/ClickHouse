@@ -1,6 +1,8 @@
 {
   "version": 2,
   "ast": {
-    "type": "DROP"
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "names": ["无名氏 "]
   }
 }

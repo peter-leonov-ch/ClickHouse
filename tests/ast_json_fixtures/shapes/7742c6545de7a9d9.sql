@@ -1,0 +1,1 @@
+SELECT ‘’ = '' AS “1” FORMAT JSONLines

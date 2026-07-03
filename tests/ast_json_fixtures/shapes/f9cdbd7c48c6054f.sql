@@ -1,0 +1,1 @@
+CREATE POLICY p4_01295 ON db.table TO u1_01295

@@ -1,0 +1,1 @@
+SYSTEM ENABLE FAILPOINT parallel_replicas_wait_for_unused_replicas

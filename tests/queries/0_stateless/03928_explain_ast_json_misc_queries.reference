@@ -12,8 +12,15 @@
 {"table":"t","part_name":"p1"}
 -- USE
 {"database":"mydb"}
--- KILL QUERY
+-- KILL QUERY (SYNC)
 {"kill_type":"QUERY","sync":true,"where":"equals"}
+-- KILL MUTATION (TEST); ASYNC is sync=false/test=false
+{"kill_type":"MUTATION","sync":false,"test":true}
+-- transaction control: BEGIN / COMMIT / ROLLBACK / SET SNAPSHOT
+{"type":"TransactionControl","action":"BEGIN"}
+{"type":"TransactionControl","action":"COMMIT"}
+{"type":"TransactionControl","action":"ROLLBACK"}
+{"type":"TransactionControl","action":"SET_SNAPSHOT","snapshot":"42"}
 -- RENAME
 [{"from_table":"a","to_table":"b"},{"from_table":"c","to_table":"d"}]
 -- SYSTEM
@@ -24,3 +31,45 @@
 {"database":"db","table":"t"}
 -- SHOW CREATE (generic table-target fallback)
 {"database":"db","table":"t"}
+-- UNDROP TABLE with UUID and ON CLUSTER
+{"database":"db","table":"t","uuid":"00000000-0000-0000-0000-000000000abc","cluster":"c"}
+-- BACKUP TABLE: element rename, partitions, base_backup, cluster
+{"kind":"BACKUP","cluster":"c","elements":[{"element_type":"TABLE","database":"db","table":"t","new_database":"db2","new_table":"t2","partitions":[{"type":"Partition","value":{"type":"Literal","value_type":"UInt64","value":"1"}},{"type":"Partition","value":{"type":"Literal","value_type":"UInt64","value":"2"}}]}],"backup":"Disk","base":"Disk"}
+-- RESTORE DATABASE: rename and EXCEPT TABLES
+{"kind":"RESTORE","elements":[{"element_type":"DATABASE","database":"db","new_database":"db2","except_tables":[{"database":"db","table":"x"}]}]}
+-- BACKUP ALL EXCEPT
+{"kind":"BACKUP","elements":[{"element_type":"ALL","except_databases":["sys"]}]}
+-- trailing SETTINGS clause captured for table-output / describe / kill / rename
+{"mutations_sync":"1"}
+{"mutations_sync":"2"}
+{"optimize_throw_if_noop":"1"}
+{"describe_compact_output":"1"}
+{"max_threads":"3"}
+{"distributed_ddl_task_timeout":"5"}
+-- a Map-typed setting value is a JSON object (not an array of key/value tuples)
+{"additional_table_filters":{"t1":{"value_type":"String","value":"x > 1"},"t2":{"value_type":"String","value":"y < 2"}}}
+-- trailing FORMAT clause captured (table-output / create / show / describe / kill)
+"Null"
+"JSON"
+"JSONEachRow"
+"TSV"
+"Null"
+-- trailing FORMAT captured for select-family / explain / access-entity SHOW
+"JSON"
+"TSV"
+"JSONEachRow"
+"JSON"
+"JSON"
+"JSON"
+"JSON"
+-- trailing INTO OUTFILE captured: filename, APPEND/TRUNCATE/AND STDOUT flags, COMPRESSION [LEVEL], and combined with FORMAT
+{"out_file":"out.tsv"}
+{"out_file":"out.tsv","outfile_append":true}
+{"out_file":"out.tsv","outfile_truncate":true}
+{"out_file":"out.tsv","outfile_with_stdout":true}
+{"out_file":"out.gz","compression":"gz","compression_level":"3"}
+{"out_file":"out.tsv","outfile_truncate":true,"format":"TSV"}
+-- output-level SETTINGS (placed AFTER FORMAT) captured on the SelectWithUnionQuery wrapper
+{"type":"SelectWithUnionQuery","wrapper_settings":{"max_threads":"5"},"inner_settings":null}
+{"type":"SelectWithUnionQuery","wrapper_settings":{"max_threads":"5"},"inner_settings":null}
+{"type":"SelectWithUnionQuery","wrapper_settings":null,"inner_settings":{"max_threads":"5"}}

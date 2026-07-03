@@ -1,0 +1,1 @@
+ALTER ROW POLICY p2_01295 ON db.table RENAME TO 'p2_01295_renamed'

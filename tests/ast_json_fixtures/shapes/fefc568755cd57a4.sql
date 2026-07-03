@@ -1,0 +1,1 @@
+ALTER USER u2_01292 RENAME TO 'u2_01292_renamed'

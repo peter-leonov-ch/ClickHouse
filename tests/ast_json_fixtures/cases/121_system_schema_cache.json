@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR SCHEMA CACHE",
+    "schema_cache_storage": "S3"
+  }
+}

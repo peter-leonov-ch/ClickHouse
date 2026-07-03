@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DeleteQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "0"
+      }
+    },
+    "predicate": {
+      "type": "Function",
+      "name": "equals",
+      "is_operator": true,
+      "arguments": [
+        {
+          "type": "Function",
+          "name": "modulo",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "id"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      ]
+    }
+  }
+}

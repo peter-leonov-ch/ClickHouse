@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "CAST",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "true"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "Bool"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "TSV"
+  }
+}

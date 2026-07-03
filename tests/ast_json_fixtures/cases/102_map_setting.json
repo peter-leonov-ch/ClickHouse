@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "additional_table_filters": {
+              "tbl": {
+                "value_type": "String",
+                "value": "x = 1"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

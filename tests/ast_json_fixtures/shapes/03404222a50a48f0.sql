@@ -1,0 +1,1 @@
+DROP ROLE IF EXISTS r2_01293_renamed

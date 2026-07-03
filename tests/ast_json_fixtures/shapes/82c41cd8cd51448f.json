@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropFunctionQuery",
+    "function_name": "02125_function_2",
+    "if_exists": true
+  }
+}

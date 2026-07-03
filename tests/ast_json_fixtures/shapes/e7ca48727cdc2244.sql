@@ -1,0 +1,1 @@
+CREATE POLICY p1_01295 ON db.table TO NONE

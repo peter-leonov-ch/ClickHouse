@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowGrantsQuery",
+    "for_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["sqllt_user"]
+    },
+    "format": "Null"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "version": 2,
   "ast": {
-    "type": "ShowColumns"
+    "type": "ShowIndexes",
+    "table": "tbl"
   }
 }

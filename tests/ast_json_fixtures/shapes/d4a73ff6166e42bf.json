@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "optimize_trivial_count_query"
+          },
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": []
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "adaptive_table"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "optimize_trivial_count_query": "1"
+          }
+        }
+      }
+    ],
+    "format": "CSV"
+  }
+}

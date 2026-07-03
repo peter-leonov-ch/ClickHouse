@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropResourceQuery",
+    "resource_name": "03232_write",
+    "if_exists": true
+  }
+}

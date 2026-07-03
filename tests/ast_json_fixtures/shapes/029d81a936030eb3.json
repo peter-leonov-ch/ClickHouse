@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "cluster": "test_shard_localhost",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "02911_user"
+        }
+      ]
+    }
+  }
+}

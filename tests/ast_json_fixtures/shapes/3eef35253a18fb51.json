@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "temporary": true,
+    "is_ordinary_view": true,
+    "cluster": "test",
+    "table": {
+      "type": "Identifier",
+      "name": "tview_cluster"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

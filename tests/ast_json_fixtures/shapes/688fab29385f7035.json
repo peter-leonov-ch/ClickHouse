@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "10"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": "1"
+      }
+    },
+    "format": "Vertical"
+  }
+}

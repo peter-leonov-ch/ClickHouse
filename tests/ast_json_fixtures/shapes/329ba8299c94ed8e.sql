@@ -1,0 +1,1 @@
+SELECT 1_000_000 as a SETTINGS output_format_pretty_single_large_number_tip_threshold = 1000 FORMAT PrettySpaceNoEscapes

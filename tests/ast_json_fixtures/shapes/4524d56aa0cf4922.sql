@@ -1,0 +1,1 @@
+SHOW SETTING output_format_pretty_color

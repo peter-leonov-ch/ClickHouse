@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateTableQuery",
+    "temporary": true,
+    "table": {
+      "type": "Identifier",
+      "name": "t_proj"
+    },
+    "format": "TSVRaw"
+  }
+}

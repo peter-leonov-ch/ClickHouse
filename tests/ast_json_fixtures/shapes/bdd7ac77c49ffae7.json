@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "name",
+            "value_type": "String",
+            "value": "1111"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers_mt",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10000"
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

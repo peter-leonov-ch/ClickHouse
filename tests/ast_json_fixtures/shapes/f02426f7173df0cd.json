@@ -79,6 +79,12 @@
       "type": "Literal",
       "value_type": "String",
       "value": "test"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "enforce_strict_identifier_format": true
+      }
     }
   }
 }

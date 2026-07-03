@@ -1,0 +1,1 @@
+DROP FUNCTION 02102_test_function

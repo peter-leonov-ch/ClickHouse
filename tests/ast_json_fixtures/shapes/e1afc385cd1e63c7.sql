@@ -1,0 +1,1 @@
+GRANT READ ON REMOTE to test_03727

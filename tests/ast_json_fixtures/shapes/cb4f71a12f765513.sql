@@ -1,0 +1,1 @@
+SELECT rank() OVER () FROM t0 FINAL WHERE t0.c0 > 0.1 FORMAT null

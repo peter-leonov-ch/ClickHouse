@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "udf",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": true,
+        "query_cache_nondeterministic_function_handling": "save"
+      }
+    },
+    "format": "Null"
+  }
+}

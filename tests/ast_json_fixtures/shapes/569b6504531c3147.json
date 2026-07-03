@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "RevokeQuery",
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "test"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["user_03141"]
+    }
+  }
+}

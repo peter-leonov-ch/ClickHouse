@@ -20,7 +20,20 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[NULL, NULL, NULL]"
+                "value": [
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
               }
             ]
           }
@@ -42,7 +55,20 @@
               {
                 "type": "Literal",
                 "value_type": "Array",
-                "value": "[NULL, NULL, NULL]"
+                "value": [
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  },
+                  {
+                    "value_type": "Null",
+                    "value": null
+                  }
+                ]
               }
             ]
           }

@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "d"
+          },
+          {
+            "type": "Function",
+            "name": "dynamicType",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Int64",
+            "name_parts": ["d", "Int64"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.String",
+            "name_parts": ["d", "String"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Date",
+            "name_parts": ["d", "Date"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Float64",
+            "name_parts": ["d", "Float64"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.DateTime",
+            "name_parts": ["d", "DateTime"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Array(Int64)",
+            "name_parts": ["d", "Array(Int64)"]
+          },
+          {
+            "type": "Identifier",
+            "name": "d.Array(String)",
+            "name_parts": ["d", "Array(String)"]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_rapid_schema"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "PrettyCompactMonoBlock"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "UserID"
+          },
+          {
+            "type": "Function",
+            "name": "COUNT",
+            "arguments": [
+              {
+                "type": "Asterisk"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "hits",
+                  "database": "test"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "UserID"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Function",
+              "name": "COUNT",
+              "arguments": [
+                {
+                  "type": "Asterisk"
+                }
+              ]
+            },
+            "direction": "DESC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "10"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "log_comment": "query_15"
+      }
+    },
+    "format": "Null"
+  }
+}

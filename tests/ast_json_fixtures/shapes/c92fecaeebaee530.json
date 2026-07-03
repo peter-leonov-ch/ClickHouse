@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "number"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "numbers",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Float64",
+                      "value": 100000000
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "number"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_bytes_ratio_before_external_sort": "1"
+      }
+    },
+    "format": "Null"
+  }
+}

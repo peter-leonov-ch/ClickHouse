@@ -28,3 +28,6 @@ select_query "SELECT sum(a) OVER w FROM t WINDOW w AS (PARTITION BY b)" ".window
 
 echo "-- single-expression clauses are objects, list clauses are arrays"
 select_query "SELECT a FROM t WHERE w GROUP BY g" "{where, group_by}"
+
+echo "-- LIMIT ... WITH TIES: limit_with_ties flag"
+select_query "SELECT x FROM t ORDER BY x DESC LIMIT 3 WITH TIES" "{limit_with_ties, limit}"

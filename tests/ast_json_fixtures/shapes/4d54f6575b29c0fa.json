@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "alter": true,
+    "names": ["q1_01297"],
+    "key_type": "USER_NAME"
+  }
+}

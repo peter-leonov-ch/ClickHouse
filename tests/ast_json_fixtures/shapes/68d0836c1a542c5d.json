@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "tab",
+    "limit": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": "1"
+    }
+  }
+}

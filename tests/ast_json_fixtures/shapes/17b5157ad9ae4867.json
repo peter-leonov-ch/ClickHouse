@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "Null",
+            "value": null
+          },
+          {
+            "type": "Function",
+            "alias": "y",
+            "name": "tuple",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Null",
+                "value": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "PrettyCompactNoEscapes"
+  }
+}

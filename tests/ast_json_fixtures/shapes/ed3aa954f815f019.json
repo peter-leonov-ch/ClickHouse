@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "attach_as_replicated": true,
+    "table": {
+      "type": "Identifier",
+      "name": "hourly_data"
+    }
+  }
+}

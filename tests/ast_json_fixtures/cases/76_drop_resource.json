@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropResourceQuery",
+    "resource_name": "io"
+  }
+}

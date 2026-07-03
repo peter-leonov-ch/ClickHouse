@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u",
+          "host_pattern": "%.example.com"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "contains_password": true,
+        "valid_until": {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "2030-01-01"
+        },
+        "arguments": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "p"
+          }
+        ]
+      }
+    ],
+    "replace_authentication_methods": true,
+    "hosts": {
+      "like_patterns": ["%.example.com"]
+    }
+  }
+}

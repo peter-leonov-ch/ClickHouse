@@ -43,6 +43,7 @@
           "value": "1"
         }
       }
-    ]
+    ],
+    "format": "PRETTY"
   }
 }

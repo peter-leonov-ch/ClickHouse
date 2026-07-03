@@ -30,7 +30,16 @@
                           {
                             "type": "Literal",
                             "value_type": "Tuple",
-                            "value": "(1., 1.)"
+                            "value": [
+                              {
+                                "value_type": "Float64",
+                                "value": 1
+                              },
+                              {
+                                "value_type": "Float64",
+                                "value": 1
+                              }
+                            ]
                           }
                         ]
                       }

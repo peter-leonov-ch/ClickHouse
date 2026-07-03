@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["sp"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_threads",
+          "value": "8",
+          "min_value": "1",
+          "max_value": "16"
+        }
+      ]
+    },
+    "to_roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    }
+  }
+}

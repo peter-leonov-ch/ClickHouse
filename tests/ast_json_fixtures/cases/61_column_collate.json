@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "s",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          },
+          "collation": {
+            "type": "Collation",
+            "name": "binary"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+ALTER USER u4_01292 DROP HOST NAME 'myhost.com'

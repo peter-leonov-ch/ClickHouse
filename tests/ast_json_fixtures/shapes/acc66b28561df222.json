@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["s8_01294"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "value": "5000000",
+          "min_value": "4000000",
+          "max_value": "6000000",
+          "writability": "CONST"
+        }
+      ]
+    }
+  }
+}

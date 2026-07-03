@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "Hello"
+          },
+          {
+            "type": "Function",
+            "alias": "x",
+            "name": "format",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "\u001B[38;2;{0};{1};{2}m█\u001B[0m test \u001B[38;2;{0};{1};{2}m█\u001B[0m"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "255"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "128"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "128"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "Pretty"
+  }
+}

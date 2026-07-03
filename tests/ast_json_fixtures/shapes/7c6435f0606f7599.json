@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AttachQuery",
+    "attach": true,
+    "attach_from_path": "01188_attach\/file",
+    "table": {
+      "type": "Identifier",
+      "name": "file"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "s",
+          "data_type": {
+            "type": "DataType",
+            "name": "String"
+          }
+        },
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "UInt8"
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "File",
+        "kind": "TABLE_ENGINE",
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "TSV"
+          }
+        ]
+      }
+    }
+  }
+}

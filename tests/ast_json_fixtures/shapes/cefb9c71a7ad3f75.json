@@ -20,6 +20,7 @@
             "value": "partition2"
           }
         },
+        "move_destination_type": "TABLE",
         "to_table": "t2_local"
       }
     ]

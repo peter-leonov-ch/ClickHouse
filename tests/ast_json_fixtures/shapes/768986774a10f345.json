@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "max",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "i"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "cluster",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "test_cluster_two_shards"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "test"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "less",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "i"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "20"
+            }
+          ]
+        }
+      }
+    ],
+    "format": "JSONCompact"
+  }
+}

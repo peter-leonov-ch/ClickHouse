@@ -1,0 +1,1 @@
+DROP FUNCTION 02098_alias_function

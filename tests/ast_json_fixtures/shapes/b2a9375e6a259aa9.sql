@@ -1,0 +1,1 @@
+GRANT SELECT(col1) ON db3.table TO test_user_01999 WITH REPLACE OPTION

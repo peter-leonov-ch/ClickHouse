@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "SYNC REPLICA",
+    "database": {
+      "type": "Identifier",
+      "name": "db"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "sync_replica_mode": "LIGHTWEIGHT",
+    "src_replicas": ["r1", "r2"]
+  }
+}

@@ -4,10 +4,14 @@
 {"name":"c","constraint_type":"CHECK","expr":"greater"}
 -- PROJECTION declaration
 {"type":"ProjectionSelectQuery","select":[{"type":"Identifier","name":"a"}],"group_by":[{"type":"Identifier","name":"a"}]}
+-- PROJECTION INDEX ... TYPE ... WITH SETTINGS
+{"name":"p","index":"a","index_type":"minmax","settings":{"x":"1"}}
 -- TTL DELETE
 {"type":"TTLElement","mode":"DELETE","ttl":{"type":"Function","name":"plus","is_operator":true,"arguments":[{"type":"Identifier","name":"d"},{"type":"Function","name":"toIntervalDay","arguments":[{"type":"Literal","value_type":"UInt64","value":"1"}]}]}}
 -- TTL MOVE TO DISK
 {"mode":"MOVE","destination_type":"DISK","destination_name":"cold"}
+-- TTL GROUP BY ... SET ...
+{"mode":"GROUP_BY","group_by_key":["k"],"assignments":["a"]}
 -- DELETE
 {"table":"t","predicate":"greater"}
 -- UPDATE with assignments
@@ -16,5 +20,7 @@
 {"kind":"DROP","database":"db","table":"t","if_exists":true,"sync":true}
 -- TRUNCATE (drop kind)
 {"kind":"TRUNCATE","table":"t"}
+-- TRUNCATE ALL TABLES FROM (with LIKE pattern)
+{"kind":"TRUNCATE","database":"db","has_all":true,"has_tables":true,"like":"foo%","not_like":true,"case_insensitive_like":true}
 -- OPTIMIZE with partition
 {"table":"t","partition":"Partition","final":true,"deduplicate":true}

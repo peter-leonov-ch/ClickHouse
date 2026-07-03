@@ -101,6 +101,12 @@
         ]
       },
       "final": true
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "schema_inference_hints": "ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼ð(Œ¼"
+      }
     }
   }
 }

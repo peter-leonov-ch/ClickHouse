@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "or_replace": true,
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "rp",
+          "table": "t"
+        }
+      ]
+    },
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "0"
+        }
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    }
+  }
+}

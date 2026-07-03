@@ -1,0 +1,1 @@
+SELECT [arrayMin(x1 -> (x1 * materialize(-1)), [toNullable(toUInt256(0)), materialize(4)])], arrayMin([arrayMin([0])]) FROM test_aggregation_array GROUP BY arrayAvg([1]), [0, toUInt256(8)] WITH CUBE SETTINGS enable_analyzer = 1

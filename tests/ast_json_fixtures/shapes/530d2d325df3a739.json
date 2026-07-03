@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "sum",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "remote",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "127.0.0.4"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "02863_delayed_source"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          }
+        ],
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "a"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "output_format_write_statistics": "0"
+      }
+    },
+    "format": "JSON"
+  }
+}

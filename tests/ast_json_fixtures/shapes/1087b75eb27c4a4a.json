@@ -1,0 +1,424 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Function",
+            "alias": "a32",
+            "name": "arrayMap",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "divide",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "toFloat32",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "range",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "384"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "a16",
+            "name": "arrayMap",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "divide",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "toBFloat16",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "range",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "384"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "a32_1",
+            "name": "arrayMap",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "a32"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "a16_1",
+            "name": "arrayMap",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "lambda",
+                "is_operator": true,
+                "is_lambda_function": true,
+                "kind": "LAMBDA_FUNCTION",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "tuple",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "plus",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "UInt64",
+                        "value": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "a16"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "a32"
+          },
+          {
+            "type": "Identifier",
+            "name": "a16"
+          },
+          {
+            "type": "Identifier",
+            "name": "a32_1"
+          },
+          {
+            "type": "Identifier",
+            "name": "a16_1"
+          },
+          {
+            "type": "Function",
+            "name": "dotProduct",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "dotProduct",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "cosineDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "cosineDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L2Distance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L2Distance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L1Distance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "L1Distance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "LinfDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "LinfDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "LpDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a32"
+              },
+              {
+                "type": "Identifier",
+                "name": "a32_1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "LpDistance",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "a16"
+              },
+              {
+                "type": "Identifier",
+                "name": "a16_1"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "format": "Vertical"
+  }
+}

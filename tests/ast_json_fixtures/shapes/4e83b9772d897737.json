@@ -41,8 +41,10 @@
             ],
             "order_by": [
               {
-                "type": "ExpressionList",
-                "children": [
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
                   {
                     "type": "Identifier",
                     "name": "b"

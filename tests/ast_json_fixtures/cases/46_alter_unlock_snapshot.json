@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "UNLOCK_SNAPSHOT",
+        "snapshot_name": "snap"
+      }
+    ]
+  }
+}

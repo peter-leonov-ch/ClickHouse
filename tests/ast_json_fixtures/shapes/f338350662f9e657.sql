@@ -1,0 +1,1 @@
+system enable failpoint replicated_merge_tree_insert_quorum_fail_0

@@ -1,0 +1,1 @@
+GRANT READ,WRITE ON URL TO test_user_03593

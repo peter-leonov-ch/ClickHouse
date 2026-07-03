@@ -1,0 +1,110 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "RIGHT",
+                "strictness": "ALL",
+                "on": {
+                  "type": "Function",
+                  "name": "and",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t.key1",
+                          "name_parts": ["t", "key1"]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "tj.key1",
+                          "name_parts": ["tj", "key1"]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Function",
+                      "name": "equals",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "t.key2",
+                          "name_parts": ["t", "key2"]
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "tj.key2",
+                          "name_parts": ["tj", "key2"]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "UInt64",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tj"
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "query_plan_use_new_logical_join_step": "0"
+          }
+        }
+      }
+    ],
+    "format": "TSVWithNames"
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "tan",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "SUM",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1017248723"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t3"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "t3.c0",
+            "name_parts": ["t3", "c0"]
+          }
+        ],
+        "having": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "tan",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "negate",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "SUM",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": "-1017248723"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "sqrt",
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "SUM",
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value_type": "Int64",
+                      "value": "-1017248723"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "tan",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "SUM",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1017248723"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t3"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "t3.c0",
+            "name_parts": ["t3", "c0"]
+          }
+        ],
+        "having": {
+          "type": "Function",
+          "name": "not",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tan",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "negate",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "SUM",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Int64",
+                              "value": "-1017248723"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "sqrt",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "SUM",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": "-1017248723"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "tan",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "SUM",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1017248723"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "name": "modulo",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              },
+              {
+                "type": "Identifier",
+                "name": "t3.c0",
+                "name_parts": ["t3", "c0"]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "t3"
+                }
+              }
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "t3.c0",
+            "name_parts": ["t3", "c0"]
+          }
+        ],
+        "having": {
+          "type": "Function",
+          "name": "isNull",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "and",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "tan",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "negate",
+                      "is_operator": true,
+                      "arguments": [
+                        {
+                          "type": "Function",
+                          "name": "SUM",
+                          "arguments": [
+                            {
+                              "type": "Literal",
+                              "value_type": "Int64",
+                              "value": "-1017248723"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Function",
+                  "name": "sqrt",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "SUM",
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "value_type": "Int64",
+                          "value": "-1017248723"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "aggregate_functions_null_for_empty": "1",
+            "enable_optimize_predicate_expression": "0"
+          }
+        }
+      }
+    ]
+  }
+}

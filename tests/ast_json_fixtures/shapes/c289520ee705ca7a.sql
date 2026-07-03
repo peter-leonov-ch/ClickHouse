@@ -1,0 +1,1 @@
+GRANT SET DEFINER ON test_user_03593_1 TO test_user_03593

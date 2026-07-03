@@ -14,7 +14,16 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(1, 'Value')"
+                "value": [
+                  {
+                    "value_type": "UInt64",
+                    "value": "1"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "Value"
+                  }
+                ]
               },
               {
                 "type": "Literal",

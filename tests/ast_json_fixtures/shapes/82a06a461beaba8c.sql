@@ -1,0 +1,1 @@
+CREATE ROW POLICY pol2 ON tab2 USING x != 1 TO ALL

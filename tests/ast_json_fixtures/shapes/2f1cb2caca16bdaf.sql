@@ -1,0 +1,1 @@
+SELECT 123456789 AS x FORMAT PrettyCompact

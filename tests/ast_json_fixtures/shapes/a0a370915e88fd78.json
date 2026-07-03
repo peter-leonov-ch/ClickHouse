@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "\"",
+            "value_type": "String",
+            "value": "\\"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "output_format_write_statistics": "0"
+      }
+    },
+    "format": "JSON"
+  }
+}

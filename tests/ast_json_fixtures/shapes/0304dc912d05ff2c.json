@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "order_by_all": true,
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "mergeTreeIndex",
+                  "arguments": [
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Literal",
+                      "value_type": "String",
+                      "value": "t_mt_params"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "ALL"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "TSVWithNames"
+  }
+}

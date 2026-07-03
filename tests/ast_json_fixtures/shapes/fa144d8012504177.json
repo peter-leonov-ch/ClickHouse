@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "t1",
+                  "name": "table1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "LEFT",
+                "strictness": "ALL",
+                "using": [
+                  {
+                    "type": "Identifier",
+                    "name": "a"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "b"
+                  }
+                ]
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "alias": "t2",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "0.10"
+                          },
+                          {
+                            "type": "Identifier",
+                            "name": "c"
+                          },
+                          {
+                            "type": "Identifier",
+                            "alias": "b",
+                            "name": "d"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "table2"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "d"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "t1.a",
+              "name_parts": ["t1", "a"]
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_rows_in_join": "1"
+      }
+    },
+    "format": "PrettyCompact"
+  }
+}

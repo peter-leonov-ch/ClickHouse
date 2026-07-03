@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "alter": true,
+    "names": ["r1_01293"],
+    "alter_settings": {
+      "type": "AlterSettingsProfileElements",
+      "add_settings": {
+        "type": "SettingsProfileElements",
+        "elements": [
+          {
+            "type": "SettingsProfileElement",
+            "setting_name": "readonly",
+            "value": "1"
+          }
+        ]
+      },
+      "drop_all_settings": true,
+      "drop_all_profiles": true
+    }
+  }
+}

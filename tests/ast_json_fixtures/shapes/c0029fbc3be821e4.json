@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "ROW POLICY",
+    "if_exists": true,
+    "row_policy_names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "filter",
+          "table": "t"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+DROP USER IF EXISTS u2_01292_renamed

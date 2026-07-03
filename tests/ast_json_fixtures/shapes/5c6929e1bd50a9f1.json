@@ -19,6 +19,7 @@
             "value": "2"
           }
         },
+        "move_destination_type": "TABLE",
         "to_table": "t_detach_attach_patches_dst"
       }
     ]

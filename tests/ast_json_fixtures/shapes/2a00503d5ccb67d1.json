@@ -2,6 +2,8 @@
   "version": 2,
   "ast": {
     "type": "ShowTables",
-    "like": "%CONNECT_timeout%"
+    "show_settings": true,
+    "like": "%CONNECT_timeout%",
+    "case_insensitive_like": true
   }
 }

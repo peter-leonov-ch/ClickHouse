@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "ENABLE FAILPOINT",
+    "fail_point_name": "execute_query_calling_empty_set_result_func_on_exception"
+  }
+}

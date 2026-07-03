@@ -1,0 +1,1 @@
+ALTER USER u3_01292 ADD HOST NAME 'myhost.com'

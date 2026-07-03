@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRowPolicyQuery",
+    "if_not_exists": true,
+    "names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "row_policy",
+          "table": "table_with_dot_column"
+        }
+      ]
+    },
+    "filters": [
+      {
+        "filter_type": "SELECT_FILTER",
+        "condition": {
+          "type": "Function",
+          "name": "greaterOrEquals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toDate",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "date"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "minus",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Function",
+                  "name": "today",
+                  "arguments": []
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "30"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    }
+  }
+}

@@ -58,7 +58,12 @@
                 "name": "c"
               }
             ],
-            "order_by": []
+            "order_by": [
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
           }
         }
       ]

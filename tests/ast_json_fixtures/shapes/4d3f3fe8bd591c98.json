@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "uuid": "00000510-1000-4000-8000-000000000002",
+    "table": {
+      "type": "Identifier",
+      "name": "without_deduplication_mv"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Literal",
+              "alias": "dummy",
+              "value_type": "UInt64",
+              "value": "0"
+            },
+            {
+              "type": "Function",
+              "alias": "cnt",
+              "name": "countState",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "without_deduplication"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "inner_engine": {
+            "type": "Storage",
+            "engine": {
+              "type": "Function",
+              "name": "ReplicatedAggregatingMergeTree",
+              "kind": "TABLE_ENGINE",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "\/clickhouse\/tables\/{database}\/test_00510\/without_deduplication_mv"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "r1"
+                }
+              ]
+            },
+            "order_by": {
+              "type": "Identifier",
+              "name": "dummy"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

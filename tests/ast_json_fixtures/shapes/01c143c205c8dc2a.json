@@ -9,7 +9,12 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[1]"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
           },
           {
             "type": "Function",

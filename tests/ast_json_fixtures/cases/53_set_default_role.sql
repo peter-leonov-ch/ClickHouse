@@ -1,0 +1,1 @@
+SET DEFAULT ROLE r1 TO u1, u2

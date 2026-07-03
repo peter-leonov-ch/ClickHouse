@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u5_01292",
+          "host_pattern": "%.host.com"
+        },
+        {
+          "type": "UserNameWithHost",
+          "name": "u6_01292",
+          "host_pattern": "%.host.com"
+        }
+      ]
+    },
+    "hosts": {
+      "like_patterns": ["%.host.com"]
+    }
+  }
+}

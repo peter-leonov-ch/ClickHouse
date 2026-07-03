@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowSetting",
+    "setting_name": "max_threads' OR name = 'max_memory_usage"
+  }
+}

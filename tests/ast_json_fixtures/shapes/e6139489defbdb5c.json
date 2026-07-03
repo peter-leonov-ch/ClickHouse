@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "schema_inference_mode"
+          },
+          {
+            "type": "Function",
+            "alias": "file",
+            "name": "arrayElement",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "splitByChar",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "\/"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "source"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "schema"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "schema_inference_cache",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "file"
+            },
+            {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "03036_archive1.zip::example1.csv"
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "file"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+REVOKE SELECT ON team*.* FROM user_03141

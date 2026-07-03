@@ -1,0 +1,214 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "rowNr"
+          },
+          {
+            "type": "Identifier",
+            "name": "val_string"
+          },
+          {
+            "type": "Function",
+            "alias": "str_m1",
+            "name": "neighbor",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "val_string"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "str_p1",
+            "name": "neighbor",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "val_string"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "val_low"
+          },
+          {
+            "type": "Function",
+            "alias": "low_m1",
+            "name": "neighbor",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "val_low"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Int64",
+                "value": "-1"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "low_p1",
+            "name": "neighbor",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "val_low"
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "subquery": {
+                  "type": "Subquery",
+                  "query": {
+                    "type": "SelectWithUnionQuery",
+                    "selects": [
+                      {
+                        "type": "SelectQuery",
+                        "select": [
+                          {
+                            "type": "Asterisk"
+                          }
+                        ],
+                        "from": {
+                          "type": "TablesInSelectQuery",
+                          "children": [
+                            {
+                              "type": "TablesInSelectQueryElement",
+                              "table_expression": {
+                                "type": "TableExpression",
+                                "database_and_table_name": {
+                                  "type": "TableIdentifier",
+                                  "name": "neighbor_test"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "order_by": [
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "val_string"
+                            },
+                            "direction": "ASC"
+                          },
+                          {
+                            "type": "OrderByElement",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "rowNr"
+                            },
+                            "direction": "ASC"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "rowNr"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "val_string"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "str_m1"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "str_p1"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "val_low"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "low_m1"
+            },
+            "direction": "ASC"
+          },
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "low_p1"
+            },
+            "direction": "ASC"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "output_format_pretty_color": "1"
+          }
+        }
+      }
+    ],
+    "format": "PrettyCompact"
+  }
+}

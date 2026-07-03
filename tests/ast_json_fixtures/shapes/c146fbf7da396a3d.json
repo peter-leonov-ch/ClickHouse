@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "OptimizeQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t_lwu_deletes_3"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "optimize_throw_if_noop": "1"
+      }
+    },
+    "partition": {
+      "type": "Partition_ID",
+      "id": {
+        "type": "Literal",
+        "value_type": "String",
+        "value": "all"
+      }
+    },
+    "final": true
+  }
+}

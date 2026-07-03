@@ -1,0 +1,1 @@
+select * from remote('127.{2..11}', currentDatabase(), data_01730) group by key order by key limit 1e6 settings distributed_group_by_no_merge=2, max_memory_usage='100Mi', optimize_aggregation_in_order=1, max_threads=10 format Null

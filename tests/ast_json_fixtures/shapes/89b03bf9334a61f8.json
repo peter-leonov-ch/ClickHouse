@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "is_materialized_view": true,
+    "is_populate": true,
+    "uuid": "00000609-1000-4000-8000-000000000001",
+    "table": {
+      "type": "Identifier",
+      "name": "test_mv_00609"
+    },
+    "select": {
+      "type": "SelectWithUnionQuery",
+      "selects": [
+        {
+          "type": "SelectQuery",
+          "select": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Function",
+              "alias": "date",
+              "name": "toDate",
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "2000-01-01"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "type": "TablesInSelectQuery",
+            "children": [
+              {
+                "type": "TablesInSelectQueryElement",
+                "table_expression": {
+                  "type": "TableExpression",
+                  "database_and_table_name": {
+                    "type": "TableIdentifier",
+                    "name": "test_00609"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "targets": {
+      "type": "ViewTargets",
+      "targets": [
+        {
+          "kind": "to",
+          "inner_engine": {
+            "type": "Storage",
+            "engine": {
+              "type": "Function",
+              "name": "MergeTree",
+              "kind": "TABLE_ENGINE",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "date"
+                },
+                {
+                  "type": "Identifier",
+                  "name": "a"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "UInt64",
+                  "value": "8192"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

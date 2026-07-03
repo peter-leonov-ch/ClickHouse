@@ -1,0 +1,1 @@
+SELECT sum(id3) FROM t GROUP BY id2 FORMAT Null

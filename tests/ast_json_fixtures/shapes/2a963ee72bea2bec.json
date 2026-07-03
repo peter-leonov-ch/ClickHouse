@@ -101,6 +101,13 @@
           }
         ]
       }
-    ]
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "optimize_move_to_prewhere": "0"
+      }
+    },
+    "format": "TabSeparatedWithNamesAndTypes"
   }
 }

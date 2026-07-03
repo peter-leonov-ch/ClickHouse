@@ -2,11 +2,9 @@
   "version": 2,
   "ast": {
     "type": "CreateWorkloadQuery",
-    "children": [
-      {
-        "type": "Identifier",
-        "name": "another_root"
-      }
-    ]
+    "workload_name": {
+      "type": "Identifier",
+      "name": "another_root"
+    }
   }
 }

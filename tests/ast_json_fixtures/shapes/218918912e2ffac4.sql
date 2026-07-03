@@ -1,0 +1,1 @@
+CREATE USER u1_01292 IDENTIFIED WITH plaintext_password BY 'qwe123' HOST LOCAL SETTINGS readonly=1

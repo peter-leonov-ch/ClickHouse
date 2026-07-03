@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "ROW POLICY",
+    "row_policy_names": {
+      "type": "RowPolicyNames",
+      "policies": [
+        {
+          "short_name": "p1_01296",
+          "table": "table"
+        }
+      ]
+    }
+  }
+}

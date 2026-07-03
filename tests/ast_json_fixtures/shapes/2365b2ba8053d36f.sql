@@ -1,0 +1,1 @@
+GRANT ALTER UPDATE ON normal TO test_03727

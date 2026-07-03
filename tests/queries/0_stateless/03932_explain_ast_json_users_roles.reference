@@ -1,0 +1,22 @@
+-- CREATE USER: name, auth, host, default role, settings, grantees
+{"type":"CreateUserQuery","names":{"type":"UserNamesWithHost","users":[{"type":"UserNameWithHost","name":"u"}]},"authentication_methods":[{"type":"AuthenticationData","auth_type":"SHA256_PASSWORD","contains_password":true,"arguments":[{"type":"Literal","value_type":"String","value":"secret"}]}],"hosts":{"local_host":true},"default_roles":{"type":"RolesOrUsersSet","names":["r1"]},"settings":{"type":"SettingsProfileElements","elements":[{"type":"SettingsProfileElement","setting_name":"max_threads","value":"4","writability":"CONST"}]},"grantees":{"type":"RolesOrUsersSet","all":true,"use_keyword_any":true}}
+-- CREATE USER: name@host
+{"type":"UserNamesWithHost","users":[{"type":"UserNameWithHost","name":"u2","host_pattern":"192.168.%"}]}
+-- auth: ssl_certificate
+[{"type":"AuthenticationData","auth_type":"SSL_CERTIFICATE","ssl_cert_subject_type":"CN","arguments":[{"type":"Literal","value_type":"String","value":"cn1"},{"type":"Literal","value_type":"String","value":"cn2"}]}]
+-- auth: ssh_key (PublicSSHKey)
+[{"type":"AuthenticationData","auth_type":"SSH_KEY","arguments":[{"type":"PublicSSHKey","key_type":"ssh-rsa","key_base64":"AAAA"}]}]
+-- auth: kerberos
+[{"type":"AuthenticationData","auth_type":"KERBEROS","arguments":[{"type":"Literal","value_type":"String","value":"r"}]}]
+-- default database NONE
+{"type":"DatabaseOrNone","none":true}
+-- ALTER USER: rename, add host, drop settings
+{"type":"CreateUserQuery","alter":true,"new_name":"u2","add_hosts":{"subnets":["10.0.0.0/8"]},"alter_settings":{"type":"AlterSettingsProfileElements","drop_settings":{"type":"SettingsProfileElements","elements":[{"type":"SettingsProfileElement","setting_name":"max_threads"}]}}}
+-- CREATE ROLE
+{"type":"CreateRoleQuery","or_replace":true,"names":["r"],"settings":{"type":"SettingsProfileElements","elements":[{"type":"SettingsProfileElement","setting_name":"max_threads","value":"2"}]}}
+-- ALTER ROLE
+{"type":"CreateRoleQuery","alter":true,"names":["r"],"new_name":"r2"}
+-- SET ROLE
+{"type":"SetRoleQuery","kind":"SET_ROLE","roles":{"type":"RolesOrUsersSet","names":["r1","r2"]}}
+-- SET DEFAULT ROLE
+{"type":"SetRoleQuery","kind":"SET_DEFAULT_ROLE","roles":{"type":"RolesOrUsersSet","names":["r1"]},"to_users":{"type":"RolesOrUsersSet","names":["u1","u2"]}}

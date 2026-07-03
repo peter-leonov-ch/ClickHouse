@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t_large"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "mutations_sync": "2"
+      }
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "DELETE",
+        "predicate": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "a"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

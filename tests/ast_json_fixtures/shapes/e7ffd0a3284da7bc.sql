@@ -1,0 +1,1 @@
+GRANT SELECT ON team*.* TO user_03141

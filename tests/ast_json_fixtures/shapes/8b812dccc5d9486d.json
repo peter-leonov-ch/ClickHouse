@@ -129,7 +129,28 @@
             {
               "type": "Literal",
               "value_type": "Array",
-              "value": "[NULL, 256, 257, NULL, NULL]"
+              "value": [
+                {
+                  "value_type": "Null",
+                  "value": null
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "256"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "257"
+                },
+                {
+                  "value_type": "Null",
+                  "value": null
+                },
+                {
+                  "value_type": "Null",
+                  "value": null
+                }
+              ]
             }
           ]
         },

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "access_rights": [
+      {
+        "access_types": ["SELECT"],
+        "database": "team",
+        "wildcard": true
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["user_03141"]
+    }
+  }
+}

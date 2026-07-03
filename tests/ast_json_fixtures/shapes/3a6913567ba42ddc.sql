@@ -1,0 +1,1 @@
+CREATE USER u5_01292 HOST NAME 'myhost.com', LOCAL

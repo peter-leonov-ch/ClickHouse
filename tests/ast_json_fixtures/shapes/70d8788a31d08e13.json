@@ -32,17 +32,44 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(-122.40898669999721, 37.81331899998324)"
+                "value": [
+                  {
+                    "value_type": "Float64",
+                    "value": -122.40898669999721
+                  },
+                  {
+                    "value_type": "Float64",
+                    "value": 37.81331899998324
+                  }
+                ]
               },
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(-122.35447369999936, 37.71980619999785)"
+                "value": [
+                  {
+                    "value_type": "Float64",
+                    "value": -122.35447369999936
+                  },
+                  {
+                    "value_type": "Float64",
+                    "value": 37.71980619999785
+                  }
+                ]
               },
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "(-122.4798767000009, 37.815157199999845)"
+                "value": [
+                  {
+                    "value_type": "Float64",
+                    "value": -122.4798767000009
+                  },
+                  {
+                    "value_type": "Float64",
+                    "value": 37.815157199999845
+                  }
+                ]
               }
             ]
           }

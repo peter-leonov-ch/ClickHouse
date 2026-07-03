@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowColumns",
+    "table": "03271_parametrized_v_expl"
+  }
+}

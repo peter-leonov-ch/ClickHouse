@@ -1,0 +1,1 @@
+SHOW CREATE POLICY sqllt_policy FORMAT Null

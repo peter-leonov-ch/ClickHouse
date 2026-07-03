@@ -1,0 +1,544 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "WithElement",
+            "name": "input_1",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "alias": "parent_id",
+                        "name": "CAST",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "String"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "id",
+                        "name": "CAST",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "String"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "alias": "value",
+                        "name": "CAST",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "String"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers_mt",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Float64",
+                                  "value": 1000000
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "dimensions_1",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "alias": "value_id",
+                        "name": "CAST",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "String"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers_mt",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Float64",
+                                  "value": 1000000
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "dimensions_2",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "alias": "value_id",
+                        "name": "CAST",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "number"
+                          },
+                          {
+                            "type": "Literal",
+                            "value_type": "String",
+                            "value": "String"
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "table_function": {
+                              "type": "Function",
+                              "name": "numbers_mt",
+                              "arguments": [
+                                {
+                                  "type": "Literal",
+                                  "value_type": "Float64",
+                                  "value": 1000000
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "parents",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "alias": "type",
+                        "value_type": "String",
+                        "value": "foo"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "parent_id"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "input_1"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "group_by": [
+                      {
+                        "type": "Identifier",
+                        "name": "parent_id"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "parents_with_value",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Identifier",
+                        "name": "type"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "parent_id"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "t.value",
+                        "name_parts": ["t", "value"]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "parents"
+                            }
+                          }
+                        },
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_join": {
+                            "type": "TableJoin",
+                            "kind": "LEFT",
+                            "on": {
+                              "type": "Function",
+                              "name": "equals",
+                              "is_operator": true,
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "name": "t.id",
+                                  "name_parts": ["t", "id"]
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "name": "parents.parent_id",
+                                  "name_parts": ["parents", "parent_id"]
+                                }
+                              ]
+                            }
+                          },
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "alias": "t",
+                              "name": "input_1"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "values",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Literal",
+                        "alias": "type",
+                        "value_type": "String",
+                        "value": "foo"
+                      },
+                      {
+                        "type": "Literal",
+                        "alias": "parent_id",
+                        "value_type": "String",
+                        "value": ""
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "value"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "input_1"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "WithElement",
+            "name": "all",
+            "subquery": {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Asterisk"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "parents_with_value"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Asterisk"
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "values"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "type"
+          },
+          {
+            "type": "Identifier",
+            "name": "value"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "all"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "all.value",
+                      "name_parts": ["all", "value"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "dim1.value_id",
+                      "name_parts": ["dim1", "value_id"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "dim1",
+                  "name": "dimensions_1"
+                }
+              }
+            },
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_join": {
+                "type": "TableJoin",
+                "kind": "INNER",
+                "on": {
+                  "type": "Function",
+                  "name": "equals",
+                  "is_operator": true,
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "all.value",
+                      "name_parts": ["all", "value"]
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "dim2.value_id",
+                      "name_parts": ["dim2", "value_id"]
+                    }
+                  ]
+                }
+              },
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "alias": "dim2",
+                  "name": "dimensions_2"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_block_size": "65535",
+        "max_joined_block_size_rows": "65535",
+        "max_threads": "32"
+      }
+    },
+    "format": "Null"
+  }
+}

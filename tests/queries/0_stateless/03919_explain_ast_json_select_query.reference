@@ -8,3 +8,5 @@
 [{"type":"WindowListElement","name":"w","definition":{"type":"WindowDefinition","partition_by":[{"type":"Identifier","name":"b"}]}}]
 -- single-expression clauses are objects, list clauses are arrays
 {"where":{"type":"Identifier","name":"w"},"group_by":[{"type":"Identifier","name":"g"}]}
+-- LIMIT ... WITH TIES: limit_with_ties flag
+{"limit_with_ties":true,"limit":{"type":"Literal","value_type":"UInt64","value":"3"}}

@@ -1,0 +1,1 @@
+DROP WORKLOAD IF EXISTS production

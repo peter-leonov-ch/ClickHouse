@@ -1,6 +1,8 @@
 {
   "version": 2,
   "ast": {
-    "type": "DropResourceQuery"
+    "type": "DropResourceQuery",
+    "resource_name": "03232_read",
+    "if_exists": true
   }
 }

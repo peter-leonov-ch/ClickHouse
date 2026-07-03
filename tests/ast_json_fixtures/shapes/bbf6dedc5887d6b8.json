@@ -1,0 +1,127 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "equals",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "3"
+              },
+              {
+                "type": "Function",
+                "name": "windowFunnel",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "ts"
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "event"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "a"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "event"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "b"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "event"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "c"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Function",
+                    "name": "equals",
+                    "is_operator": true,
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "event"
+                      },
+                      {
+                        "type": "Literal",
+                        "value_type": "String",
+                        "value": "d"
+                      }
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "86400"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "strict_deduplication"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "strict_BiteTheDDDD"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "JSONCompactEachRow"
+  }
+}

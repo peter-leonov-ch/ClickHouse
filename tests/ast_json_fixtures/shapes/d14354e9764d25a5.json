@@ -58,7 +58,24 @@
             {
               "type": "Literal",
               "value_type": "Tuple",
-              "value": "(131, 174, 175, 176)"
+              "value": [
+                {
+                  "value_type": "UInt64",
+                  "value": "131"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "174"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "175"
+                },
+                {
+                  "value_type": "UInt64",
+                  "value": "176"
+                }
+              ]
             }
           ]
         },

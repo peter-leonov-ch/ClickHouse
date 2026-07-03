@@ -5,6 +5,8 @@
 {"type":"Asterisk"}
 -- asterisk with EXCEPT transformer
 {"type":"Asterisk","transformers":[{"type":"ColumnsExceptTransformer","columns":[{"type":"Identifier","name":"a"},{"type":"Identifier","name":"b"}]}]}
+-- asterisk with EXCEPT regexp pattern
+{"type":"Asterisk","transformers":[{"type":"ColumnsExceptTransformer","pattern":"a.*"}]}
 -- asterisk with APPLY transformer
 {"type":"ColumnsApplyTransformer","func_name":"sum"}
 -- asterisk with REPLACE transformer

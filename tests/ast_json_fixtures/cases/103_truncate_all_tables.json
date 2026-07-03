@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "TruncateQuery",
+    "kind": "TRUNCATE",
+    "database": {
+      "type": "Identifier",
+      "name": "db"
+    },
+    "has_all": true,
+    "has_tables": true,
+    "like": "%tmp%"
+  }
+}

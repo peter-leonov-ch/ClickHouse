@@ -2,6 +2,7 @@
   "version": 2,
   "ast": {
     "type": "ShowTables",
+    "show_settings": true,
     "like": "send_timeout"
   }
 }

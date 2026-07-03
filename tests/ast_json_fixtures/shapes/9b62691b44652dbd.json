@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "uid"
+          },
+          {
+            "type": "Function",
+            "alias": "res",
+            "name": "windowFunnel",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "dt"
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "event"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "a"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "event"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "b"
+                  }
+                ]
+              },
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "event"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "c"
+                  }
+                ]
+              }
+            ],
+            "parameters": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "100"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "strict_order"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "funnel_test_reentry"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "equals",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "uid"
+            },
+            {
+              "type": "Literal",
+              "value_type": "UInt64",
+              "value": "2"
+            }
+          ]
+        },
+        "group_by": [
+          {
+            "type": "Identifier",
+            "name": "uid"
+          }
+        ]
+      }
+    ],
+    "format": "JSONCompactEachRow"
+  }
+}

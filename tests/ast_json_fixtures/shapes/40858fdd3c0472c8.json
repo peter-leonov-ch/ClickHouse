@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q4_01297"],
+    "limits": [
+      {
+        "duration_sec": "60",
+        "max": {
+          "QUERY_SELECTS": "12582912"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateNamedCollectionQuery",
+    "collection_name": "nc",
+    "if_not_exists": true,
+    "changes": {
+      "host": "localhost",
+      "port": "9000",
+      "password": "secret"
+    },
+    "overridability": {
+      "port": true,
+      "password": false
+    }
+  }
+}

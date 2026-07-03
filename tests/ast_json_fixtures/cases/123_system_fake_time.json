@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "TEST VIEW",
+    "database": {
+      "type": "Identifier",
+      "name": "db"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "v"
+    },
+    "fake_time_for_view": "1609477200"
+  }
+}

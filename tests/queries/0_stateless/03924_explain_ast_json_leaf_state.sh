@@ -25,6 +25,9 @@ ast "SELECT * FROM t" | jq -c '.. | objects | select(.type == "Asterisk")'
 echo "-- asterisk with EXCEPT transformer"
 ast "SELECT * EXCEPT (a, b) FROM t" | jq -c '.. | objects | select(.type == "Asterisk")'
 
+echo "-- asterisk with EXCEPT regexp pattern"
+ast "SELECT * EXCEPT 'a.*' FROM t" | jq -c '.. | objects | select(.type == "Asterisk")'
+
 echo "-- asterisk with APPLY transformer"
 ast "SELECT * APPLY(sum) FROM t" | jq -c '.. | objects | select(.type == "ColumnsApplyTransformer")'
 

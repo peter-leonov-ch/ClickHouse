@@ -9,12 +9,34 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[NULL, '25.6', '-0.02', NULL]"
+            "value": [
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "String",
+                "value": "25.6"
+              },
+              {
+                "value_type": "String",
+                "value": "-0.02"
+              },
+              {
+                "value_type": "Null",
+                "value": null
+              }
+            ]
           },
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[NULL]"
+            "value": [
+              {
+                "value_type": "Null",
+                "value": null
+              }
+            ]
           },
           {
             "type": "Literal",
@@ -24,7 +46,24 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[NULL, '10485.76', NULL, NULL]"
+            "value": [
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "String",
+                "value": "10485.76"
+              },
+              {
+                "value_type": "Null",
+                "value": null
+              },
+              {
+                "value_type": "Null",
+                "value": null
+              }
+            ]
           },
           {
             "type": "Function",
@@ -57,7 +96,12 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "[NULL]"
+            "value": [
+              {
+                "value_type": "Null",
+                "value": null
+              }
+            ]
           }
         ],
         "from": {
@@ -193,7 +237,16 @@
                           {
                             "type": "Literal",
                             "value_type": "Array",
-                            "value": "[NULL, NULL]"
+                            "value": [
+                              {
+                                "value_type": "Null",
+                                "value": null
+                              },
+                              {
+                                "value_type": "Null",
+                                "value": null
+                              }
+                            ]
                           },
                           {
                             "type": "Function",
@@ -276,6 +329,7 @@
           "value": "1024"
         }
       }
-    ]
+    ],
+    "format": "Null"
   }
 }

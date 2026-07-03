@@ -18,7 +18,28 @@
                   {
                     "type": "Literal",
                     "value_type": "Array",
-                    "value": "['inf', 'Inf', 'INF', 'infinity', 'Infinity']"
+                    "value": [
+                      {
+                        "value_type": "String",
+                        "value": "inf"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "Inf"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "INF"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "infinity"
+                      },
+                      {
+                        "value_type": "String",
+                        "value": "Infinity"
+                      }
+                    ]
                   }
                 ]
               }

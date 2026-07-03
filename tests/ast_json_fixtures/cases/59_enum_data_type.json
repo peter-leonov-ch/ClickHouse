@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "e",
+          "data_type": {
+            "type": "EnumDataType",
+            "name": "Enum8",
+            "values": [
+              {
+                "name": "a",
+                "value": 1
+              },
+              {
+                "name": "b",
+                "value": 2
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "Memory",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      }
+    }
+  }
+}

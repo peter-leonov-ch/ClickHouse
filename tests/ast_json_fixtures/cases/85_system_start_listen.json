@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "START LISTEN",
+    "server_type": {
+      "type": "QUERIES ALL",
+      "exclude_types": ["MYSQL", "TCP"]
+    }
+  }
+}

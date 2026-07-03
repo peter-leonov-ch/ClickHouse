@@ -7,6 +7,12 @@
       "type": "Identifier",
       "name": "test_move_partition_throttling"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_remote_write_network_bandwidth": "1600000"
+      }
+    },
     "commands": [
       {
         "type": "AlterCommand",
@@ -19,6 +25,7 @@
             "arguments": []
           }
         },
+        "move_destination_type": "VOLUME",
         "move_destination_name": "remote"
       }
     ]

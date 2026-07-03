@@ -1,0 +1,161 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "alias": "n",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "multiply",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "number"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "246"
+                  }
+                ]
+              },
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "d",
+            "name": "plus",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "toDate",
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "2000-01-01"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "n"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "arr",
+            "name": "range",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "s",
+            "name": "arrayStringConcat",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "arrayMap",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "lambda",
+                    "is_operator": true,
+                    "is_lambda_function": true,
+                    "kind": "LAMBDA_FUNCTION",
+                    "arguments": [
+                      {
+                        "type": "Function",
+                        "name": "tuple",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "reinterpretAsString",
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "name": "x"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "arr"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "tuple",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "n"
+              },
+              {
+                "type": "Identifier",
+                "name": "d"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "numbers",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "2"
+        }
+      }
+    ],
+    "format": "JSON"
+  }
+}

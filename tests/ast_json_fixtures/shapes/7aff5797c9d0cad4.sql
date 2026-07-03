@@ -1,0 +1,1 @@
+system disable failpoint replicated_merge_tree_commit_zk_fail_when_recovering_from_hw_fault

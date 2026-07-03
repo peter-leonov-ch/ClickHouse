@@ -1,0 +1,1 @@
+TRUNCATE ALL TABLES FROM db LIKE '%tmp%'

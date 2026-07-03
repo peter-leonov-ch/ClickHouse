@@ -62,7 +62,16 @@
                               {
                                 "type": "Literal",
                                 "value_type": "Array",
-                                "value": "[1, 2]"
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  },
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "2"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -120,7 +129,16 @@
                               {
                                 "type": "Literal",
                                 "value_type": "Array",
-                                "value": "[1, 3]"
+                                "value": [
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  },
+                                  {
+                                    "value_type": "UInt64",
+                                    "value": "3"
+                                  }
+                                ]
                               }
                             ]
                           },

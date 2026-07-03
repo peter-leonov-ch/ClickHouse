@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR FILESYSTEM CACHE",
+    "filesystem_cache_name": "cache1",
+    "key_to_drop": "k",
+    "offset_to_drop": "10"
+  }
+}

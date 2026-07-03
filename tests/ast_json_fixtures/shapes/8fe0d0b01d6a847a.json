@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropWorkloadQuery",
+    "workload_name": "development",
+    "if_exists": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateRoleQuery",
+    "names": ["r2_01293"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": []
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuery",
+    "cluster": "test_shard_localhost",
+    "database": {
+      "type": "Identifier",
+      "name": "test_01148_atomic"
+    },
+    "table": {
+      "type": "Identifier",
+      "name": "rmt2"
+    },
+    "columns_list": {
+      "type": "Columns",
+      "columns": [
+        {
+          "type": "ColumnDeclaration",
+          "name": "n",
+          "data_type": {
+            "type": "DataType",
+            "name": "int"
+          }
+        }
+      ],
+      "primary_key": {
+        "type": "Identifier",
+        "name": "n"
+      }
+    },
+    "storage": {
+      "type": "Storage",
+      "engine": {
+        "type": "Function",
+        "name": "ReplicatedMergeTree",
+        "kind": "TABLE_ENGINE",
+        "arguments": []
+      },
+      "primary_key": {
+        "type": "Identifier",
+        "name": "n"
+      }
+    }
+  }
+}

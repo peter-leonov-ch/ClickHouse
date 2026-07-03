@@ -1,0 +1,1 @@
+CREATE QUOTA q2_01297 FOR INTERVAL 1 MINUTE MAX execution_time = '0'

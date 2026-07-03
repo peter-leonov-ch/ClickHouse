@@ -1,0 +1,1 @@
+ALTER ROLE r2_01293 SETTINGS readonly=1

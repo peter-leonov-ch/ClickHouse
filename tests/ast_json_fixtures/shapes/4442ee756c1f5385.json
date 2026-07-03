@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q4_01297"],
+    "limits": [
+      {
+        "duration_sec": "604800"
+      }
+    ],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true,
+      "except_names": ["u1_01297"]
+    }
+  }
+}

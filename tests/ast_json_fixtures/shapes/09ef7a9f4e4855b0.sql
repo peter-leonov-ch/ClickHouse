@@ -1,0 +1,1 @@
+DROP FUNCTION 02126_function

@@ -32,7 +32,16 @@
               {
                 "type": "Literal",
                 "value_type": "Tuple",
-                "value": "('::1', '127.0.0.1')"
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "::1"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "127.0.0.1"
+                  }
+                ]
               }
             ]
           },

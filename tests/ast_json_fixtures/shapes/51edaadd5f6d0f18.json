@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "ShowCreateAccessEntityQuery",
+    "entity_type": "USER",
+    "names": ["u5_01292@65:ff0c::\/96"]
+  }
+}

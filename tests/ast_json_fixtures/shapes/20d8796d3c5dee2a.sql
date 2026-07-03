@@ -1,0 +1,1 @@
+ALTER TABLE t0 REWRITE PARTS SETTINGS mutations_sync=1

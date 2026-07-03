@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "a",
+            "value_type": "UInt64",
+            "value": "1000000"
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "output_format_pretty_single_large_number_tip_threshold": "1000"
+          }
+        }
+      }
+    ],
+    "format": "PrettySpaceNoEscapes"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "1"
+          }
+        ]
+      }
+    ],
+    "out_file": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "\/tmp\/f.csv.gz"
+    },
+    "outfile_append": true,
+    "compression": {
+      "type": "Literal",
+      "value_type": "String",
+      "value": "gzip"
+    },
+    "compression_level": {
+      "type": "Literal",
+      "value_type": "UInt64",
+      "value": "3"
+    },
+    "format": "CSV"
+  }
+}

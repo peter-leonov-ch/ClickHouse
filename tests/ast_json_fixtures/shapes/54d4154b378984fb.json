@@ -1,6 +1,7 @@
 {
   "version": 2,
   "ast": {
-    "type": "DropFunctionQuery"
+    "type": "DropFunctionQuery",
+    "function_name": "f0"
   }
 }

@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "extractAllGroupsHorizontal",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "hello world"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "(\\w+)"
+              }
+            ]
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "regexp_max_matches_per_row": "1000000"
+          }
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

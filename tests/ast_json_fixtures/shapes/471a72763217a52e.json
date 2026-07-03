@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "UInt64",
+            "value": "0"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "test_rows_wide_part"
+                }
+              }
+            }
+          ]
+        },
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "exact_rows_before_limit": "0",
+        "output_format_write_statistics": "0"
+      }
+    },
+    "format": "JSONCompact"
+  }
+}

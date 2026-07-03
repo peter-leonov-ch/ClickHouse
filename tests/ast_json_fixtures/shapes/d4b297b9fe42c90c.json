@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "03710"
+          },
+          {
+            "type": "Identifier",
+            "name": "c"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "tab"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "use_query_cache": "1",
+        "max_block_size": "1"
+      }
+    },
+    "format": "TSV"
+  }
+}

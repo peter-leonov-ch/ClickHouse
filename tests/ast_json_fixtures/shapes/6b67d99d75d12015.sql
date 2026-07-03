@@ -1,0 +1,1 @@
+CREATE QUOTA q7_01297 FOR 1 QUARTER MAX errors 11, queries 100

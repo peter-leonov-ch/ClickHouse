@@ -1,0 +1,1 @@
+CREATE FUNCTION f ON CLUSTER c AS x -> x + 1

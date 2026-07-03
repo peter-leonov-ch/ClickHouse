@@ -1,0 +1,1 @@
+SHOW CREATE TABLE v1 FORMAT Vertical

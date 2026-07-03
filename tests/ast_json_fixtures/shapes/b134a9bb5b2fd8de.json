@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateUserQuery",
+    "names": {
+      "type": "UserNamesWithHost",
+      "users": [
+        {
+          "type": "UserNameWithHost",
+          "name": "u2_01292"
+        }
+      ]
+    },
+    "authentication_methods": [
+      {
+        "type": "AuthenticationData",
+        "auth_type": "NO_PASSWORD",
+        "arguments": []
+      }
+    ],
+    "replace_authentication_methods": true,
+    "hosts": {
+      "any_host": true
+    },
+    "default_roles": {
+      "type": "RolesOrUsersSet",
+      "all": true
+    },
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": []
+    }
+  }
+}

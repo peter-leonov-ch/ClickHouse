@@ -1,0 +1,1 @@
+SELECT a, s FROM t WHERE s LIKE '1%' ORDER BY a DESC LIMIT 10 FORMAT Null SETTINGS log_comment='query_8'

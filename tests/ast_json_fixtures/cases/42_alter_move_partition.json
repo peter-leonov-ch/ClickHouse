@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "AlterQuery",
+    "alter_object": "TABLE",
+    "table": {
+      "type": "Identifier",
+      "name": "t"
+    },
+    "commands": [
+      {
+        "type": "AlterCommand",
+        "command_type": "MOVE_PARTITION",
+        "partition": {
+          "type": "Partition",
+          "value": {
+            "type": "Literal",
+            "value_type": "String",
+            "value": "p"
+          }
+        },
+        "move_destination_type": "DISK",
+        "move_destination_name": "fast"
+      }
+    ]
+  }
+}

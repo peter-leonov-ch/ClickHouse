@@ -107,6 +107,15 @@
           }
         ]
       }
-    ]
+    ],
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "optimize_injective_functions_in_group_by": "1",
+        "optimize_group_by_function_keys": "1",
+        "group_by_use_nulls": "1"
+      }
+    },
+    "format": "Null"
   }
 }

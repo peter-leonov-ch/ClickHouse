@@ -1,0 +1,1 @@
+SHOW CREATE ROLE r2_01293_renamed

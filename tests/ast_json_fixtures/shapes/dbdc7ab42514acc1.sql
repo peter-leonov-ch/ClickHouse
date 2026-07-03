@@ -1,0 +1,1 @@
+CREATE ROLE r7_01293 SETTINGS max_memory_usage WRITABLE

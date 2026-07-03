@@ -1,0 +1,1 @@
+SHOW CREATE USER sqllt_user FORMAT Null

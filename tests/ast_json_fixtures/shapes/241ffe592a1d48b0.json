@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "s",
+            "value_type": "String",
+            "value": "Hello & world"
+          },
+          {
+            "type": "Function",
+            "alias": "time",
+            "name": "toDateTime",
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "2001-02-03 04:05:06"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "tpl",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "s"
+              },
+              {
+                "type": "Identifier",
+                "name": "time"
+              }
+            ]
+          }
+        ],
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "extremes": "1",
+            "enable_named_columns_in_function_tuple": "0"
+          }
+        }
+      }
+    ],
+    "format": "XML"
+  }
+}

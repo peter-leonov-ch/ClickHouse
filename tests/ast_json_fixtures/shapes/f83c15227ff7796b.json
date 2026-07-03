@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "extract",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "message"
+              },
+              {
+                "type": "Literal",
+                "value_type": "String",
+                "value": "SeL.+?;"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "text_log",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "and",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "greaterOrEquals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "event_date"
+                },
+                {
+                  "type": "Function",
+                  "name": "yesterday",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "like",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "message"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "%SeLeCt 'ab\n%"
+                }
+              ]
+            },
+            {
+              "type": "Function",
+              "name": "equals",
+              "is_operator": true,
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "logger_name"
+                },
+                {
+                  "type": "Literal",
+                  "value_type": "String",
+                  "value": "executeQuery"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "event_time"
+            },
+            "direction": "DESC"
+          }
+        ],
+        "limit": {
+          "type": "Literal",
+          "value_type": "UInt64",
+          "value": "1"
+        }
+      }
+    ],
+    "format": "TSVRaw"
+  }
+}

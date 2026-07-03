@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateQuotaQuery",
+    "names": ["q6_01297"],
+    "roles": {
+      "type": "RolesOrUsersSet",
+      "all": true,
+      "except_names": ["r1_01297"]
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Identifier",
+            "name": "id"
+          },
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "tuple",
+            "arguments": [
+              {
+                "type": "Function",
+                "alias": "col_a",
+                "name": "replaceAll",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "data"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "a"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "e"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "type"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "b",
+            "name": "tuple",
+            "arguments": [
+              {
+                "type": "Function",
+                "alias": "col_b",
+                "name": "replaceAll",
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "data"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "a"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "String",
+                    "value": "e"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "type"
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "table_function": {
+                  "type": "Function",
+                  "name": "cluster",
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "test_cluster_two_shards"
+                    },
+                    {
+                      "type": "Function",
+                      "name": "currentDatabase",
+                      "arguments": []
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "src"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "Settings",
+          "changes": {
+            "prefer_localhost_replica": "0"
+          }
+        }
+      }
+    ],
+    "format": "JSONEachRow"
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "with": [
+          {
+            "type": "Literal",
+            "alias": "start",
+            "value_type": "UInt64",
+            "value": "1734955380"
+          },
+          {
+            "type": "Literal",
+            "alias": "end",
+            "value_type": "UInt64",
+            "value": "1734955680"
+          },
+          {
+            "type": "Literal",
+            "alias": "step",
+            "value_type": "UInt64",
+            "value": "15"
+          },
+          {
+            "type": "Literal",
+            "alias": "window",
+            "value_type": "UInt64",
+            "value": "300"
+          },
+          {
+            "type": "Literal",
+            "alias": "predict_offset",
+            "value_type": "UInt64",
+            "value": "60"
+          },
+          {
+            "type": "Function",
+            "alias": "grid",
+            "name": "range",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "start"
+              },
+              {
+                "type": "Function",
+                "name": "plus",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "end"
+                  },
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "step"
+              }
+            ]
+          }
+        ],
+        "select": [
+          {
+            "type": "Function",
+            "alias": "changes_5m",
+            "name": "arrayZip",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "grid"
+              },
+              {
+                "type": "Function",
+                "name": "timeSeriesChangesToGrid",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUnixTimestamp",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "timestamp"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "value"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "type": "Identifier",
+                    "name": "start"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "end"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "step"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "window"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "resets_5m",
+            "name": "arrayZip",
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "grid"
+              },
+              {
+                "type": "Function",
+                "name": "timeSeriesResetsToGrid",
+                "arguments": [
+                  {
+                    "type": "Function",
+                    "name": "toUnixTimestamp",
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "name": "timestamp"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "value"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "type": "Identifier",
+                    "name": "start"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "end"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "step"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "window"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "ts_raw_data"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Vertical"
+  }
+}

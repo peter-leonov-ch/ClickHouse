@@ -1,0 +1,480 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Asterisk"
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "formats",
+                  "database": "system"
+                }
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "in",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "name"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Tuple",
+              "value": [
+                {
+                  "value_type": "String",
+                  "value": "Arrow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ArrowStream"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Avro"
+                },
+                {
+                  "value_type": "String",
+                  "value": "AvroConfluent"
+                },
+                {
+                  "value_type": "String",
+                  "value": "BSONEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Buffers"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CSV"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CSVWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CSVWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CapnProto"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparated"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparatedIgnoreSpaces"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparatedIgnoreSpacesWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparatedIgnoreSpacesWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparatedWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "CustomSeparatedWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Form"
+                },
+                {
+                  "value_type": "String",
+                  "value": "HiveText"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSON"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONAsObject"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONAsString"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONColumns"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONColumnsWithMetadata"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompact"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactColumns"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactEachRowWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactEachRowWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactEachRowWithProgress"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactStrings"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactStringsEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactStringsEachRowWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactStringsEachRowWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONCompactStringsEachRowWithProgress"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONEachRowWithProgress"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONLines"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONObjectEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONStrings"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONStringsEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "JSONStringsEachRowWithProgress"
+                },
+                {
+                  "value_type": "String",
+                  "value": "LineAsString"
+                },
+                {
+                  "value_type": "String",
+                  "value": "LineAsStringWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "LineAsStringWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Markdown"
+                },
+                {
+                  "value_type": "String",
+                  "value": "MsgPack"
+                },
+                {
+                  "value_type": "String",
+                  "value": "MySQLDump"
+                },
+                {
+                  "value_type": "String",
+                  "value": "MySQLWire"
+                },
+                {
+                  "value_type": "String",
+                  "value": "NDJSON"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Native"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Npy"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Null"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ODBCDriver2"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ORC"
+                },
+                {
+                  "value_type": "String",
+                  "value": "One"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Parquet"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ParquetMetadata"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PostgreSQLWire"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Pretty"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyCompact"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyCompactMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyCompactNoEscapes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyCompactNoEscapesMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyJSONEachRow"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyJSONLines"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyNDJSON"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyNoEscapes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettyNoEscapesMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettySpace"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettySpaceMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettySpaceNoEscapes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "PrettySpaceNoEscapesMonoBlock"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Prometheus"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Protobuf"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ProtobufList"
+                },
+                {
+                  "value_type": "String",
+                  "value": "ProtobufSingle"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Raw"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RawBLOB"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RawWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RawWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Regexp"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RowBinary"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RowBinaryWithDefaults"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RowBinaryWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "RowBinaryWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "SQLInsert"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSKV"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSV"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSVRaw"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSVRawWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSVRawWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSVWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TSVWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparated"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparatedRaw"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparatedRawWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparatedRawWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparatedWithNames"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TabSeparatedWithNamesAndTypes"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Template"
+                },
+                {
+                  "value_type": "String",
+                  "value": "TemplateIgnoreSpaces"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Values"
+                },
+                {
+                  "value_type": "String",
+                  "value": "Vertical"
+                },
+                {
+                  "value_type": "String",
+                  "value": "XML"
+                }
+              ]
+            }
+          ]
+        },
+        "order_by": [
+          {
+            "type": "OrderByElement",
+            "expression": {
+              "type": "Identifier",
+              "name": "name"
+            },
+            "direction": "ASC"
+          }
+        ]
+      }
+    ],
+    "format": "PrettyCompact"
+  }
+}

@@ -7,6 +7,12 @@
       "type": "Identifier",
       "name": "restore_01640"
     },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "insert_keeper_fault_injection_probability": "0"
+      }
+    },
     "commands": [
       {
         "type": "AlterCommand",

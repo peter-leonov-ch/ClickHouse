@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS 02101_test_function

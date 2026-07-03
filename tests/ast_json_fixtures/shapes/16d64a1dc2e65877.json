@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "tid",
+            "arguments": []
+          }
+        ]
+      }
+    ],
+    "format": "Null"
+  }
+}

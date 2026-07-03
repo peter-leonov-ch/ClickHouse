@@ -16,7 +16,16 @@
             "type": "Literal",
             "alias": "a",
             "value_type": "Array",
-            "value": "[4, 5]"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "4"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "5"
+              }
+            ]
           },
           {
             "type": "Literal",
@@ -88,7 +97,16 @@
             "type": "Literal",
             "alias": "l",
             "value_type": "Tuple",
-            "value": "(1, 2)"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "2"
+              }
+            ]
           },
           {
             "type": "Literal",
@@ -113,7 +131,12 @@
             "type": "Literal",
             "alias": "p",
             "value_type": "Array",
-            "value": "[1]"
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              }
+            ]
           },
           {
             "type": "Literal",

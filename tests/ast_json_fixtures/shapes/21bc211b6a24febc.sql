@@ -1,0 +1,1 @@
+SYSTEM DISABLE FAILPOINT parallel_replicas_reading_response_timeout

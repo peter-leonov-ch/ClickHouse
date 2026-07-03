@@ -10,7 +10,8 @@
             "type": "Asterisk",
             "transformers": [
               {
-                "type": "ColumnsExceptTransformer"
+                "type": "ColumnsExceptTransformer",
+                "pattern": "bytes"
               }
             ]
           },

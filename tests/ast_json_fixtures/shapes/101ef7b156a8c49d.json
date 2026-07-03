@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CheckQuery",
+    "table": {
+      "type": "Identifier",
+      "name": "mt_table"
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "max_threads": "1"
+      }
+    }
+  }
+}

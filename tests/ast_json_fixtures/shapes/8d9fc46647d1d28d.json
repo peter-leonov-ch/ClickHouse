@@ -2,28 +2,31 @@
   "version": 2,
   "ast": {
     "type": "RestoreQuery",
-    "children": [
+    "kind": "RESTORE",
+    "elements": [
       {
-        "type": "Function",
-        "name": "Disk",
-        "kind": "BACKUP_NAME",
-        "arguments": [
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "backups"
-          },
-          {
-            "type": "Literal",
-            "value_type": "String",
-            "value": "03760_backup_tar_archive.tar"
-          }
-        ]
-      },
-      {
-        "type": "Identifier",
-        "name": "Null"
+        "element_type": "TABLE",
+        "table": "t0",
+        "new_table": "t1"
       }
-    ]
+    ],
+    "backup_name": {
+      "type": "Function",
+      "name": "Disk",
+      "kind": "BACKUP_NAME",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "backups"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "03760_backup_tar_archive.tar"
+        }
+      ]
+    },
+    "format": "Null"
   }
 }

@@ -1,0 +1,1 @@
+DROP USER IF EXISTS u_03174_multiple_auth_show_create

@@ -37,7 +37,12 @@
                 "type": "Asterisk"
               }
             ],
-            "order_by": []
+            "order_by": [
+              {
+                "type": "Identifier",
+                "name": "j"
+              }
+            ]
           }
         }
       ]

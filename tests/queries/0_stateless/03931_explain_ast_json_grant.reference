@@ -1,0 +1,14 @@
+-- GRANT privileges with columns and grant option
+{"type":"GrantQuery","access_rights":[{"access_types":["SELECT"],"database":"db","table":"t","columns":["x","y"],"grant_option":true},{"access_types":["INSERT"],"database":"db","table":"t","grant_option":true}],"grantees":{"type":"RolesOrUsersSet","names":["user1"]}}
+-- GRANT role to users
+{"type":"GrantQuery","admin_option":true,"roles":{"type":"RolesOrUsersSet","names":["role1","role2"]},"grantees":{"type":"RolesOrUsersSet","names":["user1","user2"]}}
+-- GRANT on all
+[{"access_types":["SELECT"]}]
+-- REVOKE
+{"type":"RevokeQuery","access_rights":[{"access_types":["SELECT"],"database":"db","table":"t"}],"grantees":{"type":"RolesOrUsersSet","names":["user1"]}}
+-- REVOKE from ALL EXCEPT
+{"type":"RolesOrUsersSet","all":true,"except_names":["user1"]}
+-- GRANT CURRENT GRANTS
+{"type":"GrantQuery","current_grants":true}
+-- CHECK GRANT
+{"type":"CheckGrantQuery","access_rights":[{"access_types":["SELECT"],"database":"db","table":"t","columns":["x"]},{"access_types":["ALTER UPDATE"],"database":"db","table":"t"}]}

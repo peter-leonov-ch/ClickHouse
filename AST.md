@@ -163,8 +163,10 @@ Scalar flags below are emitted only when set/non-default unless noted.
   parameter is substituted (or errors) before `EXPLAIN` runs.
 - **Literal**: `value_type` (the `Field` type), `value`. `Null` → JSON null,
   `Bool` → JSON bool, `Float64` → JSON number, `String` → JSON string;
-  `UInt64` / `Int64` → JSON **string** (see contract); everything else →
-  string via `FieldVisitorToString` (see "Fallback value stringification").
+  `UInt64` / `Int64` → JSON **string** (see contract); `Array` / `Tuple` →
+  JSON array of typed `{value_type, value}` elements, `Map` / `Object` → JSON
+  object of typed values; everything else → string via `FieldVisitorToString`
+  (see "Container and fallback value serialization").
 - **Asterisk**: `expression`, `transformers` (an array; plain `*` is bare).
 - **QualifiedAsterisk**: `qualifier`, `transformers` (array).
 - **ColumnsRegexpMatcher**: `pattern`, `expression`, `transformers` (array).
@@ -172,7 +174,9 @@ Scalar flags below are emitted only when set/non-default unless noted.
   (array).
 - **ColumnsApplyTransformer**: `func_name`, `parameters`, `lambda`,
   `lambda_arg`, `column_name_prefix`.
-- **ColumnsExceptTransformer**: `is_strict`, `columns` (inlined).
+- **ColumnsExceptTransformer**: `is_strict`, `columns` (inlined) for the
+  explicit column-list form, or `pattern` for the regexp form
+  (`EXCEPT 'a.*'`).
 - **ColumnsReplaceTransformer**: `is_strict`, `replacements` (inlined).
 - **ColumnsReplaceTransformer::Replacement**: `name`, `expression`.
 
@@ -183,7 +187,8 @@ Scalar flags below are emitted only when set/non-default unless noted.
 
 - **SelectQuery**: scalar flags `distinct`, `group_by_all`,
   `group_by_with_totals` / `_rollup` / `_cube` / `_grouping_sets`,
-  `order_by_all`, `recursive_with`; then one slot per clause —
+  `order_by_all`, `recursive_with`, `limit_with_ties` (`LIMIT ... WITH TIES`);
+  then one slot per clause —
   `with`, `select`, `from`, `prewhere`, `where`, `group_by`, `having`,
   `window`, `qualify`, `order_by`, `offset`, `limit`, `settings`,
   `interpolate`, and `limit_by`. List-shaped clauses are inlined; the rest
@@ -192,11 +197,25 @@ Scalar flags below are emitted only when set/non-default unless noted.
   `CTE_ALIASES` are analyzer state and never present on parsed ASTs, so
   they are omitted.
 - **SelectWithUnionQuery**: `union_mode` (non-default only), `selects`
-  (inlines `list_of_selects`).
+  (inlines `list_of_selects`), plus the shared output clause (see below).
 - **SelectIntersectExceptQuery**: `operator`, `selects` (the operand selects,
   mirroring `SelectWithUnionQuery`).
 - **Subquery**: `cte_name`, `query` (its single child).
 - **WithElement**: `name`, `subquery`, `aliases`.
+- **Output clause** (shared by all `ASTQueryWithOutput` subclasses — e.g.
+  `SelectWithUnionQuery` and the table-scoped DDL/DML): the trailing
+  `[INTO OUTFILE <file> [APPEND | TRUNCATE] [AND STDOUT]
+  [COMPRESSION <c> [LEVEL <n>]]] [FORMAT <name>] [SETTINGS ...]` suffix.
+  Serialized as `out_file` (the filename literal node; present only for
+  `INTO OUTFILE`), the `outfile_append` / `outfile_truncate` /
+  `outfile_with_stdout` boolean flags (each only when set), `compression` and
+  `compression_level` (literal nodes), `format` (a plain string, mirroring the
+  InsertQuery `format` field), and `settings` (the output-level `SETTINGS`
+  placed *after* `FORMAT`, e.g. `SELECT ... FORMAT TSV SETTINGS max_threads =
+  1`). All slots are omitted when absent. Note the position of `SETTINGS`
+  matters: a `SETTINGS` placed *before* `FORMAT` (`SELECT 1 SETTINGS x = 1
+  FORMAT TSV`) is consumed into the operand `SelectQuery`'s own `settings`
+  slot instead of the wrapper's output-clause `settings`.
 
 ### FROM / JOIN
 
@@ -227,11 +246,23 @@ Scalar flags below are emitted only when set/non-default unless noted.
 
 ### DDL / DML
 
-- **CreateQuery**: the `attach` / `temporary` / `if_not_exists` /
-  `is_*_view` / `is_dictionary` / `replace_*` / `create_or_replace` flags
-  (when set), `database`, `table`, `columns_list`, `aliases`, `storage`,
+- **CreateQuery** (also `AttachQuery` by `type` when `attach`): the `attach` /
+  `temporary` / `if_not_exists` / `is_*_view` / `is_dictionary` / `replace_*` /
+  `create_or_replace` flags (when set), `attach_from_path` and
+  `attach_as_replicated` (the `ATTACH TABLE t FROM '/path'` source and the
+  `ATTACH TABLE t AS [NOT] REPLICATED` conversion marker), `uuid`, `cluster`
+  (`ON CLUSTER`), `database`, `table`, `columns_list`, `aliases`, `storage`,
   `as_table_function`, `as_database` / `as_table`, `select`, `targets`,
-  `comment`, `dictionary_attributes`, `dictionary`.
+  `comment`, `dictionary_attributes`, `dictionary`, `refresh` (the refreshable
+  materialized-view `REFRESH ...` strategy).
+- **RefreshStrategy** (`ASTRefreshStrategy`; the MV `REFRESH` clause, also the
+  target of `ALTER ... MODIFY REFRESH`): `schedule_kind` (`AFTER` / `EVERY` /
+  `UNKNOWN`), `append`, `period`, `offset`, `spread` (each a `TimeInterval`),
+  `dependencies` (inlined), `settings`. `schedule_kind` / `append` are scalar
+  members, not `children`.
+- **TimeInterval** (`ASTTimeInterval`, e.g. `1 YEAR 3 DAY`): `interval`, an
+  array of `{kind, value}` units (`kind` from `IntervalKind::toString()`). The
+  whole value is held in a member with no AST children.
 - **Columns** (`ASTColumns`): `columns`, `indices`, `constraints`,
   `projections` (inlined), `primary_key`, `primary_key_from_columns`.
 - **ColumnDeclaration**: `name`, `data_type`, `default_specifier`,
@@ -246,6 +277,15 @@ Scalar flags below are emitted only when set/non-default unless noted.
 - **TupleDataType** (`Tuple`): `name`, `arguments` (the element types, inlined),
   and `element_names` (array of strings) for a *named* tuple. Unnamed tuples omit
   `element_names`.
+- **ObjectTypeArgument** (`ASTObjectTypeArgument`; its `type` is overridden
+  from the raw `"ASTObjectTypeArgument"` getID): one argument of a JSON/Object
+  type — exactly one of `path_with_type` (an `ObjectTypedPath`), `skip_path`
+  (`SKIP x`), `skip_path_regexp` (`SKIP REGEXP '...'`), or `parameter`
+  (a `setting = N` pair) is present.
+- **ObjectTypedPath** (`ASTObjectTypedPathArgument`, a JSON/Object typed path
+  `a.b.c Type`): `name` (the path) and `data_type` (not `type`, which is
+  reserved for the node-class discriminator). The path is otherwise only
+  echoed into `getID`, which `astTypeName` trims away.
 - **Storage**: `engine`, `partition_by`, `primary_key`, `order_by`,
   `sample_by`, `ttl_table`, `settings`.
 - **InsertQuery**: `database`, `table`, `table_function`, `columns`,
@@ -253,19 +293,35 @@ Scalar flags below are emitted only when set/non-default unless noted.
 - **Index**: `name`, `expression`, `index_type`, `granularity`.
 - **Constraint**: `name`, `constraint_type` (`CHECK` / `ASSUME`),
   `expression`.
-- **Projection**: `name`, `query`, `index`.
-- **ProjectionSelectQuery**: `with`, `select`, `group_by`, `order_by`
-  (inlined).
+- **Projection**: `name`, `query`, `index`, `index_type` (the `INDEX expr TYPE
+  name` projection index type, an `ASTFunction`), `settings` (projection-level
+  `SETTINGS`). `index_type` and `settings` live in dedicated members, not
+  `children`.
+- **ProjectionSelectQuery**: `with`, `select`, `group_by`, `order_by` (all
+  inlined). Unlike a normal SELECT, a projection stores its `ORDER BY` as a
+  *single* node — multiple keys packed into a `tuple(...)` and a lone key kept
+  bare — so `order_by` is reconstructed as a flat list of keys (the tuple's
+  arguments, or the single key), matching the SQL formatter. A projection's
+  `GROUP BY` is a plain expression list (no GROUPING SETS / ROLLUP / CUBE in the
+  projection grammar).
 - **TTLElement**: `mode` (`DELETE` / `MOVE` / `GROUP_BY` / `RECOMPRESS`),
   `ttl`, and for `MOVE` the `destination_type` / `destination_name` /
-  `if_exists`; `where`, `recompression_codec`.
+  `if_exists`; for `GROUP_BY` the `group_by_key` and `group_by_assignments`
+  (both arrays of nodes, kept in dedicated members the native AST otherwise
+  drops); `where`, `recompression_codec`.
+- **Collation** (`ASTCollation`, the `COLLATE` clause of a column or ORDER BY
+  element): `name` (the collation identifier; falls back to the parsed node
+  when it is not a plain identifier). The name lives in the `collation` member,
+  not `children`.
 - **Partition**: `all`, `value`, `id`.
 - **DeleteQuery**: `database`, `table`, `cluster`, `partition`, `predicate`.
 - **UpdateQuery**: `database`, `table`, `cluster`, `assignments`,
   `predicate`, `partition`.
 - **DropQuery** (also `DetachQuery` / `TruncateQuery` by `type`): `kind`,
   `database`, `table`, `cluster`, `if_exists` / `if_empty` / `is_dictionary`
-  / `is_view` / `sync` / `permanently`, `database_and_tables`.
+  / `is_view` / `sync` / `permanently`, `database_and_tables`. For
+  `TRUNCATE ALL TABLES FROM db`: `has_all` / `has_tables`, plus the optional
+  table-name pattern `like` with `not_like` / `case_insensitive_like` flags.
 - **OptimizeQuery**: `database`, `table`, `cluster`, `partition`, `final`,
   `deduplicate`, `deduplicate_by_columns`, `cleanup`.
 - **Assignment**: `column`, `expression`.
@@ -275,10 +331,40 @@ Scalar flags below are emitted only when set/non-default unless noted.
   `MOVE_PARTITION`, `MODIFY_TTL`), the relevant flags, and whichever sub-node
   slots apply — `column_declaration`, `column`, `order_by`, `index_declaration`,
   `partition`, `predicate`, `assignments`, `comment`, `ttl`, `settings_changes`,
-  `select`, `rename_to`, ... plus the `from*` / `to*` / `move_destination_name`
-  strings.
-- **CreateFunctionQuery**: `or_replace`, `if_not_exists`, `function_name`,
-  `function_core`.
+  `select`, `rename_to`, `snapshot_desc`, ... plus the `from*` / `to*` /
+  `move_destination_name` / `with_name` / `snapshot_name` strings,
+  `move_destination_type` (`DISK` / `VOLUME` / `TABLE` / `SHARD`, on
+  `MOVE_PARTITION`), and `replace` (on `REPLACE_PARTITION`, distinguishing
+  `REPLACE` from `ATTACH ... FROM`).
+- **CreateFunctionQuery**: `or_replace`, `if_not_exists`, `cluster`,
+  `function_name`, `function_core`.
+- **DropFunctionQuery**: `function_name`, `if_exists`, `cluster`.
+- **CreateNamedCollectionQuery**: `collection_name`, `if_not_exists`,
+  `cluster`, `changes` (the `key = value` body as a name -> value object), and
+  `overridability` (a name -> bool object, present only for keys carrying an
+  explicit `OVERRIDABLE` / `NOT OVERRIDABLE` flag). The node has no `children`.
+- **CreateWorkloadQuery**: `or_replace`, `if_not_exists`, `cluster`,
+  `workload_name`, `workload_parent` (the `IN parent` clause), and `changes`
+  (array of `{name, value, resource?}` — each SETTINGS entry with its optional
+  `FOR resource`).
+- **CreateResourceQuery**: `or_replace`, `if_not_exists`, `cluster`,
+  `resource_name`, `unit` (`IOByte` / `CPUNanosecond` / `QuerySlot`), and
+  `operations` (array of `{mode, disk?}`; `mode` is `READ` / `WRITE` /
+  `MASTER_THREAD` / `WORKER_THREAD` / `QUERY`, and an absent `disk` means ANY
+  DISK).
+- **DropNamedCollectionQuery** / **DropWorkloadQuery** /
+  **DropResourceQuery**: `collection_name` / `workload_name` / `resource_name`
+  respectively, plus `if_exists` and `cluster`. All are plain string members
+  (no `children`), so without the explicit branches these nodes would expose
+  nothing but their `type`.
+- **BackupQuery** (also `RestoreQuery` by `type`): `kind`, `cluster`,
+  `elements`, `backup_name` (the `TO` / `FROM` destination), `base_backup_name`
+  (incremental base), `settings`, `cluster_host_ids` (internal, normally
+  absent). Each `elements` entry has `element_type`, `database` / `table`,
+  `new_database` / `new_table` (only when an `AS` clause renamed the object),
+  `partitions`, `except_tables` (array of `{database, table}`),
+  `except_databases`. Note the parser folds the `DICTIONARY` / `VIEW` keywords
+  into `element_type` `TABLE`.
 - **Dictionary** (`ASTDictionary`): `primary_key` (inlined), `source`,
   `lifetime`, `layout`, `range`, `settings`.
 - **DictionaryAttributeDeclaration**: `name`, `data_type`, `default_value`,
@@ -300,20 +386,73 @@ confusable with `SET` statements and the `Set` data structure).
 
 ### Other statements and elements
 
-- **Explain**: `kind`, `query`, `settings`, `table_function`, `table_override`.
+- **Explain**: `kind`, `query`, `settings`, `table_function`, `table_override`,
+  `output_settings`. `settings` is the EXPLAIN-level settings clause
+  (`EXPLAIN SETTINGS <k>=<v> ...`, `ASTExplainQuery::ast_settings`), while
+  `output_settings` is the trailing output-clause settings
+  (`EXPLAIN ... FORMAT <fmt> SETTINGS <k>=<v>`, the `ASTQueryWithOutput` base
+  `settings_ast`). Both may be present at once and are kept on separate keys.
 - **DescribeQuery**: `table_expression`.
-- **ShowTables**: the flags (`databases` / `dictionaries` / `temporary` /
-  `full` / ...), `from`, `like`, `not_like`.
+- **ShowTables**: covers SHOW TABLES / DATABASES / CLUSTERS / CLUSTER /
+  DICTIONARIES / SETTINGS / MERGES / FILESYSTEM CACHES on one class. The
+  variant-selector flags `databases`, `clusters`, `cluster` (singular, SHOW
+  CLUSTER `<name>`), `dictionaries`, `show_settings` (the internal
+  `m_settings` member — renamed so the `m_` prefix does not leak and it does
+  not collide with the `settings` slot), `changed` (SHOW CHANGED SETTINGS),
+  `merges`, `caches`, `temporary`, `full`; `cluster_name` (the SHOW CLUSTER
+  operand, the internal `cluster_str` member — `cluster` elsewhere is the ON
+  CLUSTER string, so that key is not reused); `from`, `like`, `not_like`,
+  `case_insensitive_like` (LIKE vs ILIKE), `where`, `limit`.
+- **ShowColumns**: `extended` / `full` flags, `table` (always present — the
+  grammar requires `FROM <table>`), `database`, `like` / `not_like` /
+  `case_insensitive_like`, `where`, `limit`. The native AST keeps all of these
+  in plain members (its `children` is empty), so they are surfaced explicitly
+  here; otherwise `SHOW COLUMNS`, `SHOW FIELDS`, `SHOW EXTENDED FULL COLUMNS`,
+  ... would collapse to a bare `{"type": "ShowColumns"}` and lose the table.
+- **ShowSetting**: `setting_name` (the sole operand; lives in a private member,
+  so without this it would collapse to a bare `{"type": "ShowSetting"}`).
+- **ShowFunctions**: `like` / `case_insensitive_like` (the sole operand; a plain
+  member, so otherwise `SHOW FUNCTIONS LIKE '...'` loses its filter).
+- **ShowIndexes** (`ASTShowIndexesQuery`, `SHOW INDEX/INDEXES/INDICES/KEYS`):
+  `extended`, `table` (mandatory), `database`, `where`. Its `getID` is a mis-set
+  `"ShowColumns"` (shared verbatim with `ASTShowColumnsQuery`), so `astTypeName`
+  overrides the `type` to `"ShowIndexes"` to keep the two distinct statements
+  distinguishable.
 - **CreateIndexQuery** / **DropIndexQuery**: table target, `if_not_exists` /
   `unique` / `if_exists`, `index_name`, `index_declaration`.
 - **CheckQuery**: table target, `partition`, `part_name`.
 - **UseQuery**: `database`.
-- **KillQueryQuery**: `kill_type`, `sync`, `test`, `cluster`, `where`.
+- **KillQueryQuery**: `kill_type`, `sync`, `test`, `cluster`, `where`. The
+  `SYNC` / `ASYNC` / `TEST` mode is the `sync` and `test` bool pair — `ASYNC` is
+  neither set.
+- **TransactionControl** (`ASTTransactionControl`; `type` is overridden from the
+  raw `"ASTTransactionControl"` getID): `action` (`BEGIN` / `COMMIT` /
+  `ROLLBACK` / `SET_SNAPSHOT`) and, for `SET_SNAPSHOT`, `snapshot` (stringified
+  `UInt64`). Both collapse onto one class otherwise.
 - **Rename**: `exchange` / `database` / `dictionary` flags, `cluster`,
   `elements` (array of `{from_database, from_table, to_database, to_table,
   if_exists}`).
-- **SYSTEM** (`ASTSystemQuery`): `system_type`, `database`, `table`,
-  `cluster`, `replica`, `shard`, `target_model`, `target_function`.
+- **SYSTEM** (`ASTSystemQuery`): `system_type`, then the operand fields —
+  each only meaningful for a subset of the ~130 sub-commands, surfaced
+  whenever populated: `database`, `table`, `if_exists`, `cluster`, `replica`,
+  `shard`, `replica_zk_path` and `is_drop_whole_replica` (DROP REPLICA),
+  `with_tables`, `target_model`, `target_function`, `storage_policy` /
+  `volume` / `disk` (STOP MOVES / MERGES scopes and cache drops), `seconds`
+  (SUSPEND FOR; stringified `UInt64`), `sync_replica_mode` (`STRICT` /
+  `LIGHTWEIGHT` / `PULL`; `DEFAULT` omitted) with `src_replicas`
+  (LIGHTWEIGHT FROM list), `tables` (FLUSH LOGS / FLUSH ASYNC INSERT QUEUE
+  targets, an array of `{database?, table}`), `settings`,
+  `schema_cache_storage` / `schema_cache_format` (DROP SCHEMA CACHE),
+  `filesystem_cache_name` / `key_to_drop` / `offset_to_drop` (stringified;
+  filesystem-cache drops), `distributed_cache_drop_connections` /
+  `distributed_cache_server_id`, `query_result_cache_tag`, `backup_name` /
+  `backup_source` (UNFREEZE / RESTORE-related), `fail_point_name` /
+  `fail_point_action` (`PAUSE` / `RESUME`), `fake_time_for_view`
+  (TEST VIEW SET FAKE TIME; stringified — absent means UNSET), and for
+  START/STOP LISTEN the `server_type` object `{type, custom_name?,
+  exclude_types?, exclude_custom_names?}` (values from
+  `ServerType::serverTypeToString`). The `SYSTEM INSTRUMENT` operands are
+  compiled only under `USE_XRAY` and are not serialized.
 - **Stat** (`ASTStatisticsDeclaration`): `columns`, `types`.
 - **StorageOrderByElement**: `expression`, `direction`.
 - **NameTypePair**: `name`, `data_type`.
@@ -321,33 +460,130 @@ confusable with `SET` statements and the `Set` data structure).
   `pattern` / `columns`, `qualifier`, `transformers`.
 
 A generic fallback over `ASTQueryWithTableAndOutput` gives `database` /
-`table` / `temporary` to every other simple table-scoped statement that
-carries only a target — `EXISTS *`, `SHOW CREATE *`, `UNDROP TABLE`, etc.
+`table` / `temporary` / `uuid` (when set, e.g. `UNDROP TABLE t UUID '...'`) to
+every other simple table-scoped statement that carries only a target —
+`EXISTS *`, `SHOW CREATE *`, etc. `UndropQuery` additionally exposes `cluster`
+(`ON CLUSTER`).
+
+### Access management
+
+The access-control statements store their content in typed member fields and
+plain value objects rather than the positional `children` list (`GrantQuery`
+has no children at all; `CreateUserQuery` keeps only `AuthenticationData`
+markers), so each is enriched with named slots. Scalar flags are emitted only
+when set.
+
+- **GrantQuery** / **RevokeQuery** (one class `ASTGrantQuery`, split by
+  `is_revoke`): `attach_mode`, `admin_option`, `current_grants`,
+  `replace_access`, `replace_granted_roles`, `cluster`; then either
+  `access_rights` (privilege grant) **or** `roles` (role grant, a
+  `RolesOrUsersSet`), and `grantees` (`RolesOrUsersSet`). `access_rights` is an
+  array of privilege elements — `{access_types, database?, default_database?,
+  table?, columns?, parameter?, wildcard?, grant_option?, is_partial_revoke?}`;
+  `access_types` is the decoded keyword list (`["SELECT", "UPDATE"]`).
+- **CheckGrantQuery**: `access_rights` (same element shape).
+- **CreateUserQuery** (also ALTER USER via `alter`): `alter`, `attach`,
+  `if_exists`, `if_not_exists`, `or_replace`, `cluster`, `names`
+  (`UserNamesWithHost`), `new_name`, `storage_name`, `authentication_methods`
+  (array of `AuthenticationData`), `reset_authentication_methods_to_new`,
+  `add_identified_with`, `replace_authentication_methods`, `hosts` / `add_hosts`
+  / `remove_hosts` (the HOST clause, see below), `default_roles`
+  (`RolesOrUsersSet`), `default_database` (`DatabaseOrNone`), `settings` /
+  `alter_settings`, `grantees` (`RolesOrUsersSet`), `global_valid_until`.
+- **CreateRoleQuery** (also ALTER ROLE): `alter`, `attach`, the `if_*` flags,
+  `cluster`, `names` (string array), `new_name`, `storage_name`, `settings` /
+  `alter_settings`.
+- **CreateQuotaQuery** (also ALTER QUOTA): `alter`, `attach`, the `if_*` flags,
+  `cluster`, `names`, `new_name`, `key_type`, `storage_name`, `limits`, `roles`
+  (`RolesOrUsersSet`). Each `limits` entry is `{duration_sec,
+  randomize_interval?, drop?, max?}` where `max` maps quota-type name →
+  stringified value (e.g. `{ "QUERIES": "100", "RESULT_ROWS": "1000" }`; the
+  keys are the uppercase `toString(QuotaType)` set below).
+- **SetRoleQuery** (`SET ROLE` / `SET DEFAULT ROLE`): `kind`, `roles`
+  (`RolesOrUsersSet`), `to_users` (`RolesOrUsersSet`, for `SET DEFAULT ROLE`).
+- **CreateRowPolicyQuery** (also ALTER ROW POLICY): `alter`, `attach`, the
+  `if_*` flags, `cluster`, `storage_name`, `names` (`RowPolicyNames`),
+  `new_short_name`, `is_restrictive` (bool), `filters`, `roles`. Each `filters`
+  entry is `{filter_type, condition?}` — `condition` is omitted when the filter
+  was set to `NONE`.
+- **CreateSettingsProfileQuery** (also ALTER SETTINGS PROFILE): like
+  CreateRole, plus `to_roles` (`RolesOrUsersSet`).
+- **CreateMaskingPolicyQuery** (also ALTER MASKING POLICY): the create/alter
+  flags, `cluster`, `storage_name`, `name`, `database`, `table`, `new_name`,
+  `update_assignments` (inlined `Assignment` list), `where_condition`, `roles`,
+  `priority` (stringified, only when non-zero).
+- **DropAccessEntityQuery**: `entity_type`, `if_exists`, `cluster`,
+  `storage_name`, `names`, `row_policy_names` (`RowPolicyNames`, for policies).
+- **MoveAccessEntityQuery**: `entity_type`, `cluster`, `storage_name`, `names`,
+  `row_policy_names`.
+- **ExecuteAsQuery**: `target_user` (`UserNameWithHost`), `subquery`.
+- **ShowGrantsQuery**: `for_roles` (`RolesOrUsersSet`), `with_implicit`,
+  `final`.
+- **ShowCreateAccessEntityQuery**: `entity_type`, `names`, `row_policy_names`,
+  `current_quota`, `current_user`, `all`, `short_name`, `database`, `table`.
+- **ShowAccessEntitiesQuery**: `entity_type`, `all`, `current_quota`,
+  `current_roles`, `enabled_roles`, `short_name`, `database`, `table`.
+
+Shared helper nodes:
+
+- **RolesOrUsersSet**: `all`, `use_keyword_any`, `names`, `current_user`,
+  `except_names`, `except_current_user`, `id_mode` (when true the `names` hold
+  UUIDs rather than names).
+- **UserNamesWithHost**: `users` (array of `UserNameWithHost`).
+- **UserNameWithHost**: `name`, `host_pattern` (only when present).
+- **AuthenticationData**: `auth_type`, `contains_password`, `contains_hash`,
+  `ssl_cert_subject_type`, `valid_until`, and `arguments` — the password / hash
+  / salt / server / realm literal nodes, emitted verbatim (the JSON reflects
+  the parsed literals regardless of secret-masking display settings).
+- **SettingsProfileElements**: `elements` (array of `SettingsProfileElement`).
+- **SettingsProfileElement**: `parent_profile`, `setting_name`, `value`,
+  `min_value`, `max_value`, `disallowed_values`, `writability`, `id_mode`.
+  Values are stringified like literals.
+- **AlterSettingsProfileElements**: `add_settings`, `modify_settings`,
+  `drop_settings` (each a `SettingsProfileElements`), `drop_all_settings`,
+  `drop_all_profiles`.
+- **RowPolicyNames**: `policies` (array of `{short_name, database?, table?}`).
+- **RowPolicyName**: `short_name`, `database`, `table`.
+- **DatabaseOrNone**: `none: true` **or** `database`.
+- **PublicSSHKey**: `key_type`, `key_base64`.
+
+The privilege list (`access_rights`) and the HOST clause (`hosts` /
+`add_hosts` / `remove_hosts`) are plain value objects, not AST nodes, so they
+are serialized inline. The HOST object is `{any_host?, local_host?, names?,
+name_regexps?, like_patterns?, addresses?, subnets?}` (addresses and subnets in
+canonical text form).
 
 ### Not yet enriched
 
-The remaining tail still exposes positional `children`: the
-access-management statements (`CreateUserQuery`, `AuthenticationData`,
-`ShowGrantsQuery`, workloads/resources, ...) and `BACKUP` / `RESTORE`.
 `ParallelWithQuery` keeps `children` deliberately — it is a homogeneous list
-of parallel sub-queries. The JSON stays valid; only those subtrees are
-positional.
+of parallel sub-queries. Any class not special-cased in `enrichNode` likewise
+falls back to the positional `children` array. The JSON stays valid; only
+those subtrees are positional.
 
-## Fallback value stringification
+## Container and fallback value serialization
 
 `Literal.value` is native JSON for the scalar `Field` types (with the 64-bit
-integer caveat). Every other `value_type` is stringified by
-`FieldVisitorToString` (`src/Common/FieldVisitorToString.cpp`, the authority
-for the exact syntax). Consumers re-parsing those strings should pin against
-that. The shape:
+integer caveat). The container `Field` types recurse, preserving each
+element's own type:
 
-- **String** (and `String`-typed scalars): single-quoted, C-style backslash
-  escaping (`'he\'llo'` content is delivered already-unescaped in the JSON
-  string; inside a nested Array/Tuple/Map it appears single-quoted).
-- **Array**: `[e1, e2, ...]` — elements comma-space separated, each
-  formatted recursively (e.g. `[1, 2]`).
-- **Tuple**: `(e1, e2, ...)` (e.g. `(1, 'a', 3.5)`).
-- **Map**: `{k1: v1, k2: v2, ...}`.
+- **Array** / **Tuple**: a JSON array of typed elements, each a
+  `{ "value_type": <type>, "value": <value> }` pair mirroring how an
+  `ASTLiteral` node is serialized — so `[1, 2]` becomes
+  `[{"value_type": "UInt64", "value": "1"}, {"value_type": "UInt64",
+  "value": "2"}]`.
+- **Map** / **Object**: a JSON object keyed by the (stringified) key with
+  typed values, e.g. `{"tbl": {"value_type": "String", "value": "x = 1"}}`.
+  JSON keys are always strings; a non-`String` map key falls back to its
+  `FieldVisitorToString` form (an integer key becomes its digits). A `Map`
+  whose elements are not two-element (key, value) tuples — not expected for a
+  real `Map` field — falls back to the generic array-of-typed-elements form.
+
+Every remaining `value_type` is stringified by `FieldVisitorToString`
+(`src/Common/FieldVisitorToString.cpp`, the authority for the exact syntax).
+Consumers re-parsing those strings should pin against that. The shape:
+
+- **String** (and `String`-typed scalars): the content is delivered
+  already-unescaped in the JSON string.
 - **Decimal32/64/128/256**: the decimal text, e.g. `Decimal(10, 2)` casts
   serialize the type as a plain string.
 - **UUID / IPv4 / IPv6**: their canonical text form, e.g.
@@ -392,6 +628,10 @@ node's default applies are marked *(default, omitted)*.
 - **Constraint.constraint_type**: `CHECK`, `ASSUME`.
 - **DropQuery.kind**: `DROP`, `DETACH`, `TRUNCATE` (also reflected in the
   node's `type`: `DropQuery` / `DetachQuery` / `TruncateQuery`).
+- **BackupQuery.kind**: `BACKUP`, `RESTORE` (also reflected in the node's
+  `type`: `BackupQuery` / `RestoreQuery`).
+- **BackupQuery.elements[].element_type**: `TABLE`, `TEMPORARY_TABLE`,
+  `DATABASE`, `ALL`.
 - **KillQueryQuery.kill_type**: `QUERY`, `MUTATION`, `PART_MOVE_TO_SHARD`,
   `TRANSACTION`.
 - **TTLElement.mode**: `DELETE`, `MOVE`, `GROUP_BY`, `RECOMPRESS`.
@@ -414,6 +654,28 @@ node's default applies are marked *(default, omitted)*.
   `APPLY_DELETED_MASK`, `APPLY_PATCHES`, `NO_TYPE`, `MODIFY_DATABASE_SETTING`,
   `MODIFY_DATABASE_COMMENT`, `MODIFY_COMMENT`, `MODIFY_SQL_SECURITY`,
   `UNLOCK_SNAPSHOT`.
+- **TransactionControl.action**: `BEGIN`, `COMMIT`, `ROLLBACK`, `SET_SNAPSHOT`.
+- **RefreshStrategy.schedule_kind**: `AFTER`, `EVERY`, `UNKNOWN`.
+- **SetRoleQuery.kind**: `SET_ROLE`, `SET_ROLE_DEFAULT`, `SET_DEFAULT_ROLE`.
+- **CreateQuotaQuery.key_type** (`toString(QuotaKeyType)`): `NONE`,
+  `USER_NAME`, `IP_ADDRESS`, `FORWARDED_IP_ADDRESS`, `CLIENT_KEY`,
+  `CLIENT_KEY_OR_USER_NAME`, `CLIENT_KEY_OR_IP_ADDRESS`.
+- **CreateQuotaQuery.limits[].max** keys (`toString(QuotaType)`): `QUERIES`,
+  `QUERY_SELECTS`, `QUERY_INSERTS`, `ERRORS`, `RESULT_ROWS`, `RESULT_BYTES`,
+  `READ_ROWS`, `READ_BYTES`, `EXECUTION_TIME`, `WRITTEN_BYTES`,
+  `FAILED_SEQUENTIAL_AUTHENTICATIONS`.
+- **CreateRowPolicyQuery.filters[].filter_type**
+  (`toString(RowPolicyFilterType)`): `SELECT_FILTER`.
+- **SettingsProfileElement.writability**: `WRITABLE`, `CONST`,
+  `CHANGEABLE_IN_READONLY`.
+- **AuthenticationData.auth_type** (`toString(AuthenticationType)`, the SQL
+  keyword): `NO_PASSWORD`, `PLAINTEXT_PASSWORD`, `SHA256_PASSWORD`,
+  `DOUBLE_SHA1_PASSWORD`, `LDAP`, `KERBEROS`, `SSL_CERTIFICATE`,
+  `BCRYPT_PASSWORD`, `SSH_KEY`, `HTTP`, `JWT`, `SCRAM_SHA256_PASSWORD`,
+  `NO_AUTHENTICATION`.
+- **entity_type** on the Drop/Move/ShowCreate/Show access statements
+  (`toString(AccessEntityType)`, uppercased with spaces): `USER`, `ROLE`,
+  `SETTINGS PROFILE`, `ROW POLICY`, `QUOTA`, `MASKING POLICY`.
 
 `Explain.kind` (`ASTExplainQuery::toString`) and `SYSTEM.system_type`
 (`ASTSystemQuery::typeToString`) draw from large sets — see those helpers.

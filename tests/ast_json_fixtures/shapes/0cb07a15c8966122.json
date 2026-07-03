@@ -38,7 +38,20 @@
                   {
                     "type": "Literal",
                     "value_type": "Array",
-                    "value": "[9223372036854775807, 65535, NULL]"
+                    "value": [
+                      {
+                        "value_type": "UInt64",
+                        "value": "9223372036854775807"
+                      },
+                      {
+                        "value_type": "UInt64",
+                        "value": "65535"
+                      },
+                      {
+                        "value_type": "Null",
+                        "value": null
+                      }
+                    ]
                   }
                 ]
               }

@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateSettingsProfileQuery",
+    "names": ["s5_01294"],
+    "settings": {
+      "type": "SettingsProfileElements",
+      "elements": [
+        {
+          "type": "SettingsProfileElement",
+          "parent_profile": "default"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "readonly",
+          "value": "0"
+        },
+        {
+          "type": "SettingsProfileElement",
+          "setting_name": "max_memory_usage",
+          "max_value": "6000000",
+          "writability": "WRITABLE"
+        }
+      ]
+    },
+    "to_roles": {
+      "type": "RolesOrUsersSet",
+      "names": ["u1_01294"]
+    }
+  }
+}

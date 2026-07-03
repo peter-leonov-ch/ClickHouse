@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Literal",
+            "alias": "x",
+            "value_type": "String",
+            "value": "Hello, \"World\""
+          },
+          {
+            "type": "Literal",
+            "alias": "y",
+            "value_type": "UInt64",
+            "value": "123"
+          },
+          {
+            "type": "Literal",
+            "alias": "z",
+            "value_type": "Array",
+            "value": [
+              {
+                "value_type": "UInt64",
+                "value": "1"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "2"
+              },
+              {
+                "value_type": "UInt64",
+                "value": "3"
+              }
+            ]
+          },
+          {
+            "type": "Function",
+            "alias": "a",
+            "name": "tuple",
+            "is_operator": true,
+            "arguments": [
+              {
+                "type": "Literal",
+                "value_type": "UInt64",
+                "value": "456"
+              },
+              {
+                "type": "Literal",
+                "value_type": "Array",
+                "value": [
+                  {
+                    "value_type": "String",
+                    "value": "abc"
+                  },
+                  {
+                    "value_type": "String",
+                    "value": "def"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Literal",
+            "alias": "b",
+            "value_type": "String",
+            "value": "Newline\nhere"
+          }
+        ]
+      }
+    ],
+    "format": "CSVWithNames"
+  }
+}

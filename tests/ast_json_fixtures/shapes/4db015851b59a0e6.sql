@@ -1,0 +1,1 @@
+DROP QUOTA IF EXISTS sqllt_quota

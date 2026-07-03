@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "GrantQuery",
+    "replace_access": true,
+    "access_rights": [
+      {
+        "access_types": []
+      },
+      {
+        "access_types": ["SELECT"],
+        "database": "db9",
+        "table": "tb3"
+      }
+    ],
+    "grantees": {
+      "type": "RolesOrUsersSet",
+      "names": ["test_user_01999"]
+    }
+  }
+}

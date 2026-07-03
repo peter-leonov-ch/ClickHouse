@@ -14,7 +14,12 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "['\\0']"
+            "value": [
+              {
+                "value_type": "String",
+                "value": "\u0000"
+              }
+            ]
           },
           {
             "type": "Function",
@@ -49,7 +54,12 @@
           {
             "type": "Literal",
             "value_type": "Array",
-            "value": "['']"
+            "value": [
+              {
+                "value_type": "String",
+                "value": ""
+              }
+            ]
           }
         ]
       }

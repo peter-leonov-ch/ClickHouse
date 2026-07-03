@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "BackupQuery",
+    "kind": "BACKUP",
+    "elements": [
+      {
+        "element_type": "TABLE",
+        "database": "db",
+        "table": "t",
+        "new_table": "t2",
+        "partitions": [
+          {
+            "type": "Partition",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "p1"
+            }
+          },
+          {
+            "type": "Partition",
+            "value": {
+              "type": "Literal",
+              "value_type": "String",
+              "value": "p2"
+            }
+          }
+        ]
+      }
+    ],
+    "backup_name": {
+      "type": "Function",
+      "name": "Disk",
+      "kind": "BACKUP_NAME",
+      "arguments": [
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "d"
+        },
+        {
+          "type": "Literal",
+          "value_type": "String",
+          "value": "path"
+        }
+      ]
+    },
+    "settings": {
+      "type": "Settings",
+      "changes": {
+        "async": "1"
+      }
+    },
+    "format": "Null"
+  }
+}

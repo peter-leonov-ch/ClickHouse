@@ -51,7 +51,16 @@
                                         "type": "Literal",
                                         "alias": "col_b",
                                         "value_type": "Array",
-                                        "value": "['b', 'c']"
+                                        "value": [
+                                          {
+                                            "value_type": "String",
+                                            "value": "b"
+                                          },
+                                          {
+                                            "value_type": "String",
+                                            "value": "c"
+                                          }
+                                        ]
                                       }
                                     ]
                                   }

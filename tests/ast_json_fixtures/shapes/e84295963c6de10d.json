@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SYSTEM",
+    "system_type": "CLEAR QUERY CACHE",
+    "query_result_cache_tag": "def"
+  }
+}

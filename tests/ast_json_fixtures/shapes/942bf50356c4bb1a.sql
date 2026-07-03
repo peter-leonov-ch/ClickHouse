@@ -1,0 +1,1 @@
+ALTER USER u4_01292 IDENTIFIED WITH plaintext_password BY '123qwe'

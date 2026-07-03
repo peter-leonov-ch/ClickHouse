@@ -1,0 +1,246 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "SelectWithUnionQuery",
+    "selects": [
+      {
+        "type": "SelectQuery",
+        "select": [
+          {
+            "type": "Function",
+            "name": "count",
+            "arguments": [
+              {
+                "type": "Function",
+                "name": "equals",
+                "is_operator": true,
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "value_type": "UInt64",
+                    "value": "7"
+                  },
+                  {
+                    "type": "Subquery",
+                    "query": {
+                      "type": "SelectWithUnionQuery",
+                      "selects": [
+                        {
+                          "type": "SelectQuery",
+                          "select": [
+                            {
+                              "type": "Identifier",
+                              "name": "number"
+                            }
+                          ],
+                          "from": {
+                            "type": "TablesInSelectQuery",
+                            "children": [
+                              {
+                                "type": "TablesInSelectQueryElement",
+                                "table_expression": {
+                                  "type": "TableExpression",
+                                  "table_function": {
+                                    "type": "Function",
+                                    "name": "numbers",
+                                    "arguments": [
+                                      {
+                                        "type": "Literal",
+                                        "value_type": "UInt64",
+                                        "value": "0"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "order_by": [
+                            {
+                              "type": "OrderByElement",
+                              "expression": {
+                                "type": "Identifier",
+                                "name": "number"
+                              },
+                              "direction": "ASC",
+                              "nulls_first": true
+                            }
+                          ],
+                          "limit": {
+                            "type": "Literal",
+                            "value_type": "UInt64",
+                            "value": "7"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "from": {
+          "type": "TablesInSelectQuery",
+          "children": [
+            {
+              "type": "TablesInSelectQueryElement",
+              "table_expression": {
+                "type": "TableExpression",
+                "database_and_table_name": {
+                  "type": "TableIdentifier",
+                  "name": "xp_d"
+                }
+              }
+            }
+          ]
+        },
+        "prewhere": {
+          "type": "Function",
+          "name": "globalIn",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Function",
+              "name": "toYYYYMM",
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "A"
+                }
+              ]
+            },
+            {
+              "type": "Subquery",
+              "query": {
+                "type": "SelectWithUnionQuery",
+                "selects": [
+                  {
+                    "type": "SelectQuery",
+                    "select": [
+                      {
+                        "type": "Function",
+                        "name": "equals",
+                        "is_operator": true,
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value_type": "Null",
+                            "value": null
+                          },
+                          {
+                            "type": "Subquery",
+                            "query": {
+                              "type": "SelectWithUnionQuery",
+                              "selects": [
+                                {
+                                  "type": "SelectQuery",
+                                  "select": [
+                                    {
+                                      "type": "Identifier",
+                                      "name": "number"
+                                    }
+                                  ],
+                                  "from": {
+                                    "type": "TablesInSelectQuery",
+                                    "children": [
+                                      {
+                                        "type": "TablesInSelectQueryElement",
+                                        "table_expression": {
+                                          "type": "TableExpression",
+                                          "table_function": {
+                                            "type": "Function",
+                                            "name": "numbers",
+                                            "arguments": [
+                                              {
+                                                "type": "Literal",
+                                                "value_type": "UInt64",
+                                                "value": "1"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "order_by": [
+                                    {
+                                      "type": "OrderByElement",
+                                      "expression": {
+                                        "type": "Identifier",
+                                        "name": "number"
+                                      },
+                                      "direction": "DESC",
+                                      "nulls_first": false
+                                    }
+                                  ],
+                                  "limit": {
+                                    "type": "Literal",
+                                    "value_type": "UInt64",
+                                    "value": "1"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Function",
+                        "name": "toYYYYMM",
+                        "arguments": [
+                          {
+                            "type": "Function",
+                            "name": "min",
+                            "arguments": [
+                              {
+                                "type": "Identifier",
+                                "name": "A"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "from": {
+                      "type": "TablesInSelectQuery",
+                      "children": [
+                        {
+                          "type": "TablesInSelectQueryElement",
+                          "table_expression": {
+                            "type": "TableExpression",
+                            "database_and_table_name": {
+                              "type": "TableIdentifier",
+                              "name": "xp_d"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "where": {
+          "type": "Function",
+          "name": "greater",
+          "is_operator": true,
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "B"
+            },
+            {
+              "type": "Literal",
+              "value_type": "Null",
+              "value": null
+            }
+          ]
+        }
+      }
+    ],
+    "format": "Null"
+  }
+}

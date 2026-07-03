@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "DropAccessEntityQuery",
+    "entity_type": "USER",
+    "names": ["u10_01292", "u11_01292", "u12_01292", "u13_01292", "u14_01292", "u15_01292", "u16_01292"]
+  }
+}
