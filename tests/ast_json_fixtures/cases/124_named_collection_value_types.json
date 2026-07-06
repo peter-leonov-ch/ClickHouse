@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "ast": {
+    "type": "CreateNamedCollectionQuery",
+    "collection_name": "nc",
+    "changes": {
+      "i": {
+        "value_type": "UInt64",
+        "value": "5"
+      },
+      "s": {
+        "value_type": "String",
+        "value": "5"
+      },
+      "neg": {
+        "value_type": "Int64",
+        "value": "-5"
+      },
+      "one": {
+        "value_type": "Float64",
+        "value": 1
+      },
+      "half": {
+        "value_type": "Float64",
+        "value": 2.5
+      },
+      "fn": {
+        "value_type": "CustomType",
+        "value": "disk(type = 'local')"
+      }
+    }
+  }
+}

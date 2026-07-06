@@ -1691,14 +1691,16 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
         if (!create_named_collection->cluster.empty())
             node.add("cluster", create_named_collection->cluster);
 
-        /// The `key = value` body as a name -> value object (mirrors the
-        /// SETTINGS clause). Per-key OVERRIDABLE / NOT OVERRIDABLE flags, when
+        /// The `key = value` body as a name -> value object. Unlike the
+        /// `Settings` node (whose values are untyped strings), named-collection
+        /// values are emitted as typed `{ "value_type", "value" }` pairs, just
+        /// like an `ASTLiteral`. Per-key OVERRIDABLE / NOT OVERRIDABLE flags, when
         /// present, are surfaced separately under `overridability`.
         if (!create_named_collection->changes.empty())
         {
             auto changes = std::make_unique<JSONBuilder::JSONMap>();
             for (const auto & change : create_named_collection->changes)
-                changes->add(change.name, fieldToJSON(change.value));
+                changes->add(change.name, fieldToTypedJSON(change.value));
             node.add("changes", std::move(changes));
         }
         if (!create_named_collection->overridability.empty())
@@ -1732,7 +1734,7 @@ bool enrichNode(JSONBuilder::JSONMap & node, const IAST & ast)
             {
                 auto item = std::make_unique<JSONBuilder::JSONMap>();
                 item->add("name", change.name);
-                item->add("value", fieldToJSON(change.value));
+                item->add("value", fieldToTypedJSON(change.value));
                 if (!change.resource.empty())
                     item->add("resource", change.resource);
                 changes->add(std::move(item));

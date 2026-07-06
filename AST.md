@@ -343,10 +343,18 @@ Scalar flags below are emitted only when set/non-default unless noted.
   `cluster`, `changes` (the `key = value` body as a name -> value object), and
   `overridability` (a name -> bool object, present only for keys carrying an
   explicit `OVERRIDABLE` / `NOT OVERRIDABLE` flag). The node has no `children`.
+  Unlike the `Settings` node's `changes` (untyped strings), each value here is a
+  typed `{value_type, value}` pair, exactly like a `Literal`. A named collection
+  carries no schema, so the tag is required to keep the value forms from
+  colliding: `b = 5` (`UInt64`) vs `b = '5'` (`String`) both stringify to `"5"`;
+  likewise `a = -5` (`Int64`) vs `'-5'`, `a = disk(...)` (a function, stored as a
+  `CustomType`) vs the same text as a `String`, and `a = 1.0` (`Float64`, value
+  `1`) vs the integer `1`.
 - **CreateWorkloadQuery**: `or_replace`, `if_not_exists`, `cluster`,
   `workload_name`, `workload_parent` (the `IN parent` clause), and `changes`
   (array of `{name, value, resource?}` — each SETTINGS entry with its optional
-  `FOR resource`).
+  `FOR resource`). `value` is a typed `{value_type, value}` pair, as for a named
+  collection above (same collision reasoning).
 - **CreateResourceQuery**: `or_replace`, `if_not_exists`, `cluster`,
   `resource_name`, `unit` (`IOByte` / `CPUNanosecond` / `QuerySlot`), and
   `operations` (array of `{mode, disk?}`; `mode` is `READ` / `WRITE` /

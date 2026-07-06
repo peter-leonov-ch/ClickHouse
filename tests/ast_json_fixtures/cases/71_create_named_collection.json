@@ -5,9 +5,18 @@
     "collection_name": "nc",
     "if_not_exists": true,
     "changes": {
-      "host": "localhost",
-      "port": "9000",
-      "password": "secret"
+      "host": {
+        "value_type": "String",
+        "value": "localhost"
+      },
+      "port": {
+        "value_type": "UInt64",
+        "value": "9000"
+      },
+      "password": {
+        "value_type": "String",
+        "value": "secret"
+      }
     },
     "overridability": {
       "port": true,

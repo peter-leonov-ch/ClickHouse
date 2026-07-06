@@ -4,11 +4,7 @@
     "type": "CreateWorkloadQuery",
     "workload_name": {
       "type": "Identifier",
-      "name": "production"
-    },
-    "workload_parent": {
-      "type": "Identifier",
-      "name": "all"
+      "name": "w"
     },
     "changes": [
       {
@@ -19,12 +15,11 @@
         }
       },
       {
-        "name": "weight",
+        "name": "max_cost",
         "value": {
-          "value_type": "UInt64",
-          "value": "5"
-        },
-        "resource": "cpu"
+          "value_type": "Float64",
+          "value": 1.5
+        }
       }
     ]
   }

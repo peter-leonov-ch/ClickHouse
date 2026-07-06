@@ -4,7 +4,10 @@
     "type": "CreateNamedCollectionQuery",
     "collection_name": "02918_json_fuzzer",
     "changes": {
-      "json_str": "{}"
+      "json_str": {
+        "value_type": "String",
+        "value": "{}"
+      }
     }
   }
 }
