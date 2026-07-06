@@ -5,8 +5,14 @@
     "collection_name": "cache_collection_sql",
     "if_not_exists": true,
     "changes": {
-      "path": "collection_sql",
-      "max_size": "1Mi"
+      "path": {
+        "value_type": "String",
+        "value": "collection_sql"
+      },
+      "max_size": {
+        "value_type": "String",
+        "value": "1Mi"
+      }
     }
   }
 }

@@ -131,6 +131,15 @@ emit 70_tcl_set_snapshot  "SET TRANSACTION SNAPSHOT 42"
 emit 71_create_named_collection "CREATE NAMED COLLECTION IF NOT EXISTS nc AS host = 'localhost', port = 9000 OVERRIDABLE, password = 'secret' NOT OVERRIDABLE"
 emit 72_create_workload         "CREATE WORKLOAD production IN all SETTINGS max_requests = 100, weight = 5 FOR cpu"
 emit 73_create_resource         "CREATE OR REPLACE RESOURCE io (READ DISK fast, WRITE ANY DISK)"
+# Named-collection / workload change values are typed `{value_type, value}` (unlike
+# a Settings-clause change, whose value is an untyped string). A named collection
+# has no schema to recover the type from, so the tag is what keeps the value forms
+# from colliding: `i = 5` (UInt64) vs `s = '5'` (String) both stringify to "5",
+# `neg = -5` (Int64) vs its string form, `fn = disk(...)` (a function stored as a
+# CustomType) vs the same text as a String, and `one = 1.0` (Float64) would read
+# back as an integer without the tag. `half = 2.5` is a non-integral float control.
+emit 124_named_collection_value_types "CREATE NAMED COLLECTION nc AS i = 5, s = '5', neg = -5, one = 1.0, half = 2.5, fn = disk(type = 'local')"
+emit 125_workload_value_types         "CREATE WORKLOAD w SETTINGS max_requests = 100, max_cost = 1.5"
 
 # --- DROP forms of the sparse-node DDL (name + if_exists live in plain members) ---
 emit 74_drop_named_collection   "DROP NAMED COLLECTION IF EXISTS nc ON CLUSTER c"
