@@ -185,6 +185,37 @@ multi-query sessions, per-block streaming, and mid-query cancel confirmed via
 Not yet done (next): INSERT path (plan step 6), progress/log/profile push as control
 frames, config-file/auth, `BaseDaemon` hardening.
 
+## Step 4 status (plan step 6) — INSERT path DONE (branch `wsproxy-skeleton`)
+
+Reverse-direction bridging in `ProxySession::executeInsert`: the app sends `INSERT INTO t
+[FORMAT X]` as a text frame, then streams data as **binary frames** ending with a
+zero-length binary frame (clean) — a Close mid-stream aborts (→ `sendCancel`, no partial
+commit). Inline `INSERT ... VALUES (...)` is handled too (data taken from the query, format
+inferred as `Values`). `executeQuery` best-effort parses with `ParserQuery` and dispatches
+INSERT vs SELECT.
+
+Flow: `sendQuery(with_pending_data=true)` → `sendExternalTablesData({})` → receive sample
+block → `getInputFormat` over a `ReadBufferFromWebSocket` → `PullingPipelineExecutor` pulls
+blocks → `Connection::sendData` each → `sendData({})` to finish → await `EndOfStream`.
+
+Four bugs found by running end-to-end (all fixed):
+1. **`with_pending_data` must be true** for INSERT or the server never enters the send-data
+   handshake.
+2. **Must send empty external-tables data** (`sendExternalTablesData({})`) after the query,
+   else server waits for external tables while the proxy waits for the sample → deadlock.
+3. **`ReadBuffer` has no permanent EOF latch** — `next()` re-invokes `nextImpl` after a false
+   return, and the input format does a trailing read; without a `finished` latch the WS read
+   buffer blocked on a frame that never arrives (this was the actual hang). Fixed with a latch.
+4. Used the **synchronous `PullingPipelineExecutor`** (not the async one) — runs in the
+   calling thread, no query-context/thread-group requirement for a bare global `Context`.
+
+Validated against installed ClickHouse 25.8.1 with `tmp/ws_insert_test.py`: streamed
+JSONEachRow insert, inline VALUES insert, format inference, server-side row/sum verification,
+INSERT-into-missing-table error. No regressions in SELECT (`tmp/ws_test3.py`) or cancel
+(`tmp/ws_cancel_test.py`); clean SIGTERM shutdown holds.
+
+Still next: progress/log/profile push as control frames, config-file/auth, `BaseDaemon`.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
