@@ -356,6 +356,12 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
         }
     };
 
+    /// Server progress packets are incremental; accumulate the reads and track
+    /// the latest total estimate so each pushed event carries running totals.
+    UInt64 total_read_rows = 0;
+    UInt64 total_read_bytes = 0;
+    UInt64 total_rows_to_read = 0;
+
     while (true)
     {
         /// While no server data is pending, watch the client socket so a Close
@@ -426,9 +432,34 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                 try_control(cancelled ? "cancelled" : "end", "");
                 return !client_gone;
             }
-            /// Not surfaced to the client yet (progress/log/profile push is a
-            /// later refinement); drain and continue.
             case Protocol::Server::Progress:
+            {
+                /// Mid-query push: forward running progress as a JSON text frame.
+                /// Text frames do not disturb the binary result stream.
+                if (!client_gone)
+                {
+                    const auto values = packet.progress.getValues();
+                    total_read_rows += values.read_rows;
+                    total_read_bytes += values.read_bytes;
+                    if (values.total_rows_to_read)
+                        total_rows_to_read = values.total_rows_to_read;
+
+                    const String json = R"({"event":"progress","read_rows":)" + std::to_string(total_read_rows)
+                        + R"(,"read_bytes":)" + std::to_string(total_read_bytes)
+                        + R"(,"total_rows_to_read":)" + std::to_string(total_rows_to_read) + "}";
+                    try
+                    {
+                        sendWebSocketText(socket, json);
+                    }
+                    catch (...)
+                    {
+                        client_gone = true;
+                    }
+                }
+                break;
+            }
+            /// Not surfaced to the client yet (profile events / logs / totals push
+            /// is a later refinement); drain and continue.
             case Protocol::Server::ProfileInfo:
             case Protocol::Server::ProfileEvents:
             case Protocol::Server::Totals:
