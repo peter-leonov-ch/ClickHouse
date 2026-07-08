@@ -1,5 +1,6 @@
 #include <WsProxyHandler.h>
 #include <WebSocketFrames.h>
+#include <ProxySession.h>
 
 #include <Server/HTTP/HTTPServerRequest.h>
 #include <Server/HTTP/HTTPServerResponse.h>
@@ -12,10 +13,12 @@
 
 #include <Poco/Net/HTTPResponse.h>
 #include <Poco/Net/StreamSocket.h>
+#include <Poco/URI.h>
 
 #include <base/scope_guard.h>
 
 #include <algorithm>
+#include <utility>
 
 
 namespace DB
@@ -53,6 +56,31 @@ bool hasUpgradeToken(const String & connection_header)
     return false;
 }
 
+/// Output format from the `format` query parameter of the WebSocket URL.
+String outputFormatFromURI(const String & uri_string, LoggerPtr log)
+{
+    String out_format = "JSONEachRow";
+    try
+    {
+        Poco::URI uri(uri_string);
+        for (const auto & param : uri.getQueryParameters())
+        {
+            if (param.first == "format" && !param.second.empty())
+                out_format = param.second;
+        }
+    }
+    catch (...)
+    {
+        LOG_DEBUG(log, "Could not parse request URI for the format parameter; using default");
+    }
+    return out_format;
+}
+
+}
+
+WsProxyHandler::WsProxyHandler(ContextPtr context_, BackendParams backend_)
+    : context(std::move(context_)), backend(std::move(backend_))
+{
 }
 
 void WsProxyHandler::serveInfo(HTTPServerRequest & request, HTTPServerResponse & response)
@@ -62,9 +90,10 @@ void WsProxyHandler::serveInfo(HTTPServerRequest & request, HTTPServerResponse &
     *response.send()
         << "clickhouse-wsproxy\n"
         << "Requested: " << request.getURI() << "\n"
-        << "Connect with a WebSocket client to open a session. Native-protocol\n"
-        << "bridging to a backend server is not implemented yet (step 3); the\n"
-        << "current build echoes WebSocket messages back.\n";
+        << "Open a WebSocket connection to run queries. Send a query as a text\n"
+        << "frame; results stream back as binary frames in the output format\n"
+        << "(set via ?format=..., default JSONEachRow), followed by a JSON\n"
+        << "control frame ({\"event\":\"end\"} / \"error\" / \"cancelled\").\n";
 }
 
 void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResponse & response)
@@ -100,8 +129,7 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     ///
     /// Note: unlike the server's web terminal, no `Origin` check is enforced
     /// here. The proxy's clients are applications, not browsers, so browser
-    /// cross-site protections do not apply; authentication will be handled in
-    /// step 3 as part of opening the backend connection.
+    /// cross-site protections do not apply; authentication is a later concern.
     Poco::Net::StreamSocket & socket = response.getSocket();
     const String handshake
         = "HTTP/1.1 101 Switching Protocols\r\n"
@@ -110,8 +138,6 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
           "Sec-WebSocket-Accept: "
         + computeWebSocketAccept(ws_key) + "\r\n\r\n";
 
-    /// `sendWebSocketFrame` and friends throw on write failure; reuse the frame
-    /// writer's guarantee by sending the raw handshake through the socket.
     size_t sent_total = 0;
     while (sent_total < handshake.size())
     {
@@ -131,116 +157,20 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
         }
         catch (...)
         {
-            tryLogCurrentException(log, "Failed to shut down WebSocket socket");
+            /// The client may have already closed the socket; expected, not worth a stack trace.
+            LOG_DEBUG(log, "WebSocket socket shutdown: {}", getCurrentExceptionMessage(false));
         }
     });
 
-    LOG_DEBUG(log, "WebSocket session established (echo mode)");
+    const String out_format = outputFormatFromURI(request.getURI(), log);
+    LOG_DEBUG(log, "WebSocket session established; output format {}", out_format);
 
-    /// Bound each blocking read so a stalled client cannot pin the handler thread.
-    socket.setReceiveTimeout(Poco::Timespan(30, 0));
+    /// Bound each blocking WebSocket read so a stalled client cannot pin the
+    /// handler thread indefinitely between queries.
+    socket.setReceiveTimeout(Poco::Timespan(300, 0));
 
-    bool running = true;
-    bool close_sent = false;
-    auto send_close_once = [&](uint16_t code, const String & reason)
-    {
-        if (close_sent)
-            return;
-        close_sent = true;
-        sendWebSocketClose(socket, code, reason);
-    };
-
-    /// Fragment reassembly state (RFC 6455 section 5.4).
-    String message_buffer;
-    uint8_t message_opcode = 0;
-    bool in_fragmented_message = false;
-    static constexpr size_t MAX_MESSAGE_SIZE = 16 * 1024 * 1024;
-
-    while (running)
-    {
-        WebSocketFrame frame;
-        try
-        {
-            frame = readWebSocketFrame(socket);
-        }
-        catch (const Poco::TimeoutException &)
-        {
-            LOG_DEBUG(log, "WebSocket read timed out, closing");
-            break;
-        }
-        catch (...)
-        {
-            LOG_DEBUG(log, "WebSocket read error: {}", getCurrentExceptionMessage(false));
-            break;
-        }
-
-        if (frame.message_too_big)
-        {
-            send_close_once(1009, "Message too big");
-            break;
-        }
-        if (frame.protocol_error)
-        {
-            send_close_once(1002, "Protocol error");
-            break;
-        }
-        if (!frame.valid)
-            break;
-
-        /// Control frames may interleave with fragmented data frames.
-        if (frame.opcode >= 0x08)
-        {
-            switch (frame.opcode)
-            {
-                case Opcode::Close:
-                    send_close_once(1000, "Bye");
-                    running = false;
-                    break;
-                case Opcode::Ping:
-                    sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
-                    break;
-                default:
-                    break;
-            }
-            continue;
-        }
-
-        /// Data frame: accumulate fragments.
-        if (frame.opcode != Opcode::Continuation)
-        {
-            if (in_fragmented_message)
-            {
-                send_close_once(1002, "New message during fragmentation");
-                break;
-            }
-            message_opcode = frame.opcode;
-            message_buffer = std::move(frame.payload);
-            in_fragmented_message = !frame.fin;
-        }
-        else
-        {
-            if (!in_fragmented_message)
-            {
-                send_close_once(1002, "Unexpected continuation frame");
-                break;
-            }
-            if (message_buffer.size() + frame.payload.size() > MAX_MESSAGE_SIZE)
-            {
-                send_close_once(1009, "Message too big");
-                break;
-            }
-            message_buffer.append(frame.payload);
-            if (frame.fin)
-                in_fragmented_message = false;
-        }
-
-        if (!frame.fin)
-            continue; /// More fragments to come.
-
-        /// Complete message assembled: echo it back with the same opcode.
-        sendWebSocketFrame(socket, message_opcode, message_buffer.data(), message_buffer.size());
-        message_buffer.clear();
-    }
+    ProxySession session(socket, context, backend, out_format);
+    session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");
 }

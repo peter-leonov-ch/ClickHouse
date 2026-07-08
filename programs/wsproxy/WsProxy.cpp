@@ -20,8 +20,12 @@
 #include <Common/logger_useful.h>
 
 #include <WsProxyHandler.h>
+#include <ProxySession.h>
 
 #include <base/types.h>
+
+#include <cstdlib>
+#include <string>
 
 
 /// Standalone WebSocket proxy.
@@ -51,11 +55,38 @@ namespace
 class WsProxyHandlerFactory : public HTTPRequestHandlerFactory
 {
 public:
+    WsProxyHandlerFactory(ContextPtr context_, BackendParams backend_)
+        : context(std::move(context_)), backend(std::move(backend_))
+    {
+    }
+
     std::unique_ptr<HTTPRequestHandler> createRequestHandler(const HTTPServerRequest &) override
     {
-        return std::make_unique<WsProxyHandler>();
+        return std::make_unique<WsProxyHandler>(context, backend);
     }
+
+private:
+    ContextPtr context;
+    BackendParams backend;
 };
+
+/// Read a string environment variable, falling back to `def` when unset/empty.
+std::string envOr(const char * name, const std::string & def)
+{
+    const char * value = std::getenv(name);
+    return (value && *value) ? std::string(value) : def;
+}
+
+BackendParams backendParamsFromEnv()
+{
+    BackendParams params;
+    params.host = envOr("WSPROXY_BACKEND_HOST", params.host);
+    params.port = static_cast<UInt16>(std::stoul(envOr("WSPROXY_BACKEND_PORT", "9000")));
+    params.user = envOr("WSPROXY_BACKEND_USER", params.user);
+    params.password = envOr("WSPROXY_BACKEND_PASSWORD", params.password);
+    params.database = envOr("WSPROXY_BACKEND_DATABASE", params.database);
+    return params;
+}
 
 /// Conservative HTTP limits/timeouts for the skeleton; a later revision should
 /// source these from configuration.
@@ -99,6 +130,8 @@ protected:
 
         registerFormats();
 
+        const BackendParams backend = backendParamsFromEnv();
+
         static constexpr UInt16 port = 9010;
         Poco::Net::ServerSocket socket(port);
         Poco::ThreadPool server_pool(/* minCapacity= */ 1, /* maxCapacity= */ 16);
@@ -106,13 +139,13 @@ protected:
 
         HTTPServer server(
             std::make_shared<WsProxyHTTPContext>(),
-            std::make_shared<WsProxyHandlerFactory>(),
+            std::make_shared<WsProxyHandlerFactory>(global_context, backend),
             server_pool,
             socket,
             params);
 
         server.start();
-        LOG_INFO(log, "clickhouse-wsproxy listening on port {}", port);
+        LOG_INFO(log, "clickhouse-wsproxy listening on port {}; backend {}:{}", port, backend.host, backend.port);
 
         waitForTerminationRequest();
 

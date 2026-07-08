@@ -1,5 +1,8 @@
 #pragma once
 
+#include <ProxySession.h>
+
+#include <Interpreters/Context_fwd.h>
 #include <Server/HTTP/HTTPRequestHandler.h>
 
 namespace DB
@@ -7,19 +10,24 @@ namespace DB
 
 /// HTTP entry point for the proxy.
 ///
-/// Step 2 scope: a plain HTTP request serves a short info page; a WebSocket
-/// upgrade request completes the RFC 6455 handshake and then runs an echo loop
-/// (control frames handled, data frames reflected back). The echo loop is the
-/// placeholder for step 3, where each session will instead open a native-protocol
-/// `Connection` to a backend server and bridge packets <-> frames.
+/// A plain HTTP request serves a short info page. A WebSocket upgrade completes
+/// the RFC 6455 handshake and then hands the socket to a `ProxySession`, which
+/// bridges the WebSocket to a native-protocol `Connection` against the backend.
+/// The desired output format is taken from the `format` query parameter of the
+/// WebSocket URL (default `JSONEachRow`).
 class WsProxyHandler : public HTTPRequestHandler
 {
 public:
+    WsProxyHandler(ContextPtr context_, BackendParams backend_);
+
     void handleRequest(HTTPServerRequest & request, HTTPServerResponse & response, const ProfileEvents::Event & write_event) override;
 
 private:
     void handleWebSocket(HTTPServerRequest & request, HTTPServerResponse & response);
     void serveInfo(HTTPServerRequest & request, HTTPServerResponse & response);
+
+    ContextPtr context;
+    BackendParams backend;
 };
 
 }

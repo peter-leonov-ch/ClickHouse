@@ -2,6 +2,7 @@ set (CLICKHOUSE_WSPROXY_SOURCES
     WsProxy.cpp
     WsProxyHandler.cpp
     WebSocketFrames.cpp
+    ProxySession.cpp
 )
 
 set (CLICKHOUSE_WSPROXY_LINK
