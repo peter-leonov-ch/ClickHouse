@@ -155,6 +155,36 @@ Test-hygiene note: background launches detach and orphan (PPID 1) if not killed 
 binary PID; `pgrep -f` also matches the launch shell. Always test one instance, select the
 PID whose command starts with `./build`, and confirm zero processes between runs.
 
+## Step 3 status — DONE (branch `wsproxy-skeleton`)
+
+The echo loop is replaced by a real native-protocol bridge (`ProxySession.{h,cpp}`):
+
+- Opens one `Connection` per WebSocket session (1:1) to a backend from env
+  (`WSPROXY_BACKEND_HOST`/`PORT`/`USER`/`PASSWORD`/`DATABASE`; defaults `localhost:9000`).
+- Client sends a query as a text frame; output format from the WS URL `?format=`
+  (default `JSONEachRow`). Results stream back as **binary frames**, one flush per block,
+  via `FormatFactory::getOutputFormat` → `output->write` → `output->flush`.
+- Control frames (JSON text): `{"event":"end"}`, `{"event":"error","message":...}`,
+  `{"event":"cancelled"}`.
+- Mid-query cancel: a Close frame detected in the interleaved `connection.poll` /
+  `socket.poll` loop triggers `Connection::sendCancel`, then drains to `EndOfStream`.
+
+Two bugs found by running end-to-end and fixed:
+1. **Wasn't actually streaming** — `WriteBufferToWebSocket` only flushed on a full 1 MB
+   buffer, so nothing went out until `finalize`. Fix: `output->flush()` per block.
+2. **`WriteBuffer` not finalized on all paths / `nextImpl` threw on a gone client** — gave
+   a "neither finalized nor canceled" warning and teardown exceptions. Fix: `nextImpl`
+   latches a `broken` flag instead of throwing; every exit path finalizes (clean) or
+   cancels (error/aborted).
+
+Validated against a real ClickHouse server (installed 25.8.1) with `tmp/ws_test3.py` and
+`tmp/ws_cancel_test.py`: scalar/`numbers(5)` selects, error propagation, `?format=TSV`,
+multi-query sessions, per-block streaming, and mid-query cancel confirmed via
+`system.processes` (query stopped server-side). Clean SIGTERM shutdown still holds.
+
+Not yet done (next): INSERT path (plan step 6), progress/log/profile push as control
+frames, config-file/auth, `BaseDaemon` hardening.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
