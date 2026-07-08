@@ -13,9 +13,18 @@
 
 #include <Formats/FormatFactory.h>
 #include <Processors/Formats/IOutputFormat.h>
+#include <Processors/Executors/PullingPipelineExecutor.h>
+#include <QueryPipeline/Pipe.h>
+#include <QueryPipeline/QueryPipeline.h>
+
+#include <Parsers/ASTInsertQuery.h>
+#include <Parsers/ParserQuery.h>
+#include <Parsers/parseQuery.h>
 
 #include <IO/BufferWithOwnMemory.h>
 #include <IO/ConnectionTimeouts.h>
+#include <IO/ReadBuffer.h>
+#include <IO/ReadBufferFromMemory.h>
 #include <IO/WriteBuffer.h>
 
 #include <Common/Exception.h>
@@ -30,6 +39,11 @@ using namespace DB::WsProxy;
 
 namespace
 {
+
+/// Generous parser limits for the best-effort INSERT-detection parse.
+constexpr size_t MAX_QUERY_SIZE = 16 << 20;
+constexpr size_t MAX_PARSER_DEPTH = 1000;
+constexpr size_t MAX_PARSER_BACKTRACKS = 1'000'000;
 
 /// A `WriteBuffer` whose flushes are emitted as WebSocket binary frames. The
 /// output format writes into it directly, so calling `flush` after each result
@@ -70,6 +84,80 @@ private:
     bool broken = false;
 };
 
+/// A `ReadBuffer` that yields the payloads of incoming WebSocket binary frames,
+/// used to feed the input format when parsing client-supplied INSERT data.
+///
+/// End of data is a zero-length binary frame or a text frame (clean). A Close
+/// frame or read error is an abort (client disconnected mid-insert): `wasAborted`
+/// lets the caller cancel the backend query instead of committing partial data.
+class ReadBufferFromWebSocket : public ReadBuffer
+{
+public:
+    explicit ReadBufferFromWebSocket(Poco::Net::StreamSocket & socket_)
+        : ReadBuffer(nullptr, 0), socket(socket_)
+    {
+    }
+
+    bool wasAborted() const { return aborted; }
+
+private:
+    bool nextImpl() override
+    {
+        /// `ReadBuffer::next()` may call `nextImpl` again after a false return
+        /// (there is no permanent EOF latch in the base class), and some input
+        /// formats do a trailing read. Latch the end so we never block on a
+        /// frame that will not arrive.
+        if (finished || aborted)
+            return false;
+
+        while (true)
+        {
+            WebSocketFrame frame;
+            try
+            {
+                frame = readWebSocketFrame(socket);
+            }
+            catch (...)
+            {
+                aborted = true;
+                return false;
+            }
+
+            if (!frame.valid || frame.opcode == Opcode::Close)
+            {
+                aborted = true;
+                return false;
+            }
+            if (frame.opcode == Opcode::Ping)
+            {
+                sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+                continue;
+            }
+            if (frame.opcode == Opcode::Text)
+            {
+                finished = true; /// Clean end-of-data control frame.
+                return false;
+            }
+
+            /// Binary (or continuation) frame: an empty one is the clean end marker.
+            if (frame.payload.empty())
+            {
+                finished = true;
+                return false;
+            }
+
+            current_frame = std::move(frame.payload);
+            BufferBase::set(current_frame.data(), current_frame.size(), 0);
+            return true;
+        }
+    }
+
+    Poco::Net::StreamSocket & socket;
+    String current_frame;
+    bool aborted = false;
+    bool finished = false;
+};
+
 /// Minimal JSON string escaping for the small control-frame payloads.
 String escapeJSON(const String & s)
 {
@@ -88,7 +176,7 @@ String escapeJSON(const String & s)
                 if (static_cast<unsigned char>(c) < 0x20)
                 {
                     static const char * hex = "0123456789abcdef";
-                    out += "\\u00";
+                    out += R"(\u00)";
                     out += hex[(c >> 4) & 0xF];
                     out += hex[c & 0xF];
                 }
@@ -108,11 +196,52 @@ ProxySession::ProxySession(Poco::Net::StreamSocket & socket_, ContextPtr context
 
 void ProxySession::sendControlEvent(const String & event, const String & message)
 {
-    String json = "{\"event\":\"" + event + "\"";
+    String json = R"({"event":")" + event + "\"";
     if (!message.empty())
-        json += ",\"message\":\"" + escapeJSON(message) + "\"";
+        json += R"(,"message":")" + escapeJSON(message) + "\"";
     json += "}";
     sendWebSocketText(socket, json);
+}
+
+void ProxySession::sendBackendQuery(Connection & connection, const String & query, bool with_pending_data)
+{
+    const auto & settings = context->getSettingsRef();
+    auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
+
+    ClientInfo client_info;
+    client_info.query_kind = ClientInfo::QueryKind::INITIAL_QUERY;
+
+    /// `with_pending_data` must be true for INSERTs so the server enters the
+    /// send-data handshake and replies with the sample/header block.
+    connection.sendQuery(
+        timeouts,
+        query,
+        /* query_parameters */ {},
+        /* query_id */ "",
+        QueryProcessingStage::Complete,
+        &settings,
+        &client_info,
+        with_pending_data,
+        /* external_roles */ {},
+        /* process_progress_callback */ {});
+}
+
+void ProxySession::drainUntilEndOfStream(Connection & connection)
+{
+    try
+    {
+        while (true)
+        {
+            Packet packet = connection.receivePacket();
+            if (packet.type == Protocol::Server::EndOfStream || packet.type == Protocol::Server::Exception)
+                return;
+        }
+    }
+    catch (...)
+    {
+        /// The connection may be broken after a cancel; nothing more to drain.
+        LOG_DEBUG(getLogger("ProxySession"), "drain after cancel: {}", getCurrentExceptionMessage(false));
+    }
 }
 
 std::optional<String> ProxySession::readClientMessage()
@@ -168,25 +297,34 @@ std::optional<String> ProxySession::readClientMessage()
 
 bool ProxySession::executeQuery(Connection & connection, const String & query)
 {
+    /// Best-effort parse to detect an INSERT (with or without inline data).
+    /// Anything that does not parse as an INSERT takes the generic path, where
+    /// the backend reports real syntax/semantic errors.
+    ASTPtr ast;
+    try
+    {
+        ParserQuery parser(query.data() + query.size());
+        ast = parseQuery(parser, query, MAX_QUERY_SIZE, MAX_PARSER_DEPTH, MAX_PARSER_BACKTRACKS);
+    }
+    catch (...)
+    {
+        ast = nullptr;
+    }
+
+    if (ast)
+    {
+        if (const auto * insert = ast->as<ASTInsertQuery>())
+            return executeInsert(connection, query, *insert);
+    }
+
+    return executeSelect(connection, query);
+}
+
+bool ProxySession::executeSelect(Connection & connection, const String & query)
+{
     LoggerPtr log = getLogger("ProxySession");
 
-    const auto & settings = context->getSettingsRef();
-    auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
-
-    ClientInfo client_info;
-    client_info.query_kind = ClientInfo::QueryKind::INITIAL_QUERY;
-
-    connection.sendQuery(
-        timeouts,
-        query,
-        /* query_parameters */ {},
-        /* query_id */ "",
-        QueryProcessingStage::Complete,
-        &settings,
-        &client_info,
-        /* with_pending_data */ false,
-        /* external_roles */ {},
-        /* process_progress_callback */ {});
+    sendBackendQuery(connection, query);
 
     WriteBufferToWebSocket out_buf(socket);
     OutputFormatPtr output;
@@ -306,6 +444,121 @@ bool ProxySession::executeQuery(Connection & connection, const String & query)
                 out_buf.cancel();
                 try_control("error", "Unexpected packet from backend");
                 return false;
+        }
+    }
+}
+
+bool ProxySession::executeInsert(Connection & connection, const String & query, const ASTInsertQuery & insert)
+{
+    LoggerPtr log = getLogger("ProxySession");
+
+    const char * query_end = query.data() + query.size();
+    const bool has_inline_data = insert.data && insert.data < query_end;
+    /// Format precedence: an explicit `FORMAT` clause; else `Values` for inline
+    /// `INSERT ... VALUES (...)` data; else the session's `?format=` for streamed data.
+    const String insert_format = !insert.format.empty() ? insert.format : (has_inline_data ? "Values" : format);
+    /// Send the query without the inline data section, keeping the FORMAT clause.
+    const String query_to_send = insert.data ? String(query.data(), insert.data) : query;
+
+    sendBackendQuery(connection, query_to_send, /* with_pending_data */ true);
+
+    /// The server waits for external-tables data before replying with the sample
+    /// block; we have none, so send an empty set to unblock the handshake.
+    ExternalTablesData external_tables_data;
+    connection.sendExternalTablesData(external_tables_data);
+
+    /// The server replies with the sample block describing the target structure.
+    Block sample;
+    while (true)
+    {
+        Packet packet = connection.receivePacket();
+        if (packet.type == Protocol::Server::Data)
+        {
+            sample = packet.block;
+            break;
+        }
+        if (packet.type == Protocol::Server::Exception)
+        {
+            const String message = packet.exception ? packet.exception->displayText() : "Unknown error from server";
+            sendControlEvent("error", message);
+            return true;
+        }
+        if (packet.type == Protocol::Server::EndOfStream)
+        {
+            /// No structure to send data with (e.g. nothing was expected); we are done.
+            sendControlEvent("end", "");
+            return true;
+        }
+        /// Ignore Log / Progress / TableColumns / TimezoneUpdate while waiting.
+    }
+
+    /// Data source: inline data from the query if present, else streamed from the client.
+    std::unique_ptr<ReadBuffer> data_in;
+    ReadBufferFromWebSocket * ws_in = nullptr;
+    if (has_inline_data)
+    {
+        data_in = std::make_unique<ReadBufferFromMemory>(insert.data, query_end - insert.data);
+    }
+    else
+    {
+        auto ws = std::make_unique<ReadBufferFromWebSocket>(socket);
+        ws_in = ws.get();
+        data_in = std::move(ws);
+    }
+
+    bool aborted = false;
+    try
+    {
+        auto source = context->getInputFormat(insert_format, *data_in, sample, DEFAULT_BLOCK_SIZE);
+        Pipe pipe(source);
+        QueryPipeline pipeline(std::move(pipe));
+        PullingPipelineExecutor executor(pipeline);
+
+        Block block;
+        while (executor.pull(block))
+        {
+            if (!block.empty())
+                connection.sendData(block, /* name */ "", /* scalar */ false);
+        }
+        aborted = ws_in && ws_in->wasAborted();
+    }
+    catch (...)
+    {
+        /// Error parsing the client-supplied data: abort the insert.
+        const String message = getCurrentExceptionMessage(false);
+        LOG_DEBUG(log, "INSERT data error: {}", message);
+        connection.sendCancel();
+        drainUntilEndOfStream(connection);
+        sendControlEvent("error", message);
+        return true;
+    }
+
+    if (aborted)
+    {
+        /// Client disconnected mid-insert: cancel rather than commit partial data.
+        connection.sendCancel();
+        drainUntilEndOfStream(connection);
+        return false;
+    }
+
+    connection.sendData({}, "", false); /// Empty block signals end of data.
+
+    while (true)
+    {
+        Packet packet = connection.receivePacket();
+        switch (packet.type)
+        {
+            case Protocol::Server::EndOfStream:
+                sendControlEvent("end", "");
+                return true;
+            case Protocol::Server::Exception:
+            {
+                const String message = packet.exception ? packet.exception->displayText() : "Unknown error from server";
+                sendControlEvent("error", message);
+                return true;
+            }
+            default:
+                break; /// Ignore progress / log / profile events.
         }
     }
 }

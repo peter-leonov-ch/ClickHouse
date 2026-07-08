@@ -11,6 +11,7 @@ namespace DB
 {
 
 class Connection;
+class ASTInsertQuery;
 
 /// Where the proxy forwards native-protocol queries.
 struct BackendParams
@@ -44,9 +45,14 @@ private:
     std::optional<String> readClientMessage();
 
     /// Execute one query and stream its result. Returns false if the session
-    /// should end afterwards (client closed mid-query).
+    /// should end afterwards (client closed mid-query). Dispatches to the
+    /// INSERT or SELECT path depending on the parsed query kind.
     bool executeQuery(Connection & connection, const String & query);
+    bool executeSelect(Connection & connection, const String & query);
+    bool executeInsert(Connection & connection, const String & query, const ASTInsertQuery & insert);
 
+    void sendBackendQuery(Connection & connection, const String & query, bool with_pending_data = false);
+    void drainUntilEndOfStream(Connection & connection);
     void sendControlEvent(const String & event, const String & message);
 
     Poco::Net::StreamSocket & socket;
