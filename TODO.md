@@ -216,6 +216,20 @@ INSERT-into-missing-table error. No regressions in SELECT (`tmp/ws_test3.py`) or
 
 Still next: progress/log/profile push as control frames, config-file/auth, `BaseDaemon`.
 
+## Step 5 status — progress push DONE (branch `wsproxy-skeleton`)
+
+Mid-query push implemented in `executeSelect`: each server `Progress` packet is forwarded as
+a `{"event":"progress","read_rows":N,"read_bytes":M,"total_rows_to_read":T}` text frame.
+Server progress is incremental, so reads are accumulated and the latest total estimate is
+tracked; running totals are pushed. Text frames don't disturb the binary result stream, so
+clients just skip `progress` events when reading to the terminal `end`/`error`/`cancelled`.
+
+Validated with `tmp/ws_progress_test.py` (a ~3s `sleepEachRow` query): 32 progress events,
+monotonic `read_rows` 1→30, `total_rows_to_read=30`. No regressions (SELECT/INSERT/cancel
+suites updated to skip progress frames and still green).
+
+Still next: profile-events / log push, config-file/auth, `BaseDaemon` hardening.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
