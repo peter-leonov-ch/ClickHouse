@@ -1,0 +1,14 @@
+{
+  "name": "wsproxy-tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Integration tests for clickhouse-wsproxy (WebSocket -> native protocol proxy)",
+  "scripts": {
+    "test": "vitest run",
+    "watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.9"
+  }
+}
