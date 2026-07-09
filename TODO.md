@@ -299,9 +299,22 @@ group, and `pkill -f` on the config path).
 - ClickHouse error message/code preserved faithfully.
 - Session healthy after an INSERT error (fresh insert commits).
 
-Progress was already covered for SELECT (progress.test.mjs). **Feature gap:** INSERT-side progress
-(`written_rows`) is NOT forwarded — `executeInsert` ignores `Progress`. Worth adding (small) if
-INSERT progress matters to clients.
+Progress was already covered for SELECT (progress.test.mjs).
+
+### Test push #4 — edge cases + INSERT flow (all green, 85 tests)
+
+- **edge.test.mjs**: empty result set, `LIMIT 0` (header only), DDL (CREATE/DROP → `end`, no data),
+  many columns + NULLs + arrays in one row, empty-string/unicode INSERT round-trip.
+- **insert-flow.test.mjs**: closing the socket mid-INSERT aborts via `sendCancel` with **0 rows
+  committed** (no partial commit), and the proxy stays healthy (a clean INSERT commits afterwards).
+
+**INSERT-progress investigated and dropped:** implemented `written_rows` forwarding, but the native
+protocol emits **no** `Progress` packets for client-data INSERTs (verified: 0 events even for 1M
+rows into MergeTree, 146ms). Reverted the dormant forwarding to avoid unverified/dead code. Server
+INSERT progress would only appear for `INSERT ... SELECT` (server-side), which the current
+`executeInsert` streaming model doesn't handle — noted as a separate limitation:
+`INSERT ... SELECT` / `INSERT ... FROM INFILE` (no client data) would make `executeInsert` wait for
+WS data that never comes. Fix later (detect no-data INSERTs and skip the data-streaming phase).
 
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
