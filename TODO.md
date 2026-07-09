@@ -249,6 +249,35 @@ Validated with `tmp/.../tests/test/logs.test.mjs` (18 tests total, all green): l
 
 Still next: config-file/auth, `BaseDaemon` hardening. (This completes the mid-query-push story.)
 
+## Production hardening — test push #1 (branch `wsproxy-skeleton`)
+
+Expanded the integration suite across four areas (type matrix, format matrix, concurrency,
+resilience) — 59 tests, all green. This push found and fixed a real bug and surfaced findings:
+
+**Bug found & fixed:** `AggregateFunction`-typed columns failed with `Unknown aggregate
+function sum: while receiving packet` — the proxy called only `registerFormats()`, but
+deserializing `AggregateFunction` off the native wire needs the aggregate-function registry.
+Fixed by calling `registerFunctions()` + `registerAggregateFunctions()` at startup (matching
+`clickhouse-client`) and linking `clickhouse_aggregate_functions`. Directly threatened the
+"complete type coverage" claim.
+
+**Finding (deferred to productionization):** UInt64 renders **unquoted** in JSONEachRow through
+the proxy, whereas `clickhouse-client` quotes by default — a format-settings faithfulness gap.
+Matters for JS clients (unquoted 64-bit ints lose precision on `JSON.parse`). Root: the proxy
+derives `FormatSettings` from a bare `Context`; clients can't control format settings. Fix later:
+apply faithful defaults and/or let clients pass settings (URL params / query settings).
+
+**Confirmed working:** session reuse after a backend error/syntax error (reused `Connection`
+survives); proxy stays healthy after a client cancels mid-query; unreachable backend →
+`error` event, no hang/crash; 40 concurrent sessions + 1M-row streamed result + 100-query
+session longevity. Also added `WSPROXY_PORT` (configurable listen port) to enable multi-instance
+resilience tests.
+
+Coverage still thin / next test pushes: adversarial input (oversized/malformed frames,
+slow-loris), backend-drops-mid-query, TLS, large INSERT, protocol-revision skew across server
+versions. Productionization track (separate): auth, TLS, config file, resource limits, graceful
+drain, `BaseDaemon`, CI wiring.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**

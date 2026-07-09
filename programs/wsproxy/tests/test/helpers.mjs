@@ -15,11 +15,11 @@
 
 export const PROXY_URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
 
-/** Build the WS URL for a given output format and options ({ logs, path }). */
-export function urlFor(format = "JSONEachRow", { logs = "", path = "/" } = {}) {
+/** Build the WS URL for a given output format and options ({ logs, path, baseUrl }). */
+export function urlFor(format = "JSONEachRow", { logs = "", path = "/", baseUrl = PROXY_URL } = {}) {
   const params = new URLSearchParams({ format });
   if (logs) params.set("logs", logs);
-  return `${PROXY_URL}${path}?${params}`;
+  return `${baseUrl}${path}?${params}`;
 }
 
 /**
@@ -28,8 +28,8 @@ export function urlFor(format = "JSONEachRow", { logs = "", path = "/" } = {}) {
  * `await` them regardless of arrival timing.
  */
 export class Session {
-  constructor(format = "JSONEachRow", { logs = "", path = "/" } = {}) {
-    this.ws = new WebSocket(urlFor(format, { logs, path }));
+  constructor(format = "JSONEachRow", { logs = "", path = "/", baseUrl = PROXY_URL } = {}) {
+    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl }));
     this.ws.binaryType = "arraybuffer";
     this._queue = [];
     this._waiters = [];
@@ -149,8 +149,8 @@ export class Session {
 }
 
 /** One-shot: open a session, run a query, close, return the result object. */
-export async function runQuery(sql, { format = "JSONEachRow", logs = "" } = {}) {
-  const s = new Session(format, { logs });
+export async function runQuery(sql, { format = "JSONEachRow", logs = "", baseUrl = PROXY_URL } = {}) {
+  const s = new Session(format, { logs, baseUrl });
   try {
     return await s.run(sql);
   } finally {
