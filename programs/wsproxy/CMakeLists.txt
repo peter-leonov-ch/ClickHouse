@@ -7,6 +7,7 @@ set (CLICKHOUSE_WSPROXY_SOURCES
 
 set (CLICKHOUSE_WSPROXY_LINK
     PRIVATE
+        clickhouse_aggregate_functions
         clickhouse_common_config
         clickhouse_common_io
         clickhouse_functions

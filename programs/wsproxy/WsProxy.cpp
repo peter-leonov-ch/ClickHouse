@@ -9,7 +9,9 @@
 #include <Poco/Timespan.h>
 #include <Poco/Util/ServerApplication.h>
 
+#include <AggregateFunctions/registerAggregateFunctions.h>
 #include <Formats/registerFormats.h>
+#include <Functions/registerFunctions.h>
 #include <Interpreters/Context.h>
 
 #include <Server/HTTP/HTTPContext.h>
@@ -128,11 +130,17 @@ protected:
         global_context->makeGlobalContext();
         global_context->setApplicationType(Context::ApplicationType::SERVER);
 
+        /// The same registrations clickhouse-client performs: aggregate functions
+        /// are required to (de)serialize `AggregateFunction`-typed columns off the
+        /// native wire, and functions back defaults/codecs. `registerFormats` alone
+        /// is not enough for full type coverage.
+        registerFunctions();
+        registerAggregateFunctions();
         registerFormats();
 
         const BackendParams backend = backendParamsFromEnv();
 
-        static constexpr UInt16 port = 9010;
+        const UInt16 port = static_cast<UInt16>(std::stoul(envOr("WSPROXY_PORT", "9010")));
         Poco::Net::ServerSocket socket(port);
         Poco::ThreadPool server_pool(/* minCapacity= */ 1, /* maxCapacity= */ 16);
         Poco::Net::HTTPServerParams::Ptr params(new Poco::Net::HTTPServerParams);
