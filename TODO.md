@@ -273,10 +273,25 @@ survives); proxy stays healthy after a client cancels mid-query; unreachable bac
 session longevity. Also added `WSPROXY_PORT` (configurable listen port) to enable multi-instance
 resilience tests.
 
-Coverage still thin / next test pushes: adversarial input (oversized/malformed frames,
-slow-loris), backend-drops-mid-query, TLS, large INSERT, protocol-revision skew across server
-versions. Productionization track (separate): auth, TLS, config file, resource limits, graceful
-drain, `BaseDaemon`, CI wiring.
+### Test push #2 — adversarial / backend-failure / large INSERT (all green, 72 tests)
+
+- **adversarial.test.mjs** (raw-TCP client `test/raw.mjs`, since native `WebSocket` only
+  emits well-formed frames): unmasked frame, reserved opcode, RSV bit, and oversized-advertised
+  frame are all rejected with a clean close; ping→pong; and the proxy survives malformed input
+  (fresh clients still work). RFC 6455 hardening confirmed — no proxy bugs.
+- **backend-failure.test.mjs** (spawns its own backend+proxy on non-default ports): killing the
+  backend mid-query → the proxy delivers a clean `error`/close **promptly** (~1s, not the 20s
+  natural query length) and the proxy process survives. Good resilience result.
+- **large-insert.test.mjs**: 500k-row streamed JSONEachRow INSERT + 100k single-frame + 100k TSV,
+  verified against server-side count/sum. Streaming INSERT holds under volume.
+
+Test-infra learnings: `spawnBackend`/`spawnProxy` in `test/proc.mjs`; killing `clickhouse-server`
+requires `lsof -ti tcp:<port>` (its watchdog fork evades signalling the spawned pid, its process
+group, and `pkill -f` on the config path).
+
+Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
+skew across older server versions (need old server binaries). Productionization track (separate):
+auth, TLS, config file, resource limits, graceful drain, `BaseDaemon`, CI wiring.
 
 ## Plan
 
