@@ -5,6 +5,7 @@
 #include <Server/HTTP/HTTPServerRequest.h>
 #include <Server/HTTP/HTTPServerResponse.h>
 
+#include <Common/Base64.h>
 #include <Common/Exception.h>
 #include <Common/logger_useful.h>
 
@@ -73,6 +74,48 @@ String queryParam(const String & uri_string, const String & name, const String &
         LOG_DEBUG(log, "Could not parse request URI for the {} parameter; using default", name);
     }
     return fallback;
+}
+
+/// Resolve backend credentials for this session (credential pass-through: the
+/// backend performs authentication). Priority: `Authorization: Basic`, then
+/// `X-ClickHouse-User`/`-Key` headers, then `?user=`/`?password=` URL params,
+/// else the configured defaults already in `backend`.
+void resolveCredentials(const HTTPServerRequest & request, const String & uri, BackendParams & backend, LoggerPtr log)
+{
+    const String auth = request.get("Authorization", "");
+    if (auth.starts_with("Basic "))
+    {
+        try
+        {
+            const String decoded = base64Decode(auth.substr(6));
+            const size_t colon = decoded.find(':');
+            if (colon != String::npos)
+            {
+                backend.user = decoded.substr(0, colon);
+                backend.password = decoded.substr(colon + 1);
+                return;
+            }
+        }
+        catch (...)
+        {
+            LOG_DEBUG(log, "Malformed Authorization header; falling back to other credential sources");
+        }
+    }
+
+    const String header_user = request.get("X-ClickHouse-User", "");
+    if (!header_user.empty())
+    {
+        backend.user = header_user;
+        backend.password = request.get("X-ClickHouse-Key", "");
+        return;
+    }
+
+    const String param_user = queryParam(uri, "user", "", log);
+    if (!param_user.empty())
+    {
+        backend.user = param_user;
+        backend.password = queryParam(uri, "password", "", log);
+    }
 }
 
 }
@@ -166,13 +209,18 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     /// Optional: `?logs=<level>` (e.g. information, trace) makes the backend push
     /// server-side log lines for the session's queries.
     const String logs_level = queryParam(uri, "logs", "", log);
-    LOG_DEBUG(log, "WebSocket session established; output format {}", out_format);
+
+    /// Credential pass-through: resolve this session's backend user/password from
+    /// the request (never mutate the shared default `backend`).
+    BackendParams session_backend = backend;
+    resolveCredentials(request, uri, session_backend, log);
+    LOG_DEBUG(log, "WebSocket session established; format {}, backend user {}", out_format, session_backend.user);
 
     /// Bound each blocking WebSocket read so a stalled client cannot pin the
     /// handler thread indefinitely between queries.
     socket.setReceiveTimeout(Poco::Timespan(300, 0));
 
-    ProxySession session(socket, context, backend, out_format, logs_level);
+    ProxySession session(socket, context, session_backend, out_format, logs_level);
     session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");
