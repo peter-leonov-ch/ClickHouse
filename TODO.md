@@ -289,6 +289,20 @@ Test-infra learnings: `spawnBackend`/`spawnProxy` in `test/proc.mjs`; killing `c
 requires `lsof -ti tcp:<port>` (its watchdog fork evades signalling the spawned pid, its process
 group, and `pkill -f` on the config path).
 
+### Test push #3 — exceptions (all green, 78 tests)
+
+**exceptions.test.mjs** (6 tests) — probed the proxy's error paths, all behave correctly (no bugs):
+- Exception *after* partial results: rows 0–4 stream, then the `error` event (the `Exception`-after-`Data` path: `output.reset()`/`out_buf.cancel()`).
+- Session reuse after a mid-stream exception (reused `Connection` survives).
+- Malformed INSERT data → `error` **and 0 rows committed** (abort via `sendCancel`, no partial commit).
+- Type error in INSERT data → clean parse error.
+- ClickHouse error message/code preserved faithfully.
+- Session healthy after an INSERT error (fresh insert commits).
+
+Progress was already covered for SELECT (progress.test.mjs). **Feature gap:** INSERT-side progress
+(`written_rows`) is NOT forwarded — `executeInsert` ignores `Progress`. Worth adding (small) if
+INSERT progress matters to clients.
+
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
 auth, TLS, config file, resource limits, graceful drain, `BaseDaemon`, CI wiring.
