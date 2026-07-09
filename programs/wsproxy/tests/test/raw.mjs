@@ -48,13 +48,18 @@ export class RawClient {
     });
   }
 
-  /** Perform the WebSocket upgrade handshake; resolves when the 101 is received. */
-  async handshake(path = "/?format=JSONEachRow") {
+  /** Perform the WebSocket upgrade handshake; resolves when the 101 is received.
+   *  Extra HTTP request headers can be supplied via `headers` (e.g. Authorization). */
+  async handshake(path = "/?format=JSONEachRow", headers = {}) {
     await this.connected();
     const key = crypto.randomBytes(16).toString("base64");
+    const extra = Object.entries(headers)
+      .map(([k, v]) => `${k}: ${v}\r\n`)
+      .join("");
     this.socket.write(
       `GET ${path} HTTP/1.1\r\nHost: 127.0.0.1\r\n` +
         "Upgrade: websocket\r\nConnection: Upgrade\r\n" +
+        extra +
         `Sec-WebSocket-Key: ${key}\r\nSec-WebSocket-Version: 13\r\n\r\n`,
     );
     while (this.buf.indexOf("\r\n\r\n") === -1 && !this.closed) await this._waitData();

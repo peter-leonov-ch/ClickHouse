@@ -320,6 +320,29 @@ Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, pro
 skew across older server versions (need old server binaries). Productionization track (separate):
 auth, TLS, config file, resource limits, graceful drain, `BaseDaemon`, CI wiring.
 
+## Productionization — Auth DONE (credential pass-through, branch `wsproxy-skeleton`)
+
+The proxy no longer holds fixed backend creds only from env — it resolves per-session credentials
+from the WebSocket upgrade request and opens the backend `Connection` **as that user**, delegating
+all authN/authZ to ClickHouse (no auth system reinvented). `WsProxyHandler::resolveCredentials`
+priority: `Authorization: Basic` → `X-ClickHouse-User`/`-Key` headers → `?user=`/`?password=` URL
+params → the configured `WSPROXY_BACKEND_*` defaults. A per-session `BackendParams` copy is used
+(never mutating the shared default). Bad credentials surface as the backend's auth error event
+(pass-through; lazy connect on first query).
+
+Tested in `auth.test.mjs` (6 tests): default user, URL params, `Basic` header, `X-ClickHouse`
+headers, and wrong-password rejection via URL params and `Basic`. Header-based creds are tested via
+the raw-TCP client (native/browser `WebSocket` can't set request headers — so browsers must use URL
+params, which leak in URLs/logs unless behind TLS; note for the TLS work).
+
+Also made the integration suite **self-contained**: `globalSetup` now generates the backend config
+(default + `wsp_user`) via `spawnBackend`/`spawnProxy` instead of depending on gitignored
+`tmp/ch/*`. 91 tests total, all green. This is most of what CI wiring needs (just a
+`clickhouse-server` binary + the built proxy).
+
+Auth follow-ups (later): reject bad creds at handshake (eager connect → close with reason) instead
+of on first query; TLS (both legs) so URL-param creds and header creds aren't sent in clear.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**

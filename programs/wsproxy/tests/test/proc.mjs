@@ -62,10 +62,17 @@ export async function spawnBackend({ tcpPort }) {
     join(dir, "users.xml"),
     `<clickhouse>
     <profiles><default/></profiles>
-    <users><default>
-        <password></password><networks><ip>::/0</ip></networks>
-        <profile>default</profile><quota>default</quota>
-    </default></users>
+    <users>
+        <default>
+            <password></password><networks><ip>::/0</ip></networks>
+            <profile>default</profile><quota>default</quota>
+        </default>
+        <!-- Password-protected user for auth tests. -->
+        <wsp_user>
+            <password>wsp_pass</password><networks><ip>::/0</ip></networks>
+            <profile>default</profile><quota>default</quota>
+        </wsp_user>
+    </users>
     <quotas><default/></quotas>
 </clickhouse>`,
   );

@@ -1,21 +1,13 @@
 // Vitest global setup: ensure a ClickHouse backend (:9000) and the proxy (:9010)
 // are running, create the shared test table, and tear down whatever we started.
 //
-// Reuses anything already listening (so you can run against a stack you started
-// by hand); only processes we spawn here are killed on teardown.
+// Self-contained: the backend config (including the auth-test user) is generated
+// by spawnBackend, so no external config files are needed. Anything already
+// listening is reused (so you can run against a stack you started by hand); only
+// processes we spawn here are stopped on teardown.
 
-import { spawn } from "node:child_process";
 import net from "node:net";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const testDir = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(testDir, "../../../.."); // programs/wsproxy/tests/test -> repo root
-
-const CLICKHOUSE_SERVER = process.env.CLICKHOUSE_SERVER ?? "/usr/local/bin/clickhouse-server";
-const CH_CONFIG = process.env.CH_CONFIG ?? resolve(repoRoot, "tmp/ch/config.xml");
-const WSPROXY_BIN =
-  process.env.WSPROXY_BIN ?? resolve(repoRoot, "build/programs/wsproxy/clickhouse-wsproxy");
+import { spawnBackend, spawnProxy } from "./proc.mjs";
 
 const BACKEND_PORT = 9000;
 const PROXY_PORT = 9010;
@@ -30,31 +22,17 @@ function portOpen(port, host = "127.0.0.1") {
   });
 }
 
-async function waitForPort(port, timeoutMs = 30_000) {
-  const deadline = Date.now() + timeoutMs;
-  while (Date.now() < deadline) {
-    if (await portOpen(port)) return;
-    await new Promise((r) => setTimeout(r, 200));
-  }
-  throw new Error(`Timed out waiting for port ${port}`);
-}
-
 export default async function setup() {
-  const spawned = [];
+  const stops = [];
 
   if (!(await portOpen(BACKEND_PORT))) {
-    const proc = spawn(CLICKHOUSE_SERVER, ["--config-file", CH_CONFIG], {
-      stdio: "ignore",
-      detached: false,
-    });
-    spawned.push(proc);
-    await waitForPort(BACKEND_PORT);
+    const backend = await spawnBackend({ tcpPort: BACKEND_PORT });
+    stops.push(() => backend.stop());
   }
 
   if (!(await portOpen(PROXY_PORT))) {
-    const proc = spawn(WSPROXY_BIN, [], { stdio: "ignore", detached: false });
-    spawned.push(proc);
-    await waitForPort(PROXY_PORT);
+    const proxy = await spawnProxy({ listenPort: PROXY_PORT, backendPort: BACKEND_PORT });
+    stops.push(() => proxy.stop());
   }
 
   // Create the shared test table via the proxy (DDL goes through the SELECT path).
@@ -66,11 +44,11 @@ export default async function setup() {
     throw new Error(`failed to create test table: ${JSON.stringify(ddl.control)}`);
   }
 
-  // Teardown: kill only what we started.
+  // Teardown: stop only what we started.
   return () => {
-    for (const proc of spawned) {
+    for (const stop of stops) {
       try {
-        proc.kill("SIGTERM");
+        stop();
       } catch {
         /* ignore */
       }
