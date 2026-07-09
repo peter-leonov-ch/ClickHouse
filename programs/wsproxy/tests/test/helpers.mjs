@@ -15,10 +15,11 @@
 
 export const PROXY_URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
 
-/** Build the WS URL for a given output format and optional path. */
-export function urlFor(format = "JSONEachRow", path = "/") {
-  const sep = path.includes("?") ? "&" : "?";
-  return `${PROXY_URL}${path}${sep}format=${encodeURIComponent(format)}`;
+/** Build the WS URL for a given output format and options ({ logs, path }). */
+export function urlFor(format = "JSONEachRow", { logs = "", path = "/" } = {}) {
+  const params = new URLSearchParams({ format });
+  if (logs) params.set("logs", logs);
+  return `${PROXY_URL}${path}?${params}`;
 }
 
 /**
@@ -27,8 +28,8 @@ export function urlFor(format = "JSONEachRow", path = "/") {
  * `await` them regardless of arrival timing.
  */
 export class Session {
-  constructor(format = "JSONEachRow", path = "/") {
-    this.ws = new WebSocket(urlFor(format, path));
+  constructor(format = "JSONEachRow", { logs = "", path = "/" } = {}) {
+    this.ws = new WebSocket(urlFor(format, { logs, path }));
     this.ws.binaryType = "arraybuffer";
     this._queue = [];
     this._waiters = [];
@@ -91,21 +92,29 @@ export class Session {
   async collect() {
     const chunks = [];
     const progress = [];
+    const logs = [];
+    const profileEvents = [];
+    const done = (control) => {
+      const data = Buffer.concat(chunks);
+      return { data, text: data.toString("utf8"), progress, logs, profileEvents, control };
+    };
     for (;;) {
       const frame = await this.nextFrame();
       if (frame.type === "binary") {
         chunks.push(frame.data);
       } else if (frame.type === "text") {
         const msg = JSON.parse(frame.data);
-        if (msg.event === "progress") progress.push(msg);
-        else {
-          const data = Buffer.concat(chunks);
-          return { data, text: data.toString("utf8"), progress, control: msg };
+        // Terminal events end the query; everything else is a mid-query push.
+        if (msg.event === "end" || msg.event === "error" || msg.event === "cancelled") {
+          return done(msg);
         }
+        if (msg.event === "progress") progress.push(msg);
+        else if (msg.event === "log") logs.push(msg);
+        else if (msg.event === "profile_events") profileEvents.push(msg);
+        // Unknown non-terminal events are ignored.
       } else {
         // Socket closed without a terminal control frame.
-        const data = Buffer.concat(chunks);
-        return { data, text: data.toString("utf8"), progress, control: { event: "closed" } };
+        return done({ event: "closed" });
       }
     }
   }
@@ -140,8 +149,8 @@ export class Session {
 }
 
 /** One-shot: open a session, run a query, close, return the result object. */
-export async function runQuery(sql, { format = "JSONEachRow" } = {}) {
-  const s = new Session(format);
+export async function runQuery(sql, { format = "JSONEachRow", logs = "" } = {}) {
+  const s = new Session(format, { logs });
   try {
     return await s.run(sql);
   } finally {

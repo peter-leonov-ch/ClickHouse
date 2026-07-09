@@ -230,6 +230,25 @@ suites updated to skip progress frames and still green).
 
 Still next: profile-events / log push, config-file/auth, `BaseDaemon` hardening.
 
+## Step 6 status — profile-events / log push DONE (branch `wsproxy-skeleton`)
+
+`executeSelect` now forwards `Log` and `ProfileEvents` packets as JSON control frames via
+`sendBlockEvent`: each block is serialized to `JSONEachRow` and spliced into
+`{"event":"log"|"profile_events","rows":[{...},{...}]}` (reusing the output format keeps it
+correct for any columns/types). `ProfileEvents` are emitted by the server automatically; `Log`
+delivery requires `send_logs_level` — which the backend sets from the *query packet* settings,
+not query-text SETTINGS, so the proxy applies it from a new session param `?logs=<level>`
+(threaded handler → `ProxySession` → a mutable `Settings` copy in `sendBackendQuery`).
+
+Client protocol note: `log`/`profile_events` (like `progress`) are non-terminal text frames;
+clients accumulate them until the terminal `end`/`error`/`cancelled`. The JS helper's
+`collect()` now returns `{ data, text, progress, logs, profileEvents, control }`.
+
+Validated with `tmp/.../tests/test/logs.test.mjs` (18 tests total, all green): log push via
+`?logs=trace`, no logs at the default level, and profile events during a slow query.
+
+Still next: config-file/auth, `BaseDaemon` hardening. (This completes the mid-query-push story.)
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
