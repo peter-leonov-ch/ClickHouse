@@ -26,6 +26,7 @@
 #include <IO/ReadBuffer.h>
 #include <IO/ReadBufferFromMemory.h>
 #include <IO/WriteBuffer.h>
+#include <IO/WriteBufferFromString.h>
 
 #include <Common/Exception.h>
 #include <Common/SSHWrapper.h>
@@ -189,8 +190,17 @@ String escapeJSON(const String & s)
 
 }
 
-ProxySession::ProxySession(Poco::Net::StreamSocket & socket_, ContextPtr context_, BackendParams backend_, String format_)
-    : socket(socket_), context(std::move(context_)), backend(std::move(backend_)), format(std::move(format_))
+ProxySession::ProxySession(
+    Poco::Net::StreamSocket & socket_,
+    ContextPtr context_,
+    BackendParams backend_,
+    String format_,
+    String logs_level_)
+    : socket(socket_)
+    , context(std::move(context_))
+    , backend(std::move(backend_))
+    , format(std::move(format_))
+    , logs_level(std::move(logs_level_))
 {
 }
 
@@ -203,9 +213,52 @@ void ProxySession::sendControlEvent(const String & event, const String & message
     sendWebSocketText(socket, json);
 }
 
+void ProxySession::sendBlockEvent(const String & event, const Block & block)
+{
+    if (block.rows() == 0)
+        return;
+
+    /// Serialize the block to JSONEachRow (one JSON object per row), then splice
+    /// the rows into a JSON array so the whole batch is one valid control frame:
+    /// {"event":"log","rows":[{...},{...}]}. Reusing the output format keeps this
+    /// correct for whatever columns/types the server sends.
+    WriteBufferFromOwnString buf;
+    auto out = FormatFactory::instance().getOutputFormat("JSONEachRow", buf, block.cloneEmpty(), context);
+    out->write(block);
+    out->finalize();
+    const String & rows_text = buf.str();
+
+    String rows_array;
+    size_t start = 0;
+    bool first = true;
+    while (start < rows_text.size())
+    {
+        const size_t newline = rows_text.find('\n', start);
+        const size_t end = (newline == String::npos) ? rows_text.size() : newline;
+        if (end > start)
+        {
+            if (!first)
+                rows_array += ',';
+            rows_array.append(rows_text, start, end - start);
+            first = false;
+        }
+        if (newline == String::npos)
+            break;
+        start = newline + 1;
+    }
+
+    sendWebSocketText(socket, R"({"event":")" + event + R"(","rows":[)" + rows_array + "]}");
+}
+
 void ProxySession::sendBackendQuery(Connection & connection, const String & query, bool with_pending_data)
 {
-    const auto & settings = context->getSettingsRef();
+    /// Copy the settings so we can opt into server log delivery. The backend
+    /// attaches its log queue based on `send_logs_level` in the query packet's
+    /// settings (a query-text SETTINGS clause is too late), so it must be set here.
+    Settings settings = context->getSettingsRef();
+    if (!logs_level.empty())
+        settings.set("send_logs_level", logs_level);
+
     auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
 
     ClientInfo client_info;
@@ -458,13 +511,44 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                 }
                 break;
             }
-            /// Not surfaced to the client yet (profile events / logs / totals push
-            /// is a later refinement); drain and continue.
-            case Protocol::Server::ProfileInfo:
+            case Protocol::Server::Log:
+            {
+                /// Server-side log lines for this query (client opts in with
+                /// `SETTINGS send_logs_level=...`). Push as a control frame.
+                if (!client_gone)
+                {
+                    try
+                    {
+                        sendBlockEvent("log", packet.block);
+                    }
+                    catch (...)
+                    {
+                        client_gone = true;
+                    }
+                }
+                break;
+            }
             case Protocol::Server::ProfileEvents:
+            {
+                /// Periodic profile-event counters emitted during execution.
+                if (!client_gone)
+                {
+                    try
+                    {
+                        sendBlockEvent("profile_events", packet.block);
+                    }
+                    catch (...)
+                    {
+                        client_gone = true;
+                    }
+                }
+                break;
+            }
+            /// Not surfaced to the client yet (totals / extremes / profile info);
+            /// drain and continue.
+            case Protocol::Server::ProfileInfo:
             case Protocol::Server::Totals:
             case Protocol::Server::Extremes:
-            case Protocol::Server::Log:
             case Protocol::Server::TableColumns:
             case Protocol::Server::PartUUIDs:
             case Protocol::Server::TimezoneUpdate:

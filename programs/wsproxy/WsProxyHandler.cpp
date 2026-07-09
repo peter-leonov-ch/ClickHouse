@@ -56,24 +56,23 @@ bool hasUpgradeToken(const String & connection_header)
     return false;
 }
 
-/// Output format from the `format` query parameter of the WebSocket URL.
-String outputFormatFromURI(const String & uri_string, LoggerPtr log)
+/// Read a query parameter from the WebSocket URL, returning `fallback` if absent.
+String queryParam(const String & uri_string, const String & name, const String & fallback, LoggerPtr log)
 {
-    String out_format = "JSONEachRow";
     try
     {
         Poco::URI uri(uri_string);
         for (const auto & param : uri.getQueryParameters())
         {
-            if (param.first == "format" && !param.second.empty())
-                out_format = param.second;
+            if (param.first == name && !param.second.empty())
+                return param.second;
         }
     }
     catch (...)
     {
-        LOG_DEBUG(log, "Could not parse request URI for the format parameter; using default");
+        LOG_DEBUG(log, "Could not parse request URI for the {} parameter; using default", name);
     }
-    return out_format;
+    return fallback;
 }
 
 }
@@ -162,14 +161,18 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
         }
     });
 
-    const String out_format = outputFormatFromURI(request.getURI(), log);
+    const String & uri = request.getURI();
+    const String out_format = queryParam(uri, "format", "JSONEachRow", log);
+    /// Optional: `?logs=<level>` (e.g. information, trace) makes the backend push
+    /// server-side log lines for the session's queries.
+    const String logs_level = queryParam(uri, "logs", "", log);
     LOG_DEBUG(log, "WebSocket session established; output format {}", out_format);
 
     /// Bound each blocking WebSocket read so a stalled client cannot pin the
     /// handler thread indefinitely between queries.
     socket.setReceiveTimeout(Poco::Timespan(300, 0));
 
-    ProxySession session(socket, context, backend, out_format);
+    ProxySession session(socket, context, backend, out_format, logs_level);
     session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");

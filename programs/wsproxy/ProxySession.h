@@ -34,7 +34,12 @@ struct BackendParams
 class ProxySession
 {
 public:
-    ProxySession(Poco::Net::StreamSocket & socket_, ContextPtr context_, BackendParams backend_, String format_);
+    ProxySession(
+        Poco::Net::StreamSocket & socket_,
+        ContextPtr context_,
+        BackendParams backend_,
+        String format_,
+        String logs_level_ = "");
 
     void run();
 
@@ -54,11 +59,14 @@ private:
     void sendBackendQuery(Connection & connection, const String & query, bool with_pending_data = false);
     void drainUntilEndOfStream(Connection & connection);
     void sendControlEvent(const String & event, const String & message);
+    /// Serialize a Log / ProfileEvents block to a `{"event":...,"rows":[...]}` text frame.
+    void sendBlockEvent(const String & event, const Block & block);
 
     Poco::Net::StreamSocket & socket;
     ContextPtr context;
     BackendParams backend;
     String format;
+    String logs_level; /// If set, sent as `send_logs_level` so the backend pushes Log packets.
 };
 
 }
