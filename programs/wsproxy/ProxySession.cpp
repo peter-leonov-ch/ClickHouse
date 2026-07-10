@@ -697,7 +697,7 @@ void ProxySession::run()
         /* cluster_secret_ */ "",
         /* client_name_ */ "clickhouse-wsproxy",
         Protocol::Compression::Enable,
-        Protocol::Secure::Disable,
+        backend.secure ? Protocol::Secure::Enable : Protocol::Secure::Disable,
         /* tls_sni_override_ */ "",
         /* bind_host_ */ "");
 

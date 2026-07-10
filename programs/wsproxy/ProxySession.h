@@ -21,6 +21,7 @@ struct BackendParams
     String user = "default";
     String password;
     String database;
+    bool secure = false; /// Connect to the backend over TLS (native secure protocol).
 };
 
 /// Drives one WebSocket session against a backend ClickHouse server over the

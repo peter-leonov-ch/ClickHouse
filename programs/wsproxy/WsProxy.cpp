@@ -26,6 +26,7 @@
 
 #include <base/types.h>
 
+#include <algorithm>
 #include <cstdlib>
 #include <string>
 
@@ -79,6 +80,14 @@ std::string envOr(const char * name, const std::string & def)
     return (value && *value) ? std::string(value) : def;
 }
 
+/// A boolean env var: true for "1"/"true"/"yes" (case-insensitive), else false.
+bool envBool(const char * name)
+{
+    std::string v = envOr(name, "");
+    std::transform(v.begin(), v.end(), v.begin(), ::tolower);
+    return v == "1" || v == "true" || v == "yes";
+}
+
 BackendParams backendParamsFromEnv()
 {
     BackendParams params;
@@ -87,6 +96,7 @@ BackendParams backendParamsFromEnv()
     params.user = envOr("WSPROXY_BACKEND_USER", params.user);
     params.password = envOr("WSPROXY_BACKEND_PASSWORD", params.password);
     params.database = envOr("WSPROXY_BACKEND_DATABASE", params.database);
+    params.secure = envBool("WSPROXY_BACKEND_SECURE");
     return params;
 }
 
@@ -139,6 +149,16 @@ protected:
         registerFormats();
 
         const BackendParams backend = backendParamsFromEnv();
+
+        /// For a self-signed / dev backend certificate, configure the SSL client
+        /// context to accept invalid certificates (mirrors clickhouse-client's
+        /// --accept-invalid-certificate). Poco's SSLManager builds the default
+        /// client context lazily from this config on the first secure connect.
+        if (envBool("WSPROXY_BACKEND_ACCEPT_INVALID_CERT"))
+        {
+            config().setString("openSSL.client.invalidCertificateHandler.name", "AcceptCertificateHandler");
+            config().setString("openSSL.client.verificationMode", "none");
+        }
 
         const UInt16 port = static_cast<UInt16>(std::stoul(envOr("WSPROXY_PORT", "9010")));
         Poco::Net::ServerSocket socket(port);
