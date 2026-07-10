@@ -15,16 +15,17 @@
 
 export const PROXY_URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
 
-/** Build the WS URL for a format and options ({ logs, path, baseUrl, user, password, flow }). */
+/** Build the WS URL for a format and options ({ logs, path, baseUrl, user, password, flow, parse }). */
 export function urlFor(
   format = "JSONEachRow",
-  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow } = {},
+  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false } = {},
 ) {
   const params = new URLSearchParams({ format });
   if (logs) params.set("logs", logs);
   if (user) params.set("user", user);
   if (password) params.set("password", password);
   if (flow !== undefined) params.set("flow", String(flow)); // opt-in credit flow control
+  if (parse) params.set("parse", "1"); // opt-in SQL parsing (auto-route inserts, report kind)
   return `${baseUrl}${path}?${params}`;
 }
 
@@ -36,9 +37,9 @@ export function urlFor(
 export class Session {
   constructor(
     format = "JSONEachRow",
-    { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow } = {},
+    { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false } = {},
   ) {
-    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password, flow }));
+    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password, flow, parse }));
     this.ws.binaryType = "arraybuffer";
     this._queue = [];
     this._waiters = [];
@@ -142,9 +143,10 @@ export class Session {
     const progress = [];
     const logs = [];
     const profileEvents = [];
+    let queryInfo = null; // {"event":"query",...} sent in ?parse=1 mode
     const done = (control) => {
       const data = Buffer.concat(chunks);
-      return { data, text: data.toString("utf8"), progress, logs, profileEvents, control };
+      return { data, text: data.toString("utf8"), progress, logs, profileEvents, queryInfo, control };
     };
     for (;;) {
       const frame = await this.nextFrame();
@@ -159,6 +161,7 @@ export class Session {
         if (msg.event === "progress") progress.push(msg);
         else if (msg.event === "log") logs.push(msg);
         else if (msg.event === "profile_events") profileEvents.push(msg);
+        else if (msg.event === "query") queryInfo = msg;
         // Unknown non-terminal events are ignored.
       } else {
         // Socket closed without a terminal control frame.

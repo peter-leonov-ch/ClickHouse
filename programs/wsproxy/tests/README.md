@@ -46,6 +46,16 @@ client streams the data as **binary** frames ending with a zero-length binary fr
 input format of that data; it defaults to the session `?format=`). Closing the socket mid-query
 cancels it. The `Session.insert(query, chunks, { format })` helper wraps this.
 
+**Opt-in SQL parsing (`?parse=1`).** For clients that don't want to classify their own SQL, connect
+with `?parse=1`. The proxy then parses each query to (a) push a non-terminal `{"event":"query",
+"kind":"insert"|"query","verb":"<LEADING KEYWORD>"}` frame telling the client the leading verb and
+the routing decision, and (b) auto-route a streamed-data INSERT (`INSERT INTO t [FORMAT X]` with no
+SELECT source / INFILE / inline data) without needing the `{"cmd":"insert"}` message — the client
+just sends the query text and then streams the binary data frames. `kind` is `insert` when the proxy
+will read client data, else `query`. Parsing is **off by default**: the proxy does not parse SQL
+unless the client explicitly asks it to, and a parse failure degrades to the plain-query path (the
+backend reports any real error). This is the only place the proxy parses SQL.
+
 See `test/helpers.mjs` for the small client wrapper (`Session`, `runQuery`, `backendScalar`).
 
 ## Receive backpressure (important for large results)

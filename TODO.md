@@ -339,6 +339,16 @@ control message opts into `executeInsert` (streamed data phase, `with_pending_da
 `Session.insert` sends the control message; added `Session.beginInsert(query,{format})`. 100 tests
 green, incl. explicit INSERT-SELECT / inline-VALUES as plain queries.
 
+**Opt-in SQL parsing (`?parse=1`) — DONE.** For clients that don't want to classify their own SQL,
+`?parse=1` makes the proxy parse each query in ONE place (`classifyQuery`) to: (a) push a
+`{"event":"query","kind":"insert"|"query","verb":"<LEADING KEYWORD>"}` frame (clients often need the
+verb + kind), and (b) auto-route a streamed-data INSERT (`INSERT … [FORMAT X]` with no
+SELECT/INFILE/inline-data) without the `{"cmd":"insert"}` envelope. `verb` comes from the SQL `Lexer`
+(skips leading comments); `kind` is the routing decision. Off by default — the no-parse contract is
+unchanged for default clients — and a parse failure degrades to the plain-query path (backend reports
+real errors), so a parser quirk can never wedge a statement. The explicit `{"cmd":"insert"}` message
+always wins over parsing. 109 tests green.
+
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
 auth (done), proxy→backend TLS, config file, resource limits, graceful drain, `BaseDaemon`,
