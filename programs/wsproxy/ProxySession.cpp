@@ -11,6 +11,11 @@
 #include <Interpreters/ClientInfo.h>
 #include <Interpreters/Context.h>
 
+#include <Parsers/ASTInsertQuery.h>
+#include <Parsers/ParserQuery.h>
+#include <Parsers/parseQuery.h>
+#include <Parsers/Lexer.h>
+
 #include <Formats/FormatFactory.h>
 #include <Processors/Formats/IOutputFormat.h>
 #include <Processors/Executors/PullingPipelineExecutor.h>
@@ -71,6 +76,78 @@ InsertCommand parseInsertCommand(const String & message)
         cmd.is_insert = false; /// Malformed -> treat as a plain query; the backend reports errors.
     }
     return cmd;
+}
+
+/// The leading SQL keyword of a query (e.g. `SELECT`, `INSERT`, `CREATE`),
+/// uppercased. Uses the SQL lexer so leading comments/whitespace are skipped
+/// correctly. Clients frequently want this to drive their own logic without
+/// re-implementing a tokenizer. Returns empty if there is no significant token.
+String leadingVerb(const String & query)
+{
+    Lexer lexer(query.data(), query.data() + query.size());
+    for (Token token = lexer.nextToken(); !token.isEnd() && !token.isError(); token = lexer.nextToken())
+    {
+        if (!token.isSignificant())
+            continue;
+        String verb(token.begin, token.size());
+        for (char & c : verb)
+            if (c >= 'a' && c <= 'z')
+                c = static_cast<char>(c - ('a' - 'A'));
+        return verb;
+    }
+    return "";
+}
+
+/// The proxy's classification of a query, reported to the client in ?parse=1 mode.
+struct QueryClass
+{
+    String verb;                  /// Leading SQL keyword, uppercased.
+    bool streamed_insert = false; /// True if it is an INSERT that expects client-streamed data.
+    String insert_format;         /// The FORMAT clause of such an INSERT (empty = session default).
+};
+
+/// OPT-IN only (?parse=1): parse the query so the proxy can (a) report the leading
+/// verb + routing decision to the client and (b) auto-route a streamed-data INSERT
+/// without the client sending an explicit {"cmd":"insert",...} envelope.
+///
+/// A query needs the client-streamed data phase iff it is an `INSERT` with no
+/// SELECT source, no INFILE, and no inline data (`INSERT INTO t [FORMAT X]` with
+/// the rows still to come). Everything else (SELECT / INSERT-SELECT / inline
+/// VALUES / DDL) is a plain query.
+///
+/// This is the ONLY place the proxy parses SQL, and only when the client asks for
+/// it. Parse failure degrades to {verb-from-lexer, plain query} so a parser quirk
+/// never wedges a statement the backend would accept; the backend reports errors.
+QueryClass classifyQuery(const String & query)
+{
+    QueryClass result;
+    result.verb = leadingVerb(query);
+
+    try
+    {
+        ParserQuery parser(query.data() + query.size());
+        ASTPtr ast = parseQuery(
+            parser,
+            query,
+            /* max_query_size */ 0, /// 0 = unlimited; the backend enforces the real limit.
+            /* max_parser_depth */ 1000,
+            /* max_parser_backtracks */ 1'000'000);
+
+        if (const auto * insert = ast->as<ASTInsertQuery>())
+        {
+            const bool has_inline_data = insert->data != nullptr && insert->data != insert->end;
+            result.streamed_insert = !insert->select && !insert->infile && !has_inline_data;
+            result.insert_format = insert->format;
+        }
+    }
+    catch (...)
+    {
+        LOG_DEBUG(
+            getLogger("ProxySession"),
+            "parse=1 classification failed, treating as a plain query: {}",
+            getCurrentExceptionMessage(false));
+    }
+    return result;
 }
 
 /// Opt-in credit/window flow control for the SELECT push direction. The client
@@ -299,6 +376,15 @@ String escapeJSON(const String & s)
     return out;
 }
 
+/// Report the proxy's parse decision to the client (only in ?parse=1 mode), as a
+/// non-terminal control frame preceding the result. `kind` is the routing
+/// decision: "insert" = the proxy will read client-streamed data; "query" = the
+/// plain path (results / self-contained statement). `verb` is the leading keyword.
+void sendQueryInfoFrame(Poco::Net::StreamSocket & socket, const String & verb, const String & kind)
+{
+    sendWebSocketText(socket, R"({"event":"query","kind":")" + kind + R"(","verb":")" + escapeJSON(verb) + R"("})");
+}
+
 }
 
 ProxySession::ProxySession(
@@ -308,7 +394,8 @@ ProxySession::ProxySession(
     String format_,
     String logs_level_,
     bool flow_enabled_,
-    Int64 flow_initial_credit_)
+    Int64 flow_initial_credit_,
+    bool parse_enabled_)
     : socket(socket_)
     , context(std::move(context_))
     , backend(std::move(backend_))
@@ -316,6 +403,7 @@ ProxySession::ProxySession(
     , logs_level(std::move(logs_level_))
     , flow_enabled(flow_enabled_)
     , flow_initial_credit(flow_initial_credit_)
+    , parse_enabled(parse_enabled_)
 {
 }
 
@@ -820,12 +908,30 @@ void ProxySession::run()
 
         try
         {
-            /// Route by message kind, never by parsing SQL: a {"cmd":"insert",...}
+            /// Route by message kind, not by parsing SQL: a {"cmd":"insert",...}
             /// control message is a streamed data INSERT; anything else is a plain
             /// query (which covers SELECT / INSERT-SELECT / inline INSERT / DDL).
             const InsertCommand ins = parseInsertCommand(*message);
-            const bool keep_open = ins.is_insert ? executeInsert(connection, ins.query, ins.format)
-                                                  : executeSelect(connection, *message);
+            bool keep_open = false;
+            if (ins.is_insert)
+            {
+                /// The client explicitly declared a streamed insert; honour it as-is.
+                keep_open = executeInsert(connection, ins.query, ins.format);
+            }
+            else if (parse_enabled)
+            {
+                /// Opt-in (?parse=1): parse the query to classify it, report the
+                /// decision to the client, and auto-route a streamed-data INSERT
+                /// without requiring the explicit control message.
+                const QueryClass qc = classifyQuery(*message);
+                sendQueryInfoFrame(socket, qc.verb, qc.streamed_insert ? "insert" : "query");
+                keep_open = qc.streamed_insert ? executeInsert(connection, *message, qc.insert_format)
+                                               : executeSelect(connection, *message);
+            }
+            else
+            {
+                keep_open = executeSelect(connection, *message);
+            }
             if (!keep_open)
                 break;
         }

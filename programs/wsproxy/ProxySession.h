@@ -41,7 +41,8 @@ public:
         String format_,
         String logs_level_ = "",
         bool flow_enabled_ = false,
-        Int64 flow_initial_credit_ = 0);
+        Int64 flow_initial_credit_ = 0,
+        bool parse_enabled_ = false);
 
     void run();
 
@@ -75,6 +76,7 @@ private:
     String logs_level; /// If set, sent as `send_logs_level` so the backend pushes Log packets.
     bool flow_enabled; /// Opt-in credit/window flow control for the SELECT push direction.
     Int64 flow_initial_credit; /// Starting frame credit when flow control is enabled.
+    bool parse_enabled; /// Opt-in (?parse=1): parse SQL to auto-route inserts and report the query kind.
 };
 
 }

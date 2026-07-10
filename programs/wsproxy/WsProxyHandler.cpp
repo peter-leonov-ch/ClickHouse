@@ -216,6 +216,12 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     const String flow_param = queryParam(uri, "flow", "", log);
     const bool flow_enabled = !flow_param.empty();
     const Int64 flow_credit = flow_enabled ? std::strtoll(flow_param.c_str(), nullptr, 10) : 0;
+    /// Opt-in SQL parsing: `?parse=1` lets the proxy parse each query to auto-route
+    /// streamed-data INSERTs (no {"cmd":"insert"} needed) and report the parsed
+    /// verb + routing decision as a {"event":"query",...} frame. Off by default —
+    /// the proxy does not parse SQL unless the client explicitly asks it to.
+    const String parse_param = queryParam(uri, "parse", "", log);
+    const bool parse_enabled = parse_param == "1" || parse_param == "true";
 
     /// Credential pass-through: resolve this session's backend user/password from
     /// the request (never mutate the shared default `backend`).
@@ -239,7 +245,8 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     if (send_timeout_sec > 0)
         socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
-    ProxySession session(socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit);
+    ProxySession session(
+        socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit, parse_enabled);
     session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");
