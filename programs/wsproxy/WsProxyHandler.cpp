@@ -19,6 +19,7 @@
 #include <base/scope_guard.h>
 
 #include <algorithm>
+#include <cstdlib>
 #include <utility>
 
 
@@ -219,6 +220,18 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     /// Bound each blocking WebSocket read so a stalled client cannot pin the
     /// handler thread indefinitely between queries.
     socket.setReceiveTimeout(Poco::Timespan(300, 0));
+
+    /// Send timeout: drop a client that stops reading entirely (its TCP window
+    /// stuck at 0) so a blocking write cannot pin a handler thread forever. The
+    /// resulting throw routes through WriteBufferToWebSocket (broken -> sendCancel)
+    /// to a clean teardown. Applies per blocking write, so a slow-but-progressing
+    /// client is unaffected; only genuine zero-progress stalls trip it.
+    /// Configurable (mainly for tests); default 30s.
+    Int64 send_timeout_sec = 30;
+    if (const char * v = std::getenv("WSPROXY_CLIENT_SEND_TIMEOUT_SEC"); v && *v)
+        send_timeout_sec = std::strtoll(v, nullptr, 10);
+    if (send_timeout_sec > 0)
+        socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
     ProxySession session(socket, context, session_backend, out_format, logs_level);
     session.run();

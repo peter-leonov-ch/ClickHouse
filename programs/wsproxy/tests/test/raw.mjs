@@ -143,6 +143,16 @@ export class RawClient {
     return this.closed;
   }
 
+  /** Stop reading from the socket (simulates a client that can't keep up). */
+  pause() {
+    this.socket.pause();
+  }
+
+  /** Resume reading after a pause(). */
+  resume() {
+    this.socket.resume();
+  }
+
   close() {
     try {
       this.socket.destroy();

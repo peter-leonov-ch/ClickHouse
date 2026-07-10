@@ -358,6 +358,29 @@ Auth follow-up — TLS, split by leg and priority:
   the app, so this leg is typically loopback / in-pod (or TLS is terminated at the ingress /
   service mesh). Revisit only if the proxy is exposed beyond the app's trust boundary.
 
+## Backpressure & flow control
+
+Analysis: backpressure is already correct and bounded by the blocking-socket + demand-driven
+model. A slow WS client → blocking `sendBytes` → the session loop stops calling `receivePacket`
+→ the backend's TCP window closes → the server throttles its own production. Per-session memory is
+bounded (one `Block` + the 1 MB `WriteBufferToWebSocket` + the two kernel socket buffers); no queue
+accumulates. No application-level flow-control signal is needed — TCP is the signal. The kernel
+socket buffers (`SO_RCVBUF` backend leg / `SO_SNDBUF` client leg) act as the pipeline buffer that
+lets the backend keep producing while the proxy writes, up to a bound — so moderate speed mismatch
+adds no artificial delay; only a persistently slow client engages throttling.
+
+**#1 DONE — send timeout.** Previously the handler set only `setReceiveTimeout`; a client that
+stopped reading entirely (window stuck at 0) blocked `sendBytes` forever, pinning a handler thread
+(pool is 16 → a few stalled clients = exhaustion). Now `setSendTimeout` (default 30s, env
+`WSPROXY_CLIENT_SEND_TIMEOUT_SEC`) bounds a zero-progress write; the throw routes through
+`WriteBufferToWebSocket` (`broken` → `sendCancel`) to a clean teardown. It's per-write, so a
+slow-but-progressing client is unaffected. Tested in `backpressure.test.mjs` (a client that pauses
+reading is dropped ~1s and the proxy stays healthy for the next client).
+
+Deferred: #2 writer thread + bounded queue for full read/write parallelism (kernel buffers already
+give most of it — revisit only if a throughput profile justifies it); #3 WS `permessage-deflate`
+for bandwidth; expose `SO_SNDBUF`/`SO_RCVBUF` + timeouts via config file.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**

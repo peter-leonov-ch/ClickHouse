@@ -146,6 +146,7 @@ export async function spawnProxy({
   backendPort,
   secure = false,
   acceptInvalidCert = false,
+  sendTimeoutSec,
 }) {
   const proc = spawn(WSPROXY_BIN, [], {
     stdio: "ignore",
@@ -156,6 +157,7 @@ export async function spawnProxy({
       WSPROXY_BACKEND_PORT: String(backendPort),
       ...(secure ? { WSPROXY_BACKEND_SECURE: "1" } : {}),
       ...(acceptInvalidCert ? { WSPROXY_BACKEND_ACCEPT_INVALID_CERT: "1" } : {}),
+      ...(sendTimeoutSec ? { WSPROXY_CLIENT_SEND_TIMEOUT_SEC: String(sendTimeoutSec) } : {}),
     },
   });
   await waitForPort(listenPort);
