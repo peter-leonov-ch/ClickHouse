@@ -41,3 +41,44 @@ frames. For INSERT, the client sends `INSERT INTO t [FORMAT X]` then streams dat
 frames ending with a zero-length binary frame; closing the socket mid-query cancels it.
 
 See `test/helpers.mjs` for the small client wrapper (`Session`, `runQuery`, `backendScalar`).
+
+## Receive backpressure (important for large results)
+
+The proxy pushes result frames as fast as the connection allows. A plain **event-based
+`WebSocket`** (browser or Node) has **no receive-backpressure API** — it eagerly drains the socket
+and fires `onmessage` regardless of whether your app has kept up. So streaming a **large** result
+to a **slow consumer** accumulates in the JS heap and can OOM the client. The proxy cannot prevent
+this (from its side the socket looks healthy). If you stream large results, apply backpressure on
+the client:
+
+- **Best — `WebSocketStream`** (Chromium; Node with `--experimental-websocket-stream`). Its
+  `ReadableStream` applies real backpressure: when your reader is slow it stops reading the socket,
+  the TCP window closes, and the proxy throttles the backend. No app protocol needed.
+
+  ```js
+  const wss = new WebSocketStream("ws://localhost:9010/?format=JSONEachRow");
+  const { readable, writable } = await wss.opened;
+  await writable.getWriter().write("SELECT ... FROM big_table");
+  const reader = readable.getReader();
+  for (;;) {
+    const { value, done } = await reader.read(); // slow processing here throttles the proxy
+    if (done) break;
+    await process(value); // string = control/progress; Uint8Array = result bytes
+  }
+  ```
+
+- **Node with the `ws` library** — pause the underlying socket by consumption:
+
+  ```js
+  ws.on("message", (data, isBinary) => {
+    ws._socket.pause();                     // stop reading -> TCP backpressure to the proxy
+    process(data).finally(() => ws._socket.resume());
+  });
+  ```
+
+- **Plain browser `WebSocket`** (Firefox/Safari, or not using `WebSocketStream`) — you cannot apply
+  receive backpressure. Keep results bounded (`LIMIT`, server-side aggregation), or consume
+  synchronously in `onmessage` without queuing. Don't stream unbounded results to a slow consumer.
+
+(If this becomes a common need, the proxy could add opt-in credit/byte-window flow control —
+`sent − acked ≥ window` pauses the stream — which works for any client. Not implemented yet.)

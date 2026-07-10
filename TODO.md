@@ -381,6 +381,27 @@ Deferred: #2 writer thread + bounded queue for full read/write parallelism (kern
 give most of it — revisit only if a throughput profile justifies it); #3 WS `permessage-deflate`
 for bandwidth; expose `SO_SNDBUF`/`SO_RCVBUF` + timeouts via config file.
 
+### JS client receive backpressure — decision: client-side only (no proxy change)
+
+The proxy's TCP backpressure is necessary but NOT sufficient for JS clients: browser/Node
+event-based `WebSocket` eagerly drains the socket into the JS heap and dispatches `onmessage` with
+no receive-backpressure API, so the client's TCP window stays open, the proxy never blocks, and a
+large result to a slow consumer grows the JS heap unbounded → OOM. The proxy can't detect this.
+
+Decision (per Peter): **keep push-only (opt-in windowing NOT added for now); handle it client-side
+and document it.** Rationale: keeps the proxy simple; capable clients can get real backpressure
+themselves. Client guidance (see `programs/wsproxy/tests/README.md`):
+- **Best:** `WebSocketStream` (Chromium / Node experimental) — its `ReadableStream` applies real
+  backpressure that closes the TCP window and throttles the proxy→backend.
+- **Node (`ws`):** pause the underlying socket (`ws._socket.pause()`/`resume()`) by consumption.
+- **Plain browser `WebSocket` (Firefox/Safari):** no receive backpressure — keep results bounded
+  (LIMIT / server-side aggregation) or consume synchronously; don't stream unbounded results to a
+  slow consumer.
+
+If this becomes a real limitation, revisit **opt-in credit/byte-window flow control** (proxy pauses
+when `sent − acked ≥ window`; client sends `{"ack":N}`), which is the only portable, streaming-
+preserving fix. Design is sketched; not implemented.
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
