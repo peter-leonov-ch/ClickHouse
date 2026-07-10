@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { runQuery } from "./helpers.mjs";
+import { runQuery, Session } from "./helpers.mjs";
 import { RawClient } from "./raw.mjs";
 
 // The test backend (tmp/ch/users.xml) has a password-protected user:
@@ -67,6 +67,24 @@ describe("auth (credential pass-through)", () => {
     expect(control.event).toBe("end");
     expect(user).toBe(USER);
   });
+
+  it("rejects bad credentials eagerly, before any query is sent", async () => {
+    const s = new Session("JSONEachRow", { user: USER, password: "wrong" });
+    await s.ready();
+    // Do NOT send a query. Eager connect authenticates at session start, so the
+    // failure must arrive without the client sending anything.
+    let event = null;
+    for (let i = 0; i < 4; i++) {
+      const f = await s.nextFrame();
+      if (f.type === "text") {
+        event = JSON.parse(f.data).event;
+        break;
+      }
+      if (f.type === "close") break;
+    }
+    s.close();
+    expect(event).toBe("error");
+  }, 10000);
 
   it("rejects a wrong password sent via Basic header", async () => {
     const basic = Buffer.from(`${USER}:wrong`).toString("base64");

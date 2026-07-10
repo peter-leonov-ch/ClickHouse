@@ -340,8 +340,11 @@ Also made the integration suite **self-contained**: `globalSetup` now generates 
 `tmp/ch/*`. 91 tests total, all green. This is most of what CI wiring needs (just a
 `clickhouse-server` binary + the built proxy).
 
-Auth follow-ups (later): reject bad creds at handshake (eager connect → close with reason) instead
-of on first query; TLS (both legs) so URL-param creds and header creds aren't sent in clear.
+Eager connect DONE: `run()` calls `Connection::forceConnected` up front, so authentication (which
+happens during the native handshake) is validated at session start — bad creds get an `error`
+control frame + a `1008` WebSocket close *before any query is sent* (tested). 92 tests, all green.
+
+Auth follow-up (later): TLS (both legs) so URL-param and header creds aren't sent in clear.
 
 ## Plan
 

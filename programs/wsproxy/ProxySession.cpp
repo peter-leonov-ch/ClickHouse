@@ -701,6 +701,29 @@ void ProxySession::run()
         /* tls_sni_override_ */ "",
         /* bind_host_ */ "");
 
+    /// Establish the backend connection up front so authentication (which happens
+    /// during the native handshake) is reported immediately, rather than on the
+    /// first query. On failure, tell the client and close.
+    try
+    {
+        connection.forceConnected(ConnectionTimeouts::getTCPTimeoutsWithoutFailover(context->getSettingsRef()));
+    }
+    catch (...)
+    {
+        const String message = getCurrentExceptionMessage(false);
+        LOG_DEBUG(log, "Backend connect/auth failed: {}", message);
+        try
+        {
+            sendControlEvent("error", message);
+            sendWebSocketClose(socket, /* 1008 policy violation */ 1008, "Authentication failed");
+        }
+        catch (...)
+        {
+            LOG_DEBUG(log, "Failed to deliver auth error to client (already gone)");
+        }
+        return;
+    }
+
     LOG_DEBUG(log, "Proxy session started; backend {}:{}", backend.host, backend.port);
 
     while (true)
