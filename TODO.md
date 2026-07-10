@@ -405,6 +405,18 @@ resume, and unchanged push mode); 98 tests green.
 Client-side alternatives still valid where preferred (documented in the tests README):
 `WebSocketStream` (transport backpressure), or pausing the underlying `ws` socket in Node.
 
+**Considered & rejected — forwarding control frames while data is paused** ("keep progress/errors
+flowing during a `pause()`"). Killed by ordering: the backend is a single ordered stream with
+control interleaved *behind* data, so forwarding a control packet past a gated data frame requires
+consuming and buffering that data (unbounded → the OOM we just fixed, or a bounded read-ahead
+queue — moderate rework for a narrow payoff). It's also largely moot: during credit *throttling*
+control already flows (control frames aren't gated, and the loop only stalls at credit 0 / paused),
+and during a *full* stall the backend is blocked and produces ~no new control anyway. So `pause()`
+(or credit sitting at 0) halts control too. **Guidance: throttle with small `next()` credits rather
+than an indefinite `pause()`** if you want progress/errors to keep flowing; a fully-paused client
+won't observe progress / errors / `end` until it grants credit or resumes. (Only revisit the
+bounded read-ahead if prompt terminal-event delivery to a *fully paused* client becomes a real need.)
+
 ## Plan
 
 1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**

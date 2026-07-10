@@ -70,6 +70,14 @@ plus client-side alternatives:
   A frame is one WS binary message (one result block), so credit is in frames — no byte accounting.
   Works in any JS runtime (browser + Node). INSERT direction is unaffected (client-driven).
 
+  **Prefer throttling over an indefinite `pause()`.** When you grant small `next()` credits as you
+  consume, control frames (progress / logs / errors and the terminal `end`) keep flowing between
+  data frames. A hard `pause()` (or letting credit sit at 0) also halts control delivery: a
+  fully-paused client will not see progress, errors, or `end` until it grants credit or resumes.
+  This is inherent — once the proxy stops reading, the backend stalls, and its stream is ordered
+  (control is interleaved behind data), so control cannot "jump ahead" of paused data. Use `pause()`
+  as a short-term stop, not a long-lived one.
+
 The client-side transport options also work if you prefer them:
 
 - **Best — `WebSocketStream`** (Chromium; Node with `--experimental-websocket-stream`). Its
