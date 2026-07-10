@@ -210,6 +210,12 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     /// Optional: `?logs=<level>` (e.g. information, trace) makes the backend push
     /// server-side log lines for the session's queries.
     const String logs_level = queryParam(uri, "logs", "", log);
+    /// Opt-in credit/window flow control: `?flow=N` enables it with N frames of
+    /// initial credit; absent = push mode (unbounded). The client then grants more
+    /// with {"cmd":"next","n":...} and can pause/resume.
+    const String flow_param = queryParam(uri, "flow", "", log);
+    const bool flow_enabled = !flow_param.empty();
+    const Int64 flow_credit = flow_enabled ? std::strtoll(flow_param.c_str(), nullptr, 10) : 0;
 
     /// Credential pass-through: resolve this session's backend user/password from
     /// the request (never mutate the shared default `backend`).
@@ -233,7 +239,7 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     if (send_timeout_sec > 0)
         socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
-    ProxySession session(socket, context, session_backend, out_format, logs_level);
+    ProxySession session(socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit);
     session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");

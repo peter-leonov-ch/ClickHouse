@@ -32,6 +32,9 @@
 #include <Common/SSHWrapper.h>
 #include <Common/logger_useful.h>
 
+#include <Poco/JSON/Object.h>
+#include <Poco/JSON/Parser.h>
+
 
 namespace DB
 {
@@ -46,6 +49,56 @@ constexpr size_t MAX_QUERY_SIZE = 16 << 20;
 constexpr size_t MAX_PARSER_DEPTH = 1000;
 constexpr size_t MAX_PARSER_BACKTRACKS = 1'000'000;
 
+/// Opt-in credit/window flow control for the SELECT push direction. The client
+/// grants credit in whole frames (`{"cmd":"next","n":N}`) and can `pause`/`resume`;
+/// the proxy sends a data frame only while `!paused && credit > 0`. This lets an
+/// event-based JS client (which cannot apply receive backpressure) bound how much
+/// it must buffer. `client_gone` latches a Close/broken read.
+struct FlowControl
+{
+    bool enabled = false;
+    Int64 credit = 0;
+    bool paused = false;
+    bool client_gone = false;
+};
+
+/// Apply one client control frame to the flow state (also answers pings). Used
+/// both by the between-packets poll and by the credit gate, so `next`/`pause`/
+/// `resume`/close are handled consistently wherever the client frame is read.
+void applyControlFrame(Poco::Net::StreamSocket & socket, const WebSocketFrame & frame, FlowControl & fc)
+{
+    if (!frame.valid || frame.opcode == Opcode::Close)
+    {
+        fc.client_gone = true;
+        return;
+    }
+    if (frame.opcode == Opcode::Ping)
+    {
+        sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+        return;
+    }
+    if (frame.opcode != Opcode::Text)
+        return; /// Ignore stray binary during a SELECT.
+
+    try
+    {
+        Poco::JSON::Parser parser;
+        const auto obj = parser.parse(frame.payload).extract<Poco::JSON::Object::Ptr>();
+        const String cmd = obj->optValue<String>("cmd", "");
+        if (cmd == "next")
+            fc.credit += obj->optValue<Poco::Int64>("n", 0);
+        else if (cmd == "pause")
+            fc.paused = true;
+        else if (cmd == "resume")
+            fc.paused = false;
+    }
+    catch (...)
+    {
+        /// Malformed control frame: ignore (the query stream is unaffected).
+        LOG_DEBUG(getLogger("ProxySession"), "Ignoring malformed control frame: {}", getCurrentExceptionMessage(false));
+    }
+}
+
 /// A `WriteBuffer` whose flushes are emitted as WebSocket binary frames. The
 /// output format writes into it directly, so calling `flush` after each result
 /// block streams that block to the client as its own frame (mid-query push).
@@ -57,8 +110,9 @@ constexpr size_t MAX_PARSER_BACKTRACKS = 1'000'000;
 class WriteBufferToWebSocket : public BufferWithOwnMemory<WriteBuffer>
 {
 public:
-    explicit WriteBufferToWebSocket(Poco::Net::StreamSocket & socket_, size_t size = DBMS_DEFAULT_BUFFER_SIZE)
-        : BufferWithOwnMemory<WriteBuffer>(size), socket(socket_)
+    explicit WriteBufferToWebSocket(
+        Poco::Net::StreamSocket & socket_, FlowControl * flow_ = nullptr, size_t size = DBMS_DEFAULT_BUFFER_SIZE)
+        : BufferWithOwnMemory<WriteBuffer>(size), socket(socket_), flow(flow_)
     {
     }
 
@@ -71,6 +125,34 @@ private:
     {
         if (broken || offset() == 0)
             return;
+
+        /// Flow control: block this data frame until the client has granted credit
+        /// (and is not paused). While blocked we read the client's control frames
+        /// (next/pause/resume, or a Close), which also stops us reading the backend
+        /// -> TCP backpressure to the server, paced by the client's consumption.
+        if (flow && flow->enabled)
+        {
+            while (!flow->client_gone && (flow->paused || flow->credit <= 0))
+            {
+                WebSocketFrame frame;
+                try
+                {
+                    frame = readWebSocketFrame(socket);
+                }
+                catch (...)
+                {
+                    flow->client_gone = true;
+                    break;
+                }
+                applyControlFrame(socket, frame, *flow);
+            }
+            if (flow->client_gone)
+            {
+                broken = true;
+                return;
+            }
+        }
+
         try
         {
             sendWebSocketBinary(socket, working_buffer.begin(), offset());
@@ -78,10 +160,15 @@ private:
         catch (...)
         {
             broken = true;
+            return;
         }
+
+        if (flow && flow->enabled)
+            --flow->credit;
     }
 
     Poco::Net::StreamSocket & socket;
+    FlowControl * flow;
     bool broken = false;
 };
 
@@ -195,12 +282,16 @@ ProxySession::ProxySession(
     ContextPtr context_,
     BackendParams backend_,
     String format_,
-    String logs_level_)
+    String logs_level_,
+    bool flow_enabled_,
+    Int64 flow_initial_credit_)
     : socket(socket_)
     , context(std::move(context_))
     , backend(std::move(backend_))
     , format(std::move(format_))
     , logs_level(std::move(logs_level_))
+    , flow_enabled(flow_enabled_)
+    , flow_initial_credit(flow_initial_credit_)
 {
 }
 
@@ -379,7 +470,11 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
 
     sendBackendQuery(connection, query);
 
-    WriteBufferToWebSocket out_buf(socket);
+    FlowControl fc;
+    fc.enabled = flow_enabled;
+    fc.credit = flow_initial_credit;
+
+    WriteBufferToWebSocket out_buf(socket, &fc);
     OutputFormatPtr output;
     bool cancelled = false;
     bool client_gone = false;
@@ -433,10 +528,11 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                     frame.valid = false;
                 }
 
-                /// A Close frame (or broken read) means the client is gone:
-                /// cancel the backend query and drain until EndOfStream. Other
-                /// in-query frames are ignored for now.
-                if (!frame.valid || frame.opcode == Opcode::Close)
+                /// Apply the client frame: flow-control grants (next/pause/resume)
+                /// update the shared FlowControl; a Close/broken read means the
+                /// client is gone -> cancel the backend query and drain.
+                applyControlFrame(socket, frame, fc);
+                if (fc.client_gone)
                     note_client_gone();
             }
         }

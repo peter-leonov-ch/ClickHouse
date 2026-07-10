@@ -40,7 +40,9 @@ public:
         ContextPtr context_,
         BackendParams backend_,
         String format_,
-        String logs_level_ = "");
+        String logs_level_ = "",
+        bool flow_enabled_ = false,
+        Int64 flow_initial_credit_ = 0);
 
     void run();
 
@@ -68,6 +70,8 @@ private:
     BackendParams backend;
     String format;
     String logs_level; /// If set, sent as `send_logs_level` so the backend pushes Log packets.
+    bool flow_enabled; /// Opt-in credit/window flow control for the SELECT push direction.
+    Int64 flow_initial_credit; /// Starting frame credit when flow control is enabled.
 };
 
 }
