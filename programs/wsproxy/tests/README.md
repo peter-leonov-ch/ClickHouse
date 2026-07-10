@@ -48,8 +48,29 @@ The proxy pushes result frames as fast as the connection allows. A plain **event
 `WebSocket`** (browser or Node) has **no receive-backpressure API** — it eagerly drains the socket
 and fires `onmessage` regardless of whether your app has kept up. So streaming a **large** result
 to a **slow consumer** accumulates in the JS heap and can OOM the client. The proxy cannot prevent
-this (from its side the socket looks healthy). If you stream large results, apply backpressure on
-the client:
+this (from its side the socket looks healthy). If you stream large results, apply backpressure. The proxy offers a built-in, portable option,
+plus client-side alternatives:
+
+- **Built-in — opt-in credit flow control (`?flow=N`).** Connect with `?flow=N` to start with N
+  frames of credit; the proxy then sends a frame only while you have credit and aren't paused, and
+  blocks (throttling the backend) otherwise. Grant more as you consume, or pause/resume:
+
+  ```js
+  const s = new Session("JSONEachRow", { flow: 8 }); // start with 8 frames of credit
+  await s.ready();
+  s.sendQuery("SELECT ... FROM big_table");
+  for (;;) {
+    const f = await s.nextFrame();
+    if (f.type === "binary") { await process(f.data); s.next(1); }        // 1 credit per consumed frame
+    else if (f.type === "text") { const e = JSON.parse(f.data); if (["end","error","cancelled"].includes(e.event)) break; }
+  }
+  // s.pause() / s.resume() give a coarse hard stop as well.
+  ```
+
+  A frame is one WS binary message (one result block), so credit is in frames — no byte accounting.
+  Works in any JS runtime (browser + Node). INSERT direction is unaffected (client-driven).
+
+The client-side transport options also work if you prefer them:
 
 - **Best — `WebSocketStream`** (Chromium; Node with `--experimental-websocket-stream`). Its
   `ReadableStream` applies real backpressure: when your reader is slow it stops reading the socket,

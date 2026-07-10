@@ -15,15 +15,16 @@
 
 export const PROXY_URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
 
-/** Build the WS URL for a format and options ({ logs, path, baseUrl, user, password }). */
+/** Build the WS URL for a format and options ({ logs, path, baseUrl, user, password, flow }). */
 export function urlFor(
   format = "JSONEachRow",
-  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "" } = {},
+  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow } = {},
 ) {
   const params = new URLSearchParams({ format });
   if (logs) params.set("logs", logs);
   if (user) params.set("user", user);
   if (password) params.set("password", password);
+  if (flow !== undefined) params.set("flow", String(flow)); // opt-in credit flow control
   return `${baseUrl}${path}?${params}`;
 }
 
@@ -33,8 +34,11 @@ export function urlFor(
  * `await` them regardless of arrival timing.
  */
 export class Session {
-  constructor(format = "JSONEachRow", { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "" } = {}) {
-    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password }));
+  constructor(
+    format = "JSONEachRow",
+    { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow } = {},
+  ) {
+    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password, flow }));
     this.ws.binaryType = "arraybuffer";
     this._queue = [];
     this._waiters = [];
@@ -68,10 +72,49 @@ export class Session {
     return this.opened;
   }
 
-  /** Next incoming frame: {type:'text',data:string} | {type:'binary',data:Buffer} | {type:'close'}. */
-  nextFrame() {
+  /**
+   * Next incoming frame: {type:'text',data:string} | {type:'binary',data:Buffer} | {type:'close'}.
+   * With `timeoutMs > 0`, resolves to null if no frame arrives in time (without
+   * losing a frame that arrives later — the waiter is removed on timeout).
+   */
+  nextFrame(timeoutMs = 0) {
     if (this._queue.length) return Promise.resolve(this._queue.shift());
-    return new Promise((resolve) => this._waiters.push(resolve));
+    return new Promise((resolve) => {
+      let settled = false;
+      const waiter = (frame) => {
+        if (settled) {
+          this._queue.unshift(frame); // raced with the timeout; don't drop it
+          return;
+        }
+        settled = true;
+        resolve(frame);
+      };
+      this._waiters.push(waiter);
+      if (timeoutMs > 0) {
+        setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          const i = this._waiters.indexOf(waiter);
+          if (i >= 0) this._waiters.splice(i, 1);
+          resolve(null);
+        }, timeoutMs);
+      }
+    });
+  }
+
+  /** Flow-control: grant N more frames of credit. */
+  next(n) {
+    this.ws.send(JSON.stringify({ cmd: "next", n }));
+  }
+
+  /** Flow-control: pause the server push. */
+  pause() {
+    this.ws.send(JSON.stringify({ cmd: "pause" }));
+  }
+
+  /** Flow-control: resume after pause(). */
+  resume() {
+    this.ws.send(JSON.stringify({ cmd: "resume" }));
   }
 
   /** Send a SQL query (TEXT frame). */

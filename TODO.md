@@ -388,19 +388,22 @@ event-based `WebSocket` eagerly drains the socket into the JS heap and dispatche
 no receive-backpressure API, so the client's TCP window stays open, the proxy never blocks, and a
 large result to a slow consumer grows the JS heap unbounded → OOM. The proxy can't detect this.
 
-Decision (per Peter): **keep push-only (opt-in windowing NOT added for now); handle it client-side
-and document it.** Rationale: keeps the proxy simple; capable clients can get real backpressure
-themselves. Client guidance (see `programs/wsproxy/tests/README.md`):
-- **Best:** `WebSocketStream` (Chromium / Node experimental) — its `ReadableStream` applies real
-  backpressure that closes the TCP window and throttles the proxy→backend.
-- **Node (`ws`):** pause the underlying socket (`ws._socket.pause()`/`resume()`) by consumption.
-- **Plain browser `WebSocket` (Firefox/Safari):** no receive backpressure — keep results bounded
-  (LIMIT / server-side aggregation) or consume synchronously; don't stream unbounded results to a
-  slow consumer.
+**DONE — opt-in credit/window flow control** (frame-based). `?flow=N` enables it with N frames of
+initial credit; without `?flow`, push mode is unchanged (unbounded, zero overhead). Frame = one WS
+binary data frame (= one block flush), so no byte repacking. The client controls the stream with:
+- `{"cmd":"next","n":N}` — grant N more frames of credit;
+- `{"cmd":"pause"}` / `{"cmd":"resume"}` — hard stop / resume.
+The proxy sends a data frame only while `!paused && credit > 0`; the gate lives in
+`WriteBufferToWebSocket::nextImpl`, which blocks reading the client's control frames when starved —
+that also stops it reading the backend, so backpressure propagates to the server (TCP), paced by the
+client's consumption. Gate applies to binary data frames only; `progress`/`log`/`profile_events`/
+`end`/`error` text frames flow freely. Control frames are parsed by one `applyControlFrame` used by
+both the between-packets poll and the gate. Bounded by the existing receive timeout (no new hang).
+INSERT direction is client-handled (per Peter). Tested in `flow.test.mjs` (credit window, pause/
+resume, and unchanged push mode); 98 tests green.
 
-If this becomes a real limitation, revisit **opt-in credit/byte-window flow control** (proxy pauses
-when `sent − acked ≥ window`; client sends `{"ack":N}`), which is the only portable, streaming-
-preserving fix. Design is sketched; not implemented.
+Client-side alternatives still valid where preferred (documented in the tests README):
+`WebSocketStream` (transport backpressure), or pausing the underlying `ws` socket in Node.
 
 ## Plan
 
