@@ -17,14 +17,9 @@
 #include <QueryPipeline/Pipe.h>
 #include <QueryPipeline/QueryPipeline.h>
 
-#include <Parsers/ASTInsertQuery.h>
-#include <Parsers/ParserQuery.h>
-#include <Parsers/parseQuery.h>
-
 #include <IO/BufferWithOwnMemory.h>
 #include <IO/ConnectionTimeouts.h>
 #include <IO/ReadBuffer.h>
-#include <IO/ReadBufferFromMemory.h>
 #include <IO/WriteBuffer.h>
 #include <IO/WriteBufferFromString.h>
 
@@ -44,10 +39,39 @@ using namespace DB::WsProxy;
 namespace
 {
 
-/// Generous parser limits for the best-effort INSERT-detection parse.
-constexpr size_t MAX_QUERY_SIZE = 16 << 20;
-constexpr size_t MAX_PARSER_DEPTH = 1000;
-constexpr size_t MAX_PARSER_BACKTRACKS = 1'000'000;
+/// A parsed `{"cmd":"insert",...}` control message (a streamed data INSERT).
+struct InsertCommand
+{
+    bool is_insert = false;
+    String query;
+    String format; /// Input format for the client's streamed data; empty = use session default.
+};
+
+/// Detect and parse a streamed-insert control message WITHOUT touching SQL. Only
+/// a top-level JSON object with `"cmd":"insert"` is an insert; anything else is a
+/// plain query. (SQL never starts with '{', so the check is unambiguous.)
+InsertCommand parseInsertCommand(const String & message)
+{
+    InsertCommand cmd;
+    const size_t first = message.find_first_not_of(" \t\r\n");
+    if (first == String::npos || message[first] != '{')
+        return cmd; /// Not JSON -> a plain query.
+    try
+    {
+        Poco::JSON::Parser parser;
+        const auto obj = parser.parse(message).extract<Poco::JSON::Object::Ptr>();
+        if (obj->optValue<String>("cmd", "") != "insert")
+            return cmd;
+        cmd.is_insert = true;
+        cmd.query = obj->optValue<String>("query", "");
+        cmd.format = obj->optValue<String>("format", "");
+    }
+    catch (...)
+    {
+        cmd.is_insert = false; /// Malformed -> treat as a plain query; the backend reports errors.
+    }
+    return cmd;
+}
 
 /// Opt-in credit/window flow control for the SELECT push direction. The client
 /// grants credit in whole frames (`{"cmd":"next","n":N}`) and can `pause`/`resume`;
@@ -439,31 +463,6 @@ std::optional<String> ProxySession::readClientMessage()
     }
 }
 
-bool ProxySession::executeQuery(Connection & connection, const String & query)
-{
-    /// Best-effort parse to detect an INSERT (with or without inline data).
-    /// Anything that does not parse as an INSERT takes the generic path, where
-    /// the backend reports real syntax/semantic errors.
-    ASTPtr ast;
-    try
-    {
-        ParserQuery parser(query.data() + query.size());
-        ast = parseQuery(parser, query, MAX_QUERY_SIZE, MAX_PARSER_DEPTH, MAX_PARSER_BACKTRACKS);
-    }
-    catch (...)
-    {
-        ast = nullptr;
-    }
-
-    if (ast)
-    {
-        if (const auto * insert = ast->as<ASTInsertQuery>())
-            return executeInsert(connection, query, *insert);
-    }
-
-    return executeSelect(connection, query);
-}
-
 bool ProxySession::executeSelect(Connection & connection, const String & query)
 {
     LoggerPtr log = getLogger("ProxySession");
@@ -659,19 +658,16 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
     }
 }
 
-bool ProxySession::executeInsert(Connection & connection, const String & query, const ASTInsertQuery & insert)
+bool ProxySession::executeInsert(Connection & connection, const String & query, const String & input_format)
 {
     LoggerPtr log = getLogger("ProxySession");
 
-    const char * query_end = query.data() + query.size();
-    const bool has_inline_data = insert.data && insert.data < query_end;
-    /// Format precedence: an explicit `FORMAT` clause; else `Values` for inline
-    /// `INSERT ... VALUES (...)` data; else the session's `?format=` for streamed data.
-    const String insert_format = !insert.format.empty() ? insert.format : (has_inline_data ? "Values" : format);
-    /// Send the query without the inline data section, keeping the FORMAT clause.
-    const String query_to_send = insert.data ? String(query.data(), insert.data) : query;
+    /// Format the client's streamed data is in: the command's `format` if given,
+    /// else the session's `?format=`. The query text is forwarded verbatim (never
+    /// parsed); the backend receives native blocks via sendData regardless.
+    const String data_format = !input_format.empty() ? input_format : format;
 
-    sendBackendQuery(connection, query_to_send, /* with_pending_data */ true);
+    sendBackendQuery(connection, query, /* with_pending_data */ true);
 
     /// The server waits for external-tables data before replying with the sample
     /// block; we have none, so send an empty set to unblock the handshake.
@@ -696,31 +692,22 @@ bool ProxySession::executeInsert(Connection & connection, const String & query, 
         }
         if (packet.type == Protocol::Server::EndOfStream)
         {
-            /// No structure to send data with (e.g. nothing was expected); we are done.
+            /// The server did not ask for data (e.g. the query carried its own source);
+            /// nothing to stream, we are done.
             sendControlEvent("end", "");
             return true;
         }
         /// Ignore Log / Progress / TableColumns / TimezoneUpdate while waiting.
     }
 
-    /// Data source: inline data from the query if present, else streamed from the client.
-    std::unique_ptr<ReadBuffer> data_in;
-    ReadBufferFromWebSocket * ws_in = nullptr;
-    if (has_inline_data)
-    {
-        data_in = std::make_unique<ReadBufferFromMemory>(insert.data, query_end - insert.data);
-    }
-    else
-    {
-        auto ws = std::make_unique<ReadBufferFromWebSocket>(socket);
-        ws_in = ws.get();
-        data_in = std::move(ws);
-    }
+    /// The client streams the INSERT data as WebSocket binary frames.
+    auto data_in = std::make_unique<ReadBufferFromWebSocket>(socket);
+    ReadBufferFromWebSocket * ws_in = data_in.get();
 
     bool aborted = false;
     try
     {
-        auto source = context->getInputFormat(insert_format, *data_in, sample, DEFAULT_BLOCK_SIZE);
+        auto source = context->getInputFormat(data_format, *data_in, sample, DEFAULT_BLOCK_SIZE);
         Pipe pipe(source);
         QueryPipeline pipeline(std::move(pipe));
         PullingPipelineExecutor executor(pipeline);
@@ -731,7 +718,7 @@ bool ProxySession::executeInsert(Connection & connection, const String & query, 
             if (!block.empty())
                 connection.sendData(block, /* name */ "", /* scalar */ false);
         }
-        aborted = ws_in && ws_in->wasAborted();
+        aborted = ws_in->wasAborted();
     }
     catch (...)
     {
@@ -824,25 +811,31 @@ void ProxySession::run()
 
     while (true)
     {
-        auto query = readClientMessage();
-        if (!query)
+        auto message = readClientMessage();
+        if (!message)
             break;
 
-        if (query->empty())
+        if (message->empty())
             continue;
 
         try
         {
-            if (!executeQuery(connection, *query))
+            /// Route by message kind, never by parsing SQL: a {"cmd":"insert",...}
+            /// control message is a streamed data INSERT; anything else is a plain
+            /// query (which covers SELECT / INSERT-SELECT / inline INSERT / DDL).
+            const InsertCommand ins = parseInsertCommand(*message);
+            const bool keep_open = ins.is_insert ? executeInsert(connection, ins.query, ins.format)
+                                                  : executeSelect(connection, *message);
+            if (!keep_open)
                 break;
         }
         catch (...)
         {
-            const String message = getCurrentExceptionMessage(false);
-            LOG_DEBUG(log, "Session error: {}", message);
+            const String error_message = getCurrentExceptionMessage(false);
+            LOG_DEBUG(log, "Session error: {}", error_message);
             try
             {
-                sendControlEvent("error", message);
+                sendControlEvent("error", error_message);
             }
             catch (...)
             {

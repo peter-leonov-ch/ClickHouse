@@ -11,7 +11,6 @@ namespace DB
 {
 
 class Connection;
-class ASTInsertQuery;
 
 /// Where the proxy forwards native-protocol queries.
 struct BackendParams
@@ -52,12 +51,16 @@ private:
     /// (Close frame, read error, or protocol violation).
     std::optional<String> readClientMessage();
 
-    /// Execute one query and stream its result. Returns false if the session
-    /// should end afterwards (client closed mid-query). Dispatches to the
-    /// INSERT or SELECT path depending on the parsed query kind.
-    bool executeQuery(Connection & connection, const String & query);
+    /// Run a plain query and stream its result. Returns false if the session
+    /// should end afterwards (client closed mid-query). The proxy never parses
+    /// SQL: routing is driven by the client's message kind (a raw text frame is
+    /// a query -> executeSelect; a {"cmd":"insert",...} control message opts into
+    /// executeInsert). `with_pending_data=false` here, so SELECT / INSERT-SELECT /
+    /// inline INSERT / DDL all work and none waits for client data.
     bool executeSelect(Connection & connection, const String & query);
-    bool executeInsert(Connection & connection, const String & query, const ASTInsertQuery & insert);
+    /// Stream a client-supplied data INSERT: send the query with `with_pending_data`,
+    /// parse the streamed frames with `input_format`, and `sendData` blocks.
+    bool executeInsert(Connection & connection, const String & query, const String & input_format);
 
     void sendBackendQuery(Connection & connection, const String & query, bool with_pending_data = false);
     void drainUntilEndOfStream(Connection & connection);
