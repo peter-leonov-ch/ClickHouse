@@ -91,6 +91,7 @@ describe("large INSERT", () => {
         ({ control } = await s.insert(
           "INSERT INTO default.wsp_test FORMAT TSV",
           [chunk],
+          { format: "TSV" }, // input format for the streamed data
         ));
       } finally {
         s.close();

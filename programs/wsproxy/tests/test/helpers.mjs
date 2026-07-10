@@ -175,12 +175,23 @@ export class Session {
   }
 
   /**
-   * Run an INSERT: send the query, stream the data chunks, end, and collect
+   * Begin a streamed INSERT: declare it with a control message so the proxy
+   * opts into the data phase (the proxy never parses SQL). `format` is the input
+   * format of the data you'll stream (defaults to the session's format).
+   */
+  beginInsert(query, { format } = {}) {
+    const cmd = { cmd: "insert", query };
+    if (format) cmd.format = format;
+    this.ws.send(JSON.stringify(cmd));
+  }
+
+  /**
+   * Run a streamed INSERT: declare it, stream the data chunks, end, and collect
    * the terminal control event. `chunks` is an array of strings/Buffers.
    */
-  async insert(query, chunks = []) {
+  async insert(query, chunks = [], opts = {}) {
     await this.ready();
-    this.sendQuery(query);
+    this.beginInsert(query, opts);
     for (const c of chunks) this.sendData(c);
     this.endData();
     return this.collect();

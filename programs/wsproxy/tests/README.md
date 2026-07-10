@@ -34,11 +34,17 @@ it started. Override binary/config locations with the `CLICKHOUSE_SERVER`, `CH_C
 
 ## Protocol under test
 
-The client sends a SQL query as a **text** frame. SELECT results stream back as **binary**
-frames encoded in the output format chosen via the WS URL `?format=` parameter. Mid-query
-progress and the terminal outcome (`end` / `error` / `cancelled`) arrive as JSON **text**
-frames. For INSERT, the client sends `INSERT INTO t [FORMAT X]` then streams data as binary
-frames ending with a zero-length binary frame; closing the socket mid-query cancels it.
+The client sends a SQL query as a **text** frame; results stream back as **binary** frames encoded
+in the output format chosen via the WS URL `?format=` parameter. Mid-query progress and the terminal
+outcome (`end` / `error` / `cancelled`) arrive as JSON **text** frames. This plain-query path covers
+SELECT, `INSERT … SELECT`, inline `INSERT … VALUES`, and DDL.
+
+**The proxy never parses SQL** — routing is by message kind. A **streamed data INSERT** (where the
+client sends the rows, e.g. for edge format conversion) is opted into with a control message
+`{"cmd":"insert","query":"INSERT INTO t FORMAT JSONEachRow","format":"JSONEachRow"}`, after which the
+client streams the data as **binary** frames ending with a zero-length binary frame (`format` is the
+input format of that data; it defaults to the session `?format=`). Closing the socket mid-query
+cancels it. The `Session.insert(query, chunks, { format })` helper wraps this.
 
 See `test/helpers.mjs` for the small client wrapper (`Session`, `runQuery`, `backendScalar`).
 

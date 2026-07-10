@@ -329,12 +329,15 @@ streams the data it promised (an incomplete client protocol, not misrouting) —
 the receive timeout. The current `ParserQuery` routing happens to handle INSERT-SELECT (the sample
 loop catches `EndOfStream`), but the parser must go regardless (see principle above).
 
-**Planned refactor (remove the parser):** default every query to the plain path with
-`with_pending_data=false` — this handles SELECT / INSERT-SELECT / inline-INSERT / DDL, and never
-waits for client data (so the bare-`FORMAT`-insert hang disappears too). A **streamed data INSERT**
-(the edge-format-conversion feature) becomes an explicit client control message
-(`{"cmd":"insert",…}`, message-type framing — not SQL parsing) that opts into `with_pending_data=true`
-+ the data phase. Client-API change; pending confirmation of the signal mechanism.
+**DONE — parser removed.** `ProxySession` no longer links or calls `ParserQuery`/`ASTInsertQuery`.
+Routing is by message kind: a raw text frame is a plain query → `executeSelect`
+(`with_pending_data=false`, handles SELECT / INSERT-SELECT / inline-INSERT / DDL, never waits for
+client data → the bare-`FORMAT`-insert hang is gone); a `{"cmd":"insert","query":...,"format":...}`
+control message opts into `executeInsert` (streamed data phase, `with_pending_data=true`).
+`parseInsertCommand` only inspects the message envelope (top-level JSON `cmd`), never SQL.
+`executeInsert` simplified (no inline-data handling; always reads the streamed frames). JS
+`Session.insert` sends the control message; added `Session.beginInsert(query,{format})`. 100 tests
+green, incl. explicit INSERT-SELECT / inline-VALUES as plain queries.
 
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):

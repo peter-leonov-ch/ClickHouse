@@ -6,6 +6,20 @@ describe("INSERT", () => {
     await runQuery("TRUNCATE TABLE default.wsp_test");
   });
 
+  // These INSERTs carry their own data (SELECT source / inline VALUES), so they
+  // run as plain queries — no streamed data phase, and the proxy never parses SQL.
+  it("runs INSERT ... SELECT as a plain query (no data phase)", async () => {
+    const r = await runQuery("INSERT INTO default.wsp_test SELECT number, 'z' FROM numbers(4)");
+    expect(r.control.event).toBe("end");
+    expect(await backendScalar("SELECT count() FROM default.wsp_test")).toBe("4");
+  });
+
+  it("runs inline INSERT ... VALUES as a plain query", async () => {
+    const r = await runQuery("INSERT INTO default.wsp_test VALUES (1, 'a'), (2, 'b')");
+    expect(r.control.event).toBe("end");
+    expect(await backendScalar("SELECT count() FROM default.wsp_test")).toBe("2");
+  });
+
   it("streams a JSONEachRow insert across multiple chunks", async () => {
     const s = new Session("JSONEachRow");
     try {
@@ -41,9 +55,11 @@ describe("INSERT", () => {
   it("streams an insert in a different input format (TSV)", async () => {
     const s = new Session("JSONEachRow");
     try {
-      const { control } = await s.insert("INSERT INTO default.wsp_test FORMAT TSV", [
-        "5\tp\n6\tq\n",
-      ]);
+      const { control } = await s.insert(
+        "INSERT INTO default.wsp_test FORMAT TSV",
+        ["5\tp\n6\tq\n"],
+        { format: "TSV" }, // input format for the streamed data
+      );
       expect(control.event).toBe("end");
     } finally {
       s.close();

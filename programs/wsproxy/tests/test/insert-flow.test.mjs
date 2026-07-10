@@ -9,7 +9,7 @@ describe("insert flow", () => {
   it("aborts an INSERT (no commit) when the client closes mid-stream", async () => {
     const s = new Session("JSONEachRow");
     await s.ready();
-    s.sendQuery("INSERT INTO default.wsp_test FORMAT JSONEachRow");
+    s.beginInsert("INSERT INTO default.wsp_test FORMAT JSONEachRow");
     // Send some data but NEVER send the end marker; close the socket instead.
     s.sendData('{"a":1,"b":"x"}\n{"a":2,"b":"y"}\n');
     await sleep(200);
@@ -24,7 +24,7 @@ describe("insert flow", () => {
     // Abort one insert...
     const a = new Session("JSONEachRow");
     await a.ready();
-    a.sendQuery("INSERT INTO default.wsp_test FORMAT JSONEachRow");
+    a.beginInsert("INSERT INTO default.wsp_test FORMAT JSONEachRow");
     a.sendData('{"a":9,"b":"q"}\n');
     await sleep(150);
     a.close();
