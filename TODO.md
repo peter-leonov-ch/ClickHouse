@@ -310,11 +310,31 @@ Progress was already covered for SELECT (progress.test.mjs).
 
 **INSERT-progress investigated and dropped:** implemented `written_rows` forwarding, but the native
 protocol emits **no** `Progress` packets for client-data INSERTs (verified: 0 events even for 1M
-rows into MergeTree, 146ms). Reverted the dormant forwarding to avoid unverified/dead code. Server
-INSERT progress would only appear for `INSERT ... SELECT` (server-side), which the current
-`executeInsert` streaming model doesn't handle — noted as a separate limitation:
-`INSERT ... SELECT` / `INSERT ... FROM INFILE` (no client data) would make `executeInsert` wait for
-WS data that never comes. Fix later (detect no-data INSERTs and skip the data-streaming phase).
+rows into MergeTree, 146ms). Reverted the dormant forwarding to avoid unverified/dead code.
+
+## DESIGN PRINCIPLE: never parse SQL in the proxy
+
+The proxy must **not** parse or interpret SQL. We tried it (`ParserQuery` to route INSERT vs SELECT)
+and it's the wrong approach: fragile, couples the proxy to SQL semantics, and even the real C++
+client only knows a query is a data-INSERT by parsing (`ASTInsertQuery`) — there is **no** protocol
+signal at query-send time (`with_pending_data` is in the Query packet before any response, and the
+server's first `Data` packet is ambiguous between a sample header and a result header). So query
+kind must be driven by the **client's explicit intent**, never by inspecting the SQL.
+
+### INSERT-SELECT "hang" — investigated: NOT a bug (earlier note was wrong)
+
+Ran it end-to-end: `INSERT … SELECT`, inline `INSERT … VALUES`, and DDL all return `end` correctly
+and the proxy stays healthy. The only hang is a client that sends `INSERT … FORMAT X` and then never
+streams the data it promised (an incomplete client protocol, not misrouting) — the proxy waits out
+the receive timeout. The current `ParserQuery` routing happens to handle INSERT-SELECT (the sample
+loop catches `EndOfStream`), but the parser must go regardless (see principle above).
+
+**Planned refactor (remove the parser):** default every query to the plain path with
+`with_pending_data=false` — this handles SELECT / INSERT-SELECT / inline-INSERT / DDL, and never
+waits for client data (so the bare-`FORMAT`-insert hang disappears too). A **streamed data INSERT**
+(the edge-format-conversion feature) becomes an explicit client control message
+(`{"cmd":"insert",…}`, message-type framing — not SQL parsing) that opts into `with_pending_data=true`
++ the data phase. Client-API change; pending confirmation of the signal mechanism.
 
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
