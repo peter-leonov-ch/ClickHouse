@@ -318,7 +318,8 @@ WS data that never comes. Fix later (detect no-data INSERTs and skip the data-st
 
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
-auth, TLS, config file, resource limits, graceful drain, `BaseDaemon`, CI wiring.
+auth (done), proxy→backend TLS, config file, resource limits, graceful drain, `BaseDaemon`,
+CI wiring. Client→proxy TLS is LEAST priority (sidecar loopback / ingress-terminated).
 
 ## Productionization — Auth DONE (credential pass-through, branch `wsproxy-skeleton`)
 
@@ -344,7 +345,13 @@ Eager connect DONE: `run()` calls `Connection::forceConnected` up front, so auth
 happens during the native handshake) is validated at session start — bad creds get an `error`
 control frame + a `1008` WebSocket close *before any query is sent* (tested). 92 tests, all green.
 
-Auth follow-up (later): TLS (both legs) so URL-param and header creds aren't sent in clear.
+Auth follow-up — TLS, split by leg and priority:
+- **proxy → backend TLS (higher priority):** this leg crosses the network to the (remote/managed)
+  ClickHouse, so credentials and data must be encrypted here. `Connection` already supports it
+  (`Protocol::Secure`), currently `Disable`; wire it up + config.
+- **client → proxy TLS (LEAST priority for now):** deprioritized — the proxy is a sidecar next to
+  the app, so this leg is typically loopback / in-pod (or TLS is terminated at the ingress /
+  service mesh). Revisit only if the proxy is exposed beyond the app's trust boundary.
 
 ## Plan
 
