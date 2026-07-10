@@ -9,7 +9,9 @@
 import net from "node:net";
 import { spawnBackend, spawnProxy } from "./proc.mjs";
 
-const BACKEND_PORT = 9000;
+// Use a high, private backend port so the suite is hermetic and does not
+// accidentally reuse an unrelated ClickHouse (or other service) on 9000/9100.
+const BACKEND_PORT = 19000;
 const PROXY_PORT = 9010;
 
 function portOpen(port, host = "127.0.0.1") {

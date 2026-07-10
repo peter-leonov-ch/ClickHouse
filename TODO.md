@@ -346,9 +346,14 @@ happens during the native handshake) is validated at session start — bad creds
 control frame + a `1008` WebSocket close *before any query is sent* (tested). 92 tests, all green.
 
 Auth follow-up — TLS, split by leg and priority:
-- **proxy → backend TLS (higher priority):** this leg crosses the network to the (remote/managed)
-  ClickHouse, so credentials and data must be encrypted here. `Connection` already supports it
-  (`Protocol::Secure`), currently `Disable`; wire it up + config.
+- **proxy → backend TLS — DONE.** `WSPROXY_BACKEND_SECURE=1` connects over the native secure
+  protocol (`Protocol::Secure::Enable`); `WSPROXY_BACKEND_ACCEPT_INVALID_CERT=1` sets
+  `openSSL.client.invalidCertificateHandler=AcceptCertificateHandler` + `verificationMode=none`
+  in the app config for self-signed/dev certs (Poco builds the client SSL context lazily from it).
+  Verified manually against the OrbStack TLS backend (:9440) and reproducibly in `tls.test.mjs`,
+  which stands up its own TLS ClickHouse (`spawnBackend({securePort})` generates a self-signed cert
+  + `<openSSL><server>` config). Cred pass-through and wrong-password rejection both confirmed over
+  TLS. Production follow-up: proper CA verification instead of accept-invalid (add a CA/cert config).
 - **client → proxy TLS (LEAST priority for now):** deprioritized — the proxy is a sidecar next to
   the app, so this leg is typically loopback / in-pod (or TLS is terminated at the ingress /
   service mesh). Revisit only if the proxy is exposed beyond the app's trust boundary.

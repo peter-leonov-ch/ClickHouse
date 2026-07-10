@@ -38,15 +38,38 @@ async function waitForPort(port, timeoutMs = 15_000) {
  * dir, so a test can kill it (e.g. backend-drops-mid-query). Returns
  * { tcpPort, stop } where stop() kills the process and removes the temp dir.
  */
-export async function spawnBackend({ tcpPort }) {
+export async function spawnBackend({ tcpPort, securePort }) {
   const dir = fs.mkdtempSync(join(os.tmpdir(), "wsproxy-ch-"));
   const configPath = join(dir, "config.xml");
+
+  // Optional TLS: generate a self-signed cert and enable the secure native port.
+  let secureBlock = "";
+  if (securePort) {
+    const crt = join(dir, "server.crt");
+    const key = join(dir, "server.key");
+    const gen = spawnSync("openssl", [
+      "req", "-subj", "/CN=localhost", "-new", "-newkey", "rsa:2048",
+      "-days", "3650", "-nodes", "-x509", "-keyout", key, "-out", crt,
+    ]);
+    if (gen.status !== 0) throw new Error(`openssl cert generation failed: ${gen.stderr}`);
+    secureBlock = `
+    <tcp_port_secure>${securePort}</tcp_port_secure>
+    <openSSL><server>
+        <certificateFile>${crt}</certificateFile>
+        <privateKeyFile>${key}</privateKeyFile>
+        <verificationMode>none</verificationMode>
+        <cacheSessions>true</cacheSessions>
+        <disableProtocols>sslv2,sslv3</disableProtocols>
+        <preferServerCiphers>true</preferServerCiphers>
+    </server></openSSL>`;
+  }
+
   fs.writeFileSync(
     configPath,
     `<clickhouse>
     <logger><level>none</level><console>0</console>
         <log>${dir}/server.log</log><errorlog>${dir}/server.err.log</errorlog></logger>
-    <tcp_port>${tcpPort}</tcp_port>
+    <tcp_port>${tcpPort}</tcp_port>${secureBlock}
     <listen_host>127.0.0.1</listen_host>
     <path>${dir}/data/</path>
     <tmp_path>${dir}/tmp/</tmp_path>
@@ -83,8 +106,10 @@ export async function spawnBackend({ tcpPort }) {
   // reliably hits the actual server process (and the watchdog).
   const proc = spawn(CLICKHOUSE_SERVER, ["--config-file", configPath], { stdio: "ignore" });
   await waitForPort(tcpPort, 30_000);
+  if (securePort) await waitForPort(securePort, 30_000);
   return {
     tcpPort,
+    securePort,
     stop() {
       // Kill whatever holds the TCP port — reliably the real server process,
       // regardless of the watchdog fork/rename/re-parent shenanigans.
@@ -115,7 +140,13 @@ export async function spawnBackend({ tcpPort }) {
  * Spawn a proxy on `listenPort` pointing at `backendHost:backendPort`.
  * Returns { url, stop } where stop() kills the process.
  */
-export async function spawnProxy({ listenPort, backendHost = "127.0.0.1", backendPort }) {
+export async function spawnProxy({
+  listenPort,
+  backendHost = "127.0.0.1",
+  backendPort,
+  secure = false,
+  acceptInvalidCert = false,
+}) {
   const proc = spawn(WSPROXY_BIN, [], {
     stdio: "ignore",
     env: {
@@ -123,6 +154,8 @@ export async function spawnProxy({ listenPort, backendHost = "127.0.0.1", backen
       WSPROXY_PORT: String(listenPort),
       WSPROXY_BACKEND_HOST: backendHost,
       WSPROXY_BACKEND_PORT: String(backendPort),
+      ...(secure ? { WSPROXY_BACKEND_SECURE: "1" } : {}),
+      ...(acceptInvalidCert ? { WSPROXY_BACKEND_ACCEPT_INVALID_CERT: "1" } : {}),
     },
   });
   await waitForPort(listenPort);
