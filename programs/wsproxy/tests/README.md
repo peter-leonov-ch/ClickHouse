@@ -39,6 +39,14 @@ in the output format chosen via the WS URL `?format=` parameter. Mid-query progr
 outcome (`end` / `error` / `cancelled`) arrive as JSON **text** frames. This plain-query path covers
 SELECT, `INSERT … SELECT`, inline `INSERT … VALUES`, and DDL.
 
+**Opt-in parallel output formatting (`?parallel=1`).** By default the proxy formats SELECT output
+on the single session thread (one WS frame per result block, fine-grained streaming). With
+`?parallel=1` it formats on a thread pool (`getOutputFormatParallelIfPossible`), which on a fast link
+raises conversion throughput (~1.6× for `JSONCompactEachRow` in local benchmarks) at the cost of
+coarser, batched result frames. It is mutually exclusive with flow control (`?flow`), which reads the
+client socket on the session thread; flow control wins when both are set. Delivered bytes are
+identical either way.
+
 **The proxy never parses SQL** — routing is by message kind. A **streamed data INSERT** (where the
 client sends the rows, e.g. for edge format conversion) is opted into with a control message
 `{"cmd":"insert","query":"INSERT INTO t FORMAT JSONEachRow","format":"JSONEachRow"}`, after which the

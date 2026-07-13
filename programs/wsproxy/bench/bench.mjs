@@ -4,12 +4,13 @@ const ROWS = Number(process.argv[2] ?? 1_000_000);
 const FORMAT = process.argv[3] ?? "JSONCompactEachRow";
 const ITERS = Number(process.argv[4] ?? 5);
 const URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
+const PARALLEL = process.env.PARALLEL === "1"; // opt into ?parallel=1 (parallel output formatting)
 
 const QUERY = `SELECT number AS n, number*2 AS d, toString(number) AS s FROM numbers(${ROWS})`;
 
 function once() {
   return new Promise((resolve, reject) => {
-    const ws = new WebSocket(`${URL}/?format=${FORMAT}`);
+    const ws = new WebSocket(`${URL}/?format=${FORMAT}${PARALLEL ? "&parallel=1" : ""}`);
     ws.binaryType = "arraybuffer";
     let bytes = 0;
     let t0 = 0;

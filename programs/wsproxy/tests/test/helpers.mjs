@@ -18,7 +18,7 @@ export const PROXY_URL = process.env.WSPROXY_URL ?? "ws://127.0.0.1:9010";
 /** Build the WS URL for a format and options ({ logs, path, baseUrl, user, password, flow, parse }). */
 export function urlFor(
   format = "JSONEachRow",
-  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false } = {},
+  { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false, parallel = false } = {},
 ) {
   const params = new URLSearchParams({ format });
   if (logs) params.set("logs", logs);
@@ -26,6 +26,7 @@ export function urlFor(
   if (password) params.set("password", password);
   if (flow !== undefined) params.set("flow", String(flow)); // opt-in credit flow control
   if (parse) params.set("parse", "1"); // opt-in SQL parsing (auto-route inserts, report kind)
+  if (parallel) params.set("parallel", "1"); // opt-in parallel output formatting (coarser frames)
   return `${baseUrl}${path}?${params}`;
 }
 
@@ -37,9 +38,9 @@ export function urlFor(
 export class Session {
   constructor(
     format = "JSONEachRow",
-    { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false } = {},
+    { logs = "", path = "/", baseUrl = PROXY_URL, user = "", password = "", flow, parse = false, parallel = false } = {},
   ) {
-    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password, flow, parse }));
+    this.ws = new WebSocket(urlFor(format, { logs, path, baseUrl, user, password, flow, parse, parallel }));
     this.ws.binaryType = "arraybuffer";
     this._queue = [];
     this._waiters = [];

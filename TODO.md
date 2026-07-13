@@ -349,6 +349,22 @@ unchanged for default clients — and a parse failure degrades to the plain-quer
 real errors), so a parser quirk can never wedge a statement. The explicit `{"cmd":"insert"}` message
 always wins over parsing. 109 tests green.
 
+**Parallel output formatting (`?parallel=1`) — PROTOTYPE DONE.** Opt-in: `executeSelect` uses
+`FormatFactory::getOutputFormatParallelIfPossible` when `?parallel=1` and flow control is off. Since
+the parallel formatter runs a collector thread that writes result frames concurrently with the
+session thread's progress/log/control frames, all whole-frame sends are serialized behind a new
+`ProxySession::ws_write_mutex` (passed to `WriteBufferToWebSocket` and the cancel-poll
+`applyControlFrame`; `sendControlEvent`/`sendBlockEvent` lock it too). Also removed a per-frame
+alloc+copy in `sendWebSocketFrame` (send header then payload directly, safe under the lock). Trade-off:
+coarser (batched) result frames, and it is mutually exclusive with `?flow` (whose credit gate reads
+the client socket on the session thread). Benchmarks (loopback, `JSONCompactEachRow`): ~1.6-1.7×
+(10M rows 531→333ms, 30M 1658→972ms), reaching the cheap-format (`RowBinary`) floor — i.e. formatting
+is fully hidden and the remaining ceiling (~990 MB/s, ~1.8 cores) is the *serial* native
+receive+lz4-decompress and WS send path. Irrelevant over a WAN (network-bound). Bytes identical to the
+default path (parallel.test.mjs). 112 tests green. NB the earlier "single-threaded format is THE
+bottleneck" claim was too strong: format is only ~40% of the loopback pipeline; receive+send are the
+rest and are still serial (future work: dedicated send thread / faster decompress).
+
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
 auth (done), proxy→backend TLS, config file, resource limits, graceful drain, `BaseDaemon`,
