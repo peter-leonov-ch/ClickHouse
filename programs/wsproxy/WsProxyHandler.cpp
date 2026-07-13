@@ -222,6 +222,11 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     /// the proxy does not parse SQL unless the client explicitly asks it to.
     const String parse_param = queryParam(uri, "parse", "", log);
     const bool parse_enabled = parse_param == "1" || parse_param == "true";
+    /// Opt-in parallel output formatting: `?parallel=1` formats SELECT output on a thread pool
+    /// for higher conversion throughput, at the cost of coarser (batched) result frames. Ignored
+    /// when flow control is on. Default off preserves fine-grained one-frame-per-block streaming.
+    const String parallel_param = queryParam(uri, "parallel", "", log);
+    const bool parallel_enabled = parallel_param == "1" || parallel_param == "true";
 
     /// Credential pass-through: resolve this session's backend user/password from
     /// the request (never mutate the shared default `backend`).
@@ -246,7 +251,8 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
         socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
     ProxySession session(
-        socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit, parse_enabled);
+        socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit, parse_enabled,
+        parallel_enabled);
     session.run();
 
     LOG_DEBUG(log, "WebSocket session closed");

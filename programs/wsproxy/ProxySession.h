@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mutex>
 #include <optional>
 
 #include <Interpreters/Context_fwd.h>
@@ -42,7 +43,8 @@ public:
         String logs_level_ = "",
         bool flow_enabled_ = false,
         Int64 flow_initial_credit_ = 0,
-        bool parse_enabled_ = false);
+        bool parse_enabled_ = false,
+        bool parallel_enabled_ = false);
 
     void run();
 
@@ -77,6 +79,14 @@ private:
     bool flow_enabled; /// Opt-in credit/window flow control for the SELECT push direction.
     Int64 flow_initial_credit; /// Starting frame credit when flow control is enabled.
     bool parse_enabled; /// Opt-in (?parse=1): parse SQL to auto-route inserts and report the query kind.
+    /// Opt-in (?parallel=1): format SELECT output on a thread pool for higher conversion
+    /// throughput, at the cost of coarser (batched) result frames. Ignored when flow control is on.
+    bool parallel_enabled;
+
+    /// Serializes complete WebSocket frame sends. With parallel output formatting the format's
+    /// collector thread writes result frames while the session thread pushes progress/log/control
+    /// frames; without this lock the two writers would interleave bytes and corrupt the stream.
+    std::mutex ws_write_mutex;
 };
 
 }

@@ -105,13 +105,13 @@ void sendWebSocketFrame(Poco::Net::StreamSocket & socket, uint8_t opcode, const 
         header_len = 10;
     }
 
-    /// Combine header and payload into a single send to avoid partial frame writes.
-    String buf;
-    buf.reserve(header_len + len);
-    buf.append(reinterpret_cast<const char *>(header), header_len);
+    /// Send the header then the payload. The caller serializes whole-frame sends
+    /// (see ProxySession's write mutex), so these two writes cannot interleave with
+    /// another frame; sending the payload directly avoids copying it into a
+    /// combined buffer (which, for large result frames, is a significant memcpy).
+    sendAllBytes(socket, reinterpret_cast<const char *>(header), header_len);
     if (len > 0)
-        buf.append(data, len);
-    sendAllBytes(socket, buf.data(), buf.size());
+        sendAllBytes(socket, data, len);
 }
 
 void sendWebSocketBinary(Poco::Net::StreamSocket & socket, const char * data, size_t len)

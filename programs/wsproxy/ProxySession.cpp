@@ -16,6 +16,9 @@
 #include <Parsers/parseQuery.h>
 #include <Parsers/Lexer.h>
 
+#include <atomic>
+#include <mutex>
+
 #include <Formats/FormatFactory.h>
 #include <Processors/Formats/IOutputFormat.h>
 #include <Processors/Executors/PullingPipelineExecutor.h>
@@ -166,7 +169,10 @@ struct FlowControl
 /// Apply one client control frame to the flow state (also answers pings). Used
 /// both by the between-packets poll and by the credit gate, so `next`/`pause`/
 /// `resume`/close are handled consistently wherever the client frame is read.
-void applyControlFrame(Poco::Net::StreamSocket & socket, const WebSocketFrame & frame, FlowControl & fc)
+/// `write_mutex` (if given) serializes the Pong send against other socket writers
+/// (the parallel-format collector thread).
+void applyControlFrame(
+    Poco::Net::StreamSocket & socket, const WebSocketFrame & frame, FlowControl & fc, std::mutex * write_mutex = nullptr)
 {
     if (!frame.valid || frame.opcode == Opcode::Close)
     {
@@ -175,6 +181,9 @@ void applyControlFrame(Poco::Net::StreamSocket & socket, const WebSocketFrame & 
     }
     if (frame.opcode == Opcode::Ping)
     {
+        std::unique_lock<std::mutex> lock;
+        if (write_mutex)
+            lock = std::unique_lock<std::mutex>(*write_mutex);
         sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
         return;
     }
@@ -212,8 +221,11 @@ class WriteBufferToWebSocket : public BufferWithOwnMemory<WriteBuffer>
 {
 public:
     explicit WriteBufferToWebSocket(
-        Poco::Net::StreamSocket & socket_, FlowControl * flow_ = nullptr, size_t size = DBMS_DEFAULT_BUFFER_SIZE)
-        : BufferWithOwnMemory<WriteBuffer>(size), socket(socket_), flow(flow_)
+        Poco::Net::StreamSocket & socket_,
+        FlowControl * flow_ = nullptr,
+        std::mutex * write_mutex_ = nullptr,
+        size_t size = DBMS_DEFAULT_BUFFER_SIZE)
+        : BufferWithOwnMemory<WriteBuffer>(size), socket(socket_), flow(flow_), write_mutex(write_mutex_)
     {
     }
 
@@ -245,7 +257,7 @@ private:
                     flow->client_gone = true;
                     break;
                 }
-                applyControlFrame(socket, frame, *flow);
+                applyControlFrame(socket, frame, *flow, write_mutex);
             }
             if (flow->client_gone)
             {
@@ -256,6 +268,11 @@ private:
 
         try
         {
+            /// The send must be atomic against the session thread's control-frame
+            /// writes (used when parallel formatting runs this on a collector thread).
+            std::unique_lock<std::mutex> lock;
+            if (write_mutex)
+                lock = std::unique_lock<std::mutex>(*write_mutex);
             sendWebSocketBinary(socket, working_buffer.begin(), offset());
         }
         catch (...)
@@ -270,7 +287,8 @@ private:
 
     Poco::Net::StreamSocket & socket;
     FlowControl * flow;
-    bool broken = false;
+    std::mutex * write_mutex;
+    std::atomic<bool> broken = false;
 };
 
 /// A `ReadBuffer` that yields the payloads of incoming WebSocket binary frames,
@@ -395,7 +413,8 @@ ProxySession::ProxySession(
     String logs_level_,
     bool flow_enabled_,
     Int64 flow_initial_credit_,
-    bool parse_enabled_)
+    bool parse_enabled_,
+    bool parallel_enabled_)
     : socket(socket_)
     , context(std::move(context_))
     , backend(std::move(backend_))
@@ -404,6 +423,7 @@ ProxySession::ProxySession(
     , flow_enabled(flow_enabled_)
     , flow_initial_credit(flow_initial_credit_)
     , parse_enabled(parse_enabled_)
+    , parallel_enabled(parallel_enabled_)
 {
 }
 
@@ -413,6 +433,7 @@ void ProxySession::sendControlEvent(const String & event, const String & message
     if (!message.empty())
         json += R"(,"message":")" + escapeJSON(message) + "\"";
     json += "}";
+    std::lock_guard lock(ws_write_mutex);
     sendWebSocketText(socket, json);
 }
 
@@ -450,6 +471,7 @@ void ProxySession::sendBlockEvent(const String & event, const Block & block)
         start = newline + 1;
     }
 
+    std::lock_guard lock(ws_write_mutex);
     sendWebSocketText(socket, R"({"event":")" + event + R"(","rows":[)" + rows_array + "]}");
 }
 
@@ -561,7 +583,16 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
     fc.enabled = flow_enabled;
     fc.credit = flow_initial_credit;
 
-    WriteBufferToWebSocket out_buf(socket, &fc);
+    /// Parallel output formatting (opt-in, ?parallel=1) spreads the otherwise single-threaded
+    /// (~500 MB/s) format work across cores. It runs a collector thread that writes result frames,
+    /// so all frame sends are serialized behind `ws_write_mutex`. Trade-off: result frames are
+    /// coarser (blocks are batched, not one frame per block). It is incompatible with flow control
+    /// (whose credit gate reads the client socket, which must stay on the single session thread),
+    /// so flow control wins when both are requested. `getOutputFormatParallelIfPossible` still
+    /// honours the `output_format_parallel_formatting` setting and the format's own support.
+    const bool use_parallel = parallel_enabled && !flow_enabled;
+
+    WriteBufferToWebSocket out_buf(socket, &fc, &ws_write_mutex);
     OutputFormatPtr output;
     bool cancelled = false;
     bool client_gone = false;
@@ -618,7 +649,7 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                 /// Apply the client frame: flow-control grants (next/pause/resume)
                 /// update the shared FlowControl; a Close/broken read means the
                 /// client is gone -> cancel the backend query and drain.
-                applyControlFrame(socket, frame, fc);
+                applyControlFrame(socket, frame, fc, &ws_write_mutex);
                 if (fc.client_gone)
                     note_client_gone();
             }
@@ -632,7 +663,12 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                 if (client_gone)
                     break; /// Draining after cancel; discard.
                 if (!output)
-                    output = FormatFactory::instance().getOutputFormat(format, out_buf, packet.block.cloneEmpty(), context);
+                {
+                    auto & factory = FormatFactory::instance();
+                    const Block header = packet.block.cloneEmpty();
+                    output = use_parallel ? factory.getOutputFormatParallelIfPossible(format, out_buf, header, context)
+                                          : factory.getOutputFormat(format, out_buf, header, context);
+                }
                 if (packet.block.rows() > 0)
                 {
                     output->write(packet.block);
@@ -685,6 +721,7 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
                         + R"(,"total_rows_to_read":)" + std::to_string(total_rows_to_read) + "}";
                     try
                     {
+                        std::lock_guard lock(ws_write_mutex);
                         sendWebSocketText(socket, json);
                     }
                     catch (...)
