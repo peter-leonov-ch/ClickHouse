@@ -40,6 +40,75 @@ A new native-protocol WebSocket proxy, built **in-tree**, that:
 - **drops** the entire CLI/REPL surface (`ClientBase`, Replxx, `Suggest`, progress
   bars, pager, history, autocomplete).
 
+## Current status (summary)
+
+Branch `wsproxy-skeleton`, draft PR against the fork (`peter-leonov-ch/ClickHouse` #4, **not**
+upstream). Working prototype, **113 Node/vitest integration tests green** (hermetic suite, spawns its
+own backend + proxy). Benchmark harness committed under `programs/wsproxy/bench/`.
+
+### Delivered
+
+- **Standalone binary** `programs/wsproxy/clickhouse-wsproxy` (own `clickhouse_add_executable`, not in
+  multi-call dispatch; ~306 MB stripped — *separate ≠ smaller*, links `dbms`).
+- **WS front door** — hand-rolled RFC 6455 framing (`WebSocketFrames.{h,cpp}`), HTTP upgrade handler.
+- **Native bridge** (`ProxySession.{h,cpp}`), strict 1:1, thread-per-session:
+  - **SELECT** → output format at the edge → binary frames (one flush per block).
+  - **Streamed INSERT** via explicit `{"cmd":"insert",...}` control message (the proxy never parses SQL).
+  - **Mid-query push**: `progress` / `log` / `profile_events` as JSON text frames.
+  - **Cancel** by Close frame → `sendCancel` → drain.
+- **Auth** — credential pass-through (Basic / `X-ClickHouse-*` / URL params / env default), eager
+  connect (bad creds → error + `1008` close before any query).
+- **proxy → backend TLS** (`WSPROXY_BACKEND_SECURE`; dev-only accept-invalid-cert flag).
+- **Opt-in knobs**: `?flow=N` (credit flow control for slow JS clients), `?parse=1` (parse to
+  auto-route inserts + report `{verb,kind}`), `?parallel=1` (parallel output formatting),
+  `WSPROXY_BACKEND_COMPRESSION` (`lz4`|`zstd`|`none`).
+- **Backpressure**: TCP-driven + send timeout so a stalled client can't pin a handler thread.
+
+### Key findings (for the pitch)
+
+- **Edge conversion + compressed wire is the win.** WAN is bandwidth-bound; **ZSTD native ≈ 7-10 MB**
+  for the 3M-row benchmark vs **gzip-JSON 21 MB** vs **lz4 36 MB** — columnar+zstd beats row-JSON+gzip
+  2-3×, and JSON-formatting CPU moves off the cloud to the sidecar. This is the rebuttal to "why not
+  just gzip the HTTP interface?".
+- **Parallel formatting** gives ~1.6-1.7× locally but the format is only ~40% of the pipeline; the
+  serial native-receive/decompress + WS-send path (~990 MB/s) is the real ceiling.
+- **Never parse SQL** (principle) — routing is by client message kind; parsing is strictly opt-in.
+
+### Next steps (roughly ordered)
+
+1. **Decide the default codec.** Recommend **ZSTD default for WAN** (it's the whole point); currently
+   defaults to `lz4` for safety. Trade-off: more backend CPU to compress (cheaper than the JSON work
+   we already moved off-cloud).
+2. **Lift the serial throughput ceiling** (only if a same-region/LAN profile justifies it): dedicated
+   WS-send thread and/or parallel receive+decompress. Parallel *formatting* alone won't help further.
+3. **Format-settings faithfulness** — let clients pass format settings (URL/query), fixing the
+   unquoted-`UInt64` precision gap for JS clients (see lowlights).
+4. **Productionization track**: config file (replace the `WSPROXY_*` env sprawl), CA-based cert
+   verification (replace accept-invalid), resource limits + graceful drain, `BaseDaemon`, CI wiring.
+5. **Robustness coverage**: protocol-revision skew vs older server binaries; slow-loris / partial-frame
+   timeouts.
+6. **Docs/pitch**: update the team artifact's evidence table with the ZSTD row; README for the client
+   protocol (`{"cmd":"insert"}`, `?parse`/`?parallel`/`?flow`).
+
+### Lowlights / known limitations / risks
+
+- **64-bit ints render unquoted in JSON** — `JSON.parse` loses precision for large `UInt64`/`Int64`.
+  Faithfulness gap (no client control of format settings yet). See next-step 3.
+- **`?parallel=1` caveats**: coarser (batched) frames; **mutually exclusive with `?flow`**; client-gone
+  detection lags mid-stream (the collector drops on broken, session drains to finalize — wasteful but
+  not a hang).
+- **`WSPROXY_BACKEND_ACCEPT_INVALID_CERT` is dev-only** — disables backend cert verification. Needs
+  real CA verification before production.
+- **Client → proxy TLS not implemented** (deprioritized: sidecar loopback / ingress-terminated). Browser
+  clients can't set headers → creds go in URL params (leak in logs unless the leg is TLS).
+- **Big binary (~306 MB) + rebase treadmill** — must track `Connection` / `FormatFactory` API churn.
+- **All config is env vars**; no config file, no resource limits, no graceful drain, not on `BaseDaemon`.
+- **ZSTD costs backend CPU** to compress — a deliberate bytes-for-CPU trade; fine for WAN, reconsider on LAN.
+- **A fully `pause()`d flow-control client** stops seeing progress/logs/`end` too (ordering; documented) —
+  guidance is to throttle with small `next()` credits, not an indefinite pause.
+- Benchmarking gotcha: `clickhouse-client FORMAT Null` **short-circuits** (never transfers) — don't use
+  it as a transfer measure.
+
 ## Design decisions
 
 ### Cut line — move it down a layer
@@ -559,9 +628,14 @@ bounded read-ahead if prompt terminal-event delivery to a *fully paused* client 
 
 ## Open questions
 
-- ~~Separate-binary feasibility~~ — **RESOLVED (step 1):** clean via
-  `clickhouse_add_executable`, precedent is `BUILD_STANDALONE_KEEPER`. See plan step 1.
-- **Auth model:** in-band first-frame auth like the web terminal, or pass-through of the
-  app's credentials to the backend `Connection`?
-- **Backend target config:** fixed host/port from config/CLI (sidecar assumption), or per-session
-  target from the WS handshake?
+All original open questions are resolved — see "Current status" for the live state and next steps.
+
+- ~~Separate-binary feasibility~~ — **RESOLVED (step 1):** clean via `clickhouse_add_executable`,
+  precedent is `BUILD_STANDALONE_KEEPER`.
+- ~~Auth model~~ — **RESOLVED:** credential pass-through to the backend `Connection` (no in-band
+  first-frame auth reinvented); priority Basic → `X-ClickHouse-*` → URL params → env default.
+- ~~Backend target config~~ — **RESOLVED:** fixed host/port from env (`WSPROXY_BACKEND_*`, sidecar
+  assumption); per-session *credentials* come from the handshake, the target does not.
+
+Remaining product decision (not an original open question): **should ZSTD be the default backend
+codec?** (recommended for the WAN use case — see "Next steps").
