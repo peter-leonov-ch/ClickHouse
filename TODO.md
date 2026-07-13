@@ -365,6 +365,21 @@ default path (parallel.test.mjs). 112 tests green. NB the earlier "single-thread
 bottleneck" claim was too strong: format is only ~40% of the loopback pipeline; receive+send are the
 rest and are still serial (future work: dedicated send thread / faster decompress).
 
+**Why gzip-HTTP beat the proxy over the WAN — ANSWERED + fixed.** The WAN is bandwidth-bound (~8.5
+MB/s). The proxy's native transport used **LZ4**, which trades ratio for speed: for the (highly
+compressible) benchmark data, LZ4 put 36.5 MB on the wire vs gzip-on-JSON's 21.3 MB, so gzip-HTTP was
+faster purely on bytes. Fix: make the backend codec configurable via `WSPROXY_BACKEND_COMPRESSION`
+(`lz4` default | `zstd` | `none`); the server compresses result blocks with the client's
+`network_compression_method`, and the proxy's `Connection` decompresses any codec (self-describing).
+With **ZSTD**, columnar native compresses far better than row JSON: 3M-row wire bytes drop to ~7-10 MB
+(2-3× smaller than gzip's 21 MB), and end-to-end cloud time drops 5.0s → 2.5s (2×), now *beating*
+gzip-HTTP (3.5s). **When gzip wins:** only bandwidth-bound link AND highly compressible data (the
+sequential-integer benchmark is the worst case for the proxy). For realistic/high-entropy data,
+columnar native beats row JSON even with LZ4 (123 vs 140 MB at 3M) and ZSTD wins outright. Codec is
+delivered-byte-identical (compression.test.mjs). 113 tests green. Recommend ZSTD default for WAN
+deployments (costs backend CPU to compress — but that's cheaper than the JSON formatting we already
+moved to the edge).
+
 Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
 skew across older server versions (need old server binaries). Productionization track (separate):
 auth (done), proxy→backend TLS, config file, resource limits, graceful drain, `BaseDaemon`,

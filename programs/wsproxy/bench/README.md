@@ -58,9 +58,14 @@ the same commands against `127.0.0.1`.
 
 ## Interpreting results
 
-- **Over a WAN** the result is network-bound: the proxy pulls native lz4-compressed blocks over
-  the wire and converts at the edge, so it lands on par with `clickhouse-client` and well ahead
-  of plain (uncompressed) HTTP JSON.
+- **Over a WAN** the result is network-bound, so the codec choice dominates. The proxy pulls
+  compressed native blocks and converts at the edge. With the default **lz4** it can lose to gzipped
+  HTTP on *highly compressible* data (lz4 trades ratio for speed: e.g. 36.5 MB on the wire vs gzip's
+  21.3 MB for the sequential-integer query). Set `WSPROXY_BACKEND_COMPRESSION=zstd` and columnar
+  native drops to ~7-10 MB — 2-3× smaller than gzip-on-JSON — so the proxy wins outright (3M-row
+  cloud fetch ~2.5s vs gzip-HTTP ~3.5s). On realistic/high-entropy data columnar native beats row
+  JSON even with lz4. Compare with `baselines.sh` and re-run the proxy with different
+  `WSPROXY_BACKEND_COMPRESSION` values.
 - **On loopback** the result is CPU-bound and exposes the proxy's conversion throughput. The
   proxy formats output on a thread pool when `output_format_parallel_formatting` is enabled and
   the format supports it; compare against `baselines.sh` (which formats in parallel by default)

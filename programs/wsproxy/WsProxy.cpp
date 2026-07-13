@@ -97,6 +97,9 @@ BackendParams backendParamsFromEnv()
     params.password = envOr("WSPROXY_BACKEND_PASSWORD", params.password);
     params.database = envOr("WSPROXY_BACKEND_DATABASE", params.database);
     params.secure = envBool("WSPROXY_BACKEND_SECURE");
+    /// Native result-block compression codec: lz4 (default) | zstd | none. ZSTD trades backend
+    /// CPU for far fewer bytes on the wire — recommended for bandwidth-limited (WAN) deployments.
+    params.compression_method = envOr("WSPROXY_BACKEND_COMPRESSION", params.compression_method);
     return params;
 }
 

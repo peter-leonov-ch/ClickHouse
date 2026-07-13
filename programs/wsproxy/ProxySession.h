@@ -22,6 +22,10 @@ struct BackendParams
     String password;
     String database;
     bool secure = false; /// Connect to the backend over TLS (native secure protocol).
+    /// Native-protocol compression codec for backend->proxy result blocks: "lz4" (fast, default),
+    /// "zstd" (higher ratio — fewer bytes on a bandwidth-limited WAN, at more backend CPU), or
+    /// "none". The proxy decompresses whatever the server sends regardless (codec is self-describing).
+    String compression_method = "lz4";
 };
 
 /// Drives one WebSocket session against a backend ClickHouse server over the

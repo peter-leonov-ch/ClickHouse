@@ -484,6 +484,15 @@ void ProxySession::sendBackendQuery(Connection & connection, const String & quer
     if (!logs_level.empty())
         settings.set("send_logs_level", logs_level);
 
+    /// The server compresses the result blocks it sends using the client's
+    /// `network_compression_method`. On a bandwidth-limited WAN this codec choice
+    /// dominates end-to-end time; ZSTD's higher ratio (columnar native compresses
+    /// far better than row JSON) makes the proxy beat gzipped HTTP. Empty = leave
+    /// the backend/connection default (LZ4). "none" disables block compression via
+    /// the connection's compression flag, so nothing to set here.
+    if (backend.compression_method != "none" && !backend.compression_method.empty())
+        settings.set("network_compression_method", backend.compression_method);
+
     auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
 
     ClientInfo client_info;
@@ -904,7 +913,7 @@ void ProxySession::run()
         /* cluster_ */ "",
         /* cluster_secret_ */ "",
         /* client_name_ */ "clickhouse-wsproxy",
-        Protocol::Compression::Enable,
+        backend.compression_method == "none" ? Protocol::Compression::Disable : Protocol::Compression::Enable,
         backend.secure ? Protocol::Secure::Enable : Protocol::Secure::Disable,
         /* tls_sni_override_ */ "",
         /* bind_host_ */ "");

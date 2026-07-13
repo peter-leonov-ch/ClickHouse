@@ -147,6 +147,7 @@ export async function spawnProxy({
   secure = false,
   acceptInvalidCert = false,
   sendTimeoutSec,
+  compression, // native codec for backend->proxy blocks: "lz4" | "zstd" | "none"
 }) {
   const proc = spawn(WSPROXY_BIN, [], {
     stdio: "ignore",
@@ -158,6 +159,7 @@ export async function spawnProxy({
       ...(secure ? { WSPROXY_BACKEND_SECURE: "1" } : {}),
       ...(acceptInvalidCert ? { WSPROXY_BACKEND_ACCEPT_INVALID_CERT: "1" } : {}),
       ...(sendTimeoutSec ? { WSPROXY_CLIENT_SEND_TIMEOUT_SEC: String(sendTimeoutSec) } : {}),
+      ...(compression ? { WSPROXY_BACKEND_COMPRESSION: compression } : {}),
     },
   });
   await waitForPort(listenPort);
