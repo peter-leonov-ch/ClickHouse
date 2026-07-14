@@ -66,6 +66,9 @@ the same commands against `127.0.0.1`.
   cloud fetch ~2.5s vs gzip-HTTP ~3.5s). On realistic/high-entropy data columnar native beats row
   JSON even with lz4. Compare with `baselines.sh` and re-run the proxy with different
   `WSPROXY_BACKEND_COMPRESSION` values.
+
+The edge-conversion + compressed-wire model these numbers support is what a Cloudflare deployment
+would exploit — see [`../CLOUDFLARE.md`](../CLOUDFLARE.md).
 - **On loopback** the result is CPU-bound and exposes the proxy's conversion throughput. The
   proxy formats output on a thread pool when `output_format_parallel_formatting` is enabled and
   the format supports it; compare against `baselines.sh` (which formats in parallel by default)

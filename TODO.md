@@ -89,6 +89,9 @@ own backend + proxy). Benchmark harness committed under `programs/wsproxy/bench/
    timeouts.
 6. **Docs/pitch**: update the team artifact's evidence table with the ZSTD row; README for the client
    protocol (`{"cmd":"insert"}`, `?parse`/`?parallel`/`?flow`).
+7. **Cloudflare deployment** (Containers + stateless Workers) — feasibility, architecture, scaling,
+   and frictions are written up in `programs/wsproxy/CLOUDFLARE.md`. Long pole is the amd64 Linux
+   build; the Worker/DO glue is small.
 
 ### Lowlights / known limitations / risks
 

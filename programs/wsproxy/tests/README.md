@@ -66,6 +66,9 @@ backend reports any real error). This is the only place the proxy parses SQL.
 
 See `test/helpers.mjs` for the small client wrapper (`Session`, `runQuery`, `backendScalar`).
 
+For deploying the proxy on Cloudflare (Containers fronted by stateless Workers), see
+[`../CLOUDFLARE.md`](../CLOUDFLARE.md).
+
 ## Receive backpressure (important for large results)
 
 The proxy pushes result frames as fast as the connection allows. A plain **event-based
