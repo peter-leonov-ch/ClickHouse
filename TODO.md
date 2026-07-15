@@ -92,6 +92,10 @@ own backend + proxy). Benchmark harness committed under `programs/wsproxy/bench/
 7. **Cloudflare deployment** (Containers + stateless Workers) — feasibility, architecture, scaling,
    and frictions are written up in `programs/wsproxy/CLOUDFLARE.md`. Long pole is the amd64 Linux
    build; the Worker/DO glue is small.
+8. **In-server WS port** (alternative home) — feasibility of a `ws_port` inside `clickhouse-server`
+   (bridge `ProxySession` to a `LocalConnection`) is written up in `programs/wsproxy/IN_SERVER.md`.
+   Technically moderate, but a core diff on the cloud-release cycle and it loses the edge/compression
+   value — a complementary upstream play, not a faster sidecar.
 
 ### Lowlights / known limitations / risks
 

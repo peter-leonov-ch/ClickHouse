@@ -3,7 +3,8 @@
 Feasibility notes and a deployment sketch for running the proxy as a Cloudflare Container fronted
 by stateless Workers. **Status: analysis only — nothing here is built yet.** See `TODO.md` (repo
 root) for the proxy's overall status, and `programs/wsproxy/bench/` for the throughput/compression
-numbers this design leans on.
+numbers this design leans on. For the alternative of putting a WebSocket port *inside*
+`clickhouse-server` (rather than as this edge sidecar), see `IN_SERVER.md`.
 
 ## Verdict
 
