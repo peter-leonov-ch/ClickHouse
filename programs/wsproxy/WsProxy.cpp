@@ -22,7 +22,6 @@
 #include <Common/logger_useful.h>
 
 #include <WsProxyHandler.h>
-#include <ProxySession.h>
 
 #include <base/types.h>
 

@@ -11,46 +11,36 @@
 namespace DB
 {
 
-class Connection;
+class IServerConnection;
 
-/// Where the proxy forwards native-protocol queries.
-struct BackendParams
-{
-    String host = "localhost";
-    UInt16 port = 9000;
-    String user = "default";
-    String password;
-    String database;
-    bool secure = false; /// Connect to the backend over TLS (native secure protocol).
-    /// Native-protocol compression codec for backend->proxy result blocks: "lz4" (fast, default),
-    /// "zstd" (higher ratio — fewer bytes on a bandwidth-limited WAN, at more backend CPU), or
-    /// "none". The proxy decompresses whatever the server sends regardless (codec is self-describing).
-    String compression_method = "lz4";
-};
-
-/// Drives one WebSocket session against a backend ClickHouse server over the
-/// native protocol.
+/// Bridges one WebSocket session to a ClickHouse query connection, in both
+/// directions, over the native `IServerConnection` abstraction.
 ///
-/// Owns a `Connection` for the lifetime of the session. For each query the
-/// client sends as a WebSocket text frame, it runs `sendQuery` / `receivePacket`
-/// and streams the result blocks back as binary frames (encoded with the chosen
-/// output format), followed by a JSON control frame (`end` / `error` /
-/// `cancelled`). A Close frame arriving mid-query triggers `Connection::sendCancel`.
-class ProxySession
+/// Transport-agnostic: the connection is injected into `run`, so the same bridge
+/// serves the standalone edge proxy (a remote `Connection`) and an in-server
+/// WebSocket endpoint (an in-process `LocalConnection`). For each query the client
+/// sends as a text frame it runs `sendQuery` / `receivePacket` and streams the
+/// result blocks back as binary frames (encoded with the chosen output format),
+/// followed by a JSON control frame (`end` / `error` / `cancelled`). A Close frame
+/// arriving mid-query triggers `IServerConnection::sendCancel`.
+class WebSocketSession
 {
 public:
-    ProxySession(
+    WebSocketSession(
         Poco::Net::StreamSocket & socket_,
         ContextPtr context_,
-        BackendParams backend_,
         String format_,
         String logs_level_ = "",
         bool flow_enabled_ = false,
         Int64 flow_initial_credit_ = 0,
         bool parse_enabled_ = false,
-        bool parallel_enabled_ = false);
+        bool parallel_enabled_ = false,
+        String compression_method_ = "");
 
-    void run();
+    /// Drive the session loop over an already-connected `connection` until the
+    /// client closes or errors. The caller owns connection setup/teardown and
+    /// (for a remote transport) authentication.
+    void run(IServerConnection & connection);
 
 private:
     /// Read one complete client message (reassembling fragments, answering pings).
@@ -59,25 +49,24 @@ private:
     std::optional<String> readClientMessage();
 
     /// Run a plain query and stream its result. Returns false if the session
-    /// should end afterwards (client closed mid-query). The proxy never parses
-    /// SQL: routing is driven by the client's message kind (a raw text frame is
-    /// a query -> executeSelect; a {"cmd":"insert",...} control message opts into
+    /// should end afterwards (client closed mid-query). SQL is never parsed:
+    /// routing is driven by the client's message kind (a raw text frame is a
+    /// query -> executeSelect; a {"cmd":"insert",...} control message opts into
     /// executeInsert). `with_pending_data=false` here, so SELECT / INSERT-SELECT /
     /// inline INSERT / DDL all work and none waits for client data.
-    bool executeSelect(Connection & connection, const String & query);
+    bool executeSelect(IServerConnection & connection, const String & query);
     /// Stream a client-supplied data INSERT: send the query with `with_pending_data`,
     /// parse the streamed frames with `input_format`, and `sendData` blocks.
-    bool executeInsert(Connection & connection, const String & query, const String & input_format);
+    bool executeInsert(IServerConnection & connection, const String & query, const String & input_format);
 
-    void sendBackendQuery(Connection & connection, const String & query, bool with_pending_data = false);
-    void drainUntilEndOfStream(Connection & connection);
+    void sendBackendQuery(IServerConnection & connection, const String & query, bool with_pending_data = false);
+    void drainUntilEndOfStream(IServerConnection & connection);
     void sendControlEvent(const String & event, const String & message);
     /// Serialize a Log / ProfileEvents block to a `{"event":...,"rows":[...]}` text frame.
     void sendBlockEvent(const String & event, const Block & block);
 
     Poco::Net::StreamSocket & socket;
     ContextPtr context;
-    BackendParams backend;
     String format;
     String logs_level; /// If set, sent as `send_logs_level` so the backend pushes Log packets.
     bool flow_enabled; /// Opt-in credit/window flow control for the SELECT push direction.
@@ -86,6 +75,10 @@ private:
     /// Opt-in (?parallel=1): format SELECT output on a thread pool for higher conversion
     /// throughput, at the cost of coarser (batched) result frames. Ignored when flow control is on.
     bool parallel_enabled;
+    /// Native-protocol codec the backend uses for result blocks (`network_compression_method`):
+    /// "lz4" / "zstd" for a remote transport, empty (or "none") to leave it unset (in-process
+    /// connections have no wire, so this is a no-op there).
+    String compression_method;
 
     /// Serializes complete WebSocket frame sends. With parallel output formatting the format's
     /// collector thread writes result frames while the session thread pushes progress/log/control

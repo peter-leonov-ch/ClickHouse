@@ -1,7 +1,7 @@
-#include <ProxySession.h>
-#include <WebSocketFrames.h>
+#include <Server/WebSocketSession.h>
+#include <Server/WebSocketFrames.h>
 
-#include <Client/Connection.h>
+#include <Client/IServerConnection.h>
 
 #include <Core/Defines.h>
 #include <Core/Protocol.h>
@@ -146,7 +146,7 @@ QueryClass classifyQuery(const String & query)
     catch (...)
     {
         LOG_DEBUG(
-            getLogger("ProxySession"),
+            getLogger("WebSocketSession"),
             "parse=1 classification failed, treating as a plain query: {}",
             getCurrentExceptionMessage(false));
     }
@@ -205,7 +205,7 @@ void applyControlFrame(
     catch (...)
     {
         /// Malformed control frame: ignore (the query stream is unaffected).
-        LOG_DEBUG(getLogger("ProxySession"), "Ignoring malformed control frame: {}", getCurrentExceptionMessage(false));
+        LOG_DEBUG(getLogger("WebSocketSession"), "Ignoring malformed control frame: {}", getCurrentExceptionMessage(false));
     }
 }
 
@@ -405,29 +405,29 @@ void sendQueryInfoFrame(Poco::Net::StreamSocket & socket, const String & verb, c
 
 }
 
-ProxySession::ProxySession(
+WebSocketSession::WebSocketSession(
     Poco::Net::StreamSocket & socket_,
     ContextPtr context_,
-    BackendParams backend_,
     String format_,
     String logs_level_,
     bool flow_enabled_,
     Int64 flow_initial_credit_,
     bool parse_enabled_,
-    bool parallel_enabled_)
+    bool parallel_enabled_,
+    String compression_method_)
     : socket(socket_)
     , context(std::move(context_))
-    , backend(std::move(backend_))
     , format(std::move(format_))
     , logs_level(std::move(logs_level_))
     , flow_enabled(flow_enabled_)
     , flow_initial_credit(flow_initial_credit_)
     , parse_enabled(parse_enabled_)
     , parallel_enabled(parallel_enabled_)
+    , compression_method(std::move(compression_method_))
 {
 }
 
-void ProxySession::sendControlEvent(const String & event, const String & message)
+void WebSocketSession::sendControlEvent(const String & event, const String & message)
 {
     String json = R"({"event":")" + event + "\"";
     if (!message.empty())
@@ -437,7 +437,7 @@ void ProxySession::sendControlEvent(const String & event, const String & message
     sendWebSocketText(socket, json);
 }
 
-void ProxySession::sendBlockEvent(const String & event, const Block & block)
+void WebSocketSession::sendBlockEvent(const String & event, const Block & block)
 {
     if (block.rows() == 0)
         return;
@@ -475,7 +475,7 @@ void ProxySession::sendBlockEvent(const String & event, const Block & block)
     sendWebSocketText(socket, R"({"event":")" + event + R"(","rows":[)" + rows_array + "]}");
 }
 
-void ProxySession::sendBackendQuery(Connection & connection, const String & query, bool with_pending_data)
+void WebSocketSession::sendBackendQuery(IServerConnection & connection, const String & query, bool with_pending_data)
 {
     /// Copy the settings so we can opt into server log delivery. The backend
     /// attaches its log queue based on `send_logs_level` in the query packet's
@@ -490,8 +490,8 @@ void ProxySession::sendBackendQuery(Connection & connection, const String & quer
     /// far better than row JSON) makes the proxy beat gzipped HTTP. Empty = leave
     /// the backend/connection default (LZ4). "none" disables block compression via
     /// the connection's compression flag, so nothing to set here.
-    if (backend.compression_method != "none" && !backend.compression_method.empty())
-        settings.set("network_compression_method", backend.compression_method);
+    if (compression_method != "none" && !compression_method.empty())
+        settings.set("network_compression_method", compression_method);
 
     auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
 
@@ -513,7 +513,7 @@ void ProxySession::sendBackendQuery(Connection & connection, const String & quer
         /* process_progress_callback */ {});
 }
 
-void ProxySession::drainUntilEndOfStream(Connection & connection)
+void WebSocketSession::drainUntilEndOfStream(IServerConnection & connection)
 {
     try
     {
@@ -527,11 +527,11 @@ void ProxySession::drainUntilEndOfStream(Connection & connection)
     catch (...)
     {
         /// The connection may be broken after a cancel; nothing more to drain.
-        LOG_DEBUG(getLogger("ProxySession"), "drain after cancel: {}", getCurrentExceptionMessage(false));
+        LOG_DEBUG(getLogger("WebSocketSession"), "drain after cancel: {}", getCurrentExceptionMessage(false));
     }
 }
 
-std::optional<String> ProxySession::readClientMessage()
+std::optional<String> WebSocketSession::readClientMessage()
 {
     String buffer;
     bool in_fragmented_message = false;
@@ -582,9 +582,9 @@ std::optional<String> ProxySession::readClientMessage()
     }
 }
 
-bool ProxySession::executeSelect(Connection & connection, const String & query)
+bool WebSocketSession::executeSelect(IServerConnection & connection, const String & query)
 {
-    LoggerPtr log = getLogger("ProxySession");
+    LoggerPtr log = getLogger("WebSocketSession");
 
     sendBackendQuery(connection, query);
 
@@ -792,9 +792,9 @@ bool ProxySession::executeSelect(Connection & connection, const String & query)
     }
 }
 
-bool ProxySession::executeInsert(Connection & connection, const String & query, const String & input_format)
+bool WebSocketSession::executeInsert(IServerConnection & connection, const String & query, const String & input_format)
 {
-    LoggerPtr log = getLogger("ProxySession");
+    LoggerPtr log = getLogger("WebSocketSession");
 
     /// Format the client's streamed data is in: the command's `format` if given,
     /// else the session's `?format=`. The query text is forwarded verbatim (never
@@ -895,53 +895,13 @@ bool ProxySession::executeInsert(Connection & connection, const String & query, 
     }
 }
 
-void ProxySession::run()
+void WebSocketSession::run(IServerConnection & connection)
 {
-    LoggerPtr log = getLogger("ProxySession");
+    LoggerPtr log = getLogger("WebSocketSession");
 
-    Connection connection(
-        backend.host,
-        backend.port,
-        backend.database,
-        backend.user,
-        backend.password,
-        /* proto_send_chunked_ */ "chunked_optional",
-        /* proto_recv_chunked_ */ "chunked_optional",
-        /* ssh_private_key_ */ SSHKey{},
-        /* jwt_ */ "",
-        /* quota_key_ */ "",
-        /* cluster_ */ "",
-        /* cluster_secret_ */ "",
-        /* client_name_ */ "clickhouse-wsproxy",
-        backend.compression_method == "none" ? Protocol::Compression::Disable : Protocol::Compression::Enable,
-        backend.secure ? Protocol::Secure::Enable : Protocol::Secure::Disable,
-        /* tls_sni_override_ */ "",
-        /* bind_host_ */ "");
-
-    /// Establish the backend connection up front so authentication (which happens
-    /// during the native handshake) is reported immediately, rather than on the
-    /// first query. On failure, tell the client and close.
-    try
-    {
-        connection.forceConnected(ConnectionTimeouts::getTCPTimeoutsWithoutFailover(context->getSettingsRef()));
-    }
-    catch (...)
-    {
-        const String message = getCurrentExceptionMessage(false);
-        LOG_DEBUG(log, "Backend connect/auth failed: {}", message);
-        try
-        {
-            sendControlEvent("error", message);
-            sendWebSocketClose(socket, /* 1008 policy violation */ 1008, "Authentication failed");
-        }
-        catch (...)
-        {
-            LOG_DEBUG(log, "Failed to deliver auth error to client (already gone)");
-        }
-        return;
-    }
-
-    LOG_DEBUG(log, "Proxy session started; backend {}:{}", backend.host, backend.port);
+    /// The caller owns connection setup (and, for a remote transport, eager
+    /// authentication). `connection` is expected to be usable here.
+    LOG_DEBUG(log, "WebSocket session started");
 
     while (true)
     {
@@ -998,7 +958,7 @@ void ProxySession::run()
         }
     }
 
-    LOG_DEBUG(log, "Proxy session ended");
+    LOG_DEBUG(log, "WebSocket session ended");
 }
 
 }

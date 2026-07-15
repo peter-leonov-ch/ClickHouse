@@ -1,6 +1,14 @@
 #include <WsProxyHandler.h>
-#include <WebSocketFrames.h>
-#include <ProxySession.h>
+
+#include <Server/WebSocketFrames.h>
+#include <Server/WebSocketSession.h>
+
+#include <Client/Connection.h>
+#include <Core/Protocol.h>
+#include <Common/SSHWrapper.h>
+#include <IO/ConnectionTimeouts.h>
+#include <Interpreters/Context.h>
+#include <Core/Settings.h>
 
 #include <Server/HTTP/HTTPServerRequest.h>
 #include <Server/HTTP/HTTPServerResponse.h>
@@ -30,6 +38,35 @@ using namespace DB::WsProxy;
 
 namespace
 {
+
+/// Minimal JSON string escaping for a short error message embedded in a control frame.
+String jsonEscape(const String & s)
+{
+    String out;
+    out.reserve(s.size() + 2);
+    for (char c : s)
+    {
+        switch (c)
+        {
+            case '"': out += R"(\")"; break;
+            case '\\': out += R"(\\)"; break;
+            case '\n': out += R"(\n)"; break;
+            case '\r': out += R"(\r)"; break;
+            case '\t': out += R"(\t)"; break;
+            default:
+                if (static_cast<unsigned char>(c) < 0x20)
+                {
+                    static const char * hex = "0123456789abcdef";
+                    out += R"(\u00)";
+                    out += hex[(c >> 4) & 0xF];
+                    out += hex[c & 0xF];
+                }
+                else
+                    out += c;
+        }
+    }
+    return out;
+}
 
 /// Per RFC 7230 the `Connection` header is a comma-separated token list. Match
 /// the exact `upgrade` token rather than a substring (which would also accept
@@ -250,10 +287,53 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     if (send_timeout_sec > 0)
         socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
-    ProxySession session(
-        socket, context, session_backend, out_format, logs_level, flow_enabled, flow_credit, parse_enabled,
-        parallel_enabled);
-    session.run();
+    /// Open one native-protocol connection per session to the remote backend.
+    Connection connection(
+        session_backend.host,
+        session_backend.port,
+        session_backend.database,
+        session_backend.user,
+        session_backend.password,
+        /* proto_send_chunked_ */ "chunked_optional",
+        /* proto_recv_chunked_ */ "chunked_optional",
+        /* ssh_private_key_ */ SSHKey{},
+        /* jwt_ */ "",
+        /* quota_key_ */ "",
+        /* cluster_ */ "",
+        /* cluster_secret_ */ "",
+        /* client_name_ */ "clickhouse-wsproxy",
+        session_backend.compression_method == "none" ? Protocol::Compression::Disable : Protocol::Compression::Enable,
+        session_backend.secure ? Protocol::Secure::Enable : Protocol::Secure::Disable,
+        /* tls_sni_override_ */ "",
+        /* bind_host_ */ "");
+
+    /// Establish the backend connection up front so authentication (during the
+    /// native handshake) is reported immediately rather than on the first query.
+    /// On failure, tell the client and close.
+    try
+    {
+        connection.forceConnected(ConnectionTimeouts::getTCPTimeoutsWithoutFailover(context->getSettingsRef()));
+    }
+    catch (...)
+    {
+        const String message = getCurrentExceptionMessage(false);
+        LOG_DEBUG(log, "Backend connect/auth failed: {}", message);
+        try
+        {
+            sendWebSocketText(socket, R"({"event":"error","message":")" + jsonEscape(message) + "\"}");
+            sendWebSocketClose(socket, /* 1008 policy violation */ 1008, "Authentication failed");
+        }
+        catch (...)
+        {
+            LOG_DEBUG(log, "Failed to deliver auth error to client (already gone)");
+        }
+        return;
+    }
+
+    WebSocketSession session(
+        socket, context, out_format, logs_level, flow_enabled, flow_credit, parse_enabled,
+        parallel_enabled, session_backend.compression_method);
+    session.run(connection);
 
     LOG_DEBUG(log, "WebSocket session closed");
 }

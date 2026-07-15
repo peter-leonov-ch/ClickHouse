@@ -1,9 +1,10 @@
 set (CLICKHOUSE_WSPROXY_SOURCES
     WsProxy.cpp
     WsProxyHandler.cpp
-    WebSocketFrames.cpp
-    ProxySession.cpp
 )
+# WebSocketFrames + WebSocketSession (the transport-agnostic WS<->native bridge) now live in
+# src/Server (compiled into `dbms`), shared with the in-server WebSocket endpoint. This binary
+# links `dbms`, so it picks them up automatically.
 
 set (CLICKHOUSE_WSPROXY_LINK
     PRIVATE
