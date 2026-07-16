@@ -52,6 +52,7 @@ bool ServerType::shouldStart(Type server_type, const std::string & server_custom
             case Type::TCP_SECURE:
             case Type::HTTP:
             case Type::HTTPS:
+            case Type::WS:
             case Type::MYSQL:
             case Type::GRPC:
             case Type::POSTGRESQL:
@@ -108,6 +109,9 @@ bool ServerType::shouldStop(const std::string & port_name) const
 
     else if (port_name == "https_port")
         port_type = Type::HTTPS;
+
+    else if (port_name == "ws_port")
+        port_type = Type::WS;
 
     else if (port_name == "tcp_port")
         port_type = Type::TCP;

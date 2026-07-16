@@ -3,6 +3,7 @@
 
 #include <Client/IServerConnection.h>
 
+#include <Core/Block.h>
 #include <Core/Defines.h>
 #include <Core/Protocol.h>
 #include <Core/QueryProcessingStage.h>
@@ -448,7 +449,7 @@ void WebSocketSession::sendBlockEvent(const String & event, const Block & block)
     /// correct for whatever columns/types the server sends.
     WriteBufferFromOwnString buf;
     auto out = FormatFactory::instance().getOutputFormat("JSONEachRow", buf, block.cloneEmpty(), context);
-    out->write(block);
+    out->write(materializeBlock(block, !out->supportsSpecialSerializationKinds()));
     out->finalize();
     const String & rows_text = buf.str();
 
@@ -495,11 +496,12 @@ void WebSocketSession::sendBackendQuery(IServerConnection & connection, const St
 
     auto timeouts = ConnectionTimeouts::getTCPTimeoutsWithoutFailover(settings);
 
-    ClientInfo client_info;
-    client_info.query_kind = ClientInfo::QueryKind::INITIAL_QUERY;
-
-    /// `with_pending_data` must be true for INSERTs so the server enters the
-    /// send-data handshake and replies with the sample/header block.
+    /// Pass no ClientInfo: a remote Connection then lets the server default the
+    /// query kind for a direct client, and an in-process LocalConnection derives
+    /// the query context (and current user) from its authenticated session rather
+    /// than being clobbered by an empty ClientInfo.
+    /// `with_pending_data` must be true for INSERTs so the connection enters the
+    /// send-data phase and replies with the sample/header block.
     connection.sendQuery(
         timeouts,
         query,
@@ -507,7 +509,7 @@ void WebSocketSession::sendBackendQuery(IServerConnection & connection, const St
         /* query_id */ "",
         QueryProcessingStage::Complete,
         &settings,
-        &client_info,
+        /* client_info */ nullptr,
         with_pending_data,
         /* external_roles */ {},
         /* process_progress_callback */ {});
@@ -637,32 +639,38 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
     UInt64 total_read_bytes = 0;
     UInt64 total_rows_to_read = 0;
 
+    /// Read any pending client frame (non-blocking): flow-control grants
+    /// (next/pause/resume) update the shared FlowControl; a Close/broken read means
+    /// the client is gone -> cancel the query and drain.
+    auto poll_client_frame = [&]
+    {
+        if (client_gone || !socket.poll(Poco::Timespan(0), Poco::Net::Socket::SELECT_READ))
+            return;
+        WebSocketFrame frame;
+        try
+        {
+            frame = readWebSocketFrame(socket);
+        }
+        catch (...)
+        {
+            frame.valid = false;
+        }
+        applyControlFrame(socket, frame, fc, &ws_write_mutex);
+        if (fc.client_gone)
+            note_client_gone();
+    };
+
     while (true)
     {
-        /// While no server data is pending, watch the client socket so a Close
-        /// frame mid-query cancels the running query promptly.
-        while (!connection.poll(50'000 /* microseconds */))
-        {
-            if (socket.poll(Poco::Timespan(0), Poco::Net::Socket::SELECT_READ))
-            {
-                WebSocketFrame frame;
-                try
-                {
-                    frame = readWebSocketFrame(socket);
-                }
-                catch (...)
-                {
-                    frame.valid = false;
-                }
+        /// Watch the client on every iteration, not only when the connection has no
+        /// data ready: an in-process LocalConnection::poll returns immediately with
+        /// data, so a mid-query Close would otherwise go unnoticed until the query
+        /// finished. This is what makes cancel-by-close work for the in-server path.
+        poll_client_frame();
 
-                /// Apply the client frame: flow-control grants (next/pause/resume)
-                /// update the shared FlowControl; a Close/broken read means the
-                /// client is gone -> cancel the backend query and drain.
-                applyControlFrame(socket, frame, fc, &ws_write_mutex);
-                if (fc.client_gone)
-                    note_client_gone();
-            }
-        }
+        /// While no server data is pending, keep watching the client socket.
+        while (!connection.poll(50'000 /* microseconds */))
+            poll_client_frame();
 
         Packet packet = connection.receivePacket();
         switch (packet.type)
@@ -680,7 +688,12 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
                 }
                 if (packet.block.rows() > 0)
                 {
-                    output->write(packet.block);
+                    /// Materialize const/sparse/low-cardinality columns before writing: an
+                    /// in-process LocalConnection hands blocks straight from the pipeline (e.g.
+                    /// `SELECT 1` yields a ColumnConst), which row output formats mishandle.
+                    /// Remote connections already materialize over the wire, so this is a cheap
+                    /// no-op there. Mirrors ClientBase::onData.
+                    output->write(materializeBlock(packet.block, !output->supportsSpecialSerializationKinds()));
                     output->flush(); /// Stream this block as its own frame(s).
                     if (out_buf.isBroken())
                         note_client_gone(); /// Client left mid-stream.
@@ -803,10 +816,15 @@ bool WebSocketSession::executeInsert(IServerConnection & connection, const Strin
 
     sendBackendQuery(connection, query, /* with_pending_data */ true);
 
-    /// The server waits for external-tables data before replying with the sample
-    /// block; we have none, so send an empty set to unblock the handshake.
-    ExternalTablesData external_tables_data;
-    connection.sendExternalTablesData(external_tables_data);
+    /// A remote server waits for external-tables data before replying with the
+    /// sample block; we have none, so send an empty set to unblock that native
+    /// handshake. An in-process LocalConnection has no such handshake (and does
+    /// not implement sendExternalTablesData), so skip it there.
+    if (connection.getConnectionType() != IServerConnection::Type::LOCAL)
+    {
+        ExternalTablesData external_tables_data;
+        connection.sendExternalTablesData(external_tables_data);
+    }
 
     /// The server replies with the sample block describing the target structure.
     Block sample;

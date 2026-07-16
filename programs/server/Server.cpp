@@ -3653,6 +3653,29 @@ void Server::createServers(
             });
         }
 
+        if (server_type.shouldStart(ServerType::Type::WS))
+        {
+            /// WebSocket. An HTTP server whose handler upgrades the connection to a WebSocket and
+            /// bridges it to an in-process query connection (same wire protocol as clickhouse-wsproxy):
+            /// query as a text frame, results as binary frames in the ?format= output format, plus
+            /// mid-query progress/logs/profile-events and cancel-by-close.
+            port_name = "ws_port";
+            createServer(config, listen_host, port_name, listen_try, start_servers, servers, [&](UInt16 port) -> ProtocolServerAdapter
+            {
+                Poco::Net::ServerSocket socket;
+                auto address = socketBindListen(server_settings, socket, listen_host, port);
+                socket.setReceiveTimeout(settings[Setting::http_receive_timeout]);
+                socket.setSendTimeout(settings[Setting::http_send_timeout]);
+
+                return ProtocolServerAdapter(
+                    listen_host,
+                    port_name,
+                    "websocket: " + address.toString(),
+                    std::make_unique<HTTPServer>(
+                        httpContext(), createHandlerFactory(*this, config, async_metrics, "WSHandler-factory"), server_pool, socket, http_params, connection_filter, ProfileEvents::InterfaceHTTPReceiveBytes, ProfileEvents::InterfaceHTTPSendBytes));
+            });
+        }
+
         if (server_type.shouldStart(ServerType::Type::TCP))
         {
             /// TCP

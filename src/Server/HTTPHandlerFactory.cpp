@@ -10,6 +10,7 @@
 #include <Server/StaticRequestHandler.h>
 #include <Server/WebUIRequestHandler.h>
 #include <Server/WebTerminalRequestHandler.h>
+#include <Server/WSHandler.h>
 #if CLICKHOUSE_CLOUD
 #include <Server/CloudReadinessHandler.h>
 #endif
@@ -302,6 +303,17 @@ createHTTPHandlerFactory(IServer & server, const Poco::Util::AbstractConfigurati
     return factory;
 }
 
+static inline HTTPRequestHandlerFactoryPtr createWSHandlerFactory(IServer & server, const std::string & name)
+{
+    /// The `ws_port` speaks WebSocket only: every request goes to the WSHandler,
+    /// which serves an info page for a plain GET and upgrades a WebSocket request.
+    auto factory = std::make_shared<HTTPRequestHandlerFactoryMain>(name);
+    auto main_handler = std::make_shared<HandlingRuleHTTPHandlerFactory<WSHandler>>(server);
+    main_handler->allowGetAndHeadRequest();
+    factory->addHandler(main_handler);
+    return factory;
+}
+
 static inline HTTPRequestHandlerFactoryPtr createInterserverHTTPHandlerFactory(IServer & server, const std::string & name, const Poco::Util::AbstractConfiguration & config)
 {
     auto factory = std::make_shared<HTTPRequestHandlerFactoryMain>(name);
@@ -320,6 +332,8 @@ HTTPRequestHandlerFactoryPtr createHandlerFactory(IServer & server, const Poco::
         return createHTTPHandlerFactory(server, config, name, async_metrics, http_handlers_key.empty() ? "http_handlers" : http_handlers_key);
     if (name == "InterserverIOHTTPHandler-factory" || name == "InterserverIOHTTPSHandler-factory")
         return createInterserverHTTPHandlerFactory(server, name, config);
+    if (name == "WSHandler-factory")
+        return createWSHandlerFactory(server, name);
     if (name == "PrometheusHandler-factory")
         return createPrometheusHandlerFactory(server, config, async_metrics, name);
     if (name == "KeeperPrometheusHandler-factory")
