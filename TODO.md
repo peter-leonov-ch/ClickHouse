@@ -92,10 +92,13 @@ own backend + proxy). Benchmark harness committed under `programs/wsproxy/bench/
 7. **Cloudflare deployment** (Containers + stateless Workers) — feasibility, architecture, scaling,
    and frictions are written up in `programs/wsproxy/CLOUDFLARE.md`. Long pole is the amd64 Linux
    build; the Worker/DO glue is small.
-8. **In-server WS port** (alternative home) — feasibility of a `ws_port` inside `clickhouse-server`
-   (bridge `ProxySession` to a `LocalConnection`) is written up in `programs/wsproxy/IN_SERVER.md`.
-   Technically moderate, but a core diff on the cloud-release cycle and it loses the edge/compression
-   value — a complementary upstream play, not a faster sidecar.
+8. **In-server WS port** (alternative home) — **PROTOTYPE BUILT AND TESTED.** A `ws_port` inside
+   `clickhouse-server` bridges the shared `WebSocketSession` to an in-process `LocalConnection`; the
+   same vitest suite passes against it (in-server 102/102, proxy 113/113). Details + the
+   LocalConnection gotchas in `programs/wsproxy/IN_SERVER.md`. Still a core diff on the cloud-release
+   cycle and it loses the edge/compression value — a complementary upstream play, not a faster
+   sidecar. The bridge (`WebSocketFrames` + `WebSocketSession`) now lives in `src/Server` (dbms),
+   shared by both the proxy binary and the server.
 
 ### Lowlights / known limitations / risks
 

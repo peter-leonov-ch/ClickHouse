@@ -13,6 +13,9 @@ const repoRoot = resolve(testDir, "../../../..");
 const WSPROXY_BIN =
   process.env.WSPROXY_BIN ?? resolve(repoRoot, "build/programs/wsproxy/clickhouse-wsproxy");
 const CLICKHOUSE_SERVER = process.env.CLICKHOUSE_SERVER ?? "/usr/local/bin/clickhouse-server";
+// The freshly-built multi-call binary (run as `clickhouse server`) — this is the one that
+// carries the new ws_port. Point WS_SERVER_BIN elsewhere to test a different build.
+const WS_SERVER_BIN = process.env.WS_SERVER_BIN ?? resolve(repoRoot, "build/programs/clickhouse");
 
 function portOpen(port, host = "127.0.0.1") {
   return new Promise((res) => {
@@ -170,6 +173,71 @@ export async function spawnProxy({
         proc.kill("SIGKILL");
       } catch {
         /* already gone */
+      }
+    },
+  };
+}
+
+/// Spawn the freshly-built clickhouse-server with the in-server WebSocket endpoint
+/// (`ws_port`) enabled, alongside a `tcp_port` (the server requires at least one
+/// query port to start). Same default + wsp_user users as spawnBackend, so the
+/// auth tests work unchanged. Returns { url } pointing at the ws_port.
+export async function spawnServerWithWs({ wsPort, tcpPort }) {
+  const dir = fs.mkdtempSync(join(os.tmpdir(), "wsproxy-server-"));
+  const configPath = join(dir, "config.xml");
+  fs.writeFileSync(
+    configPath,
+    `<clickhouse>
+    <logger><level>warning</level><console>0</console>
+        <log>${dir}/server.log</log><errorlog>${dir}/server.err.log</errorlog></logger>
+    <tcp_port>${tcpPort}</tcp_port>
+    <ws_port>${wsPort}</ws_port>
+    <listen_host>127.0.0.1</listen_host>
+    <path>${dir}/data/</path>
+    <tmp_path>${dir}/tmp/</tmp_path>
+    <user_files_path>${dir}/user_files/</user_files_path>
+    <mark_cache_size>536870912</mark_cache_size>
+    <mlock_executable>false</mlock_executable>
+    <users_config>users.xml</users_config>
+    <default_profile>default</default_profile>
+    <default_database>default</default_database>
+</clickhouse>`,
+  );
+  fs.writeFileSync(
+    join(dir, "users.xml"),
+    `<clickhouse>
+    <profiles><default/></profiles>
+    <users>
+        <default>
+            <password></password><networks><ip>::/0</ip></networks>
+            <profile>default</profile><quota>default</quota>
+            <access_management>1</access_management>
+        </default>
+        <wsp_user>
+            <password>wsp_pass</password><networks><ip>::/0</ip></networks>
+            <profile>default</profile><quota>default</quota>
+        </wsp_user>
+    </users>
+    <quotas><default/></quotas>
+</clickhouse>`,
+  );
+
+  const proc = spawn(WS_SERVER_BIN, ["server", "--config-file", configPath], { stdio: "ignore" });
+  await waitForPort(wsPort, 30_000);
+  return {
+    url: `ws://127.0.0.1:${wsPort}`,
+    dir,
+    stop() {
+      // Kill whatever holds the ws port (watchdog fork/re-parent shenanigans).
+      for (const port of [wsPort, tcpPort]) {
+        const r = spawnSync("lsof", ["-ti", `tcp:${port}`, "-sTCP:LISTEN"], { encoding: "utf8" });
+        for (const pid of (r.stdout || "").split("\n").map((s) => s.trim()).filter(Boolean)) {
+          try {
+            process.kill(Number(pid), "SIGKILL");
+          } catch {
+            /* already gone */
+          }
+        }
       }
     },
   };

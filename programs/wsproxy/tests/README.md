@@ -32,6 +32,21 @@ not already listening, creates the shared `default.wsp_test` table, and tears do
 it started. Override binary/config locations with the `CLICKHOUSE_SERVER`, `CH_CONFIG`,
 `WSPROXY_BIN`, and `WSPROXY_URL` environment variables.
 
+### Running against the in-server `ws_port`
+
+The same query/protocol tests also run against the **in-server** WebSocket endpoint (a
+`clickhouse-server` built with a `ws_port`, see `programs/wsproxy/IN_SERVER.md`) — the bridge code
+is shared, so behavior should match:
+
+```bash
+npm run test:server   # vitest run --config vitest.server.config.mjs
+```
+
+This spawns the freshly-built `build/programs/clickhouse server` with a `ws_port` on `:9010`
+(override the binary with `WS_SERVER_BIN`). Proxy-only suites (a separate remote backend,
+proxy→backend TLS, and the `WSPROXY_BACKEND_COMPRESSION` codec) are excluded — see the config.
+Current status: proxy suite 113/113, in-server suite 102/102.
+
 ## Protocol under test
 
 The client sends a SQL query as a **text** frame; results stream back as **binary** frames encoded

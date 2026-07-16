@@ -1,9 +1,14 @@
 # Adding a WebSocket port to `clickhouse-server` itself
 
-Feasibility notes for exposing a WebSocket interface **inside the server**, as a first-class port
-next to `tcp_port` and `http_port` — instead of (or alongside) the standalone `wsproxy` sidecar.
-**Status: analysis only — nothing here is built yet.** See `TODO.md` (repo root) for the proxy's
-status and `programs/wsproxy/CLOUDFLARE.md` for the sidecar/edge deployment story.
+A WebSocket interface **inside the server**, as a first-class port next to `tcp_port` and
+`http_port` — an alternative to (and complement of) the standalone `wsproxy` sidecar. See `TODO.md`
+(repo root) for the proxy's status and `programs/wsproxy/CLOUDFLARE.md` for the sidecar/edge story.
+
+**Status: PROTOTYPE BUILT AND TESTED.** A `ws_port` is wired into `clickhouse-server`, reusing the
+shared `WebSocketSession` bridge against an in-process `LocalConnection`. The same Node/vitest suite
+that exercises the proxy runs against it (`npm run test:server`): **in-server 102/102, proxy 113/113**
+(proxy-only suites — separate remote backend, proxy→backend TLS, `WSPROXY_BACKEND_COMPRESSION` — are
+excluded as N/A in-server). What was built and the LocalConnection gotchas learned are at the end.
 
 ## Verdict
 
@@ -92,6 +97,38 @@ bidirectional streaming, format-at-source — **without needing a sidecar at all
 valuable and arguably the "right" long-term home for a WebSocket interface. The two are complementary:
 iterate on the sidecar now (fast, edge-deployable, offloads CPU, compresses the WAN hop); propose the
 in-server `ws_port` upstream once the WS protocol/shape is proven.
+
+## What was built (and the LocalConnection gotchas)
+
+- **Shared bridge.** `WebSocketFrames` + `WebSocketSession` live in `src/Server` (compiled into
+  `dbms`); `WebSocketSession::run(IServerConnection&)` is transport-agnostic. The proxy injects a
+  remote `Connection`; the server injects a `LocalConnection`.
+- **`WSHandler`** (`src/Server/WSHandler.{h,cpp}`): RFC 6455 upgrade → authenticate a `Session`
+  (Basic / `X-ClickHouse-*` / `?user=&password=` / default) → `LocalConnection` over that session →
+  run the bridge. Registered as `WSHandler-factory` in `HTTPHandlerFactory`; wired as `ws_port` in
+  `Server.cpp` with a new `ServerType::WS`.
+
+Four behaviours differ between a remote `Connection` and an in-process `LocalConnection`, and each
+needed a fix in the shared bridge (all also correct for the proxy):
+
+1. **Materialize before formatting.** `LocalConnection` hands blocks straight from the pipeline, so
+   `SELECT 1` yields a `ColumnConst`; row output formats mishandle that (it was a *fatal abort* in
+   `SerializationString::serializeTextJSON`). Fixed by `materializeBlock(...)` before `output->write`,
+   mirroring `ClientBase::onData`. Remote blocks are already materialized over the wire, so it is a
+   cheap no-op there.
+2. **User comes from the session, not a `ClientInfo`.** Passing a fabricated `ClientInfo` to
+   `sendQuery` made `LocalConnection` build the query context from it, blanking `currentUser()`. Pass
+   no `ClientInfo` so the local path derives the user from its authenticated session (and the remote
+   server defaults the query kind).
+3. **No external-tables handshake locally.** `LocalConnection::sendExternalTablesData` is
+   `NOT_IMPLEMENTED` (and unneeded — there is no wire handshake), so skip it for `Type::LOCAL`.
+4. **Cancel cannot rely on `poll` timing.** `Connection::poll` blocks on the backend socket, which is
+   what let the old code interleave a client-socket check; `LocalConnection::poll` returns immediately
+   with data, so the check must run on *every* packet iteration, not only when `poll` times out.
+
+Also: `LocalConnection::sendQuery` **ignores the per-query `settings`** and reads them from its
+context, so `WSHandler` applies `send_logs_level` to the session context (that is how `?logs=` still
+pushes `Log` frames in-server). Any future client-controllable setting needs the same treatment.
 
 ## Key references
 
