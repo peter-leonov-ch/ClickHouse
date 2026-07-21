@@ -25,6 +25,8 @@ option (ENABLE_CLICKHOUSE_KEEPER_CONVERTER "Util allows to convert ZooKeeper log
 
 option (ENABLE_CLICKHOUSE_KEEPER_CLIENT "ClickHouse Keeper Client" ${ENABLE_CLICKHOUSE_ALL})
 
+option (ENABLE_CLICKHOUSE_WSPROXY "Standalone WebSocket proxy (native protocol <-> WebSocket, edge format conversion)" ${ENABLE_CLICKHOUSE_ALL})
+
 if (NOT ENABLE_NURAFT)
     # RECONFIGURE_MESSAGE_LEVEL should not be used here,
     # since ENABLE_NURAFT is set to OFF for FreeBSD and Darwin.
@@ -124,6 +126,12 @@ endif()
 
 if (ENABLE_CLICKHOUSE_KEEPER)
     add_subdirectory (keeper)
+endif()
+
+# Standalone binary with its own `main` and `add_executable` (see wsproxy/CMakeLists.txt),
+# so it is added here rather than via the multi-call `clickhouse_program_install` list below.
+if (ENABLE_CLICKHOUSE_WSPROXY)
+    add_subdirectory (wsproxy)
 endif()
 
 if (ENABLE_CLICKHOUSE_SELF_EXTRACTING AND NOT ENABLE_DUMMY_LAUNCHERS)

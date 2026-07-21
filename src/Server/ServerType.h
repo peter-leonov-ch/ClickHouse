@@ -17,6 +17,7 @@ public:
         TCP,
         HTTP,
         HTTPS,
+        WS,
         MYSQL,
         GRPC,
         ARROW_FLIGHT,
