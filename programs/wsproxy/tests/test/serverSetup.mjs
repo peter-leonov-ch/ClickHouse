@@ -25,7 +25,11 @@ export default async function setup() {
   const stops = [];
 
   if (!(await portOpen(WS_PORT))) {
-    const server = await spawnServerWithWs({ wsPort: WS_PORT, tcpPort: TCP_PORT });
+    const server = await spawnServerWithWs({
+      wsPort: WS_PORT,
+      tcpPort: TCP_PORT,
+      allowedOrigins: "http://127.0.0.1, https://trusted.example",
+    });
     stops.push(() => server.stop());
   }
 

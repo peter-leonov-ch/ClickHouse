@@ -27,7 +27,11 @@
 #include <base/scope_guard.h>
 
 #include <algorithm>
+#include <charconv>
+#include <cctype>
+#include <cstring>
 #include <cstdlib>
+#include <optional>
 #include <utility>
 
 
@@ -35,6 +39,11 @@ namespace DB
 {
 
 using namespace DB::WsProxy;
+
+namespace ErrorCodes
+{
+    extern const int BAD_ARGUMENTS;
+}
 
 namespace
 {
@@ -96,49 +105,183 @@ bool hasUpgradeToken(const String & connection_header)
 }
 
 /// Read a query parameter from the WebSocket URL, returning `fallback` if absent.
-String queryParam(const String & uri_string, const String & name, const String & fallback, LoggerPtr log)
+String queryParam(const String & uri_string, const String & name, const String & fallback)
 {
+    Poco::URI uri(uri_string);
+    for (const auto & param : uri.getQueryParameters())
+    {
+        if (param.first == name && !param.second.empty())
+            return param.second;
+    }
+    return fallback;
+}
+
+std::optional<Int64> positiveInt64QueryParam(const String & uri_string, const String & name)
+{
+    Poco::URI uri(uri_string);
+    std::optional<Int64> result;
+    for (const auto & param : uri.getQueryParameters())
+    {
+        if (param.first != name)
+            continue;
+
+        if (result)
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Query parameter `{}` must not be repeated", name);
+
+        Int64 value = 0;
+        const char * begin = param.second.data();
+        const char * end = begin + param.second.size();
+        const auto parse_result = std::from_chars(begin, end, value, 10);
+        if (param.second.empty() || parse_result.ec != std::errc{} || parse_result.ptr != end || value <= 0)
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Query parameter `{}` must be a positive integer", name);
+        result = value;
+    }
+    return result;
+}
+
+Int64 clientSendTimeoutSeconds()
+{
+    constexpr Int64 default_timeout = 30;
+    constexpr Int64 max_timeout = 86'400;
+    const char * value_string = std::getenv("WSPROXY_CLIENT_SEND_TIMEOUT_SEC");
+    if (!value_string || !*value_string)
+        return default_timeout;
+
+    Int64 value = 0;
+    const char * end = value_string + std::strlen(value_string);
+    const auto parse_result = std::from_chars(value_string, end, value, 10);
+    if (parse_result.ec != std::errc{} || parse_result.ptr != end || value <= 0 || value > max_timeout)
+        throw Exception(
+            ErrorCodes::BAD_ARGUMENTS,
+            "`WSPROXY_CLIENT_SEND_TIMEOUT_SEC` must be an integer between 1 and {}",
+            max_timeout);
+    return value;
+}
+
+String normalizeOrigin(const String & origin)
+{
+    Poco::URI uri(origin);
+    String scheme = uri.getScheme();
+    String host = uri.getHost();
+    std::transform(scheme.begin(), scheme.end(), scheme.begin(), ::tolower);
+    std::transform(host.begin(), host.end(), host.begin(), ::tolower);
+
+    if ((scheme != "http" && scheme != "https") || host.empty() || !uri.getUserInfo().empty()
+        || (!uri.getPath().empty() && uri.getPath() != "/") || !uri.getQuery().empty() || !uri.getFragment().empty())
+        throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Origin header");
+
+    const UInt16 port = uri.getPort();
+    const UInt16 default_port = scheme == "https" ? 443 : 80;
+    if (host.find(':') != String::npos)
+        host = "[" + host + "]";
+    return scheme + "://" + host + (port && port != default_port ? ":" + std::to_string(port) : "");
+}
+
+bool originAllowed(const HTTPServerRequest & request, const String & allowed_origins, LoggerPtr log)
+{
+    const String origin = request.get("Origin", "");
+    if (origin.empty())
+        return true;
+
+    String normalized_origin;
     try
     {
-        Poco::URI uri(uri_string);
-        for (const auto & param : uri.getQueryParameters())
-        {
-            if (param.first == name && !param.second.empty())
-                return param.second;
-        }
+        normalized_origin = normalizeOrigin(origin);
     }
     catch (...)
     {
-        LOG_DEBUG(log, "Could not parse request URI for the {} parameter; using default", name);
+        LOG_WARNING(log, "WebSocket upgrade rejected: malformed Origin header");
+        return false;
     }
-    return fallback;
+
+    if (!allowed_origins.empty())
+    {
+        bool allowed = false;
+        size_t pos = 0;
+        while (pos <= allowed_origins.size())
+        {
+            const size_t comma = allowed_origins.find(',', pos);
+            const size_t end_pos = comma == String::npos ? allowed_origins.size() : comma;
+            const size_t start = allowed_origins.find_first_not_of(" \t", pos);
+            if (start == String::npos || start >= end_pos)
+            {
+                LOG_WARNING(log, "WebSocket upgrade rejected: empty origin in `WSPROXY_ALLOWED_ORIGINS`");
+                return false;
+            }
+            const size_t last = allowed_origins.find_last_not_of(" \t", end_pos - 1);
+            try
+            {
+                if (normalizeOrigin(allowed_origins.substr(start, last - start + 1)) == normalized_origin)
+                    allowed = true;
+            }
+            catch (...)
+            {
+                LOG_WARNING(log, "WebSocket upgrade rejected: malformed origin in `WSPROXY_ALLOWED_ORIGINS`");
+                return false;
+            }
+            if (comma == String::npos)
+                break;
+            pos = comma + 1;
+        }
+        return allowed;
+    }
+
+    try
+    {
+        const String request_scheme = request.isSecure() ? "https" : "http";
+        return normalizeOrigin(request_scheme + "://" + request.getHost()) == normalized_origin;
+    }
+    catch (...)
+    {
+        LOG_WARNING(log, "WebSocket upgrade rejected: malformed Host header");
+        return false;
+    }
 }
 
 /// Resolve backend credentials for this session (credential pass-through: the
 /// backend performs authentication). Priority: `Authorization: Basic`, then
 /// `X-ClickHouse-User`/`-Key` headers, then `?user=`/`?password=` URL params,
 /// else the configured defaults already in `backend`.
-void resolveCredentials(const HTTPServerRequest & request, const String & uri, BackendParams & backend, LoggerPtr log)
+void resolveCredentials(const HTTPServerRequest & request, const String & uri, BackendParams & backend)
 {
     const String auth = request.get("Authorization", "");
-    if (auth.starts_with("Basic "))
+    const size_t auth_scheme_end = auth.find_first_of(" \t");
+    String auth_scheme = auth.substr(0, auth_scheme_end);
+    std::transform(auth_scheme.begin(), auth_scheme.end(), auth_scheme.begin(), ::tolower);
+    if (auth_scheme == "basic")
     {
         try
         {
-            const String decoded = base64Decode(auth.substr(6));
-            const size_t colon = decoded.find(':');
-            if (colon != String::npos)
+            if (auth_scheme_end != 5 || auth.size() <= 6 || auth[5] != ' ')
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            const String encoded = auth.substr(6);
+            const size_t padding_pos = encoded.find('=');
+            const size_t data_end = padding_pos == String::npos ? encoded.size() : padding_pos;
+            if (encoded.size() % 4 != 0 || encoded.size() - data_end > 2)
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            for (size_t i = 0; i < encoded.size(); ++i)
             {
-                backend.user = decoded.substr(0, colon);
-                backend.password = decoded.substr(colon + 1);
-                return;
+                const unsigned char c = encoded[i];
+                const bool is_base64_character
+                    = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '+' || c == '/';
+                if (i < data_end ? !is_base64_character : c != '=')
+                    throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
             }
+            const String decoded = base64Decode(encoded);
+            const size_t colon = decoded.find(':');
+            if (colon == String::npos || colon == 0)
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            backend.user = decoded.substr(0, colon);
+            backend.password = decoded.substr(colon + 1);
+            return;
         }
         catch (...)
         {
-            LOG_DEBUG(log, "Malformed Authorization header; falling back to other credential sources");
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
         }
     }
+    if (!auth.empty())
+        throw Exception(ErrorCodes::BAD_ARGUMENTS, "Unsupported Authorization scheme");
 
     const String header_user = request.get("X-ClickHouse-User", "");
     if (!header_user.empty())
@@ -148,11 +291,11 @@ void resolveCredentials(const HTTPServerRequest & request, const String & uri, B
         return;
     }
 
-    const String param_user = queryParam(uri, "user", "", log);
+    const String param_user = queryParam(uri, "user", "");
     if (!param_user.empty())
     {
         backend.user = param_user;
-        backend.password = queryParam(uri, "password", "", log);
+        backend.password = queryParam(uri, "password", "");
     }
 }
 
@@ -204,12 +347,48 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
         return;
     }
 
+    const char * allowed_origins_value = std::getenv("WSPROXY_ALLOWED_ORIGINS");
+    const String allowed_origins = allowed_origins_value ? allowed_origins_value : "";
+    if (!originAllowed(request, allowed_origins, log))
+    {
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_FORBIDDEN);
+        *response.send() << "Origin not allowed.\n";
+        return;
+    }
+
+    const String & uri = request.getURI();
+    String out_format;
+    String logs_level;
+    std::optional<Int64> flow_credit_param;
+    String parse_param;
+    String parallel_param;
+    BackendParams session_backend = backend;
+    Int64 send_timeout_sec = 0;
+    try
+    {
+        out_format = queryParam(uri, "format", "JSONEachRow");
+        logs_level = queryParam(uri, "logs", "");
+        flow_credit_param = positiveInt64QueryParam(uri, "flow");
+        parse_param = queryParam(uri, "parse", "");
+        parallel_param = queryParam(uri, "parallel", "");
+        resolveCredentials(request, uri, session_backend);
+        send_timeout_sec = clientSendTimeoutSeconds();
+    }
+    catch (...)
+    {
+        LOG_DEBUG(log, "Invalid WebSocket request: {}", getCurrentExceptionMessage(false));
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+        *response.send() << getCurrentExceptionMessage(false) << "\n";
+        return;
+    }
+
+    const bool flow_enabled = flow_credit_param.has_value();
+    const Int64 flow_credit = flow_credit_param.value_or(0);
+    const bool parse_enabled = parse_param == "1" || parse_param == "true";
+    const bool parallel_enabled = parallel_param == "1" || parallel_param == "true";
+
     /// Complete the handshake by writing 101 directly to the socket; from here
     /// on the stream is in WebSocket framing mode and we own the socket.
-    ///
-    /// Note: unlike the server's web terminal, no `Origin` check is enforced
-    /// here. The proxy's clients are applications, not browsers, so browser
-    /// cross-site protections do not apply; authentication is a later concern.
     Poco::Net::StreamSocket & socket = response.getSocket();
     const String handshake
         = "HTTP/1.1 101 Switching Protocols\r\n"
@@ -242,33 +421,20 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
         }
     });
 
-    const String & uri = request.getURI();
-    const String out_format = queryParam(uri, "format", "JSONEachRow", log);
     /// Optional: `?logs=<level>` (e.g. information, trace) makes the backend push
     /// server-side log lines for the session's queries.
-    const String logs_level = queryParam(uri, "logs", "", log);
     /// Opt-in credit/window flow control: `?flow=N` enables it with N frames of
     /// initial credit; absent = push mode (unbounded). The client then grants more
     /// with {"cmd":"next","n":...} and can pause/resume.
-    const String flow_param = queryParam(uri, "flow", "", log);
-    const bool flow_enabled = !flow_param.empty();
-    const Int64 flow_credit = flow_enabled ? std::strtoll(flow_param.c_str(), nullptr, 10) : 0;
     /// Opt-in SQL parsing: `?parse=1` lets the proxy parse each query to auto-route
     /// streamed-data INSERTs (no {"cmd":"insert"} needed) and report the parsed
     /// verb + routing decision as a {"event":"query",...} frame. Off by default —
     /// the proxy does not parse SQL unless the client explicitly asks it to.
-    const String parse_param = queryParam(uri, "parse", "", log);
-    const bool parse_enabled = parse_param == "1" || parse_param == "true";
     /// Opt-in parallel output formatting: `?parallel=1` formats SELECT output on a thread pool
     /// for higher conversion throughput, at the cost of coarser (batched) result frames. Ignored
     /// when flow control is on. Default off preserves fine-grained one-frame-per-block streaming.
-    const String parallel_param = queryParam(uri, "parallel", "", log);
-    const bool parallel_enabled = parallel_param == "1" || parallel_param == "true";
-
     /// Credential pass-through: resolve this session's backend user/password from
     /// the request (never mutate the shared default `backend`).
-    BackendParams session_backend = backend;
-    resolveCredentials(request, uri, session_backend, log);
     LOG_DEBUG(log, "WebSocket session established; format {}, backend user {}", out_format, session_backend.user);
 
     /// Bound each blocking WebSocket read so a stalled client cannot pin the
@@ -281,11 +447,7 @@ void WsProxyHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResp
     /// to a clean teardown. Applies per blocking write, so a slow-but-progressing
     /// client is unaffected; only genuine zero-progress stalls trip it.
     /// Configurable (mainly for tests); default 30s.
-    Int64 send_timeout_sec = 30;
-    if (const char * v = std::getenv("WSPROXY_CLIENT_SEND_TIMEOUT_SEC"); v && *v)
-        send_timeout_sec = std::strtoll(v, nullptr, 10);
-    if (send_timeout_sec > 0)
-        socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
+    socket.setSendTimeout(Poco::Timespan(send_timeout_sec * 1'000'000)); /// microseconds
 
     /// Open one native-protocol connection per session to the remote backend.
     Connection connection(

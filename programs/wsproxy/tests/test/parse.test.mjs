@@ -113,15 +113,13 @@ describe("parse mode (?parse=1)", () => {
     }
   });
 
-  it("degrades to a plain query when the SQL fails to parse", async () => {
-    // Unparseable text: the proxy must not wedge — it forwards the query and the
-    // backend reports the syntax error. queryInfo still carries the leading verb.
+  it("fails closed when opted-in SQL classification cannot parse the query", async () => {
     const s = new Session("JSONEachRow", { parse: true });
     try {
       const { queryInfo, control } = await s.run("SELECT this is not valid sql (((");
       expect(control.event).toBe("error");
-      expect(queryInfo.kind).toBe("query");
-      expect(queryInfo.verb).toBe("SELECT");
+      expect(queryInfo).toBeNull();
+      expect(control.message).toMatch(/syntax|parse|expected/i);
     } finally {
       s.close();
     }

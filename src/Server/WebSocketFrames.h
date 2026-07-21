@@ -36,6 +36,8 @@ struct WebSocketFrame
     bool protocol_error = false;
     /// Set when the advertised payload exceeds `max_payload_size`; caller closes with 1009.
     bool message_too_big = false;
+    /// Set when a close reason is not valid UTF-8; caller closes with 1007.
+    bool invalid_utf8 = false;
 };
 
 /// Compute the `Sec-WebSocket-Accept` response value per RFC 6455 section 4.2.2.
@@ -52,10 +54,13 @@ void sendWebSocketClose(Poco::Net::StreamSocket & socket, uint16_t code, const S
 
 /// Read a single frame. `deadline_ns == 0` means no absolute deadline (per-read
 /// timeouts are still governed by the socket's receive timeout). `max_payload_size`
-/// caps the advertised payload length before any allocation.
+/// caps the advertised payload length before any allocation. If
+/// `completion_timeout_ns` is non-zero, it starts after the first byte arrives and
+/// limits the remaining frame read without limiting idle time between frames.
 WebSocketFrame readWebSocketFrame(
     Poco::Net::StreamSocket & socket,
     UInt64 deadline_ns = 0,
-    uint64_t max_payload_size = 16 * 1024 * 1024);
+    uint64_t max_payload_size = 16 * 1024 * 1024,
+    UInt64 completion_timeout_ns = 0);
 
 }

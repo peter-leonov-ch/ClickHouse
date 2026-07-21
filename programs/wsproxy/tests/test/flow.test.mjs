@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { Session } from "./helpers.mjs";
+import { RawClient } from "./raw.mjs";
 
 // Collect frames until either a terminal control event or a quiet gap (no frame
 // within `gapMs`, meaning the server is gated waiting for credit). Returns
@@ -26,7 +27,45 @@ async function drainUntilGap(s, gapMs) {
 }
 
 describe("flow control (credit/window)", () => {
-  it("sends only up to the granted credit, then resumes on next()", async () => {
+  it.each(["0", "-1", "not-a-number"])("rejects invalid initial credit %s", async (credit) => {
+    const c = new RawClient({ port: 9010 });
+    const { head } = await c.handshakeResponse(`/?format=JSONEachRow&flow=${credit}`);
+    expect(head).toMatch(/^HTTP\/1\.1 400 /);
+    expect(head).not.toContain("101 Switching Protocols");
+    c.close();
+  });
+
+  it("closes the session on a nonpositive credit grant", async () => {
+    const s = new Session("JSONEachRow", { flow: 1 });
+    await s.ready();
+    s.sendQuery("SELECT number FROM numbers(10) SETTINGS max_block_size = 1");
+    expect((await drainUntilGap(s, 600)).binary).toBe(1);
+    s.next(-1);
+    const frame = await s.nextFrame(5000);
+    expect(frame?.type).toBe("close");
+    expect(frame?.code).toBe(1008);
+    s.close();
+  }, 10000);
+
+  it("closes the session rather than overflowing accumulated credit", async () => {
+    const s = new Session("JSONEachRow", { flow: 1 });
+    await s.ready();
+    s.sendQuery("SELECT number FROM numbers(10) SETTINGS max_block_size = 1");
+    s.ws.send('{"cmd":"next","n":9223372036854775807}');
+    s.ws.send('{"cmd":"next","n":9223372036854775807}');
+    let close = null;
+    for (;;) {
+      const frame = await s.nextFrame(5000);
+      if (frame === null || frame.type === "close") {
+        close = frame?.type === "close" ? frame : null;
+        break;
+      }
+    }
+    expect(close?.code).toBe(1008);
+    s.close();
+  }, 10000);
+
+  it("sends only up to the granted credit, then resumes on a next command", async () => {
     // One row per block => one binary frame per row; initial credit = 3.
     const s = new Session("JSONEachRow", { flow: 3 });
     await s.ready();
@@ -45,7 +84,7 @@ describe("flow control (credit/window)", () => {
     expect(phase1.binary + phase2.binary).toBe(20);
   }, 20000);
 
-  it("pause() halts the stream and resume() continues it", async () => {
+  it("a pause command halts the stream and a resume command continues it", async () => {
     const s = new Session("JSONEachRow", { flow: 2 });
     await s.ready();
     s.sendQuery("SELECT number FROM numbers(10) SETTINGS max_block_size = 1");
@@ -75,6 +114,6 @@ describe("flow control (credit/window)", () => {
     const r = await drainUntilGap(s, 3000);
     s.close();
     expect(r.ended).toBe(true);
-    expect(r.binary).toBe(50); // all delivered without any next()
+    expect(r.binary).toBe(50); // all delivered without any next command
   }, 20000);
 });

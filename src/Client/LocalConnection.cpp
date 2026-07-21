@@ -486,15 +486,17 @@ bool LocalConnection::poll(size_t)
 
         try
         {
-            while (pollImpl())
+            if (pollImpl())
             {
-                LOG_TEST(&Poco::Logger::get("LocalConnection"), "Executor timeout encountered, will retry");
+                LOG_TEST(&Poco::Logger::get("LocalConnection"), "Executor timeout encountered");
 
                 if (needSendProgressOrMetrics())
                     return true;
 
                 if (needSendLogs())
                     return true;
+
+                return false;
             }
         }
         catch (const Exception & e)
@@ -709,14 +711,8 @@ Packet LocalConnection::receivePacket()
         return packet;
     }
 
-    if (!next_packet_type)
+    while (!next_packet_type)
         poll(0);
-
-    if (!next_packet_type)
-    {
-        packet.type = Protocol::Server::EndOfStream;
-        return packet;
-    }
 
     packet.type = next_packet_type.value();
     switch (next_packet_type.value())

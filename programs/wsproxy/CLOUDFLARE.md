@@ -1,14 +1,15 @@
 # Deploying `clickhouse-wsproxy` on Cloudflare (Containers + Workers)
 
-Feasibility notes and a deployment sketch for running the proxy as a Cloudflare Container fronted
-by stateless Workers. **Status: analysis only — nothing here is built yet.** See `TODO.md` (repo
-root) for the proxy's overall status, and `programs/wsproxy/bench/` for the throughput/compression
-numbers this design leans on. For the alternative of putting a WebSocket port *inside*
-`clickhouse-server` (rather than as this edge sidecar), see `IN_SERVER.md`.
+Feasibility notes and a deployment sketch for running the standalone proxy as a Cloudflare
+Container fronted by stateless Workers. **Status: analysis only — nothing here is built or included
+in the selected upstream scope.** The primary upstream target is the in-server `ws_port`; see
+`IN_SERVER.md`. The standalone `clickhouse-wsproxy` remains a compatible prototype, and its
+historical throughput and compression results are under `bench/`.
 
 ## Verdict
 
-**Moderate effort, strong fit.** The proxy is already container-shaped: a single self-contained
+**The design appears feasible, but has not been validated by a deployment.** The proxy is already
+container-shaped: a single self-contained
 binary, configured entirely by `WSPROXY_*` env vars, holding **no local/disk state** (all session
 state is in-memory per connection), speaking WebSocket in and the native protocol out. Running it in
 a container needs essentially no code change; the work is the amd64 Linux build plus a thin
@@ -102,8 +103,8 @@ build a small coordinator (itself a DO) that adjusts routing under load.
 4. **Secrets & egress.** Map `WSPROXY_BACKEND_*` into the container; settle ClickHouse-side source-IP
    policy (see egress gotcha).
 
-Rough estimate: **PoC in 1-2 days** (the Linux build dominates), **production-ready in 1-2 weeks**
-once the frictions below are handled.
+No delivery estimate is asserted until the Linux image, Worker routing, current platform limits,
+and end-to-end WebSocket behavior have been validated.
 
 ## Frictions / gotchas (Cloudflare-specific)
 

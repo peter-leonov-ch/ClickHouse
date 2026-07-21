@@ -33,7 +33,11 @@ export default async function setup() {
   }
 
   if (!(await portOpen(PROXY_PORT))) {
-    const proxy = await spawnProxy({ listenPort: PROXY_PORT, backendPort: BACKEND_PORT });
+    const proxy = await spawnProxy({
+      listenPort: PROXY_PORT,
+      backendPort: BACKEND_PORT,
+      allowedOrigins: "http://127.0.0.1, https://trusted.example",
+    });
     stops.push(() => proxy.stop());
   }
 

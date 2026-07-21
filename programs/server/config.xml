@@ -190,6 +190,12 @@
          wire protocol as the standalone clickhouse-wsproxy sidecar. Disabled unless set. -->
     <!-- <ws_port>9010</ws_port> -->
 
+    <!-- Browser WebSocket requests with an `Origin` header are same-origin by default. Set
+         `ws_allowed_origins` to a comma-separated list of full origins when a trusted browser
+         application is hosted elsewhere. Requests without `Origin` remain valid for non-browser
+         clients. -->
+    <!-- <ws_allowed_origins>https://app.example.com</ws_allowed_origins> -->
+
     <!-- Chunked capabilities for native protocol by server.
          Can be enabled separately for send and receive channels.
          Supported modes:

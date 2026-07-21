@@ -56,9 +56,9 @@ export class Session {
       if (typeof ev.data === "string") push({ type: "text", data: ev.data });
       else push({ type: "binary", data: Buffer.from(ev.data) });
     });
-    this.ws.addEventListener("close", () => {
+    this.ws.addEventListener("close", (ev) => {
       this._closed = true;
-      push({ type: "close" });
+      push({ type: "close", code: ev.code, reason: ev.reason });
     });
 
     this.opened = new Promise((resolve, reject) => {
@@ -75,7 +75,8 @@ export class Session {
   }
 
   /**
-   * Next incoming frame: {type:'text',data:string} | {type:'binary',data:Buffer} | {type:'close'}.
+   * Next incoming frame: {type:'text',data:string} | {type:'binary',data:Buffer} |
+   * {type:'close',code:number,reason:string}.
    * With `timeoutMs > 0`, resolves to null if no frame arrives in time (without
    * losing a frame that arrives later — the waiter is removed on timeout).
    */

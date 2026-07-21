@@ -48,12 +48,15 @@ export class RawClient {
     });
   }
 
-  /** Perform the WebSocket upgrade handshake; resolves when the 101 is received.
-   *  Extra HTTP request headers can be supplied via `headers` (e.g. Authorization). */
-  async handshake(path = "/?format=JSONEachRow", headers = {}) {
+  /** Send the WebSocket upgrade request and return its HTTP response headers.
+   *  Raw clients identify as same-origin by default; pass `Origin: undefined`
+   *  to exercise a non-browser client without an Origin header. */
+  async handshakeResponse(path = "/?format=JSONEachRow", headers = {}) {
     await this.connected();
     const key = crypto.randomBytes(16).toString("base64");
-    const extra = Object.entries(headers)
+    const requestHeaders = { Origin: "http://127.0.0.1", ...headers };
+    const extra = Object.entries(requestHeaders)
+      .filter(([, value]) => value !== undefined)
       .map(([k, v]) => `${k}: ${v}\r\n`)
       .join("");
     this.socket.write(
@@ -67,6 +70,12 @@ export class RawClient {
     if (idx === -1) throw new Error("connection closed during handshake");
     const head = this.buf.subarray(0, idx).toString("latin1");
     this.buf = this.buf.subarray(idx + 4);
+    return { head, key };
+  }
+
+  /** Perform the WebSocket upgrade handshake; resolves when the 101 is received. */
+  async handshake(path = "/?format=JSONEachRow", headers = {}) {
+    const { head, key } = await this.handshakeResponse(path, headers);
     if (!head.includes("101 Switching Protocols")) throw new Error(`no 101:\n${head}`);
     const expect = crypto.createHash("sha1").update(key + GUID).digest("base64");
     if (!head.includes(`Sec-WebSocket-Accept: ${expect}`)) throw new Error("bad accept");
@@ -76,16 +85,33 @@ export class RawClient {
   /**
    * Send a WebSocket frame with full control over the header.
    * opts: { opcode, payload (Buffer|string), fin=true, masked=true, rsv=0,
-   *         advertisedLen (override the length field to lie about payload size) }
+   *         advertisedLen (override the length field to lie about payload size),
+   *         lengthEncoding (force 126 or 127 for non-minimal encoding tests) }
    */
-  sendFrame({ opcode, payload = Buffer.alloc(0), fin = true, masked = true, rsv = 0, advertisedLen }) {
+  sendFrame({
+    opcode,
+    payload = Buffer.alloc(0),
+    fin = true,
+    masked = true,
+    rsv = 0,
+    advertisedLen,
+    lengthEncoding,
+  }) {
     if (typeof payload === "string") payload = Buffer.from(payload);
     const len = advertisedLen ?? payload.length;
     const header = [];
     header.push((fin ? 0x80 : 0) | (rsv << 4) | (opcode & 0x0f));
     let ext = Buffer.alloc(0);
     const maskBit = masked ? 0x80 : 0;
-    if (len < 126) {
+    if (lengthEncoding === 126) {
+      header.push(maskBit | 126);
+      ext = Buffer.alloc(2);
+      ext.writeUInt16BE(len);
+    } else if (lengthEncoding === 127) {
+      header.push(maskBit | 127);
+      ext = Buffer.alloc(8);
+      ext.writeBigUInt64BE(BigInt(len));
+    } else if (len < 126) {
       header.push(maskBit | len);
     } else if (len < 65536) {
       header.push(maskBit | 126);
@@ -148,7 +174,7 @@ export class RawClient {
     this.socket.pause();
   }
 
-  /** Resume reading after a pause(). */
+  /** Resume reading after `pause`. */
   resume() {
     this.socket.resume();
   }

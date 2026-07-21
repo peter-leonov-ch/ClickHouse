@@ -1,651 +1,112 @@
-# WebSocket proxy on top of the native-protocol client layer
+# WebSocket query interface
+
+## Selected scope
+
+The upstream target for this branch is the in-server `ws_port` in
+`clickhouse-server`. It exposes the shared WebSocket query protocol through an
+in-process `LocalConnection` and keeps authentication, query execution, and format
+conversion inside the server.
+
+The standalone `clickhouse-wsproxy` binary remains in the branch as a compatible
+prototype and test peer. It exercises the same `WebSocketFrames` and
+`WebSocketSession` implementation through a remote `Connection`, but productionizing
+or deploying that binary is not part of the current upstream scope.
+
+Cloudflare deployment is analysis only. Nothing under that deployment design has
+been built; see `programs/wsproxy/CLOUDFLARE.md`.
+
+## Current implementation
+
+- `ws_port` is registered as a dedicated HTTP-upgrade listener in
+  `clickhouse-server`.
+- `WSHandler` authenticates the upgrade request, creates a server session and a
+  `LocalConnection`, then invokes `WebSocketSession::run`.
+- `WebSocketSession` supports query results, streamed inserts, progress, logs,
+  profile events, cancellation, output formats, optional SQL classification,
+  optional parallel formatting, and credit-based flow control.
+- `WebSocketFrames` implements the RFC 6455 frame layer shared by the server and
+  standalone proxy.
+- Browser upgrades with an `Origin` header are same-origin by default.
+  `ws_allowed_origins` configures a comma-separated allowlist for `ws_port`, and
+  `WSPROXY_ALLOWED_ORIGINS` provides the equivalent standalone-proxy setting.
+  Requests without `Origin` remain valid for non-browser clients.
+- Explicit Basic authentication fails closed when its header is malformed.
+- The initial `?flow=N` credit and later credit grants must be positive, fit in
+  `Int64`, and cannot overflow the accumulated credit.
+- Client messages have a cumulative 16 MiB limit across fragments. Mid-query
+  frames must complete within one second after the socket becomes readable.
+- Client write failures cancel the active query. The standalone proxy also bounds
+  stalled client writes with `WSPROXY_CLIENT_SEND_TIMEOUT_SEC`.
+- Protocol violations, invalid close frames, oversized messages, and invalid
+  flow-control grants use RFC-appropriate close handling.
+- The Node.js/Vitest suite runs the common protocol cases against both `ws_port`
+  and `clickhouse-wsproxy`. Adversarial cases cover fragmented message limits,
+  partial frames, interleaved control frames, invalid credit, origin policy, and
+  malformed credentials. Proxy-only cases cover the remote-backend boundary.
+
+`ws_port` currently speaks plaintext WebSocket (`ws://`). It does not provide a
+`ws_port_secure` listener. Deployments that expose the port outside a trusted
+network must terminate TLS at an ingress, load balancer, or other trusted proxy.
+
+## Protocol outline
+
+- A text frame containing SQL runs a normal query. Results are sent as binary
+  frames in the requested ClickHouse output format.
+- A text control message with `{"cmd":"insert", ...}` starts a streamed insert;
+  binary frames carry input data and an empty binary frame ends the input.
+- Text control frames report progress, logs, profile events, query classification,
+  and terminal `end`, `error`, or `cancelled` events.
+- Closing the WebSocket while a query is running cancels the query.
+- `?flow=N` enables frame-credit flow control. `?parallel=1` enables parallel
+  output formatting when flow control is disabled.
+
+The standalone proxy and `ws_port` intentionally use the same application
+protocol. Features that depend on a remote native-protocol hop, such as backend
+TLS and selecting its compression codec, apply only to `clickhouse-wsproxy`.
+
+## Work required before upstream review
+
+- Move the protocol coverage into repository-native ClickHouse CI. The current
+  Vitest suites are useful development coverage but are not yet CI gates.
+- Define general connection, session, memory, and concurrency limits for
+  `ws_port` and the standalone proxy.
+- Add graceful drain behavior so shutdown stops accepting new upgrades, cancels
+  or completes active work according to policy, and closes sessions predictably.
+- Add configuration documentation for `ws_port`, its plaintext-only transport,
+  origin policy, resource limits, and TLS-termination expectations.
+- Decide whether a native TLS listener is required for `ws_port`; until then,
+  document and validate the supported TLS-termination topology.
+- Replace the standalone proxy's development-only invalid-certificate mode with
+  explicit CA-based backend verification before any production deployment.
+- Decide whether the opt-in SQL classifier, parallel formatter, and application
+  flow-control extension belong in the first upstream version or a follow-up.
+
+## Deliberately out of scope
+
+- A production Cloudflare Workers/Containers deployment.
+- Production hardening of `clickhouse-wsproxy`, including `BaseDaemon`
+  integration and a configuration file.
+- A native TLS listener named `ws_port_secure`.
+- Backend connection pooling or replica load balancing. The standalone proxy
+  keeps one remote `Connection` per WebSocket session.
+
+## Development validation
+
+The test harness is documented in `programs/wsproxy/tests/README.md`. The primary
+command for the selected scope is:
+
+```bash
+cd programs/wsproxy/tests
+npm run test:server
+```
 
-## Business rationale (the actual ROI)
+The compatibility suite for the standalone prototype is:
 
-The value is **not** raw performance or a cleaner API — it is **deployment velocity**.
-Getting changes into the managed cloud is slow and expensive. A thin, self-contained
-proxy that lives at the edge (as a sidecar next to the app) lets us move logic that
-would otherwise require a server-side/cloud change out to a place we can ship quickly.
+```bash
+cd programs/wsproxy/tests
+npm test
+```
 
-Concretely, the proxy earns its keep by:
-
-- **Edge-side format conversion** — offload the format-conversion CPU from the managed
-  cluster to the sidecar, and let apps speak whatever format is convenient (`JSONEachRow`,
-  `CSV`, `Arrow`, `Parquet`, …) without a cloud-side change.
-- **Mid-query push over WebSocket** — stream `Progress`, `ProfileEvents`, and `Log`
-  packets to the app as they arrive, which the HTTP interface cannot stream cleanly.
-- **Remote backend** — unlike the in-tree web terminal (which talks to a
-  `LocalConnection`), the proxy talks to a *remote* server over the native protocol.
-
-If (edge conversion) and (mid-query push) are not the point, ROI shrinks — at that point
-the server's existing HTTP interface (`FORMAT` / `default_format`) already does
-server-side conversion, so keep this justification explicit.
-
-## Goal
-
-**Decided form factor:** a **standalone binary** under `programs/wsproxy/`, deployed as an
-edge sidecar. Preference: keep it a *separate* binary rather than wiring it into the
-multi-call `clickhouse` dispatch (see build note in the plan).
-
-**Decided session model:** **strict 1:1 sidecar** — one WS session = one native
-`Connection` to a fixed backend, thread-per-session blocking IO. No pooling, no replica
-load-balancing.
-
-A new native-protocol WebSocket proxy, built **in-tree**, that:
-
-- accepts WebSocket connections from apps,
-- opens one native-protocol `Connection` per session to a remote ClickHouse server,
-- maps native protocol packets ↔ WebSocket frames,
-- does format conversion at the edge in both directions,
-- **drops** the entire CLI/REPL surface (`ClientBase`, Replxx, `Suggest`, progress
-  bars, pager, history, autocomplete).
-
-## Current status (summary)
-
-Branch `wsproxy-skeleton`, draft PR against the fork (`peter-leonov-ch/ClickHouse` #4, **not**
-upstream). Working prototype, **113 Node/vitest integration tests green** (hermetic suite, spawns its
-own backend + proxy). Benchmark harness committed under `programs/wsproxy/bench/`.
-
-### Delivered
-
-- **Standalone binary** `programs/wsproxy/clickhouse-wsproxy` (own `clickhouse_add_executable`, not in
-  multi-call dispatch; ~306 MB stripped — *separate ≠ smaller*, links `dbms`).
-- **WS front door** — hand-rolled RFC 6455 framing (`WebSocketFrames.{h,cpp}`), HTTP upgrade handler.
-- **Native bridge** (`ProxySession.{h,cpp}`), strict 1:1, thread-per-session:
-  - **SELECT** → output format at the edge → binary frames (one flush per block).
-  - **Streamed INSERT** via explicit `{"cmd":"insert",...}` control message (the proxy never parses SQL).
-  - **Mid-query push**: `progress` / `log` / `profile_events` as JSON text frames.
-  - **Cancel** by Close frame → `sendCancel` → drain.
-- **Auth** — credential pass-through (Basic / `X-ClickHouse-*` / URL params / env default), eager
-  connect (bad creds → error + `1008` close before any query).
-- **proxy → backend TLS** (`WSPROXY_BACKEND_SECURE`; dev-only accept-invalid-cert flag).
-- **Opt-in knobs**: `?flow=N` (credit flow control for slow JS clients), `?parse=1` (parse to
-  auto-route inserts + report `{verb,kind}`), `?parallel=1` (parallel output formatting),
-  `WSPROXY_BACKEND_COMPRESSION` (`lz4`|`zstd`|`none`).
-- **Backpressure**: TCP-driven + send timeout so a stalled client can't pin a handler thread.
-
-### Key findings (for the pitch)
-
-- **Edge conversion + compressed wire is the win.** WAN is bandwidth-bound; **ZSTD native ≈ 7-10 MB**
-  for the 3M-row benchmark vs **gzip-JSON 21 MB** vs **lz4 36 MB** — columnar+zstd beats row-JSON+gzip
-  2-3×, and JSON-formatting CPU moves off the cloud to the sidecar. This is the rebuttal to "why not
-  just gzip the HTTP interface?".
-- **Parallel formatting** gives ~1.6-1.7× locally but the format is only ~40% of the pipeline; the
-  serial native-receive/decompress + WS-send path (~990 MB/s) is the real ceiling.
-- **Never parse SQL** (principle) — routing is by client message kind; parsing is strictly opt-in.
-
-### Next steps (roughly ordered)
-
-1. **Decide the default codec.** Recommend **ZSTD default for WAN** (it's the whole point); currently
-   defaults to `lz4` for safety. Trade-off: more backend CPU to compress (cheaper than the JSON work
-   we already moved off-cloud).
-2. **Lift the serial throughput ceiling** (only if a same-region/LAN profile justifies it): dedicated
-   WS-send thread and/or parallel receive+decompress. Parallel *formatting* alone won't help further.
-3. **Format-settings faithfulness** — let clients pass format settings (URL/query), fixing the
-   unquoted-`UInt64` precision gap for JS clients (see lowlights).
-4. **Productionization track**: config file (replace the `WSPROXY_*` env sprawl), CA-based cert
-   verification (replace accept-invalid), resource limits + graceful drain, `BaseDaemon`, CI wiring.
-5. **Robustness coverage**: protocol-revision skew vs older server binaries; slow-loris / partial-frame
-   timeouts.
-6. **Docs/pitch**: update the team artifact's evidence table with the ZSTD row; README for the client
-   protocol (`{"cmd":"insert"}`, `?parse`/`?parallel`/`?flow`).
-7. **Cloudflare deployment** (Containers + stateless Workers) — feasibility, architecture, scaling,
-   and frictions are written up in `programs/wsproxy/CLOUDFLARE.md`. Long pole is the amd64 Linux
-   build; the Worker/DO glue is small.
-8. **In-server WS port** (alternative home) — **PROTOTYPE BUILT AND TESTED.** A `ws_port` inside
-   `clickhouse-server` bridges the shared `WebSocketSession` to an in-process `LocalConnection`; the
-   same vitest suite passes against it (in-server 102/102, proxy 113/113). Details + the
-   LocalConnection gotchas in `programs/wsproxy/IN_SERVER.md`. Still a core diff on the cloud-release
-   cycle and it loses the edge/compression value — a complementary upstream play, not a faster
-   sidecar. The bridge (`WebSocketFrames` + `WebSocketSession`) now lives in `src/Server` (dbms),
-   shared by both the proxy binary and the server.
-
-### Lowlights / known limitations / risks
-
-- **64-bit ints render unquoted in JSON** — `JSON.parse` loses precision for large `UInt64`/`Int64`.
-  Faithfulness gap (no client control of format settings yet). See next-step 3.
-- **`?parallel=1` caveats**: coarser (batched) frames; **mutually exclusive with `?flow`**; client-gone
-  detection lags mid-stream (the collector drops on broken, session drains to finalize — wasteful but
-  not a hang).
-- **`WSPROXY_BACKEND_ACCEPT_INVALID_CERT` is dev-only** — disables backend cert verification. Needs
-  real CA verification before production.
-- **Client → proxy TLS not implemented** (deprioritized: sidecar loopback / ingress-terminated). Browser
-  clients can't set headers → creds go in URL params (leak in logs unless the leg is TLS).
-- **Big binary (~306 MB) + rebase treadmill** — must track `Connection` / `FormatFactory` API churn.
-- **All config is env vars**; no config file, no resource limits, no graceful drain, not on `BaseDaemon`.
-- **ZSTD costs backend CPU** to compress — a deliberate bytes-for-CPU trade; fine for WAN, reconsider on LAN.
-- **A fully `pause()`d flow-control client** stops seeing progress/logs/`end` too (ordering; documented) —
-  guidance is to throttle with small `next()` credits, not an indefinite pause.
-- Benchmarking gotcha: `clickhouse-client FORMAT Null` **short-circuits** (never transfers) — don't use
-  it as a transfer measure.
-
-## Design decisions
-
-### Cut line — move it down a layer
-
-Reuse the layer *below* the client program, not the client program itself.
-
-- **OUT (the CLI):** `programs/client/Client.cpp`, `src/Client/ClientBase.cpp`,
-  Replxx line editing, terminal progress, pager, history, `Suggest.cpp`.
-- **IN (the machinery):**
-  - `src/Client/Connection.{h,cpp}` — native protocol: handshake, revision negotiation,
-    `sendQuery`, `sendData`, `sendCancel`, `receivePacket`, compression, TLS.
-  - `src/Formats/` + `FormatFactory` — full format matrix, both directions (output
-    formats for results, input formats for INSERT payloads).
-  - `src/DataTypes`, `src/Columns`, `src/Core` (`Block`, `Protocol.h`, `Settings`),
-    `src/IO`, `src/Compression` — the type system and codecs underneath the formats.
-
-### Existence proof already in the tree — use it as the primary template
-
-`src/Server/WebTerminalRequestHandler.cpp` already ships a WebSocket endpoint inside
-`clickhouse-server` (the "web terminal": browser → WS → embedded client). It resolves
-most open questions and corrects the earlier guesses:
-
-- **Front door is hand-rolled RFC 6455, NOT `Poco::Net::WebSocket`.** Frame read/write,
-  masking, fragment reassembly, control frames, and close codes are implemented directly
-  on `response.getSocket()` (`WebTerminalRequestHandler.cpp:85-258`). Copy those framing
-  helpers rather than pulling in `Poco::Net::WebSocket`.
-- **Front door is an HTTP request handler, not a bespoke server.** Registered in
-  `HTTPHandlerFactory.cpp:450` via `HandlingRuleHTTPHandlerFactory<WebTerminalRequestHandler>`
-  on `/webterminal`. This is the canonical way to accept and upgrade a WS connection in
-  this codebase.
-
-### Template set
-
-- **Upstream (WS front door):** `WebTerminalRequestHandler` + the `HTTPHandlerFactory`
-  registration.
-- **Downstream (native protocol driving):** `clickhouse-benchmark`
-  (`programs/benchmark/Benchmark.cpp`) — drives `Connection` directly, multi-connection,
-  with no `ClientBase`. NOTE: benchmark is a *pure client* — it has no accept socket, so
-  it is only a template for the downstream half.
-
-The proxy is essentially `WebTerminalRequestHandler` with the backend swapped: keep the
-WS side, delete PTY + `ClientEmbedded` (`ClientEmbedded.h:17`, a `ClientBase` subclass) +
-`LocalConnection`, and substitute a **remote `Connection` + `FormatFactory`**.
-
-### Concurrency model — single thread, one `poll` loop per session
-
-Follow the web terminal, not a two-thread-per-session design.
-`WebTerminalRequestHandler.cpp:685-695` multiplexes `{ws socket fd, pty fd}` in a single
-`poll(fds, 2, 100)` loop. For the proxy this becomes `poll({ws socket, Connection socket})`:
-
-- One thread per session (consistent with the server's own thread-per-connection TCP model).
-- Cancellation falls out for free: a frame arriving on the WS fd mid-query →
-  `Connection::sendCancel` (`Connection.h:128`), then drain.
-- `Connection::poll(timeout)` (`Connection.h:136`) and `setAsyncCallback`
-  (`Connection.h:172`) exist precisely for this interleaving — it is how the server
-  watches remote connections during distributed queries.
-
-## Packet ↔ frame mapping (to be detailed)
-
-Per-session loop: accept WS → open one `Connection` → on query, `sendQuery` and loop
-`receivePacket`, mapping packets to WS frames:
-
-- `Data` blocks → run through an output format → binary frames.
-- `Progress` / `ProfileEvents` / `Log` → small control frames.
-- `Exception` / `EndOfStream` → terminators.
-- **INSERT dance:** server replies to INSERT with a header block describing the table
-  structure → instantiate an *input* format for whatever the app sent
-  (`JSONEachRow`, `CSV`, …) → parse into `Block`s → `sendData` natively. Mirror the
-  logic in `ClientBase::processInsertQuery`.
-- **Cancel:** WS close frame or cancel frame → `Connection::sendCancel` → drain.
-
-## What we inherit for free
-
-Complete type coverage (`LowCardinality`, `Dynamic`, `Variant`, `JSON`,
-`AggregateFunction` states — everything, as long as we rebase), the full format matrix in
-both directions, native LZ4/ZSTD, TLS, and protocol revision negotiation so moderate
-proxy/server version skew just works.
-
-## The bill / risks
-
-- **Marrying the ClickHouse build:** recent Clang only, ~100 submodules, serious RAM,
-  long builds, and CI has to carry it.
-- **Large binary** — `FormatFactory` alone drags in Arrow/Parquet/ORC/capnproto/protobuf/
-  Avro; expect a few hundred MB. Fine for a sidecar; not a lightweight artifact.
-- **Rebase treadmill** — monthly upstream releases. Mitigation: keep the handler
-  self-contained in its own directory with near-zero diffs to shared code, so rebases
-  stay mechanical. Watch for `Connection` and `FormatFactory` API churn.
-
-## Rejected alternative
-
-`clickhouse-cpp` (standalone C++ client library): clean CMake, none of the monorepo pain,
-but has its own partial type-system reimplementation and **zero** format machinery. Since
-edge-side format conversion is the whole point, it defeats the purpose. Only interesting
-if we ever need just two or three formats.
-
-## Step 2 status — DONE (branch `wsproxy-skeleton`)
-
-Real WebSocket endpoint implemented and validated:
-- `WebSocketFrames.{h,cpp}` — reusable RFC 6455 framing (lifted/adapted from
-  `WebTerminalRequestHandler`): handshake accept-key, masked read / unmasked write,
-  fragmentation, control frames, size caps.
-- `WsProxyHandler.{h,cpp}` — HTTP entry: non-WS → info page; WS upgrade → handshake then
-  an echo loop (the placeholder the step-3 session loop replaces). No `Origin` check
-  (clients are apps, not browsers).
-- `WsProxy.cpp` — blocks `SIGINT`/`SIGTERM` in the main thread before the server spawns
-  workers, so Poco's `waitForTerminationRequest` `sigwait` catches them → **clean exit 0
-  shutdown** (verified). `BaseDaemon` re-base deferred (not needed for the signal fix).
-
-Validated with a dependency-free raw-socket WS client (`tmp/ws_test.py`): handshake +
-verified `Sec-WebSocket-Accept`, text echo, 200-byte binary echo, ping/pong, close.
-
-Test-hygiene note: background launches detach and orphan (PPID 1) if not killed by exact
-binary PID; `pgrep -f` also matches the launch shell. Always test one instance, select the
-PID whose command starts with `./build`, and confirm zero processes between runs.
-
-## Step 3 status — DONE (branch `wsproxy-skeleton`)
-
-The echo loop is replaced by a real native-protocol bridge (`ProxySession.{h,cpp}`):
-
-- Opens one `Connection` per WebSocket session (1:1) to a backend from env
-  (`WSPROXY_BACKEND_HOST`/`PORT`/`USER`/`PASSWORD`/`DATABASE`; defaults `localhost:9000`).
-- Client sends a query as a text frame; output format from the WS URL `?format=`
-  (default `JSONEachRow`). Results stream back as **binary frames**, one flush per block,
-  via `FormatFactory::getOutputFormat` → `output->write` → `output->flush`.
-- Control frames (JSON text): `{"event":"end"}`, `{"event":"error","message":...}`,
-  `{"event":"cancelled"}`.
-- Mid-query cancel: a Close frame detected in the interleaved `connection.poll` /
-  `socket.poll` loop triggers `Connection::sendCancel`, then drains to `EndOfStream`.
-
-Two bugs found by running end-to-end and fixed:
-1. **Wasn't actually streaming** — `WriteBufferToWebSocket` only flushed on a full 1 MB
-   buffer, so nothing went out until `finalize`. Fix: `output->flush()` per block.
-2. **`WriteBuffer` not finalized on all paths / `nextImpl` threw on a gone client** — gave
-   a "neither finalized nor canceled" warning and teardown exceptions. Fix: `nextImpl`
-   latches a `broken` flag instead of throwing; every exit path finalizes (clean) or
-   cancels (error/aborted).
-
-Validated against a real ClickHouse server (installed 25.8.1) with `tmp/ws_test3.py` and
-`tmp/ws_cancel_test.py`: scalar/`numbers(5)` selects, error propagation, `?format=TSV`,
-multi-query sessions, per-block streaming, and mid-query cancel confirmed via
-`system.processes` (query stopped server-side). Clean SIGTERM shutdown still holds.
-
-Not yet done (next): INSERT path (plan step 6), progress/log/profile push as control
-frames, config-file/auth, `BaseDaemon` hardening.
-
-## Step 4 status (plan step 6) — INSERT path DONE (branch `wsproxy-skeleton`)
-
-Reverse-direction bridging in `ProxySession::executeInsert`: the app sends `INSERT INTO t
-[FORMAT X]` as a text frame, then streams data as **binary frames** ending with a
-zero-length binary frame (clean) — a Close mid-stream aborts (→ `sendCancel`, no partial
-commit). Inline `INSERT ... VALUES (...)` is handled too (data taken from the query, format
-inferred as `Values`). `executeQuery` best-effort parses with `ParserQuery` and dispatches
-INSERT vs SELECT.
-
-Flow: `sendQuery(with_pending_data=true)` → `sendExternalTablesData({})` → receive sample
-block → `getInputFormat` over a `ReadBufferFromWebSocket` → `PullingPipelineExecutor` pulls
-blocks → `Connection::sendData` each → `sendData({})` to finish → await `EndOfStream`.
-
-Four bugs found by running end-to-end (all fixed):
-1. **`with_pending_data` must be true** for INSERT or the server never enters the send-data
-   handshake.
-2. **Must send empty external-tables data** (`sendExternalTablesData({})`) after the query,
-   else server waits for external tables while the proxy waits for the sample → deadlock.
-3. **`ReadBuffer` has no permanent EOF latch** — `next()` re-invokes `nextImpl` after a false
-   return, and the input format does a trailing read; without a `finished` latch the WS read
-   buffer blocked on a frame that never arrives (this was the actual hang). Fixed with a latch.
-4. Used the **synchronous `PullingPipelineExecutor`** (not the async one) — runs in the
-   calling thread, no query-context/thread-group requirement for a bare global `Context`.
-
-Validated against installed ClickHouse 25.8.1 with `tmp/ws_insert_test.py`: streamed
-JSONEachRow insert, inline VALUES insert, format inference, server-side row/sum verification,
-INSERT-into-missing-table error. No regressions in SELECT (`tmp/ws_test3.py`) or cancel
-(`tmp/ws_cancel_test.py`); clean SIGTERM shutdown holds.
-
-Still next: progress/log/profile push as control frames, config-file/auth, `BaseDaemon`.
-
-## Step 5 status — progress push DONE (branch `wsproxy-skeleton`)
-
-Mid-query push implemented in `executeSelect`: each server `Progress` packet is forwarded as
-a `{"event":"progress","read_rows":N,"read_bytes":M,"total_rows_to_read":T}` text frame.
-Server progress is incremental, so reads are accumulated and the latest total estimate is
-tracked; running totals are pushed. Text frames don't disturb the binary result stream, so
-clients just skip `progress` events when reading to the terminal `end`/`error`/`cancelled`.
-
-Validated with `tmp/ws_progress_test.py` (a ~3s `sleepEachRow` query): 32 progress events,
-monotonic `read_rows` 1→30, `total_rows_to_read=30`. No regressions (SELECT/INSERT/cancel
-suites updated to skip progress frames and still green).
-
-Still next: profile-events / log push, config-file/auth, `BaseDaemon` hardening.
-
-## Step 6 status — profile-events / log push DONE (branch `wsproxy-skeleton`)
-
-`executeSelect` now forwards `Log` and `ProfileEvents` packets as JSON control frames via
-`sendBlockEvent`: each block is serialized to `JSONEachRow` and spliced into
-`{"event":"log"|"profile_events","rows":[{...},{...}]}` (reusing the output format keeps it
-correct for any columns/types). `ProfileEvents` are emitted by the server automatically; `Log`
-delivery requires `send_logs_level` — which the backend sets from the *query packet* settings,
-not query-text SETTINGS, so the proxy applies it from a new session param `?logs=<level>`
-(threaded handler → `ProxySession` → a mutable `Settings` copy in `sendBackendQuery`).
-
-Client protocol note: `log`/`profile_events` (like `progress`) are non-terminal text frames;
-clients accumulate them until the terminal `end`/`error`/`cancelled`. The JS helper's
-`collect()` now returns `{ data, text, progress, logs, profileEvents, control }`.
-
-Validated with `tmp/.../tests/test/logs.test.mjs` (18 tests total, all green): log push via
-`?logs=trace`, no logs at the default level, and profile events during a slow query.
-
-Still next: config-file/auth, `BaseDaemon` hardening. (This completes the mid-query-push story.)
-
-## Production hardening — test push #1 (branch `wsproxy-skeleton`)
-
-Expanded the integration suite across four areas (type matrix, format matrix, concurrency,
-resilience) — 59 tests, all green. This push found and fixed a real bug and surfaced findings:
-
-**Bug found & fixed:** `AggregateFunction`-typed columns failed with `Unknown aggregate
-function sum: while receiving packet` — the proxy called only `registerFormats()`, but
-deserializing `AggregateFunction` off the native wire needs the aggregate-function registry.
-Fixed by calling `registerFunctions()` + `registerAggregateFunctions()` at startup (matching
-`clickhouse-client`) and linking `clickhouse_aggregate_functions`. Directly threatened the
-"complete type coverage" claim.
-
-**Finding (deferred to productionization):** UInt64 renders **unquoted** in JSONEachRow through
-the proxy, whereas `clickhouse-client` quotes by default — a format-settings faithfulness gap.
-Matters for JS clients (unquoted 64-bit ints lose precision on `JSON.parse`). Root: the proxy
-derives `FormatSettings` from a bare `Context`; clients can't control format settings. Fix later:
-apply faithful defaults and/or let clients pass settings (URL params / query settings).
-
-**Confirmed working:** session reuse after a backend error/syntax error (reused `Connection`
-survives); proxy stays healthy after a client cancels mid-query; unreachable backend →
-`error` event, no hang/crash; 40 concurrent sessions + 1M-row streamed result + 100-query
-session longevity. Also added `WSPROXY_PORT` (configurable listen port) to enable multi-instance
-resilience tests.
-
-### Test push #2 — adversarial / backend-failure / large INSERT (all green, 72 tests)
-
-- **adversarial.test.mjs** (raw-TCP client `test/raw.mjs`, since native `WebSocket` only
-  emits well-formed frames): unmasked frame, reserved opcode, RSV bit, and oversized-advertised
-  frame are all rejected with a clean close; ping→pong; and the proxy survives malformed input
-  (fresh clients still work). RFC 6455 hardening confirmed — no proxy bugs.
-- **backend-failure.test.mjs** (spawns its own backend+proxy on non-default ports): killing the
-  backend mid-query → the proxy delivers a clean `error`/close **promptly** (~1s, not the 20s
-  natural query length) and the proxy process survives. Good resilience result.
-- **large-insert.test.mjs**: 500k-row streamed JSONEachRow INSERT + 100k single-frame + 100k TSV,
-  verified against server-side count/sum. Streaming INSERT holds under volume.
-
-Test-infra learnings: `spawnBackend`/`spawnProxy` in `test/proc.mjs`; killing `clickhouse-server`
-requires `lsof -ti tcp:<port>` (its watchdog fork evades signalling the spawned pid, its process
-group, and `pkill -f` on the config path).
-
-### Test push #3 — exceptions (all green, 78 tests)
-
-**exceptions.test.mjs** (6 tests) — probed the proxy's error paths, all behave correctly (no bugs):
-- Exception *after* partial results: rows 0–4 stream, then the `error` event (the `Exception`-after-`Data` path: `output.reset()`/`out_buf.cancel()`).
-- Session reuse after a mid-stream exception (reused `Connection` survives).
-- Malformed INSERT data → `error` **and 0 rows committed** (abort via `sendCancel`, no partial commit).
-- Type error in INSERT data → clean parse error.
-- ClickHouse error message/code preserved faithfully.
-- Session healthy after an INSERT error (fresh insert commits).
-
-Progress was already covered for SELECT (progress.test.mjs).
-
-### Test push #4 — edge cases + INSERT flow (all green, 85 tests)
-
-- **edge.test.mjs**: empty result set, `LIMIT 0` (header only), DDL (CREATE/DROP → `end`, no data),
-  many columns + NULLs + arrays in one row, empty-string/unicode INSERT round-trip.
-- **insert-flow.test.mjs**: closing the socket mid-INSERT aborts via `sendCancel` with **0 rows
-  committed** (no partial commit), and the proxy stays healthy (a clean INSERT commits afterwards).
-
-**INSERT-progress investigated and dropped:** implemented `written_rows` forwarding, but the native
-protocol emits **no** `Progress` packets for client-data INSERTs (verified: 0 events even for 1M
-rows into MergeTree, 146ms). Reverted the dormant forwarding to avoid unverified/dead code.
-
-## DESIGN PRINCIPLE: never parse SQL in the proxy
-
-The proxy must **not** parse or interpret SQL. We tried it (`ParserQuery` to route INSERT vs SELECT)
-and it's the wrong approach: fragile, couples the proxy to SQL semantics, and even the real C++
-client only knows a query is a data-INSERT by parsing (`ASTInsertQuery`) — there is **no** protocol
-signal at query-send time (`with_pending_data` is in the Query packet before any response, and the
-server's first `Data` packet is ambiguous between a sample header and a result header). So query
-kind must be driven by the **client's explicit intent**, never by inspecting the SQL.
-
-### INSERT-SELECT "hang" — investigated: NOT a bug (earlier note was wrong)
-
-Ran it end-to-end: `INSERT … SELECT`, inline `INSERT … VALUES`, and DDL all return `end` correctly
-and the proxy stays healthy. The only hang is a client that sends `INSERT … FORMAT X` and then never
-streams the data it promised (an incomplete client protocol, not misrouting) — the proxy waits out
-the receive timeout. The current `ParserQuery` routing happens to handle INSERT-SELECT (the sample
-loop catches `EndOfStream`), but the parser must go regardless (see principle above).
-
-**DONE — parser removed.** `ProxySession` no longer links or calls `ParserQuery`/`ASTInsertQuery`.
-Routing is by message kind: a raw text frame is a plain query → `executeSelect`
-(`with_pending_data=false`, handles SELECT / INSERT-SELECT / inline-INSERT / DDL, never waits for
-client data → the bare-`FORMAT`-insert hang is gone); a `{"cmd":"insert","query":...,"format":...}`
-control message opts into `executeInsert` (streamed data phase, `with_pending_data=true`).
-`parseInsertCommand` only inspects the message envelope (top-level JSON `cmd`), never SQL.
-`executeInsert` simplified (no inline-data handling; always reads the streamed frames). JS
-`Session.insert` sends the control message; added `Session.beginInsert(query,{format})`. 100 tests
-green, incl. explicit INSERT-SELECT / inline-VALUES as plain queries.
-
-**Opt-in SQL parsing (`?parse=1`) — DONE.** For clients that don't want to classify their own SQL,
-`?parse=1` makes the proxy parse each query in ONE place (`classifyQuery`) to: (a) push a
-`{"event":"query","kind":"insert"|"query","verb":"<LEADING KEYWORD>"}` frame (clients often need the
-verb + kind), and (b) auto-route a streamed-data INSERT (`INSERT … [FORMAT X]` with no
-SELECT/INFILE/inline-data) without the `{"cmd":"insert"}` envelope. `verb` comes from the SQL `Lexer`
-(skips leading comments); `kind` is the routing decision. Off by default — the no-parse contract is
-unchanged for default clients — and a parse failure degrades to the plain-query path (backend reports
-real errors), so a parser quirk can never wedge a statement. The explicit `{"cmd":"insert"}` message
-always wins over parsing. 109 tests green.
-
-**Parallel output formatting (`?parallel=1`) — PROTOTYPE DONE.** Opt-in: `executeSelect` uses
-`FormatFactory::getOutputFormatParallelIfPossible` when `?parallel=1` and flow control is off. Since
-the parallel formatter runs a collector thread that writes result frames concurrently with the
-session thread's progress/log/control frames, all whole-frame sends are serialized behind a new
-`ProxySession::ws_write_mutex` (passed to `WriteBufferToWebSocket` and the cancel-poll
-`applyControlFrame`; `sendControlEvent`/`sendBlockEvent` lock it too). Also removed a per-frame
-alloc+copy in `sendWebSocketFrame` (send header then payload directly, safe under the lock). Trade-off:
-coarser (batched) result frames, and it is mutually exclusive with `?flow` (whose credit gate reads
-the client socket on the session thread). Benchmarks (loopback, `JSONCompactEachRow`): ~1.6-1.7×
-(10M rows 531→333ms, 30M 1658→972ms), reaching the cheap-format (`RowBinary`) floor — i.e. formatting
-is fully hidden and the remaining ceiling (~990 MB/s, ~1.8 cores) is the *serial* native
-receive+lz4-decompress and WS send path. Irrelevant over a WAN (network-bound). Bytes identical to the
-default path (parallel.test.mjs). 112 tests green. NB the earlier "single-threaded format is THE
-bottleneck" claim was too strong: format is only ~40% of the loopback pipeline; receive+send are the
-rest and are still serial (future work: dedicated send thread / faster decompress).
-
-**Why gzip-HTTP beat the proxy over the WAN — ANSWERED + fixed.** The WAN is bandwidth-bound (~8.5
-MB/s). The proxy's native transport used **LZ4**, which trades ratio for speed: for the (highly
-compressible) benchmark data, LZ4 put 36.5 MB on the wire vs gzip-on-JSON's 21.3 MB, so gzip-HTTP was
-faster purely on bytes. Fix: make the backend codec configurable via `WSPROXY_BACKEND_COMPRESSION`
-(`lz4` default | `zstd` | `none`); the server compresses result blocks with the client's
-`network_compression_method`, and the proxy's `Connection` decompresses any codec (self-describing).
-With **ZSTD**, columnar native compresses far better than row JSON: 3M-row wire bytes drop to ~7-10 MB
-(2-3× smaller than gzip's 21 MB), and end-to-end cloud time drops 5.0s → 2.5s (2×), now *beating*
-gzip-HTTP (3.5s). **When gzip wins:** only bandwidth-bound link AND highly compressible data (the
-sequential-integer benchmark is the worst case for the proxy). For realistic/high-entropy data,
-columnar native beats row JSON even with LZ4 (123 vs 140 MB at 3M) and ZSTD wins outright. Codec is
-delivered-byte-identical (compression.test.mjs). 113 tests green. Recommend ZSTD default for WAN
-deployments (costs backend CPU to compress — but that's cheaper than the JSON formatting we already
-moved to the edge).
-
-Coverage still thin / future pushes: slow-loris/partial-frame timeouts, TLS, protocol-revision
-skew across older server versions (need old server binaries). Productionization track (separate):
-auth (done), proxy→backend TLS, config file, resource limits, graceful drain, `BaseDaemon`,
-CI wiring. Client→proxy TLS is LEAST priority (sidecar loopback / ingress-terminated).
-
-## Productionization — Auth DONE (credential pass-through, branch `wsproxy-skeleton`)
-
-The proxy no longer holds fixed backend creds only from env — it resolves per-session credentials
-from the WebSocket upgrade request and opens the backend `Connection` **as that user**, delegating
-all authN/authZ to ClickHouse (no auth system reinvented). `WsProxyHandler::resolveCredentials`
-priority: `Authorization: Basic` → `X-ClickHouse-User`/`-Key` headers → `?user=`/`?password=` URL
-params → the configured `WSPROXY_BACKEND_*` defaults. A per-session `BackendParams` copy is used
-(never mutating the shared default). Bad credentials surface as the backend's auth error event
-(pass-through; lazy connect on first query).
-
-Tested in `auth.test.mjs` (6 tests): default user, URL params, `Basic` header, `X-ClickHouse`
-headers, and wrong-password rejection via URL params and `Basic`. Header-based creds are tested via
-the raw-TCP client (native/browser `WebSocket` can't set request headers — so browsers must use URL
-params, which leak in URLs/logs unless behind TLS; note for the TLS work).
-
-Also made the integration suite **self-contained**: `globalSetup` now generates the backend config
-(default + `wsp_user`) via `spawnBackend`/`spawnProxy` instead of depending on gitignored
-`tmp/ch/*`. 91 tests total, all green. This is most of what CI wiring needs (just a
-`clickhouse-server` binary + the built proxy).
-
-Eager connect DONE: `run()` calls `Connection::forceConnected` up front, so authentication (which
-happens during the native handshake) is validated at session start — bad creds get an `error`
-control frame + a `1008` WebSocket close *before any query is sent* (tested). 92 tests, all green.
-
-Auth follow-up — TLS, split by leg and priority:
-- **proxy → backend TLS — DONE.** `WSPROXY_BACKEND_SECURE=1` connects over the native secure
-  protocol (`Protocol::Secure::Enable`); `WSPROXY_BACKEND_ACCEPT_INVALID_CERT=1` sets
-  `openSSL.client.invalidCertificateHandler=AcceptCertificateHandler` + `verificationMode=none`
-  in the app config for self-signed/dev certs (Poco builds the client SSL context lazily from it).
-  Verified manually against the OrbStack TLS backend (:9440) and reproducibly in `tls.test.mjs`,
-  which stands up its own TLS ClickHouse (`spawnBackend({securePort})` generates a self-signed cert
-  + `<openSSL><server>` config). Cred pass-through and wrong-password rejection both confirmed over
-  TLS. Production follow-up: proper CA verification instead of accept-invalid (add a CA/cert config).
-- **client → proxy TLS (LEAST priority for now):** deprioritized — the proxy is a sidecar next to
-  the app, so this leg is typically loopback / in-pod (or TLS is terminated at the ingress /
-  service mesh). Revisit only if the proxy is exposed beyond the app's trust boundary.
-
-## Backpressure & flow control
-
-Analysis: backpressure is already correct and bounded by the blocking-socket + demand-driven
-model. A slow WS client → blocking `sendBytes` → the session loop stops calling `receivePacket`
-→ the backend's TCP window closes → the server throttles its own production. Per-session memory is
-bounded (one `Block` + the 1 MB `WriteBufferToWebSocket` + the two kernel socket buffers); no queue
-accumulates. No application-level flow-control signal is needed — TCP is the signal. The kernel
-socket buffers (`SO_RCVBUF` backend leg / `SO_SNDBUF` client leg) act as the pipeline buffer that
-lets the backend keep producing while the proxy writes, up to a bound — so moderate speed mismatch
-adds no artificial delay; only a persistently slow client engages throttling.
-
-**#1 DONE — send timeout.** Previously the handler set only `setReceiveTimeout`; a client that
-stopped reading entirely (window stuck at 0) blocked `sendBytes` forever, pinning a handler thread
-(pool is 16 → a few stalled clients = exhaustion). Now `setSendTimeout` (default 30s, env
-`WSPROXY_CLIENT_SEND_TIMEOUT_SEC`) bounds a zero-progress write; the throw routes through
-`WriteBufferToWebSocket` (`broken` → `sendCancel`) to a clean teardown. It's per-write, so a
-slow-but-progressing client is unaffected. Tested in `backpressure.test.mjs` (a client that pauses
-reading is dropped ~1s and the proxy stays healthy for the next client).
-
-Deferred: #2 writer thread + bounded queue for full read/write parallelism (kernel buffers already
-give most of it — revisit only if a throughput profile justifies it); #3 WS `permessage-deflate`
-for bandwidth; expose `SO_SNDBUF`/`SO_RCVBUF` + timeouts via config file.
-
-### JS client receive backpressure — decision: client-side only (no proxy change)
-
-The proxy's TCP backpressure is necessary but NOT sufficient for JS clients: browser/Node
-event-based `WebSocket` eagerly drains the socket into the JS heap and dispatches `onmessage` with
-no receive-backpressure API, so the client's TCP window stays open, the proxy never blocks, and a
-large result to a slow consumer grows the JS heap unbounded → OOM. The proxy can't detect this.
-
-**DONE — opt-in credit/window flow control** (frame-based). `?flow=N` enables it with N frames of
-initial credit; without `?flow`, push mode is unchanged (unbounded, zero overhead). Frame = one WS
-binary data frame (= one block flush), so no byte repacking. The client controls the stream with:
-- `{"cmd":"next","n":N}` — grant N more frames of credit;
-- `{"cmd":"pause"}` / `{"cmd":"resume"}` — hard stop / resume.
-The proxy sends a data frame only while `!paused && credit > 0`; the gate lives in
-`WriteBufferToWebSocket::nextImpl`, which blocks reading the client's control frames when starved —
-that also stops it reading the backend, so backpressure propagates to the server (TCP), paced by the
-client's consumption. Gate applies to binary data frames only; `progress`/`log`/`profile_events`/
-`end`/`error` text frames flow freely. Control frames are parsed by one `applyControlFrame` used by
-both the between-packets poll and the gate. Bounded by the existing receive timeout (no new hang).
-INSERT direction is client-handled (per Peter). Tested in `flow.test.mjs` (credit window, pause/
-resume, and unchanged push mode); 98 tests green.
-
-Client-side alternatives still valid where preferred (documented in the tests README):
-`WebSocketStream` (transport backpressure), or pausing the underlying `ws` socket in Node.
-
-**Considered & rejected — forwarding control frames while data is paused** ("keep progress/errors
-flowing during a `pause()`"). Killed by ordering: the backend is a single ordered stream with
-control interleaved *behind* data, so forwarding a control packet past a gated data frame requires
-consuming and buffering that data (unbounded → the OOM we just fixed, or a bounded read-ahead
-queue — moderate rework for a narrow payoff). It's also largely moot: during credit *throttling*
-control already flows (control frames aren't gated, and the loop only stalls at credit 0 / paused),
-and during a *full* stall the backend is blocked and produces ~no new control anyway. So `pause()`
-(or credit sitting at 0) halts control too. **Guidance: throttle with small `next()` credits rather
-than an indefinite `pause()`** if you want progress/errors to keep flowing; a fully-paused client
-won't observe progress / errors / `end` until it grants credit or resumes. (Only revisit the
-bounded read-ahead if prompt terminal-event delivery to a *fully paused* client becomes a real need.)
-
-## Plan
-
-1. **Skeleton.** Standalone `programs/wsproxy/` binary. **DONE — builds, links, runs-to-listen.**
-   Implemented on branch `wsproxy-skeleton`: `programs/wsproxy/WsProxy.cpp` (a
-   `Poco::Util::ServerApplication` that creates the global `Context`, calls
-   `registerFormats`, and hosts a `DB::HTTPServer` with a stub handler on port 9010) plus
-   `programs/wsproxy/CMakeLists.txt` (`clickhouse_add_executable`, no multi-call wiring).
-   Compiled with zero warnings on our code; linked cleanly.
-
-   **Measured binary size (arm64 dev build):** 424 MB with debug symbols, **306 MB
-   stripped**, of which ~241 MB is actual code (`__text`). Confirms *separate ≠ smaller*:
-   this is roughly the same order as the 728 MB multi-call `clickhouse` dev binary, and a
-   ~100 MB target is not reachable without fighting the monorepo's coupling (trimming
-   `registerFormats` would claw back tens of MB, not ~200, because `Connection` mandatorily
-   pulls in `DataTypes`/`Columns`/`IO`/`Compression`/`Core`).
-
-   **RESOLVED — clean, not a fight (build wiring).**
-
-   **Smoke test (runtime):** launches, binds port 9010 instantly, answers HTTP `GET` with
-   the stub `200` (Context + `registerFormats` + `DB::HTTPServer` all init fine at runtime).
-   **Known teardown gap:** `SIGTERM` kills the process hard (exit 144), our `"Shutting
-   down"` path never runs — because raw `Poco::Util::ServerApplication` does not mask
-   signals across the `HTTPServer` worker threads the way `BaseDaemon` does. Fix in step 2:
-   base the program on `BaseDaemon` (or block `SIGINT`/`SIGTERM` process-wide before
-   starting the server).
-   Precedent: `BUILD_STANDALONE_KEEPER` (`programs/keeper/CMakeLists.txt:26-44`) already
-   produces a *separate* executable via `clickhouse_add_executable(clickhouse-keeper …)`
-   linking real libraries — exactly the pattern we need. `clickhouse_add_executable` is a
-   project macro (top-level `CMakeLists.txt:545`), so it is available to us.
-
-   Concrete recipe for a separate binary that stays OUT of multi-call dispatch:
-   - Create `programs/wsproxy/` with `WsProxy.cpp` (+ WS/session sources) and a
-     `CMakeLists.txt`.
-   - In that `CMakeLists.txt`, call **`clickhouse_add_executable(clickhouse-wsproxy <sources>)`**
-     directly and `target_link_libraries(... dbms clickhouse_common_config
-     clickhouse_functions daemon …)`. We can skip the `clickhouse_program_add` /
-     `clickhouse-wsproxy-lib` indirection that keeper keeps — that indirection only exists
-     to feed multi-call, which we are deliberately not joining.
-   - Add a single `add_subdirectory(wsproxy)` line to `programs/CMakeLists.txt`.
-   - **Do NOT** add a `mainEntryClickHouseWsproxy` to `programs/main.cpp` and **do NOT**
-     add a `clickhouse_program_install(clickhouse-wsproxy …)` line. Omitting both is the
-     entire mechanism that keeps the binary separate. Result: zero diff to shared dispatch
-     code (good for the rebase treadmill).
-   - Optionally guard behind `option(ENABLE_CLICKHOUSE_WSPROXY …)` mirroring the keeper
-     flags, so CI can skip it.
-
-   Crib global `Context` init + `registerFormats` from `Client.cpp` / `LocalServer.cpp`.
-
-   **Caveat — separate ≠ smaller.** `Connection`, `ClientBase`, and `FormatFactory` all
-   compile into the monolithic `dbms` library (`src/Client/CMakeLists.txt` only builds
-   examples; the sources are globbed into `dbms`). We must link `dbms`, so the wsproxy
-   binary will be roughly the same size as the full `clickhouse` binary (hundreds of MB).
-   Keeper's standalone binary is small *because it avoids `dbms`* — we cannot. Separate-ness
-   buys a distinct ELF and independent deployment, not a lighter artifact. Marginal build
-   cost over multi-call is one extra link of `dbms` (our own sources are tiny).
-2. **WS front door.** Lift the RFC 6455 framing helpers from `WebTerminalRequestHandler`
-   (handshake, `readWebSocketFrame`, `sendWebSocketFrame`, close codes, masking,
-   fragmentation). Reuse its Origin / auth / size-cap hardening.
-3. **Backend `Connection`.** Open one native `Connection` per session (template on
-   `clickhouse-benchmark`). Handshake + revision negotiation.
-4. **Session loop.** Single `poll({ws fd, connection fd})` loop. Map query → `sendQuery`,
-   `receivePacket` → WS frames per the mapping above.
-5. **Output formats.** Route `Data` blocks through `FormatFactory::getOutputFormat` into
-   binary frames; the app picks the format.
-6. **INSERT path.** Header block → input format → `Block`s → `sendData`. Mirror
-   `ClientBase::processInsertQuery`.
-7. **Cancellation + teardown.** WS close/cancel → `Connection::sendCancel` → drain →
-   clean close frame (RFC 6455 correct).
-8. **Tests.** Integration test modeled on `tests/integration/test_webterminal`.
-
-## Resolved decisions
-
-- **Form factor:** standalone `programs/wsproxy/` binary; prefer a separate executable over
-  multi-call dispatch (build feasibility to be confirmed in step 1).
-- **Session model:** strict 1:1 (one WS session ↔ one native `Connection`), thread-per-session.
-
-## Open questions
-
-All original open questions are resolved — see "Current status" for the live state and next steps.
-
-- ~~Separate-binary feasibility~~ — **RESOLVED (step 1):** clean via `clickhouse_add_executable`,
-  precedent is `BUILD_STANDALONE_KEEPER`.
-- ~~Auth model~~ — **RESOLVED:** credential pass-through to the backend `Connection` (no in-band
-  first-frame auth reinvented); priority Basic → `X-ClickHouse-*` → URL params → env default.
-- ~~Backend target config~~ — **RESOLVED:** fixed host/port from env (`WSPROXY_BACKEND_*`, sidecar
-  assumption); per-session *credentials* come from the handshake, the target does not.
-
-Remaining product decision (not an original open question): **should ZSTD be the default backend
-codec?** (recommended for the WAN use case — see "Next steps").
+Historical benchmark notes remain under `programs/wsproxy/bench/`; they motivate
+the sidecar experiment but are not acceptance criteria for the in-server
+`ws_port`.

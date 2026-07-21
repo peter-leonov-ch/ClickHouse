@@ -150,6 +150,7 @@ export async function spawnProxy({
   secure = false,
   acceptInvalidCert = false,
   sendTimeoutSec,
+  allowedOrigins,
   compression, // native codec for backend->proxy blocks: "lz4" | "zstd" | "none"
 }) {
   const proc = spawn(WSPROXY_BIN, [], {
@@ -162,6 +163,7 @@ export async function spawnProxy({
       ...(secure ? { WSPROXY_BACKEND_SECURE: "1" } : {}),
       ...(acceptInvalidCert ? { WSPROXY_BACKEND_ACCEPT_INVALID_CERT: "1" } : {}),
       ...(sendTimeoutSec ? { WSPROXY_CLIENT_SEND_TIMEOUT_SEC: String(sendTimeoutSec) } : {}),
+      ...(allowedOrigins ? { WSPROXY_ALLOWED_ORIGINS: allowedOrigins } : {}),
       ...(compression ? { WSPROXY_BACKEND_COMPRESSION: compression } : {}),
     },
   });
@@ -182,7 +184,7 @@ export async function spawnProxy({
 /// (`ws_port`) enabled, alongside a `tcp_port` (the server requires at least one
 /// query port to start). Same default + wsp_user users as spawnBackend, so the
 /// auth tests work unchanged. Returns { url } pointing at the ws_port.
-export async function spawnServerWithWs({ wsPort, tcpPort }) {
+export async function spawnServerWithWs({ wsPort, tcpPort, allowedOrigins }) {
   const dir = fs.mkdtempSync(join(os.tmpdir(), "wsproxy-server-"));
   const configPath = join(dir, "config.xml");
   fs.writeFileSync(
@@ -192,6 +194,7 @@ export async function spawnServerWithWs({ wsPort, tcpPort }) {
         <log>${dir}/server.log</log><errorlog>${dir}/server.err.log</errorlog></logger>
     <tcp_port>${tcpPort}</tcp_port>
     <ws_port>${wsPort}</ws_port>
+    ${allowedOrigins ? `<ws_allowed_origins>${allowedOrigins}</ws_allowed_origins>` : ""}
     <listen_host>127.0.0.1</listen_host>
     <path>${dir}/data/</path>
     <tmp_path>${dir}/tmp/</tmp_path>

@@ -1,140 +1,119 @@
-# Adding a WebSocket port to `clickhouse-server` itself
+# In-server WebSocket port
 
-A WebSocket interface **inside the server**, as a first-class port next to `tcp_port` and
-`http_port` — an alternative to (and complement of) the standalone `wsproxy` sidecar. See `TODO.md`
-(repo root) for the proxy's status and `programs/wsproxy/CLOUDFLARE.md` for the sidecar/edge story.
+The primary upstream scope of this branch is a dedicated `ws_port` in
+`clickhouse-server`. The standalone `clickhouse-wsproxy` binary remains a
+compatible prototype that drives the same WebSocket session implementation over a
+remote native-protocol `Connection`.
 
-**Status: PROTOTYPE BUILT AND TESTED.** A `ws_port` is wired into `clickhouse-server`, reusing the
-shared `WebSocketSession` bridge against an in-process `LocalConnection`. The same Node/vitest suite
-that exercises the proxy runs against it (`npm run test:server`): **in-server 102/102, proxy 113/113**
-(proxy-only suites — separate remote backend, proxy→backend TLS, `WSPROXY_BACKEND_COMPRESSION` — are
-excluded as N/A in-server). What was built and the LocalConnection gotchas learned are at the end.
+## Status
 
-## Verdict
+The prototype is implemented. `Server::main` creates an HTTP server for
+`ws_port`, `HTTPHandlerFactory` routes every request on that listener to
+`WSHandler`, and the handler runs a `WebSocketSession` over an in-process
+`LocalConnection`.
 
-**Technically moderate — mostly a port of existing code.** The server already ships the hard parts
-(WebSocket framing, HTTP-upgrade, the port/handler-factory machinery), and the proxy's bridge logic
-maps onto in-process execution almost unchanged. Estimate: **~1 week** for a working `ws_port` doing
-SELECT + format + progress + cancel; **1-3 weeks** total for INSERT, auth, tests, config, and edge
-cases — i.e. something upstreamable.
+The shared Node.js/Vitest protocol suite can run against either implementation.
+The in-server configuration excludes only tests that inherently require a
+separate proxy or remote backend, such as proxy-to-backend TLS and backend codec
+selection. See `tests/README.md` for the current commands and prerequisites.
 
-**But it is a different value proposition, and it re-incurs the cost the sidecar exists to avoid.**
-See "The strategic catch" below before treating this as a cheaper version of the sidecar. It is not;
-it is a complementary, longer-horizon play.
+This remains a prototype rather than a production-ready interface. The branch now
+includes origin and credential enforcement, bounded fragmented messages and
+partial-frame reads, safe flow-control accounting, cancellation on client write
+failure, RFC close handling, and adversarial tests. Remaining TLS, general
+resource-limit, graceful-drain, and ClickHouse CI work is tracked in the
+repository-level `TODO.md`.
 
-## Why it is mostly a port (verified against the code)
+## Architecture
 
-- **The WS machinery already ships in the server.** `src/Server/WebTerminalRequestHandler.cpp`
-  implements RFC 6455 framing (`sendWebSocketFrame`, `readWebSocketFrame`), the HTTP upgrade,
-  ping/pong and close, and is registered through the normal factory in
-  `src/Server/HTTPHandlerFactory.cpp` (`handler_type == "webterminal"`). Framing + upgrade +
-  registration are solved. (That handler bridges WS to an interactive **PTY terminal**
-  via `ClientEmbeddedRunner`, which is *not* the query/format API we want — but it proves the plumbing.)
-- **Adding a port is a well-trodden ~15-line pattern.** In `programs/server/Server.cpp`, every
-  interface is a small `createServer(...)` block plus a `ServerType::Type` enum entry
-  (`src/Server/ServerType.h`): `http_port`, `tcp_port`, `tcp_with_proxy_port`, `mysql_port`,
-  `postgresql_port`, `grpc_port`, `prometheus`, `arrowflight_port`, interserver, keeper. A WS port is
-  just another `HTTPServer` (WebSocket *is* an HTTP Upgrade) whose factory returns a WS handler.
-- **The bridge target is free and identical to the proxy's abstraction.** Both the remote
-  `Connection` (`src/Client/Connection.h`) and the in-process `LocalConnection`
-  (`src/Client/LocalConnection.h`) implement the **same `IServerConnection`** interface
-  (`sendQuery` / `receivePacket` / `sendData` / `sendCancel` / `Packet`) — exactly what the proxy's
-  `ProxySession` already drives. So the server-side handler is `ProxySession` with the remote
-  `Connection` swapped for a `LocalConnection`; the packet↔frame loop, format conversion,
-  progress/log/profile push, cancel, and the INSERT handshake all carry over.
+`ws_port` is an HTTP listener because WebSocket connections begin with an HTTP
+Upgrade request. Its request path is:
 
-## What you reuse vs. what is new
+```text
+client
+  -> ws_port
+  -> WSHandler
+  -> authenticated Session
+  -> LocalConnection
+  -> WebSocketSession
+  -> query pipeline
+```
 
-**Reuse:** WS framing, the HTTP port + handler-factory machinery, `IServerConnection` /
-`LocalConnection`, and the whole tested `ProxySession` bridge.
+The shared bridge keeps framing and application-protocol behavior aligned between
+the two executables:
 
-**New / changed:**
+- `WebSocketFrames` reads and writes RFC 6455 frames.
+- `WebSocketSession::run` maps WebSocket messages to `IServerConnection` packets
+  and formats query results.
+- `WSHandler` supplies an authenticated `LocalConnection`.
+- `WsProxyHandler` supplies a remote `Connection` in the standalone prototype.
 
-- A `WSQueryHandler : HTTPRequestHandler` — do the upgrade, then run the `ProxySession`-style bridge
-  against a per-connection `LocalConnection` bound to the request's session.
-- A small refactor: `ProxySession` currently takes a concrete `Connection &`; generalize it to
-  `IServerConnection &` so it can drive either transport.
-- **Auth is actually easier than the sidecar** — no credential pass-through to a remote backend;
-  reuse the server's existing HTTP session/authentication like every other handler.
-- Config docs + an integration test (model on `tests/integration/test_webterminal`).
+The in-server path does not pass credentials to another service. It authenticates
+the upgrade request through the server session and executes under that session's
+user and settings.
 
-## Two shapes
+Browser requests that include an `Origin` header must be same-origin by default.
+Set `ws_allowed_origins` to a comma-separated list of allowed HTTP or HTTPS origins
+when clients are intentionally hosted elsewhere. Origins are normalized before
+comparison. A missing `Origin` is accepted so non-browser WebSocket clients can
+connect.
 
-1. **Dedicated `ws_port`** (what "next to native and HTTP" asks for). Adds a core diff:
-   - `programs/server/Server.cpp` — a `createServer(config, listen_host, "ws_port", …)` block returning
-     a `ProtocolServerAdapter` wrapping an `HTTPServer` whose factory produces `WSQueryHandler`
-     (model on the existing `http_port` block).
-   - `src/Server/ServerType.h` — a `WS` entry in `enum Type` (+ its name mappings).
-   - Server settings / config — a `ws_port` (and `ws_port_secure`) declaration, docs in the default
-     `config.xml`.
-   - `src/Server/HTTPHandlerFactory.cpp` — a factory that mounts `WSQueryHandler`.
-   - `src/Server/WSQueryHandler.{h,cpp}` — the handler (the real work).
-2. **Endpoint on the existing `http_port`** (like `/webterminal`). **Zero `Server.cpp` changes** — add
-   a `handler_type == "ws"` (or a fixed `/ws` path) in `HTTPHandlerFactory.cpp` mounting
-   `WSQueryHandler`. Least invasive; not a separate port, but delivers the same capability.
+## Transport security
 
-Recommendation: prototype as shape (2) (no core-server diff), and only promote to a dedicated
-`ws_port` (shape 1) if a first-class port is wanted for ops parity with `tcp_port`/`http_port`.
+`ws_port` currently supports plaintext WebSocket (`ws://`) only. There is no
+`ws_port_secure` implementation in this branch. Exposing the listener beyond a
+trusted network therefore requires TLS termination at a trusted ingress, load
+balancer, or reverse proxy, with the origin and forwarded-request policy configured
+explicitly.
 
-## The strategic catch
+The standalone proxy's backend TLS options protect a different connection: the
+native-protocol hop from `clickhouse-wsproxy` to a remote ClickHouse server. They do
+not add TLS to `ws_port`.
 
-Technically moderate — but putting it *in the server* re-incurs the exact cost the whole sidecar
-project exists to avoid, and changes what the feature is worth:
+## Differences between local and remote connections
 
-- **It is a core diff, shipped on the managed-cloud release cycle.** Touching `Server.cpp`,
-  `ServerType`, server settings and config is the rebase treadmill, and — more importantly — shipping
-  it goes through the slow, expensive cloud-release path. **Deployment velocity was the entire ROI of
-  the sidecar.** In-server is an upstream play measured in release cycles; the sidecar is a
-  ship-this-week play.
-- **The edge value evaporates.** In-server there is no separate hop: conversion runs *on the cluster*
-  (the CPU we wanted to offload), and there is no compressed-native-over-WAN leg (the client talks WS
-  straight to the server). The edge-offload and ZSTD-on-the-wire pitch (see `bench/README.md` and
-  `CLOUDFLARE.md`) does **not** apply.
+The bridge targets `IServerConnection`, but `LocalConnection` has several relevant
+behavioral differences from a remote `Connection`:
 
-So it is a **different, complementary value proposition**: a server-side WS port gives clients the
-*protocol* wins the HTTP interface cannot do cleanly — mid-query progress/logs, cancel-by-close,
-bidirectional streaming, format-at-source — **without needing a sidecar at all**. That is genuinely
-valuable and arguably the "right" long-term home for a WebSocket interface. The two are complementary:
-iterate on the sidecar now (fast, edge-deployable, offloads CPU, compresses the WAN hop); propose the
-in-server `ws_port` upstream once the WS protocol/shape is proven.
+1. Local blocks must be materialized before row-format output. A local pipeline can
+   return a `ColumnConst`, while blocks decoded from the native protocol are already
+   materialized.
+2. The authenticated user must come from the server session. Supplying a fabricated
+   `ClientInfo` to `LocalConnection::sendQuery` can replace the query context's user.
+3. `LocalConnection` does not need the native protocol's external-table handshake;
+   `LocalConnection::sendExternalTablesData` is not implemented.
+4. `LocalConnection::poll` yields after an executor timeout so the bridge can
+   inspect the WebSocket between packets. `LocalConnection::receivePacket` retains
+   blocking semantics for direct consumers.
+5. Query settings used by `LocalConnection` must be applied to its context. For
+   example, `WSHandler` applies `send_logs_level` to the authenticated session
+   context.
 
-## What was built (and the LocalConnection gotchas)
+These are implementation constraints of the shared bridge, not alternate protocol
+behaviors for clients.
 
-- **Shared bridge.** `WebSocketFrames` + `WebSocketSession` live in `src/Server` (compiled into
-  `dbms`); `WebSocketSession::run(IServerConnection&)` is transport-agnostic. The proxy injects a
-  remote `Connection`; the server injects a `LocalConnection`.
-- **`WSHandler`** (`src/Server/WSHandler.{h,cpp}`): RFC 6455 upgrade → authenticate a `Session`
-  (Basic / `X-ClickHouse-*` / `?user=&password=` / default) → `LocalConnection` over that session →
-  run the bridge. Registered as `WSHandler-factory` in `HTTPHandlerFactory`; wired as `ws_port` in
-  `Server.cpp` with a new `ServerType::WS`.
+## Product boundary
 
-Four behaviours differ between a remote `Connection` and an in-process `LocalConnection`, and each
-needed a fix in the shared bridge (all also correct for the proxy):
+The in-server interface provides bidirectional streaming, cancellation by close,
+and mid-query progress, log, and profile-event delivery without another deployed
+service. Format conversion happens on the ClickHouse server.
 
-1. **Materialize before formatting.** `LocalConnection` hands blocks straight from the pipeline, so
-   `SELECT 1` yields a `ColumnConst`; row output formats mishandle that (it was a *fatal abort* in
-   `SerializationString::serializeTextJSON`). Fixed by `materializeBlock(...)` before `output->write`,
-   mirroring `ClientBase::onData`. Remote blocks are already materialized over the wire, so it is a
-   cheap no-op there.
-2. **User comes from the session, not a `ClientInfo`.** Passing a fabricated `ClientInfo` to
-   `sendQuery` made `LocalConnection` build the query context from it, blanking `currentUser()`. Pass
-   no `ClientInfo` so the local path derives the user from its authenticated session (and the remote
-   server defaults the query kind).
-3. **No external-tables handshake locally.** `LocalConnection::sendExternalTablesData` is
-   `NOT_IMPLEMENTED` (and unneeded — there is no wire handshake), so skip it for `Type::LOCAL`.
-4. **Cancel cannot rely on `poll` timing.** `Connection::poll` blocks on the backend socket, which is
-   what let the old code interleave a client-socket check; `LocalConnection::poll` returns immediately
-   with data, so the check must run on *every* packet iteration, not only when `poll` times out.
+The standalone sidecar explores a different deployment tradeoff: it can perform
+format conversion away from the server and use a compressed native-protocol hop to
+a remote backend. That experiment is compatible with the in-server protocol but is
+not the selected upstream deliverable.
 
-Also: `LocalConnection::sendQuery` **ignores the per-query `settings`** and reads them from its
-context, so `WSHandler` applies `send_logs_level` to the session context (that is how `?logs=` still
-pushes `Log` frames in-server). Any future client-controllable setting needs the same treatment.
+The Cloudflare Workers/Containers design in `CLOUDFLARE.md` is unbuilt analysis for
+the sidecar and is not part of `ws_port`.
 
-## Key references
+## Key files
 
-- `programs/server/Server.cpp` — `http_port` / `tcp_port` `createServer` blocks (the port pattern).
-- `src/Server/ServerType.h` — the interface `enum Type`.
-- `src/Server/HTTPHandlerFactory.cpp` — handler registration; the `webterminal` type is the template.
-- `src/Server/WebTerminalRequestHandler.cpp` — shipped WS framing + upgrade (bridges to a PTY, not us).
-- `src/Client/LocalConnection.h` / `src/Client/Connection.h` — both `: public IServerConnection`.
-- `programs/wsproxy/ProxySession.{h,cpp}` — the bridge to port from `Connection&` to `IServerConnection&`.
+- `programs/server/Server.cpp` registers the `ws_port` listener.
+- `src/Server/ServerType.h` defines the `WS` server type.
+- `src/Server/HTTPHandlerFactory.cpp` creates the `WSHandler` factory.
+- `src/Server/WSHandler.{h,cpp}` authenticates and upgrades requests.
+- `src/Server/WebSocketFrames.{h,cpp}` implements WebSocket framing.
+- `src/Server/WebSocketSession.{h,cpp}` implements the shared query protocol.
+- `src/Client/LocalConnection.h` provides in-process execution.
+- `programs/wsproxy/WsProxyHandler.{h,cpp}` adapts the same session to a remote
+  backend for the standalone prototype.

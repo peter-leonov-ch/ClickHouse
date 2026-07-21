@@ -1,10 +1,15 @@
 #include <Server/WebSocketFrames.h>
 
 #include <Common/Base64.h>
+#include <Common/isValidUTF8.h>
 
+#include <Poco/Exception.h>
 #include <Poco/SHA1Engine.h>
+#include <Poco/Timespan.h>
 
+#include <algorithm>
 #include <ctime>
+#include <limits>
 
 
 namespace DB::WsProxy
@@ -30,7 +35,8 @@ void sendAllBytes(Poco::Net::StreamSocket & socket, const char * data, size_t le
     size_t total = 0;
     while (total < len)
     {
-        int sent = socket.sendBytes(data + total, static_cast<int>(len - total));
+        const int chunk_size = static_cast<int>(std::min<size_t>(len - total, std::numeric_limits<int>::max()));
+        int sent = socket.sendBytes(data + total, chunk_size);
         if (sent <= 0)
             throw Poco::IOException("Failed to send bytes to WebSocket");
         total += static_cast<size_t>(sent);
@@ -44,9 +50,22 @@ bool readExact(Poco::Net::StreamSocket & socket, char * buf, size_t n, UInt64 de
     size_t total = 0;
     while (total < n)
     {
-        if (deadline_ns && monotonicNs() > deadline_ns)
-            return false;
-        int received = socket.receiveBytes(buf + total, static_cast<int>(n - total));
+        if (deadline_ns)
+        {
+            const UInt64 now_ns = monotonicNs();
+            if (now_ns >= deadline_ns)
+                return false;
+
+            const UInt64 remaining_ns = deadline_ns - now_ns;
+            const UInt64 remaining_us = remaining_ns / 1'000 + (remaining_ns % 1'000 != 0);
+            const auto poll_timeout_us = static_cast<Poco::Timespan::TimeDiff>(std::min<UInt64>(
+                remaining_us, static_cast<UInt64>(std::numeric_limits<Poco::Timespan::TimeDiff>::max())));
+            if (!socket.poll(Poco::Timespan(poll_timeout_us), Poco::Net::Socket::SELECT_READ))
+                return false;
+        }
+
+        const int chunk_size = static_cast<int>(std::min<size_t>(n - total, std::numeric_limits<int>::max()));
+        int received = socket.receiveBytes(buf + total, chunk_size);
         if (received <= 0)
             return false;
         total += static_cast<size_t>(received);
@@ -126,6 +145,9 @@ void sendWebSocketText(Poco::Net::StreamSocket & socket, const String & text)
 
 void sendWebSocketClose(Poco::Net::StreamSocket & socket, uint16_t code, const String & reason)
 {
+    if (reason.size() > 123)
+        throw Poco::InvalidArgumentException("WebSocket close reason exceeds 123 bytes");
+
     String payload;
     payload.push_back(static_cast<char>((code >> 8) & 0xFF));
     payload.push_back(static_cast<char>(code & 0xFF));
@@ -133,12 +155,29 @@ void sendWebSocketClose(Poco::Net::StreamSocket & socket, uint16_t code, const S
     sendWebSocketFrame(socket, Opcode::Close, payload.data(), payload.size());
 }
 
-WebSocketFrame readWebSocketFrame(Poco::Net::StreamSocket & socket, UInt64 deadline_ns, uint64_t max_payload_size)
+WebSocketFrame readWebSocketFrame(
+    Poco::Net::StreamSocket & socket,
+    UInt64 deadline_ns,
+    uint64_t max_payload_size,
+    UInt64 completion_timeout_ns)
 {
     WebSocketFrame frame;
     uint8_t header[2];
 
-    if (!readExact(socket, reinterpret_cast<char *>(header), 2, deadline_ns))
+    /// Waiting for the first byte is session idle time and is intentionally not
+    /// bounded by `completion_timeout_ns`. Once it arrives, cap the rest of the
+    /// frame so a client cannot retain a handler by trickling bytes indefinitely.
+    if (!readExact(socket, reinterpret_cast<char *>(header), 1, deadline_ns))
+        return frame;
+
+    if (completion_timeout_ns)
+    {
+        const UInt64 completion_deadline = monotonicNs() + completion_timeout_ns;
+        if (!deadline_ns || completion_deadline < deadline_ns)
+            deadline_ns = completion_deadline;
+    }
+
+    if (!readExact(socket, reinterpret_cast<char *>(header + 1), 1, deadline_ns))
         return frame;
 
     frame.fin = (header[0] & 0x80) != 0;
@@ -184,15 +223,30 @@ WebSocketFrame readWebSocketFrame(Poco::Net::StreamSocket & socket, UInt64 deadl
         if (!readExact(socket, reinterpret_cast<char *>(ext), 2, deadline_ns))
             return frame;
         payload_len = (static_cast<uint64_t>(ext[0]) << 8) | ext[1];
+        if (payload_len < 126)
+        {
+            frame.protocol_error = true;
+            return frame;
+        }
     }
     else if (payload_len == 127)
     {
         uint8_t ext[8];
         if (!readExact(socket, reinterpret_cast<char *>(ext), 8, deadline_ns))
             return frame;
+        if (ext[0] & 0x80)
+        {
+            frame.protocol_error = true;
+            return frame;
+        }
         payload_len = 0;
         for (const auto & byte : ext)
             payload_len = (payload_len << 8) | byte;
+        if (payload_len < 65536)
+        {
+            frame.protocol_error = true;
+            return frame;
+        }
     }
 
     /// Cap the payload before allocating, so a crafted length header cannot
@@ -216,6 +270,37 @@ WebSocketFrame readWebSocketFrame(Poco::Net::StreamSocket & socket, UInt64 deadl
 
         for (uint64_t i = 0; i < payload_len; ++i)
             frame.payload[i] ^= static_cast<char>(mask_key[i % 4]);
+    }
+
+    if (frame.opcode == Opcode::Close)
+    {
+        if (payload_len == 1)
+        {
+            frame.protocol_error = true;
+            return frame;
+        }
+
+        if (payload_len >= 2)
+        {
+            const auto code = static_cast<uint16_t>(
+                (static_cast<uint8_t>(frame.payload[0]) << 8) | static_cast<uint8_t>(frame.payload[1]));
+            const bool standard_code = code >= 1000 && code <= 1014
+                && code != 1004 && code != 1005 && code != 1006;
+            const bool application_code = code >= 3000 && code < 5000;
+            if (!standard_code && !application_code)
+            {
+                frame.protocol_error = true;
+                return frame;
+            }
+
+            if (payload_len > 2
+                && !UTF8::isValidUTF8(
+                    reinterpret_cast<const UInt8 *>(frame.payload.data() + 2), frame.payload.size() - 2))
+            {
+                frame.invalid_utf8 = true;
+                return frame;
+            }
+        }
     }
 
     frame.valid = true;

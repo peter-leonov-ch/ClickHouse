@@ -18,6 +18,8 @@
 #include <Parsers/Lexer.h>
 
 #include <atomic>
+#include <ctime>
+#include <limits>
 #include <mutex>
 
 #include <Formats/FormatFactory.h>
@@ -34,6 +36,7 @@
 
 #include <Common/Exception.h>
 #include <Common/SSHWrapper.h>
+#include <Common/isValidUTF8.h>
 #include <Common/logger_useful.h>
 
 #include <Poco/JSON/Object.h>
@@ -120,38 +123,37 @@ struct QueryClass
 /// VALUES / DDL) is a plain query.
 ///
 /// This is the ONLY place the proxy parses SQL, and only when the client asks for
-/// it. Parse failure degrades to {verb-from-lexer, plain query} so a parser quirk
-/// never wedges a statement the backend would accept; the backend reports errors.
+/// it. A parse failure is returned to the client instead of silently changing the
+/// routing decision.
 QueryClass classifyQuery(const String & query)
 {
     QueryClass result;
     result.verb = leadingVerb(query);
 
-    try
-    {
-        ParserQuery parser(query.data() + query.size());
-        ASTPtr ast = parseQuery(
-            parser,
-            query,
-            /* max_query_size */ 0, /// 0 = unlimited; the backend enforces the real limit.
-            /* max_parser_depth */ 1000,
-            /* max_parser_backtracks */ 1'000'000);
+    ParserQuery parser(query.data() + query.size());
+    ASTPtr ast = parseQuery(
+        parser,
+        query,
+        /* max_query_size */ 0, /// 0 = unlimited; the backend enforces the real limit.
+        /* max_parser_depth */ 1000,
+        /* max_parser_backtracks */ 1'000'000);
 
-        if (const auto * insert = ast->as<ASTInsertQuery>())
-        {
-            const bool has_inline_data = insert->data != nullptr && insert->data != insert->end;
-            result.streamed_insert = !insert->select && !insert->infile && !has_inline_data;
-            result.insert_format = insert->format;
-        }
-    }
-    catch (...)
+    if (const auto * insert = ast->as<ASTInsertQuery>())
     {
-        LOG_DEBUG(
-            getLogger("WebSocketSession"),
-            "parse=1 classification failed, treating as a plain query: {}",
-            getCurrentExceptionMessage(false));
+        const bool has_inline_data = insert->data != nullptr && insert->data != insert->end;
+        result.streamed_insert = !insert->select && !insert->infile && !has_inline_data;
+        result.insert_format = insert->format;
     }
     return result;
+}
+
+constexpr UInt64 MAX_CLIENT_MESSAGE_SIZE = 16 * 1024 * 1024;
+constexpr UInt64 MID_QUERY_FRAME_READ_TIMEOUT_NS = 1'000'000'000;
+constexpr UInt64 CLIENT_FRAME_READ_TIMEOUT_NS = 30'000'000'000;
+
+bool isValidUTF8(const String & value)
+{
+    return UTF8::isValidUTF8(reinterpret_cast<const UInt8 *>(value.data()), value.size());
 }
 
 /// Opt-in credit/window flow control for the SELECT push direction. The client
@@ -164,8 +166,20 @@ struct FlowControl
     bool enabled = false;
     Int64 credit = 0;
     bool paused = false;
-    bool client_gone = false;
+    std::atomic<bool> client_gone = false;
+    bool fragmented_message = false;
+    uint8_t fragmented_opcode = 0;
+    String fragmented_payload;
 };
+
+UInt64 monotonicNs()
+{
+    struct timespec ts
+    {
+    };
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return static_cast<UInt64>(ts.tv_sec) * 1'000'000'000ULL + static_cast<UInt64>(ts.tv_nsec);
+}
 
 /// Apply one client control frame to the flow state (also answers pings). Used
 /// both by the between-packets poll and by the credit gate, so `next`/`pause`/
@@ -175,29 +189,137 @@ struct FlowControl
 void applyControlFrame(
     Poco::Net::StreamSocket & socket, const WebSocketFrame & frame, FlowControl & fc, std::mutex * write_mutex = nullptr)
 {
-    if (!frame.valid || frame.opcode == Opcode::Close)
+    auto send_close = [&](uint16_t code, const String & reason)
+    {
+        fc.client_gone = true;
+        try
+        {
+            std::unique_lock<std::mutex> lock;
+            if (write_mutex)
+                lock = std::unique_lock<std::mutex>(*write_mutex);
+            sendWebSocketClose(socket, code, reason);
+        }
+        catch (...)
+        {
+        }
+    };
+
+    if (frame.protocol_error)
+    {
+        send_close(1002, "Protocol error");
+        return;
+    }
+    if (frame.message_too_big)
+    {
+        send_close(1009, "Message too big");
+        return;
+    }
+    if (frame.invalid_utf8)
+    {
+        send_close(1007, "Invalid UTF-8");
+        return;
+    }
+    if (!frame.valid)
     {
         fc.client_gone = true;
         return;
     }
-    if (frame.opcode == Opcode::Ping)
+    if (frame.opcode == Opcode::Close)
     {
-        std::unique_lock<std::mutex> lock;
-        if (write_mutex)
-            lock = std::unique_lock<std::mutex>(*write_mutex);
-        sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+        fc.client_gone = true;
+        try
+        {
+            std::unique_lock<std::mutex> lock;
+            if (write_mutex)
+                lock = std::unique_lock<std::mutex>(*write_mutex);
+            sendWebSocketFrame(socket, Opcode::Close, frame.payload.data(), frame.payload.size());
+        }
+        catch (...)
+        {
+        }
         return;
     }
-    if (frame.opcode != Opcode::Text)
-        return; /// Ignore stray binary during a SELECT.
+    if (frame.opcode == Opcode::Ping)
+    {
+        try
+        {
+            std::unique_lock<std::mutex> lock;
+            if (write_mutex)
+                lock = std::unique_lock<std::mutex>(*write_mutex);
+            sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+        }
+        catch (...)
+        {
+            fc.client_gone = true;
+        }
+        return;
+    }
 
+    uint8_t message_opcode = frame.opcode;
+    String message_payload;
+    if (frame.opcode == Opcode::Continuation)
+    {
+        if (!fc.fragmented_message)
+        {
+            send_close(1002, "Protocol error");
+            return;
+        }
+        if (frame.payload.size() > MAX_CLIENT_MESSAGE_SIZE - fc.fragmented_payload.size())
+        {
+            send_close(1009, "Message too big");
+            return;
+        }
+        fc.fragmented_payload.append(frame.payload);
+        if (!frame.fin)
+            return;
+
+        message_opcode = fc.fragmented_opcode;
+        message_payload = std::move(fc.fragmented_payload);
+        fc.fragmented_message = false;
+        fc.fragmented_opcode = 0;
+    }
+    else
+    {
+        if (fc.fragmented_message)
+        {
+            send_close(1002, "Protocol error");
+            return;
+        }
+        if (!frame.fin)
+        {
+            fc.fragmented_message = true;
+            fc.fragmented_opcode = frame.opcode;
+            fc.fragmented_payload = frame.payload;
+            return;
+        }
+        message_payload = frame.payload;
+    }
+
+    if (message_opcode != Opcode::Text)
+        return; /// Ignore stray binary messages during a SELECT.
+    if (!isValidUTF8(message_payload))
+    {
+        send_close(1007, "Invalid UTF-8");
+        return;
+    }
+
+    bool next_command = false;
     try
     {
         Poco::JSON::Parser parser;
-        const auto obj = parser.parse(frame.payload).extract<Poco::JSON::Object::Ptr>();
+        const auto obj = parser.parse(message_payload).extract<Poco::JSON::Object::Ptr>();
         const String cmd = obj->optValue<String>("cmd", "");
         if (cmd == "next")
-            fc.credit += obj->optValue<Poco::Int64>("n", 0);
+        {
+            next_command = true;
+            const Int64 grant = obj->optValue<Poco::Int64>("n", 0);
+            if (grant <= 0 || fc.credit < 0 || grant > std::numeric_limits<Int64>::max() - fc.credit)
+            {
+                send_close(1008, "Invalid flow-control credit");
+                return;
+            }
+            fc.credit += grant;
+        }
         else if (cmd == "pause")
             fc.paused = true;
         else if (cmd == "resume")
@@ -205,6 +327,11 @@ void applyControlFrame(
     }
     catch (...)
     {
+        if (next_command)
+        {
+            send_close(1008, "Invalid flow-control credit");
+            return;
+        }
         /// Malformed control frame: ignore (the query stream is unaffected).
         LOG_DEBUG(getLogger("WebSocketSession"), "Ignoring malformed control frame: {}", getCurrentExceptionMessage(false));
     }
@@ -226,7 +353,10 @@ public:
         FlowControl * flow_ = nullptr,
         std::mutex * write_mutex_ = nullptr,
         size_t size = DBMS_DEFAULT_BUFFER_SIZE)
-        : BufferWithOwnMemory<WriteBuffer>(size), socket(socket_), flow(flow_), write_mutex(write_mutex_)
+        : BufferWithOwnMemory<WriteBuffer>(size)
+        , socket(socket_)
+        , flow(flow_)
+        , write_mutex(write_mutex_)
     {
     }
 
@@ -251,7 +381,8 @@ private:
                 WebSocketFrame frame;
                 try
                 {
-                    frame = readWebSocketFrame(socket);
+                    frame = readWebSocketFrame(
+                        socket, /* deadline_ns */ 0, MAX_CLIENT_MESSAGE_SIZE, MID_QUERY_FRAME_READ_TIMEOUT_NS);
                 }
                 catch (...)
                 {
@@ -274,6 +405,11 @@ private:
             std::unique_lock<std::mutex> lock;
             if (write_mutex)
                 lock = std::unique_lock<std::mutex>(*write_mutex);
+            if (flow && flow->client_gone)
+            {
+                broken = true;
+                return;
+            }
             sendWebSocketBinary(socket, working_buffer.begin(), offset());
         }
         catch (...)
@@ -309,9 +445,22 @@ public:
     bool wasAborted() const { return aborted; }
 
 private:
+    bool fail(uint16_t code, const String & reason)
+    {
+        aborted = true;
+        try
+        {
+            sendWebSocketClose(socket, code, reason);
+        }
+        catch (...)
+        {
+        }
+        return false;
+    }
+
     bool nextImpl() override
     {
-        /// `ReadBuffer::next()` may call `nextImpl` again after a false return
+        /// `ReadBuffer::next` may call `nextImpl` again after a false return
         /// (there is no permanent EOF latch in the base class), and some input
         /// formats do a trailing read. Latch the end so we never block on a
         /// frame that will not arrive.
@@ -323,7 +472,8 @@ private:
             WebSocketFrame frame;
             try
             {
-                frame = readWebSocketFrame(socket);
+                frame = readWebSocketFrame(
+                    socket, /* deadline_ns */ 0, MAX_CLIENT_MESSAGE_SIZE, CLIENT_FRAME_READ_TIMEOUT_NS);
             }
             catch (...)
             {
@@ -331,30 +481,92 @@ private:
                 return false;
             }
 
-            if (!frame.valid || frame.opcode == Opcode::Close)
+            if (frame.protocol_error)
+                return fail(1002, "Protocol error");
+            if (frame.message_too_big)
+                return fail(1009, "Message too big");
+            if (frame.invalid_utf8)
+                return fail(1007, "Invalid UTF-8");
+            if (!frame.valid)
             {
                 aborted = true;
                 return false;
             }
+            if (frame.opcode == Opcode::Close)
+            {
+                aborted = true;
+                try
+                {
+                    sendWebSocketFrame(socket, Opcode::Close, frame.payload.data(), frame.payload.size());
+                }
+                catch (...)
+                {
+                }
+                return false;
+            }
             if (frame.opcode == Opcode::Ping)
             {
-                sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+                try
+                {
+                    sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+                }
+                catch (...)
+                {
+                    aborted = true;
+                    return false;
+                }
                 continue;
             }
-            if (frame.opcode == Opcode::Text)
+
+            uint8_t message_opcode = frame.opcode;
+            String message_payload;
+            if (frame.opcode == Opcode::Continuation)
             {
+                if (!fragmented_message)
+                    return fail(1002, "Protocol error");
+                if (frame.payload.size() > MAX_CLIENT_MESSAGE_SIZE - fragmented_payload.size())
+                    return fail(1009, "Message too big");
+                fragmented_payload.append(frame.payload);
+                if (!frame.fin)
+                    continue;
+
+                message_opcode = fragmented_opcode;
+                message_payload = std::move(fragmented_payload);
+                fragmented_message = false;
+                fragmented_opcode = 0;
+            }
+            else
+            {
+                if (fragmented_message)
+                    return fail(1002, "Protocol error");
+                if (!frame.fin)
+                {
+                    fragmented_message = true;
+                    fragmented_opcode = frame.opcode;
+                    fragmented_payload = frame.payload;
+                    continue;
+                }
+                message_payload = std::move(frame.payload);
+            }
+
+            if (message_opcode == Opcode::Text)
+            {
+                if (!isValidUTF8(message_payload))
+                    return fail(1007, "Invalid UTF-8");
                 finished = true; /// Clean end-of-data control frame.
                 return false;
             }
+            if (message_opcode != Opcode::Binary)
+                return fail(1002, "Protocol error");
 
-            /// Binary (or continuation) frame: an empty one is the clean end marker.
-            if (frame.payload.empty())
+            /// An empty binary message is the clean end marker.
+            if (message_payload.empty())
             {
                 finished = true;
                 return false;
             }
 
-            current_frame = std::move(frame.payload);
+            current_frame = std::move(message_payload);
             BufferBase::set(current_frame.data(), current_frame.size(), 0);
             return true;
         }
@@ -362,6 +574,9 @@ private:
 
     Poco::Net::StreamSocket & socket;
     String current_frame;
+    String fragmented_payload;
+    uint8_t fragmented_opcode = 0;
+    bool fragmented_message = false;
     bool aborted = false;
     bool finished = false;
 };
@@ -537,50 +752,118 @@ std::optional<String> WebSocketSession::readClientMessage()
 {
     String buffer;
     bool in_fragmented_message = false;
+    uint8_t message_opcode = 0;
+
+    auto send_close = [&](uint16_t code, const String & reason)
+    {
+        try
+        {
+            std::lock_guard lock(ws_write_mutex);
+            sendWebSocketClose(socket, code, reason);
+        }
+        catch (...)
+        {
+        }
+    };
 
     while (true)
     {
         WebSocketFrame frame;
         try
         {
-            frame = readWebSocketFrame(socket);
+            frame = readWebSocketFrame(
+                socket, /* deadline_ns */ 0, MAX_CLIENT_MESSAGE_SIZE, CLIENT_FRAME_READ_TIMEOUT_NS);
         }
         catch (...)
         {
             return std::nullopt;
         }
 
-        if (!frame.valid || frame.protocol_error || frame.message_too_big)
+        if (frame.protocol_error)
+        {
+            send_close(1002, "Protocol error");
+            return std::nullopt;
+        }
+        if (frame.message_too_big)
+        {
+            send_close(1009, "Message too big");
+            return std::nullopt;
+        }
+        if (frame.invalid_utf8)
+        {
+            send_close(1007, "Invalid UTF-8");
+            return std::nullopt;
+        }
+        if (!frame.valid)
             return std::nullopt;
 
         /// Control frames may interleave with data frames.
         if (frame.opcode >= 0x08)
         {
             if (frame.opcode == Opcode::Close)
+            {
+                try
+                {
+                    std::lock_guard lock(ws_write_mutex);
+                    sendWebSocketFrame(socket, Opcode::Close, frame.payload.data(), frame.payload.size());
+                }
+                catch (...)
+                {
+                }
                 return std::nullopt;
+            }
             if (frame.opcode == Opcode::Ping)
-                sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+            {
+                try
+                {
+                    std::lock_guard lock(ws_write_mutex);
+                    sendWebSocketFrame(socket, Opcode::Pong, frame.payload.data(), frame.payload.size());
+                }
+                catch (...)
+                {
+                    return std::nullopt;
+                }
+            }
             continue;
         }
 
         if (frame.opcode != Opcode::Continuation)
         {
             if (in_fragmented_message)
+            {
+                send_close(1002, "Protocol error");
                 return std::nullopt; /// New data frame during fragmentation.
+            }
             buffer = std::move(frame.payload);
+            message_opcode = frame.opcode;
             in_fragmented_message = !frame.fin;
         }
         else
         {
             if (!in_fragmented_message)
+            {
+                send_close(1002, "Protocol error");
                 return std::nullopt; /// Continuation without a start.
+            }
+            if (frame.payload.size() > MAX_CLIENT_MESSAGE_SIZE - buffer.size())
+            {
+                send_close(1009, "Message too big");
+                return std::nullopt;
+            }
             buffer.append(frame.payload);
             if (frame.fin)
                 in_fragmented_message = false;
         }
 
         if (frame.fin)
+        {
+            if (message_opcode == Opcode::Text && !isValidUTF8(buffer))
+            {
+                send_close(1007, "Invalid UTF-8");
+                return std::nullopt;
+            }
             return buffer;
+        }
     }
 }
 
@@ -608,6 +891,16 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
     bool cancelled = false;
     bool client_gone = false;
 
+    auto note_client_gone = [&]
+    {
+        client_gone = true;
+        if (!cancelled)
+        {
+            connection.sendCancel();
+            cancelled = true;
+        }
+    };
+
     /// Send a JSON control frame, tolerating a client that has already left.
     auto try_control = [&](const String & event, const String & message)
     {
@@ -619,17 +912,7 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
         }
         catch (...)
         {
-            client_gone = true;
-        }
-    };
-
-    auto note_client_gone = [&]
-    {
-        client_gone = true;
-        if (!cancelled)
-        {
-            connection.sendCancel();
-            cancelled = true;
+            note_client_gone();
         }
     };
 
@@ -649,7 +932,7 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
         WebSocketFrame frame;
         try
         {
-            frame = readWebSocketFrame(socket);
+            frame = readWebSocketFrame(socket, monotonicNs() + MID_QUERY_FRAME_READ_TIMEOUT_NS);
         }
         catch (...)
         {
@@ -662,15 +945,26 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
 
     while (true)
     {
+        if (!client_gone && fc.client_gone)
+            note_client_gone();
+        if (!client_gone && out_buf.isBroken())
+            note_client_gone();
+
         /// Watch the client on every iteration, not only when the connection has no
-        /// data ready: an in-process LocalConnection::poll returns immediately with
-        /// data, so a mid-query Close would otherwise go unnoticed until the query
-        /// finished. This is what makes cancel-by-close work for the in-server path.
+        /// data ready: both remote and local connections can continuously have
+        /// packets available while a client Close is pending.
         poll_client_frame();
 
         /// While no server data is pending, keep watching the client socket.
         while (!connection.poll(50'000 /* microseconds */))
+        {
+            if (!client_gone && out_buf.isBroken())
+                note_client_gone();
             poll_client_frame();
+        }
+
+        if (!client_gone && fc.client_gone)
+            note_client_gone();
 
         Packet packet = connection.receivePacket();
         switch (packet.type)
@@ -748,7 +1042,7 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
                     }
                     catch (...)
                     {
-                        client_gone = true;
+                        note_client_gone();
                     }
                 }
                 break;
@@ -765,7 +1059,7 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
                     }
                     catch (...)
                     {
-                        client_gone = true;
+                        note_client_gone();
                     }
                 }
                 break;
@@ -781,7 +1075,7 @@ bool WebSocketSession::executeSelect(IServerConnection & connection, const Strin
                     }
                     catch (...)
                     {
-                        client_gone = true;
+                        note_client_gone();
                     }
                 }
                 break;

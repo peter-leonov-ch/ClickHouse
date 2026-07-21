@@ -31,6 +31,62 @@ async function currentUserViaHeaders(headers) {
 }
 
 describe("auth (credential pass-through)", () => {
+  it("rejects a cross-origin browser handshake", async () => {
+    const c = new RawClient({ port: 9010 });
+    const { head } = await c.handshakeResponse("/?format=JSONEachRow", {
+      Origin: "https://attacker.example",
+    });
+    expect(head).toMatch(/^HTTP\/1\.1 403 /);
+    expect(head).not.toContain("101 Switching Protocols");
+    c.close();
+  });
+
+  it("allows a browser origin from the configured allowlist", async () => {
+    const c = new RawClient({ port: 9010 });
+    await c.handshake("/?format=JSONEachRow", { Origin: "https://trusted.example" });
+    c.sendFrame({ opcode: 0x1, payload: "SELECT 1 AS n" });
+    let sawEnd = false;
+    for (;;) {
+      const f = await c.readFrame();
+      if (f.closed) break;
+      if (f.opcode === 0x1 && JSON.parse(f.payload.toString()).event === "end") {
+        sawEnd = true;
+        break;
+      }
+    }
+    expect(sawEnd).toBe(true);
+    c.close();
+  });
+
+  it("allows a non-browser handshake without an Origin header", async () => {
+    const c = new RawClient({ port: 9010 });
+    await c.handshake("/?format=JSONEachRow", { Origin: undefined });
+    c.sendFrame({ opcode: 0x1, payload: "SELECT 1 AS n" });
+    let sawEnd = false;
+    for (;;) {
+      const f = await c.readFrame();
+      if (f.closed) break;
+      if (f.opcode === 0x1 && JSON.parse(f.payload.toString()).event === "end") {
+        sawEnd = true;
+        break;
+      }
+    }
+    expect(sawEnd).toBe(true);
+    c.close();
+  });
+
+  it("rejects malformed explicit Basic credentials without falling back", async () => {
+    const c = new RawClient({ port: 9010 });
+    const { head } = await c.handshakeResponse("/?format=JSONEachRow", {
+      Authorization: "Basic !!!not-base64!!!",
+      "X-ClickHouse-User": USER,
+      "X-ClickHouse-Key": PASS,
+    });
+    expect(head).toMatch(/^HTTP\/1\.1 400 /);
+    expect(head).not.toContain("101 Switching Protocols");
+    c.close();
+  });
+
   it("authenticates as the default user when no credentials are given", async () => {
     const { text, control } = await runQuery("SELECT currentUser() AS u");
     expect(control.event).toBe("end");

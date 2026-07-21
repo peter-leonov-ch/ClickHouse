@@ -22,15 +22,24 @@
 #include <Poco/Net/HTTPResponse.h>
 #include <Poco/Net/StreamSocket.h>
 #include <Poco/URI.h>
+#include <Poco/Util/LayeredConfiguration.h>
 
 #include <base/scope_guard.h>
 
 #include <algorithm>
+#include <charconv>
+#include <cctype>
+#include <optional>
 
 namespace DB
 {
 
 using namespace DB::WsProxy;
+
+namespace ErrorCodes
+{
+    extern const int BAD_ARGUMENTS;
+}
 
 namespace
 {
@@ -42,20 +51,116 @@ struct ResolvedCredentials
     String password;
 };
 
-String queryParam(const String & uri_string, const String & name, const String & fallback, LoggerPtr log)
+String queryParam(const String & uri_string, const String & name, const String & fallback)
 {
+    Poco::URI uri(uri_string);
+    for (const auto & param : uri.getQueryParameters())
+        if (param.first == name && !param.second.empty())
+            return param.second;
+    return fallback;
+}
+
+std::optional<Int64> positiveInt64QueryParam(const String & uri_string, const String & name)
+{
+    Poco::URI uri(uri_string);
+    std::optional<Int64> result;
+    for (const auto & param : uri.getQueryParameters())
+    {
+        if (param.first != name)
+            continue;
+
+        if (result)
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Query parameter `{}` must not be repeated", name);
+
+        Int64 value = 0;
+        const char * begin = param.second.data();
+        const char * end = begin + param.second.size();
+        const auto parse_result = std::from_chars(begin, end, value, 10);
+        if (param.second.empty() || parse_result.ec != std::errc{} || parse_result.ptr != end || value <= 0)
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Query parameter `{}` must be a positive integer", name);
+        result = value;
+    }
+    return result;
+}
+
+String normalizeOrigin(const String & origin)
+{
+    Poco::URI uri(origin);
+    String scheme = uri.getScheme();
+    String host = uri.getHost();
+    std::transform(scheme.begin(), scheme.end(), scheme.begin(), ::tolower);
+    std::transform(host.begin(), host.end(), host.begin(), ::tolower);
+
+    if ((scheme != "http" && scheme != "https") || host.empty() || !uri.getUserInfo().empty()
+        || (!uri.getPath().empty() && uri.getPath() != "/") || !uri.getQuery().empty() || !uri.getFragment().empty())
+        throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Origin header");
+
+    const UInt16 port = uri.getPort();
+    const UInt16 default_port = scheme == "https" ? 443 : 80;
+    if (host.find(':') != String::npos)
+        host = "[" + host + "]";
+    return scheme + "://" + host + (port && port != default_port ? ":" + std::to_string(port) : "");
+}
+
+bool originAllowed(const HTTPServerRequest & request, const String & allowed_origins, LoggerPtr log)
+{
+    const String origin = request.get("Origin", "");
+    if (origin.empty())
+        return true;
+
+    String normalized_origin;
     try
     {
-        Poco::URI uri(uri_string);
-        for (const auto & param : uri.getQueryParameters())
-            if (param.first == name && !param.second.empty())
-                return param.second;
+        normalized_origin = normalizeOrigin(origin);
     }
     catch (...)
     {
-        LOG_DEBUG(log, "Could not parse request URI for the {} parameter; using default", name);
+        LOG_WARNING(log, "WebSocket upgrade rejected: malformed Origin header");
+        return false;
     }
-    return fallback;
+
+    if (!allowed_origins.empty())
+    {
+        bool allowed = false;
+        size_t pos = 0;
+        while (pos <= allowed_origins.size())
+        {
+            const size_t comma = allowed_origins.find(',', pos);
+            const size_t end_pos = comma == String::npos ? allowed_origins.size() : comma;
+            const size_t start = allowed_origins.find_first_not_of(" \t", pos);
+            if (start == String::npos || start >= end_pos)
+            {
+                LOG_WARNING(log, "WebSocket upgrade rejected: empty origin in `ws_allowed_origins`");
+                return false;
+            }
+            const size_t last = allowed_origins.find_last_not_of(" \t", end_pos - 1);
+            try
+            {
+                if (normalizeOrigin(allowed_origins.substr(start, last - start + 1)) == normalized_origin)
+                    allowed = true;
+            }
+            catch (...)
+            {
+                LOG_WARNING(log, "WebSocket upgrade rejected: malformed origin in `ws_allowed_origins`");
+                return false;
+            }
+            if (comma == String::npos)
+                break;
+            pos = comma + 1;
+        }
+        return allowed;
+    }
+
+    try
+    {
+        const String request_scheme = request.isSecure() ? "https" : "http";
+        return normalizeOrigin(request_scheme + "://" + request.getHost()) == normalized_origin;
+    }
+    catch (...)
+    {
+        LOG_WARNING(log, "WebSocket upgrade rejected: malformed Host header");
+        return false;
+    }
 }
 
 /// Per RFC 7230 the `Connection` header is a comma-separated token list; match the
@@ -115,29 +220,48 @@ String jsonEscape(const String & s)
 /// Resolve credentials the same way clickhouse-wsproxy does, so the same clients
 /// work against either deployment: Authorization: Basic > X-ClickHouse-User/-Key
 /// headers > ?user=/?password= URL params > the `default` user.
-ResolvedCredentials resolveCredentials(const HTTPServerRequest & request, const String & uri, LoggerPtr log)
+ResolvedCredentials resolveCredentials(const HTTPServerRequest & request, const String & uri)
 {
     ResolvedCredentials creds;
 
     const String auth = request.get("Authorization", "");
-    if (auth.starts_with("Basic "))
+    const size_t auth_scheme_end = auth.find_first_of(" \t");
+    String auth_scheme = auth.substr(0, auth_scheme_end);
+    std::transform(auth_scheme.begin(), auth_scheme.end(), auth_scheme.begin(), ::tolower);
+    if (auth_scheme == "basic")
     {
         try
         {
-            const String decoded = base64Decode(auth.substr(6));
-            const size_t colon = decoded.find(':');
-            if (colon != String::npos)
+            if (auth_scheme_end != 5 || auth.size() <= 6 || auth[5] != ' ')
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            const String encoded = auth.substr(6);
+            const size_t padding_pos = encoded.find('=');
+            const size_t data_end = padding_pos == String::npos ? encoded.size() : padding_pos;
+            if (encoded.size() % 4 != 0 || encoded.size() - data_end > 2)
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            for (size_t i = 0; i < encoded.size(); ++i)
             {
-                creds.user = decoded.substr(0, colon);
-                creds.password = decoded.substr(colon + 1);
-                return creds;
+                const unsigned char c = encoded[i];
+                const bool is_base64_character
+                    = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '+' || c == '/';
+                if (i < data_end ? !is_base64_character : c != '=')
+                    throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
             }
+            const String decoded = base64Decode(encoded);
+            const size_t colon = decoded.find(':');
+            if (colon == String::npos || colon == 0)
+                throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
+            creds.user = decoded.substr(0, colon);
+            creds.password = decoded.substr(colon + 1);
+            return creds;
         }
         catch (...)
         {
-            LOG_DEBUG(log, "Malformed Authorization header; falling back to other credential sources");
+            throw Exception(ErrorCodes::BAD_ARGUMENTS, "Malformed Basic Authorization header");
         }
     }
+    if (!auth.empty())
+        throw Exception(ErrorCodes::BAD_ARGUMENTS, "Unsupported Authorization scheme");
 
     const String header_user = request.get("X-ClickHouse-User", "");
     if (!header_user.empty())
@@ -147,11 +271,11 @@ ResolvedCredentials resolveCredentials(const HTTPServerRequest & request, const 
         return creds;
     }
 
-    const String param_user = queryParam(uri, "user", "", log);
+    const String param_user = queryParam(uri, "user", "");
     if (!param_user.empty())
     {
         creds.user = param_user;
-        creds.password = queryParam(uri, "password", "", log);
+        creds.password = queryParam(uri, "password", "");
     }
     return creds;
 }
@@ -219,6 +343,42 @@ void WSHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResponse 
         return;
     }
 
+    if (!originAllowed(request, server.config().getString("ws_allowed_origins", ""), log))
+    {
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_FORBIDDEN);
+        *response.send() << "Origin not allowed.\n";
+        return;
+    }
+
+    const String & uri = request.getURI();
+    String out_format;
+    String logs_level;
+    std::optional<Int64> flow_credit_param;
+    String parse_param;
+    String parallel_param;
+    ResolvedCredentials creds;
+    try
+    {
+        out_format = queryParam(uri, "format", "JSONEachRow");
+        logs_level = queryParam(uri, "logs", "");
+        flow_credit_param = positiveInt64QueryParam(uri, "flow");
+        parse_param = queryParam(uri, "parse", "");
+        parallel_param = queryParam(uri, "parallel", "");
+        creds = resolveCredentials(request, uri);
+    }
+    catch (...)
+    {
+        LOG_DEBUG(log, "Invalid WebSocket request: {}", getCurrentExceptionMessage(false));
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+        *response.send() << getCurrentExceptionMessage(false) << "\n";
+        return;
+    }
+
+    const bool flow_enabled = flow_credit_param.has_value();
+    const Int64 flow_credit = flow_credit_param.value_or(0);
+    const bool parse_enabled = parse_param == "1" || parse_param == "true";
+    const bool parallel_enabled = parallel_param == "1" || parallel_param == "true";
+
     /// Complete the handshake by writing 101 directly to the socket; from here on
     /// the stream is in WebSocket framing mode and we own the socket.
     Poco::Net::StreamSocket & socket = response.getSocket();
@@ -252,17 +412,6 @@ void WSHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResponse 
         }
     });
 
-    const String & uri = request.getURI();
-    const String out_format = queryParam(uri, "format", "JSONEachRow", log);
-    const String logs_level = queryParam(uri, "logs", "", log);
-    const String flow_param = queryParam(uri, "flow", "", log);
-    const bool flow_enabled = !flow_param.empty();
-    const Int64 flow_credit = flow_enabled ? std::strtoll(flow_param.c_str(), nullptr, 10) : 0;
-    const String parse_param = queryParam(uri, "parse", "", log);
-    const bool parse_enabled = parse_param == "1" || parse_param == "true";
-    const String parallel_param = queryParam(uri, "parallel", "", log);
-    const bool parallel_enabled = parallel_param == "1" || parallel_param == "true";
-
     /// Bound each blocking read; bound blocking writes so a client that stops
     /// reading cannot pin a handler thread (mirrors the standalone proxy).
     socket.setReceiveTimeout(Poco::Timespan(300, 0));
@@ -270,7 +419,6 @@ void WSHandler::handleWebSocket(HTTPServerRequest & request, HTTPServerResponse 
 
     /// Authenticate against the server (ClickHouse performs authN/authZ) and
     /// build an in-process connection bound to that session.
-    const ResolvedCredentials creds = resolveCredentials(request, uri, log);
     ContextMutablePtr session_context;
     std::unique_ptr<LocalConnection> connection;
     try
